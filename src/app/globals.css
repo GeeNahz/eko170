@@ -53,6 +53,8 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
   --animate-marquee: marquee var(--marquee-duration, 30s) linear infinite;
+  --animate-hero-ken-burns: hero-ken-burns 26s ease-in-out infinite;
+  --animate-slow-spin: spin 80s linear infinite;
 }
 
 :root {
@@ -149,8 +151,24 @@
   }
 }
 
+@keyframes hero-ken-burns {
+  0%,
+  100% {
+    transform: scale(1.06) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: scale(1.12) translate3d(-1.4%, -1%, 0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .animate-marquee {
+  .animate-marquee,
+  .animate-hero-ken-burns,
+  .animate-slow-spin {
     animation: none;
+  }
+
+  [data-splash-loader] {
+    display: none;
   }
 }

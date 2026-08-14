@@ -53,6 +53,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `motion`, `axios`, `@tabler/icons-react` (brand/social icons —
   `lucide-react` v1 no longer ships them), `server-only`, and the shadcn
   `Sheet` component.
+- Home page (`src/app/(base)/page.tsx`), built from `docs/resources/Eko170
+  Hero.dc.html` under `features/base/home/components/`: `Hero` (video
+  Ken Burns background, scoped `SplashLoader` with real asset-preload
+  progress, magnetic Register CTA), `EventBar`, `DistanceBar`,
+  `CountdownSection`, `SeedingEvents`, `RegistrationBanner`, `Figures`
+  (scroll-triggered count-up via `src/hooks/use-count-up.ts`),
+  `AboutEko`, `ChooseDistance`, `AtlanticChallenge` (route map is a
+  placeholder — no real map integration yet), `FeatureRoute`/
+  `FeatureCommunity`, `SponsorsMarquee`, `MomentsInMotion` (gallery
+  teaser), and `Newsletter` (presentational only — no subscriber backend
+  yet). Cross-page content (sponsor/partner logos, seeding events,
+  gallery photos) is hardcoded in `features/base/home/constants.ts` for
+  now; it'll move into its own feature (stub/service/dal) when the
+  Partners/Gallery pages are built.
+- `src/components/motion/reveal.tsx`: `Reveal`/`RevealGroup`/`RevealItem`
+  scroll-reveal wrappers around Framer Motion's `whileInView`, replacing
+  the source's custom `IntersectionObserver` reveal system.
+- Shared content types (`RouteStat`, `FigureStat`, `SponsorLogo`,
+  `GalleryPhoto`) elevated to `features/base/lib/types.ts` since future
+  Partners/Gallery/Results features will reuse them, rather than living
+  in `features/base/home/types.ts`.
+- Copied `hero-bg.mp4`, 10 event photos, and 14 sponsor/partner logos
+  into `public/` (source references `logo-*.png`; actual shipped files
+  are `logo-*-sm.jpg`, mapped accordingly).
 
 ### Changed
 - `next.config.ts` now sets `output: "standalone"` so the app can be
