@@ -90,3 +90,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `src/app/globals.css` had a circular `--font-sans: var(--font-sans)`
   left over from the shadcn init script; pointed it at the correct font
   variable.
+- `output: "standalone"` in `next.config.ts` broke Vercel deploys
+  (`ENOENT: .next/next-server.js.nft.json` during `pnpm run build`) —
+  standalone mode changes how Next writes its build-trace files, which
+  Vercel's own build wrapper doesn't expect. Now gated on `process.env
+  .VERCEL` so standalone output only applies to local/VPS builds; Vercel
+  builds get its native output.
