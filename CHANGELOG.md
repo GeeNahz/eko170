@@ -77,6 +77,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Copied `hero-bg.mp4`, 10 event photos, and 14 sponsor/partner logos
   into `public/` (source references `logo-*.png`; actual shipped files
   are `logo-*-sm.jpg`, mapped accordingly).
+- About page (`src/app/(base)/about/page.tsx`), built from
+  `docs/resources/About.dc.html` under `features/base/about/components/`:
+  `AboutHero` (full-bleed image hero with stat bar), `PullQuote`,
+  `VisionMission` (two-column Vision/Mission on a dark teal panel),
+  `FourCs` (Challenge/Culture/Community/Change card grid), `Legacy`
+  (image + "Ride to School" badge + bullet list), and `CtaBanner`. All
+  copy is fixed marketing content in `features/base/about/constants.ts` —
+  no admin/DB backing needed for this page.
+
 ### Changed
 - `next.config.ts` now sets `output: "standalone"` so the app can be
   deployed as a minimal Docker/VPS build in addition to Vercel.
