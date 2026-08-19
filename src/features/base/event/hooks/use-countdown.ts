@@ -19,17 +19,21 @@ function computeCountdown(targetISO: string): CountdownValue {
 }
 
 export function useCountdown(targetISO: string | undefined): CountdownValue {
-  // Ticks a counter every second to force a re-render; the countdown value
-  // itself is derived fresh from Date.now() during render rather than
-  // synced into state, so the effect never calls setState synchronously
-  // in its body — only inside the interval's callback.
-  const [, setTick] = useState(0);
+  // The countdown value is stored in state and recomputed inside the
+  // interval callback (never synchronously in the effect body, so this
+  // stays clear of react-hooks/set-state-in-effect). Deriving it fresh
+  // from Date.now() during render instead would read as a pure expression
+  // of `targetISO` alone to the React Compiler's auto-memoization, which
+  // would then cache it and never see it change — freezing the display.
+  const [value, setValue] = useState<CountdownValue>(() =>
+    targetISO ? computeCountdown(targetISO) : ZERO,
+  );
 
   useEffect(() => {
     if (!targetISO) return;
-    const id = setInterval(() => setTick((t) => t + 1), 1000);
+    const id = setInterval(() => setValue(computeCountdown(targetISO)), 1000);
     return () => clearInterval(id);
   }, [targetISO]);
 
-  return targetISO ? computeCountdown(targetISO) : ZERO;
+  return targetISO ? value : ZERO;
 }

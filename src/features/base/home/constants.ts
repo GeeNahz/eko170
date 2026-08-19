@@ -159,20 +159,6 @@ export const DISTANCE_CARDS: DistanceCard[] = [
   },
 ];
 
-export const ROUTE_STATS: RouteStat[] = [
-  { id: "route-distance", label: "Distance", value: "~170KM" },
-  { id: "route-elevation", label: "Elevation", value: "Moderate rolling" },
-  { id: "route-start", label: "Start", value: "Eko Atlantic Blvd" },
-  { id: "route-finish", label: "Finish", value: "Eko Atlantic Blvd" },
-];
-
-export const ROUTE_HIGHLIGHTS: string[] = [
-  "Coastal stretch through Ahmadu Bello Way & Ozumba Mbadiwe",
-  "Lekki–Ikoyi Bridge crossing — Lagos' architectural landmark",
-  "Lekki Free Trade Zone & Dangote Refinery corridor",
-  "Scenic Epe countryside turnaround & festival-style finish",
-];
-
 export const SPONSOR_LOGOS: SponsorLogo[] = [
   { id: "sponsor-quest", name: "Quest Oil", src: "/sponsors/logo-quest-sm.jpg" },
   { id: "sponsor-avis", name: "Avis", src: "/sponsors/logo-avis-sm.jpg" },
@@ -206,4 +192,4 @@ export const GALLERY_PREVIEW: GalleryPhoto[] = [
   { id: "gallery-4", src: "/images/DSC_1842.jpg", alt: "EKO170 moment" },
 ];
 
-export const GALLERY_TOTAL_PHOTOS = 18;
+export const GALLERY_TOTAL_PHOTOS = 46;

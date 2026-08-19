@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Download, MapPin } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
-import { ROUTE_HIGHLIGHTS, ROUTE_STATS } from "../constants";
+import { ROUTE_HIGHLIGHTS, ROUTE_STATS } from "../../routes/constants";
 
 export function AtlanticChallenge() {
   return (

@@ -8,6 +8,51 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Partners page (`src/app/(base)/(content)/partners/page.tsx`), built
+  from `docs/resources/Partners.dc.html` under `features/base/partners/`:
+  `PartnersHero`, `PartnersStats` (4-stat bar), `HeadlinePartners`
+  (Title/Presenting Partner cards), `PartnersSponsors` (5-logo commercial
+  grid, `id="sponsors"`), `PartnersGovernment` (4-logo grid, `id=
+  "government"`), `PartnersWhy` ("Why Partner With Us" 3-card grid),
+  `PartnersCta` (`mailto:partners@eko170.com` — the first page whose CTA
+  is an email link rather than `/register`). Defines its own Commercial/
+  Government logo split (`COMMERCIAL_PARTNER_LOGOS`/`GOVERNMENT_PARTNER_
+  LOGOS`) rather than reusing Home's `SPONSOR_LOGOS`/`PARTNER_LOGOS`,
+  since those are just a mixed decorative marquee order that doesn't match
+  this page's real categorization (e.g. Dynastar is commercial here, not
+  government). Reuses the `SponsorLogo` type from `features/base/lib/
+  types.ts`.
+- Gallery page (`src/app/(base)/(content)/gallery/page.tsx`), built from
+  `docs/resources/Gallery.dc.html` under `features/base/gallery/`:
+  `GalleryHero`, `GalleryGrid` (4 photo categories — Start Line, On the
+  Road, Finish & Podium, Race Village — 46 photos total, hover zoom,
+  click-to-open), `Lightbox` (full-screen overlay via `motion/react`'s
+  `AnimatePresence`, closes on Escape or click-outside), `GalleryCta`.
+  Reuses the existing `GalleryPhoto` type from `features/base/lib/types.ts`.
+  Corrected `GALLERY_TOTAL_PHOTOS` in `home/constants.ts` from 18 to 46 to
+  match the real page.
+- Routes pages: overview at `/routes` and shared distance-detail template
+  at `/routes/170` and `/routes/70`, built from `docs/resources/Route.dc
+  .html`, `Route170.dc.html`, and `Route70.dc.html` under
+  `features/base/routes/`. Overview: `RoutesHero`, `CourseOverview`,
+  `RouteCategories`, `RouteSupport`, `RouteMap` (real OpenStreetMap embed,
+  `id="map"`). Distance pages share one `RouteDetail` template
+  parameterized by a `RouteDetailData` object (`ROUTE_170_DETAIL`/
+  `ROUTE_70_DETAIL` in `routes/constants.ts`) — hero, sticky sub-nav with
+  scroll-spy active-section highlighting (`RouteSubNav`, `use-scroll-spy
+  .ts`), race entries/pricing, introduction, route description, start,
+  finish, "more about" cards, and an FAQ accordion (shadcn `Accordion`,
+  newly installed). `ROUTE_STATS`/`ROUTE_HIGHLIGHTS` moved from
+  `features/base/home/constants.ts` into `routes/constants.ts` since both
+  Home's `AtlanticChallenge` teaser and the Routes overview need the same
+  course data. All CTAs across these pages point at `/register` (not yet
+  built) rather than the source's in-page anchor, since Register hasn't
+  been reached in the build order yet.
+- New `(base)/(content)/` route group with its own `layout.tsx` that
+  renders the marquee `Ticker` once, ahead of `{children}`, for every
+  "content" page (About, Routes, and future pages) — matching how the
+  source design places the ticker above each such page's hero. Home stays
+  outside this group since its hero renders before the ticker, not after.
 - `@tanstack/react-query` and `@tanstack/react-query-devtools`, wired up via
   `src/components/providers/query-provider.tsx` (SSR-safe per-request
   `QueryClient`, devtools mounted only in development) and mounted in
@@ -77,6 +122,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Copied `hero-bg.mp4`, 10 event photos, and 14 sponsor/partner logos
   into `public/` (source references `logo-*.png`; actual shipped files
   are `logo-*-sm.jpg`, mapped accordingly).
+- About page (`src/app/(base)/about/page.tsx`), built from
+  `docs/resources/About.dc.html` under `features/base/about/components/`:
+  `AboutHero` (full-bleed image hero with stat bar), `PullQuote`,
+  `VisionMission` (two-column Vision/Mission on a dark teal panel),
+  `FourCs` (Challenge/Culture/Community/Change card grid), `Legacy`
+  (image + "Ride to School" badge + bullet list), and `CtaBanner`. All
+  copy is fixed marketing content in `features/base/about/constants.ts` —
+  no admin/DB backing needed for this page.
 
 ### Changed
 - `next.config.ts` now sets `output: "standalone"` so the app can be
@@ -85,8 +138,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   already gitignored) from linting.
 - `src/app/layout.tsx` metadata title/description updated from the
   create-next-app defaults to EKO170's actual name and description.
+- `src/app/layout.tsx` root `<html>` now has `scroll-smooth`, matching the
+  source design's global smooth-scroll behavior — needed for the Routes
+  sub-nav's anchor jumps and any other in-page `#anchor` link.
 
 ### Fixed
+- `GalleryGrid`'s photo grid rendered as a ~60px-wide sliver instead of
+  full width. `body` is `flex flex-col`; a section root using
+  `mx-auto max-w-[...]` (rather than a full-width `mx-4` wrapper) becomes
+  a direct flex child of it, and per the flexbox spec auto cross-axis
+  margins suppress stretch, sizing the box to its own max-content width
+  instead. Text-heavy sections still landed near their max-width by
+  coincidence (wide intrinsic content), but `GalleryGrid`'s cells are
+  `next/image fill` (`position: absolute`, no intrinsic width), leaving
+  nothing to size against. Added `w-full` alongside `mx-auto max-w-[...]`
+  on `GalleryGrid`, and preemptively on `CourseOverview`, `RouteSupport`,
+  and `GalleryHero`, which had the same latent risk.
 - `src/app/globals.css` had a circular `--font-sans: var(--font-sans)`
   left over from the shadcn init script; pointed it at the correct font
   variable.
@@ -96,3 +163,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Vercel's own build wrapper doesn't expect. Now gated on `process.env
   .VERCEL` so standalone output only applies to local/VPS builds; Vercel
   builds get its native output.
+- `useCountdown` (`src/features/base/event/hooks/use-countdown.ts`) froze
+  after the first render instead of ticking every second. It derived the
+  displayed value from `Date.now()` directly during render, using only a
+  tick counter to force re-renders — since that counter wasn't read by the
+  returned expression, the React Compiler's auto-memoization (enabled via
+  `reactCompiler: true`) cached the result keyed on the unchanging
+  `targetISO` argument alone and never recomputed it. Now the interval
+  callback computes the value and stores it directly in state, so the
+  displayed countdown is itself the reactive value.
