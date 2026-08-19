@@ -192,4 +192,4 @@ export const GALLERY_PREVIEW: GalleryPhoto[] = [
   { id: "gallery-4", src: "/images/DSC_1842.jpg", alt: "EKO170 moment" },
 ];
 
-export const GALLERY_TOTAL_PHOTOS = 18;
+export const GALLERY_TOTAL_PHOTOS = 46;

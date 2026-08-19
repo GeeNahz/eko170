@@ -8,6 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Gallery page (`src/app/(base)/(content)/gallery/page.tsx`), built from
+  `docs/resources/Gallery.dc.html` under `features/base/gallery/`:
+  `GalleryHero`, `GalleryGrid` (4 photo categories — Start Line, On the
+  Road, Finish & Podium, Race Village — 46 photos total, hover zoom,
+  click-to-open), `Lightbox` (full-screen overlay via `motion/react`'s
+  `AnimatePresence`, closes on Escape or click-outside), `GalleryCta`.
+  Reuses the existing `GalleryPhoto` type from `features/base/lib/types.ts`.
+  Corrected `GALLERY_TOTAL_PHOTOS` in `home/constants.ts` from 18 to 46 to
+  match the real page.
 - Routes pages: overview at `/routes` and shared distance-detail template
   at `/routes/170` and `/routes/70`, built from `docs/resources/Route.dc
   .html`, `Route170.dc.html`, and `Route70.dc.html` under
@@ -120,6 +129,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   sub-nav's anchor jumps and any other in-page `#anchor` link.
 
 ### Fixed
+- `GalleryGrid`'s photo grid rendered as a ~60px-wide sliver instead of
+  full width. `body` is `flex flex-col`; a section root using
+  `mx-auto max-w-[...]` (rather than a full-width `mx-4` wrapper) becomes
+  a direct flex child of it, and per the flexbox spec auto cross-axis
+  margins suppress stretch, sizing the box to its own max-content width
+  instead. Text-heavy sections still landed near their max-width by
+  coincidence (wide intrinsic content), but `GalleryGrid`'s cells are
+  `next/image fill` (`position: absolute`, no intrinsic width), leaving
+  nothing to size against. Added `w-full` alongside `mx-auto max-w-[...]`
+  on `GalleryGrid`, and preemptively on `CourseOverview`, `RouteSupport`,
+  and `GalleryHero`, which had the same latent risk.
 - `src/app/globals.css` had a circular `--font-sans: var(--font-sans)`
   left over from the shadcn init script; pointed it at the correct font
   variable.

@@ -6,7 +6,7 @@ import { ROUTE_HIGHLIGHTS, ROUTE_STATS } from "../constants";
 
 export function CourseOverview() {
   return (
-    <div className="mx-auto max-w-[1280px] px-6 py-20 sm:px-10">
+    <div className="mx-auto w-full max-w-[1280px] px-6 py-20 sm:px-10">
       <Reveal className="mb-4 font-mono text-xs tracking-wide text-brand-green uppercase">
         Course Overview
       </Reveal>

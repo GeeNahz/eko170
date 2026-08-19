@@ -6,7 +6,7 @@ const ICONS = [Package, HeartPulse, Ban, Timer];
 
 export function RouteSupport() {
   return (
-    <div className="mx-auto max-w-[1280px] px-6 py-20 sm:px-10">
+    <div className="mx-auto w-full max-w-[1280px] px-6 py-20 sm:px-10">
       <Reveal className="mb-4 border-l-4 border-brand-green pl-3 font-mono text-xs tracking-wide text-brand-green uppercase">
         On the Day
       </Reveal>
