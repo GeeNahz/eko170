@@ -77,7 +77,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Copied `hero-bg.mp4`, 10 event photos, and 14 sponsor/partner logos
   into `public/` (source references `logo-*.png`; actual shipped files
   are `logo-*-sm.jpg`, mapped accordingly).
-
 ### Changed
 - `next.config.ts` now sets `output: "standalone"` so the app can be
   deployed as a minimal Docker/VPS build in addition to Vercel.
@@ -96,3 +95,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Vercel's own build wrapper doesn't expect. Now gated on `process.env
   .VERCEL` so standalone output only applies to local/VPS builds; Vercel
   builds get its native output.
+- `useCountdown` (`src/features/base/event/hooks/use-countdown.ts`) froze
+  after the first render instead of ticking every second. It derived the
+  displayed value from `Date.now()` directly during render, using only a
+  tick counter to force re-renders — since that counter wasn't read by the
+  returned expression, the React Compiler's auto-memoization (enabled via
+  `reactCompiler: true`) cached the result keyed on the unchanging
+  `targetISO` argument alone and never recomputed it. Now the interval
+  callback computes the value and stores it directly in state, so the
+  displayed countdown is itself the reactive value.
