@@ -8,6 +8,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Partners page (`src/app/(base)/(content)/partners/page.tsx`), built
+  from `docs/resources/Partners.dc.html` under `features/base/partners/`:
+  `PartnersHero`, `PartnersStats` (4-stat bar), `HeadlinePartners`
+  (Title/Presenting Partner cards), `PartnersSponsors` (5-logo commercial
+  grid, `id="sponsors"`), `PartnersGovernment` (4-logo grid, `id=
+  "government"`), `PartnersWhy` ("Why Partner With Us" 3-card grid),
+  `PartnersCta` (`mailto:partners@eko170.com` — the first page whose CTA
+  is an email link rather than `/register`). Defines its own Commercial/
+  Government logo split (`COMMERCIAL_PARTNER_LOGOS`/`GOVERNMENT_PARTNER_
+  LOGOS`) rather than reusing Home's `SPONSOR_LOGOS`/`PARTNER_LOGOS`,
+  since those are just a mixed decorative marquee order that doesn't match
+  this page's real categorization (e.g. Dynastar is commercial here, not
+  government). Reuses the `SponsorLogo` type from `features/base/lib/
+  types.ts`.
 - Gallery page (`src/app/(base)/(content)/gallery/page.tsx`), built from
   `docs/resources/Gallery.dc.html` under `features/base/gallery/`:
   `GalleryHero`, `GalleryGrid` (4 photo categories — Start Line, On the
