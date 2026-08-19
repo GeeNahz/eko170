@@ -8,6 +8,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Routes pages: overview at `/routes` and shared distance-detail template
+  at `/routes/170` and `/routes/70`, built from `docs/resources/Route.dc
+  .html`, `Route170.dc.html`, and `Route70.dc.html` under
+  `features/base/routes/`. Overview: `RoutesHero`, `CourseOverview`,
+  `RouteCategories`, `RouteSupport`, `RouteMap` (real OpenStreetMap embed,
+  `id="map"`). Distance pages share one `RouteDetail` template
+  parameterized by a `RouteDetailData` object (`ROUTE_170_DETAIL`/
+  `ROUTE_70_DETAIL` in `routes/constants.ts`) — hero, sticky sub-nav with
+  scroll-spy active-section highlighting (`RouteSubNav`, `use-scroll-spy
+  .ts`), race entries/pricing, introduction, route description, start,
+  finish, "more about" cards, and an FAQ accordion (shadcn `Accordion`,
+  newly installed). `ROUTE_STATS`/`ROUTE_HIGHLIGHTS` moved from
+  `features/base/home/constants.ts` into `routes/constants.ts` since both
+  Home's `AtlanticChallenge` teaser and the Routes overview need the same
+  course data. All CTAs across these pages point at `/register` (not yet
+  built) rather than the source's in-page anchor, since Register hasn't
+  been reached in the build order yet.
+- New `(base)/(content)/` route group with its own `layout.tsx` that
+  renders the marquee `Ticker` once, ahead of `{children}`, for every
+  "content" page (About, Routes, and future pages) — matching how the
+  source design places the ticker above each such page's hero. Home stays
+  outside this group since its hero renders before the ticker, not after.
 - `@tanstack/react-query` and `@tanstack/react-query-devtools`, wired up via
   `src/components/providers/query-provider.tsx` (SSR-safe per-request
   `QueryClient`, devtools mounted only in development) and mounted in
@@ -93,6 +115,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   already gitignored) from linting.
 - `src/app/layout.tsx` metadata title/description updated from the
   create-next-app defaults to EKO170's actual name and description.
+- `src/app/layout.tsx` root `<html>` now has `scroll-smooth`, matching the
+  source design's global smooth-scroll behavior — needed for the Routes
+  sub-nav's anchor jumps and any other in-page `#anchor` link.
 
 ### Fixed
 - `src/app/globals.css` had a circular `--font-sans: var(--font-sans)`

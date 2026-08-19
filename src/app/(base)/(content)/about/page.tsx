@@ -5,7 +5,6 @@ import { FourCs } from "@/features/base/about/components/four-cs";
 import { Legacy } from "@/features/base/about/components/legacy";
 import { PullQuote } from "@/features/base/about/components/pull-quote";
 import { VisionMission } from "@/features/base/about/components/vision-mission";
-import { Ticker } from "@/features/base/event/components/ticker";
 
 export const metadata: Metadata = {
   title: "About — EKO170",
@@ -16,7 +15,6 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <Ticker />
       <AboutHero />
       <PullQuote />
       <VisionMission />
