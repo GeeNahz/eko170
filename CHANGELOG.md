@@ -8,6 +8,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Community page (`src/app/(base)/(content)/community/page.tsx`), built
+  from `docs/resources/Community.dc.html` under
+  `features/base/community/`: `CommunityHero`, `CommunityStats` (4-stat
+  bar), `VolunteersSection` (`id="volunteers"`), `CyclingClubs` (`id=
+  "clubs"`), `CharityCauses` (`id="charity"`), `SustainabilitySection`
+  (`id="sustainability"`), `LegacySection` (`id="legacy"`, text-left/
+  image-right — the opposite column order from About's `Legacy`, per
+  source), `CommunityCta`. Both CTAs link `REGISTER_HREF`. Reuses one
+  `CommunityCard` type across the three 3-card grid sections (Clubs,
+  Charity, Sustainability), same shape as `WhyPartnerCard`.
 - Partners page (`src/app/(base)/(content)/partners/page.tsx`), built
   from `docs/resources/Partners.dc.html` under `features/base/partners/`:
   `PartnersHero`, `PartnersStats` (4-stat bar), `HeadlinePartners`
