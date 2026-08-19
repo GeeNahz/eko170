@@ -8,6 +8,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Results page (`src/app/(base)/(content)/results/page.tsx`), built from
+  `docs/resources/Results.dc.html` under `features/base/results/`:
+  `ResultsHero`, `ResultCategories` (Full Ride/Half Ride cards),
+  `ResultsCta`, `RegisterCta`. Deliberately does not reproduce the
+  source's hardcoded 95-row results table or numeric stats — that data
+  turned out to be real 2026 EKO170 results copied into the static
+  design mockup, not placeholder content, and reproducing it here would
+  misrepresent it as live data we're not actually pulling. finishtime.co
+  .za has no public API and no iframe embedding (`x-frame-options:
+  SAMEORIGIN` on their results pages, which also sit behind a Cloudflare
+  bot challenge for automated requests — confirmed via `curl`/WebFetch,
+  matching how the real eko170.com production site does it: a plain
+  "View Official Results" link that opens `results.finishtime.co.za`
+  directly in a new tab). `ResultsInfo.resultsUrl` (the one genuinely
+  admin-editable value on this page — swapped to the 2027 event's URL
+  once it's timed) goes through the full RCC pipeline (`stubs.ts` →
+  `server/service.ts` → `app/api/v1/results/route.ts` → `dal.ts` →
+  `hooks/use-results.ts`), mirroring `features/base/event/` exactly.
 - Community page (`src/app/(base)/(content)/community/page.tsx`), built
   from `docs/resources/Community.dc.html` under
   `features/base/community/`: `CommunityHero`, `CommunityStats` (4-stat
