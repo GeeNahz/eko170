@@ -8,6 +8,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Discover page (`src/app/(base)/(content)/discover/page.tsx`), built
+  from `docs/resources/Discover.dc.html` under
+  `features/base/discover/`: `DiscoverHero`, `CityIntro`,
+  `AttractionsSection` (`id="attractions"`, image grid with category
+  badges), `HotelsSection` (`id="hotels"`), `RestaurantsSection`
+  (`id="restaurants"`), `TransportSection` (`id="transport"`),
+  `RaceWeekendTimeline` (Fri/Sat/Sun vertical timeline), `DiscoverCta`.
+  Reuses one `DiscoverCard` type across the Hotels/Restaurants/Transport
+  grids, same precedent as `CommunityCard`.
 - Results page (`src/app/(base)/(content)/results/page.tsx`), built from
   `docs/resources/Results.dc.html` under `features/base/results/`:
   `ResultsHero`, `ResultCategories` (Full Ride/Half Ride cards),
