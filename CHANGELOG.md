@@ -8,6 +8,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Register page (`src/app/(base)/(content)/register/page.tsx`), the
+  last page in the build order — every "Register Now" CTA site-wide now
+  resolves to a real page. Built under `features/base/register/`:
+  `RegisterHero`, `RegistrationForm` (17-field form across Personal
+  Information, Cycling Affiliation, Identification, Medical Insurance,
+  and Emergency Contact sections), `RegistrationSuccess`. This is the
+  project's first real mutation — every other page has been read-only —
+  and the first use of the "Next.js fullstack" primary form path from
+  the global spec: form (`useForm` from `react-hook-form`, newly
+  installed) → `useActionState` → Server Action (`register/server/
+  actions.ts`) → `RegisterService.submitRegistration` (`register/
+  server/service.ts`, stub-shaped, generates an `EKO170-XXXXXX` ref
+  code) → action → form. React Hook Form owns client-side field
+  registration/validation (required fields, email pattern) with inline
+  error display; `handleSubmit` calls the `useActionState` dispatch
+  function directly with the validated values object once client rules
+  pass, and the Server Action re-validates the same rules server-side
+  as defense in depth, echoing back submitted values on error so the
+  form can restore them. Introduces the project-wide `ActionResponse<T>`
+  discriminated-union type (`src/lib/types.ts`) for any future Server
+  Action to reuse. Submission status is surfaced via shadcn's `sonner`
+  toast component (newly installed, along with `input` and `label`),
+  mounted once as a global `<Toaster />` in the root layout — success
+  shows the generated reference code, server-side validation failure
+  shows an error toast alongside RHF's inline field errors.
+- Discover page (`src/app/(base)/(content)/discover/page.tsx`), built
+  from `docs/resources/Discover.dc.html` under
+  `features/base/discover/`: `DiscoverHero`, `CityIntro`,
+  `AttractionsSection` (`id="attractions"`, image grid with category
+  badges), `HotelsSection` (`id="hotels"`), `RestaurantsSection`
+  (`id="restaurants"`), `TransportSection` (`id="transport"`),
+  `RaceWeekendTimeline` (Fri/Sat/Sun vertical timeline), `DiscoverCta`.
+  Reuses one `DiscoverCard` type across the Hotels/Restaurants/Transport
+  grids, same precedent as `CommunityCard`.
 - Results page (`src/app/(base)/(content)/results/page.tsx`), built from
   `docs/resources/Results.dc.html` under `features/base/results/`:
   `ResultsHero`, `ResultCategories` (Full Ride/Half Ride cards),
