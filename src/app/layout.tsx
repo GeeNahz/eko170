@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Barlow_Condensed, DM_Mono, DM_Sans } from "next/font/google";
 import { QueryProvider } from "@/components/providers/query-provider";
+import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
 const barlowCondensed = Barlow_Condensed({
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         <QueryProvider>{children}</QueryProvider>
+        <Toaster position="bottom-right" richColors />
       </body>
     </html>
   );
