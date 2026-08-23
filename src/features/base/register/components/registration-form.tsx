@@ -146,7 +146,7 @@ export function RegistrationForm() {
       <form
         onSubmit={handleSubmit((values) => formAction(values))}
         noValidate
-        className="flex flex-col gap-6 rounded-[20px] border border-brand-cream-border bg-white p-10"
+        className="flex flex-col gap-6 rounded-[20px] border border-brand-cream-border bg-white p-6 sm:p-10"
       >
         <div>
           <div className="mb-5 border-b border-brand-cream-border pb-2.5 font-mono text-xs tracking-[2px] text-brand-green uppercase">

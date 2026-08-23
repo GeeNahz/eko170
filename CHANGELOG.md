@@ -205,6 +205,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   sub-nav's anchor jumps and any other in-page `#anchor` link.
 
 ### Fixed
+- Mobile responsiveness pass across the site, guided by a mobile design
+  mockup (`docs/EKO170 Mobile (standalone).html`) covering every built
+  page. `MobileNav` (`features/base/navigation/components/
+  mobile-nav.tsx`) rebuilt to match: full-bleed dark `Sheet` panel
+  (`bg-brand-teal-deep`) instead of the previous light theme, with the
+  "Routes" entry now a collapsed shadcn `Accordion` instead of
+  always-expanded children — surfaced and fixed a latent Base UI warning
+  in the process (`SheetClose` rendering a `<Link>` needs
+  `nativeButton={false}`, since it defaults to expecting a real
+  `<button>`). `SiteFooter`'s link-group grid
+  (`features/base/components/site-footer.tsx`) collapsed to a single
+  column below the `sm:` breakpoint, stacking the brand block on top of
+  "The Event"/"Discover" instead of keeping those two side-by-side;
+  restructured so the brand block stacks alone on mobile while the two
+  `FOOTER_NAV` groups stay in an unconditional 2-column row (`sm:contents`
+  releases them into the existing 3-column desktop grid at `sm:` and up).
+  Two spacing polish fixes: `RouteSubNav`'s sticky pill nav
+  (`features/base/routes/components/route-sub-nav.tsx`) had an
+  unconditional `mx-10` cramping the horizontal-scroll row on narrow
+  phones (`mx-4 sm:mx-10`); `RegistrationForm`'s form card
+  (`features/base/register/components/registration-form.tsx`) had an
+  unconditional `p-10` (`p-6 sm:p-10`).
 - `GalleryGrid`'s photo grid rendered as a ~60px-wide sliver instead of
   full width. `body` is `flex flex-col`; a section root using
   `mx-auto max-w-[...]` (rather than a full-width `mx-4` wrapper) becomes

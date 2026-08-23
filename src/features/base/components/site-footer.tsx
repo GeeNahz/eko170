@@ -23,7 +23,7 @@ export function SiteFooter() {
   return (
     <footer className="mx-4 mb-4 overflow-hidden rounded-[22px] bg-brand-teal px-6 pt-16 pb-10 sm:px-10">
       <div className="mx-auto max-w-7xl">
-        <div className="grid grid-cols-1 gap-12 sm:grid-cols-[2fr_1fr_1fr]">
+        <div className="flex flex-col gap-12 sm:grid sm:grid-cols-[2fr_1fr_1fr]">
           <div>
             <div className="mb-5 flex items-center gap-3.5">
               <span className="flex h-11 w-13 items-center justify-center overflow-hidden rounded-xl bg-white">
@@ -65,24 +65,26 @@ export function SiteFooter() {
             </div>
           </div>
 
-          {FOOTER_NAV.map((group) => (
-            <div key={group.id}>
-              <div className="mb-5 font-sans text-base font-bold text-white">
-                {group.title}
+          <div className="grid grid-cols-2 gap-8 sm:contents">
+            {FOOTER_NAV.map((group) => (
+              <div key={group.id}>
+                <div className="mb-5 font-sans text-base font-bold text-white">
+                  {group.title}
+                </div>
+                <div className="flex flex-col gap-3.5">
+                  {group.links.map((link) => (
+                    <Link
+                      key={link.id}
+                      href={link.href}
+                      className="font-sans text-base text-gray-400 transition-colors hover:text-white"
+                    >
+                      {link.label}
+                    </Link>
+                  ))}
+                </div>
               </div>
-              <div className="flex flex-col gap-3.5">
-                {group.links.map((link) => (
-                  <Link
-                    key={link.id}
-                    href={link.href}
-                    className="font-sans text-base text-gray-400 transition-colors hover:text-white"
-                  >
-                    {link.label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
 
         <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-6">

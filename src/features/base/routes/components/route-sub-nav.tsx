@@ -11,7 +11,7 @@ export function RouteSubNav({ navLabel }: { navLabel: string }) {
   const activeId = useScrollSpy(ids);
 
   return (
-    <div className="sticky top-24 z-20 mx-10 -mt-9 flex justify-center">
+    <div className="sticky top-24 z-20 mx-4 -mt-9 flex justify-center sm:mx-10">
       <div className="flex w-full max-w-[1240px] items-center gap-0.5 overflow-x-auto rounded-2xl border border-brand-teal/10 bg-white/95 p-1 shadow-[0_16px_44px_rgba(15,58,68,0.16)] backdrop-blur-md">
         <a
           href="#top"
