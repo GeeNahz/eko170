@@ -3,18 +3,18 @@ import { Reveal } from "@/components/motion/reveal";
 
 export function CommunityHero() {
   return (
-    <div className="relative mx-4 mt-4 overflow-hidden rounded-[22px] bg-brand-teal-deep px-6 pt-28 pb-32 sm:px-10">
+    <div className="relative overflow-hidden bg-brand-teal px-5 pt-7.5 pb-8.5 sm:mx-4 sm:mt-4 sm:rounded-[22px] sm:bg-brand-teal-deep sm:px-10 sm:pt-28 sm:pb-32">
       <Image
         src="/images/sm-DSC_1708.jpg"
         alt="EKO170 community"
         fill
         priority
-        className="object-cover opacity-[0.22]"
+        className="hidden object-cover opacity-[0.22] sm:block"
       />
-      <div className="absolute inset-x-0 bottom-0 h-50 bg-linear-to-t from-brand-teal-deep to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 hidden h-50 bg-linear-to-t from-brand-teal-deep to-transparent sm:block" />
       <div
         aria-hidden
-        className="absolute -top-30 -right-35 size-130 rounded-full border-[70px] border-brand-green/14"
+        className="absolute -top-30 -right-35 hidden size-130 rounded-full border-[70px] border-brand-green/14 sm:block"
       />
 
       <div className="relative mx-auto max-w-[1280px]">

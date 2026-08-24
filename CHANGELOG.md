@@ -8,6 +8,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Dedicated mobile layout for the Community page
+  (`src/app/(base)/(content)/community/page.tsx`), verified against the
+  mobile mockup via the same `getComputedStyle` DOM diff used for every
+  prior page (see the Home entry below for the method). No new components
+  needed — every fix was a responsive-class correction on the existing
+  8 section components, matching Routes' pattern of "same structure, just
+  wrong colors/margins/photo-visibility on mobile." `CommunityHero`
+  corrected from `bg-brand-teal-deep` to `bg-brand-teal` and drops its
+  background photo entirely below `sm:` (the mockup has no `<img>` there
+  at all, just the solid color); `CommunityStats` kept its color but went
+  edge-to-edge; `VolunteersSection`, `CyclingClubs`, `CharityCauses`,
+  `SustainabilitySection`, `LegacySection`, `CommunityCta` all had their
+  card margin corrected from `mx-4` to `mx-3` and padding tightened to the
+  mockup's exact numbers (`px-5 pt-10 pb-11`, restored to desktop's values
+  at `sm:`); `SustainabilitySection` additionally corrected
+  `brand-teal-deep`→`brand-teal` and `LegacySection` corrected
+  `bg-white`→`bg-brand-cream`; `VolunteersSection` and `LegacySection` both
+  hide their desktop photo below `lg:`, matching the same drop-the-photo
+  pattern seen on every page so far (Home's `FeatureRoute`, About's
+  `Legacy`/`CtaBanner`, Routes' several detail sections).
 - Dedicated mobile layout for the Partners page
   (`src/app/(base)/(content)/partners/page.tsx`), verified against the
   mobile mockup via the same `getComputedStyle` DOM diff used for the
