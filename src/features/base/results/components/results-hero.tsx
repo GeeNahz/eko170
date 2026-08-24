@@ -2,7 +2,7 @@ import { Reveal } from "@/components/motion/reveal";
 
 export function ResultsHero() {
   return (
-    <div className="mx-auto w-full max-w-[1280px] px-6 pt-18 pb-10 sm:px-10">
+    <div className="mx-auto w-full max-w-[1280px] bg-brand-cream px-5 pt-10 pb-10 sm:px-10 sm:pt-18">
       <Reveal className="mb-4 border-l-4 border-brand-green pl-3 font-mono text-xs tracking-wide text-brand-green uppercase">
         Official Results
       </Reveal>

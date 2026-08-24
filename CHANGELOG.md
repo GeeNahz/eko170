@@ -8,6 +8,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Mobile style-consistency pass for the Results page
+  (`src/app/(base)/(content)/results/page.tsx`) — the last page in the
+  responsiveness pass. Unlike every other page, this one was **not**
+  diffed against the mobile mockup: the mockup's "Results" nav
+  destination shows a completely different feature (tabs, filter pills,
+  a native sortable 95-row results table), which was already scoped out
+  as a separate future integration with FinishTime.co.za, not a layout
+  fix (see the Routes entry below for the same exclusion). Instead this
+  applies the conventions every other page converged on, by judgment
+  rather than a pixel diff: `ResultsHero` had no explicit background at
+  all (silently inheriting the page's cream — the same latent bug found
+  on Gallery's and Community's heroes), now set explicitly to
+  `bg-brand-cream` since its dark-on-light text colors were already
+  designed for a light background, unlike the photo-dropping dark heroes
+  on other pages. `ResultCategories` (a stat-card-style section) went
+  edge-to-edge on mobile like the equivalent sections on other pages;
+  `ResultsCta` and `RegisterCta` (both gradient/solid CTA banners with no
+  photo to drop) kept the `mx-3` card treatment used by every other CTA
+  banner (`CtaBanner`, `PartnersCta`, `CommunityCta`), just with
+  corrected padding. All four components restore their original desktop
+  values at `sm:`, unchanged.
 - Dedicated mobile layout for the Community page
   (`src/app/(base)/(content)/community/page.tsx`), verified against the
   mobile mockup via the same `getComputedStyle` DOM diff used for every
