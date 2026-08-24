@@ -6,12 +6,18 @@ export function RouteDetailHero({ data }: { data: RouteDetailData }) {
   return (
     <div
       id="top"
-      className="relative mx-4 mt-4 flex min-h-[560px] scroll-mt-[140px] items-center justify-center overflow-hidden rounded-[22px]"
+      className="relative flex min-h-[420px] scroll-mt-[140px] items-center justify-center overflow-hidden bg-brand-teal sm:mx-4 sm:mt-4 sm:min-h-[560px] sm:rounded-[22px]"
     >
-      <Image src={data.heroImage} alt="" fill priority className="object-cover" />
-      <div className="absolute inset-0 bg-linear-115 from-brand-yellow/85 via-brand-yellow/35 to-brand-teal-deep/55" />
+      <Image
+        src={data.heroImage}
+        alt=""
+        fill
+        priority
+        className="hidden object-cover sm:block"
+      />
+      <div className="absolute inset-0 hidden bg-linear-115 from-brand-yellow/85 via-brand-yellow/35 to-brand-teal-deep/55 sm:block" />
 
-      <Reveal className="relative px-6 pt-28 pb-32 text-center sm:px-10">
+      <Reveal className="relative px-5 py-16 text-center sm:px-10 sm:pt-28 sm:pb-32">
         <h1 className="font-heading text-6xl leading-[0.88] font-black text-white italic drop-shadow-[0_6px_40px_rgba(0,0,0,0.35)] sm:text-8xl lg:text-[112px]">
           {data.distanceLabel}
         </h1>

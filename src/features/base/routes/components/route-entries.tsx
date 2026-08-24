@@ -5,7 +5,7 @@ import type { RouteDetailData } from "../types";
 
 export function RouteEntries({ data }: { data: RouteDetailData }) {
   return (
-    <div className="mx-4 mt-6 overflow-hidden rounded-[22px] bg-brand-teal-deep px-6 py-24 sm:px-10">
+    <div className="overflow-hidden bg-brand-teal-deep px-5 pt-11 pb-12 sm:mx-4 sm:mt-6 sm:rounded-[22px] sm:px-10 sm:py-24">
       <div className="mx-auto grid max-w-[1280px] grid-cols-1 items-start gap-16 lg:grid-cols-[1.1fr_1fr]">
         <Reveal>
           <div className="mb-4 font-mono text-xs tracking-wide text-brand-yellow uppercase">

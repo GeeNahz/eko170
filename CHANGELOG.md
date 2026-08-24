@@ -8,6 +8,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Dedicated mobile layout for the Routes pages (`/routes` overview and the
+  shared `RouteDetail` component behind `/routes/170`/`/routes/70`),
+  verified against the mobile mockup via the same `getComputedStyle` DOM
+  diff used for Home and About — see those entries below for the method.
+  No new components needed; every fix was a responsive-class correction on
+  existing components since the mockup's Routes design reuses the same
+  edge-to-edge/card patterns established elsewhere, just applied to
+  different sections than Home or About. On `/routes`: `RoutesHero` drops
+  its photo for a solid `bg-brand-teal` (was `brand-teal-deep` with a
+  photo), `CourseOverview` gained a `bg-white` wrapper it didn't have
+  before, `RouteCategories` corrected from `bg-brand-cream` to `bg-white`
+  and dropped its card margin, `RouteSupport` gained a mobile-only
+  `bg-brand-cream` card (it had no wrapper at all before), `RouteMap`
+  dropped its card margin for edge-to-edge. On the shared route-detail
+  components: `RouteDetailHero` drops its photo for solid `bg-brand-teal`;
+  `RouteIntroduction`/`RouteMoreAbout` corrected from `brand-teal-deep` to
+  `brand-teal`; `RouteDescription`/`RouteStart`/`RouteFinish` drop their
+  photos below `lg:`, `RouteStart` also corrected from `bg-white` to
+  `bg-brand-cream`; `RouteFaqs`'s outer wrapper corrected from
+  `bg-brand-yellow` to `bg-brand-cream` (its inner white question card is
+  unchanged); `RouteEntries`/`RouteMoreAbout`/`RouteFaqs` margins
+  corrected to the mockup's exact numbers. Verified separately for
+  `/routes/170` and `/routes/70` since they share one component with
+  different data — both matched with zero discrepancies. Two known gaps
+  intentionally left unaddressed rather than guessed at: the mockup's
+  merged "Routes" nav view shows a horizontal stat-strip
+  (170KM/70KM/Roads-Fully-Closed) and a final "Ready to Ride the Route?"
+  CTA that don't correspond to any existing component or constant in the
+  codebase — added only once real content/data exists for them, not
+  invented here.
 - Dedicated mobile layout for the About page
   (`src/app/(base)/(content)/about/page.tsx`), built and verified against
   the mobile mockup via a `getComputedStyle` DOM diff (see the Home page

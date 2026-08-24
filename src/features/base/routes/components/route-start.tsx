@@ -7,10 +7,10 @@ export function RouteStart({ data }: { data: RouteDetailData }) {
   return (
     <div
       id="start"
-      className="mx-4 mt-4 scroll-mt-[170px] overflow-hidden rounded-[22px] bg-white px-6 py-24 sm:px-10"
+      className="scroll-mt-[170px] overflow-hidden bg-brand-cream px-5 pt-9 pb-10 sm:mx-4 sm:mt-4 sm:rounded-[22px] sm:bg-white sm:px-10 sm:py-24"
     >
       <div className="mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-16 lg:grid-cols-2">
-        <Reveal className="relative aspect-[4/3] overflow-hidden rounded-2xl">
+        <Reveal className="relative hidden aspect-[4/3] overflow-hidden rounded-2xl lg:block">
           <Image
             src={data.startImage}
             alt="Start line at Eko Atlantic"

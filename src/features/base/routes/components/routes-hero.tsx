@@ -3,15 +3,15 @@ import { Reveal } from "@/components/motion/reveal";
 
 export function RoutesHero() {
   return (
-    <div className="relative mx-4 mt-4 overflow-hidden rounded-[22px] bg-brand-teal-deep px-6 pt-28 pb-52 sm:px-10">
+    <div className="relative overflow-hidden bg-brand-teal px-5 pt-8 pb-9 sm:mx-4 sm:mt-4 sm:rounded-[22px] sm:bg-brand-teal-deep sm:px-10 sm:pt-28 sm:pb-52">
       <Image
         src="/images/DSC_2320.jpg"
         alt=""
         fill
         priority
-        className="object-cover opacity-[0.32]"
+        className="hidden object-cover opacity-[0.32] sm:block"
       />
-      <div className="absolute inset-0 bg-linear-to-r from-brand-teal-deep/92 to-brand-teal-deep/50" />
+      <div className="absolute inset-0 hidden bg-linear-to-r from-brand-teal-deep/92 to-brand-teal-deep/50 sm:block" />
 
       <svg
         aria-hidden
