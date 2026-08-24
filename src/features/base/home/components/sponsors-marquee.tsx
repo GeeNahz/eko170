@@ -46,18 +46,25 @@ export function SponsorsMarquee() {
       className="mx-4 mt-4 overflow-hidden rounded-[22px] border-t border-brand-cream-border bg-brand-cream px-6 py-24 sm:px-10"
     >
       <div className="mx-auto max-w-7xl">
-        <div className="mb-14 flex flex-wrap items-end justify-between gap-6">
-          <div>
-            <div className="mb-4 border-l-4 border-brand-green pl-3 font-mono text-xs tracking-wide text-brand-green uppercase">
+        <div className="mb-14 flex flex-col gap-6 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between">
+          <div className="flex items-center justify-between gap-6 sm:block">
+            <div className="border-l-4 border-brand-green pl-3 font-mono text-xs tracking-wide text-brand-green uppercase sm:mb-4">
               Our Sponsors
             </div>
-            <h2 className="font-heading text-4xl leading-[0.95] font-black text-brand-teal italic uppercase sm:text-[52px]">
-              Backed by the Best
-            </h2>
+            <Link
+              href="/partners"
+              className="inline-flex items-center gap-2.5 rounded-full border-2 border-brand-green px-5 py-2.5 font-sans text-sm font-semibold text-brand-green sm:hidden"
+            >
+              Partnership Info
+              <ArrowRight className="size-4" />
+            </Link>
           </div>
+          <h2 className="font-heading text-4xl leading-[0.95] font-black text-brand-teal italic uppercase sm:text-[52px]">
+            Backed by the Best
+          </h2>
           <Link
             href="/partners"
-            className="inline-flex items-center gap-2.5 rounded-full border-2 border-brand-green px-6 py-4 font-sans text-sm font-semibold text-brand-green"
+            className="hidden items-center gap-2.5 rounded-full border-2 border-brand-green px-6 py-4 font-sans text-sm font-semibold text-brand-green sm:inline-flex"
           >
             Partnership Info
             <ArrowRight className="size-4" />

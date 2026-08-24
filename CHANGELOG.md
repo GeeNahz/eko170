@@ -8,6 +8,39 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Dedicated mobile layout for the Home page (`src/app/(base)/page.tsx`),
+  built to match the mobile design mockup (`docs/EKO170 Mobile
+  (standalone).html`) rather than just reflowing the desktop grid. The
+  page now renders two section trees gated by `lg:` — `hidden lg:contents`
+  for the existing desktop order/components, `contents lg:hidden` for a
+  new `HomeMobileSections` composition
+  (`features/base/home/components/home-mobile-sections.tsx`) — since the
+  mockup's section order differs from desktop's (registration banner and
+  countdown move up, seeding events/figures move down, sponsors/moments
+  swap) and can't be reached with breakpoint classes alone. Four sections
+  needed genuinely different mobile markup, so they get dedicated
+  components read by the mobile tree only: `EventBarMobile` (compact
+  ride cards with a big distance number, shared side-by-side "Enter the
+  Full/Half Ride" buttons and a single "Results" link, replacing the
+  desktop 4-cell-per-card stack), `SeedingEventsMobile` (horizontal-scroll
+  carousel of compact cards instead of a `min-h-[280px]` vertical stack),
+  `AtlanticChallengeMobile` (reorders to paragraph → map → stats →
+  highlights → buttons, which the desktop 2-column split can't express),
+  and `MomentsInMotionMobile` (reorders to paragraph → video → buttons,
+  and turns the photo strip into a horizontal-scroll carousel). Everything
+  else got smaller in-place responsive fixes instead of a new component:
+  `CountdownSection`'s four tiles now shrink to fit one row below `sm:`
+  instead of wrapping to 2×2; `AboutEko`'s traffic-closure callout had a
+  `min-w-70` that clipped its paragraph at mobile widths, now relaxed
+  below `sm:`; `ChooseDistance` and `SponsorsMarquee` both had their
+  eyebrow label + CTA button drop to separate lines on mobile, now paired
+  on one row with the heading below; `FeatureCommunity`'s image/text order
+  no longer flips only below `lg:` (image is first at every width, not
+  just desktop); `FeatureRoute` swaps its photo+badge for a plain inline
+  "2,000+ Expected Riders" stat below `lg:`, matching the mockup instead
+  of keeping the desktop image; `Newsletter`'s `Subscribe` button now
+  matches the email input's width below `sm:` instead of shrinking to
+  content width.
 - Register page (`src/app/(base)/(content)/register/page.tsx`), the
   last page in the build order — every "Register Now" CTA site-wide now
   resolves to a real page. Built under `features/base/register/`:

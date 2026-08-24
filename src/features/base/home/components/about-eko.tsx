@@ -41,7 +41,7 @@ export function AboutEko() {
           <div className="flex size-18 shrink-0 items-center justify-center rounded-2xl bg-white/15">
             <TrafficCone className="size-8.5 text-white" />
           </div>
-          <div className="min-w-70 flex-1">
+          <div className="min-w-0 flex-1 sm:min-w-70">
             <div className="font-heading mb-2 text-2xl leading-none font-extrabold text-white uppercase sm:text-[30px]">
               Major roads completely{" "}
               <span className="text-yellow-400">closed to traffic</span>

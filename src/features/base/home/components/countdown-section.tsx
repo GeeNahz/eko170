@@ -22,19 +22,19 @@ export function CountdownSection() {
       <h2 className="font-heading mb-10 text-[40px] leading-[0.95] font-black text-white italic uppercase sm:text-[64px]">
         The Clock Is Ticking
       </h2>
-      <div className="flex flex-wrap items-center justify-center gap-4">
+      <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4">
         {units.map((unit, i) => (
-          <div key={unit.label} className="flex items-center gap-4">
-            <div className="w-[110px] rounded-2xl border border-white/10 bg-white/[0.06] py-6 sm:w-[148px] sm:py-8">
-              <div className="font-heading text-5xl leading-none font-black text-brand-green sm:text-[72px]">
+          <div key={unit.label} className="flex items-center gap-2 sm:gap-4">
+            <div className="w-[72px] rounded-2xl border border-white/10 bg-white/[0.06] py-3 sm:w-[148px] sm:py-8">
+              <div className="font-heading text-2xl leading-none font-black text-brand-green sm:text-[72px]">
                 {unit.value}
               </div>
-              <div className="mt-2 font-mono text-[11px] tracking-wide text-gray-500 uppercase">
+              <div className="mt-1.5 font-mono text-[8px] tracking-wide text-gray-500 uppercase sm:mt-2 sm:text-[11px]">
                 {unit.label}
               </div>
             </div>
             {i < units.length - 1 && (
-              <div className="font-heading self-center text-3xl font-black text-white/35 sm:text-5xl">
+              <div className="font-heading hidden self-center text-3xl font-black text-white/35 sm:block sm:text-5xl">
                 –
               </div>
             )}
