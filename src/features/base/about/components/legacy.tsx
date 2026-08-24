@@ -4,9 +4,9 @@ import { LEGACY_POINTS } from "../constants";
 
 export function Legacy() {
   return (
-    <div className="mx-4 mt-4 overflow-hidden rounded-[22px] bg-white px-6 py-24 sm:px-10">
+    <div className="mx-3 mt-4 overflow-hidden rounded-[22px] bg-white px-5 pt-11 pb-12 sm:mx-4 sm:px-10 sm:py-24">
       <div className="mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
-        <Reveal className="relative">
+        <Reveal className="relative hidden lg:block">
           <div className="relative aspect-4/3 overflow-hidden rounded-2xl">
             <Image
               src="/images/CR2A2756.jpg"

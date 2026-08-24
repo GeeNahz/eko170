@@ -8,6 +8,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Dedicated mobile layout for the About page
+  (`src/app/(base)/(content)/about/page.tsx`), built and verified against
+  the mobile mockup via a `getComputedStyle` DOM diff (see the Home page
+  entry below for the method) rather than a screenshot pass alone. Two new
+  mobile-only components for the sections whose mobile design drops the
+  desktop photo entirely for a solid color: `AboutHeroMobile`
+  (`features/base/about/components/about-hero-mobile.tsx`) replaces the
+  photo-background hero with a solid `bg-brand-teal` block (plus a subtle
+  diagonal stripe texture) and merges the stat strip into the same
+  component; `AboutIntroMobile` (`about-intro-mobile.tsx`) merges
+  `PullQuote` and `VisionMission` into one continuous `bg-brand-teal`
+  block with light-on-dark text, matching the mockup's single-background
+  section (desktop keeps both as separate light/dark cards, unchanged).
+  `FourCs`, `Legacy`, and `CtaBanner` needed no new components — their
+  card margin/padding now matches the mockup's exact numbers (`mx-3`,
+  `px-5 pt-11 pb-12`, restored to desktop's values at `sm:`), and `Legacy`
+  /`CtaBanner` hide their desktop photo behind `hidden lg:block`/
+  `hidden sm:block` to match the mockup, `CtaBanner` swapping in the same
+  brand gradient `Newsletter` already uses when the photo is hidden.
 - Dedicated mobile layout for the Home page (`src/app/(base)/page.tsx`),
   built to match the mobile design mockup (`docs/EKO170 Mobile
   (standalone).html`) rather than just reflowing the desktop grid. The

@@ -6,7 +6,7 @@ const ICONS = [Mountain, Sparkles, Users, RefreshCw];
 
 export function FourCs() {
   return (
-    <div className="mx-4 mt-4 overflow-hidden rounded-[22px] bg-brand-cream px-6 py-24 sm:px-10">
+    <div className="mx-3 mt-4 overflow-hidden rounded-[22px] bg-brand-cream px-5 pt-11 pb-12 sm:mx-4 sm:px-10 sm:py-24">
       <div className="mx-auto max-w-[1280px]">
         <Reveal className="mb-4 text-center font-mono text-xs tracking-wide text-brand-green uppercase">
           What We Stand For

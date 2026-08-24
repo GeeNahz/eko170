@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { AboutHero } from "@/features/base/about/components/about-hero";
+import { AboutHeroMobile } from "@/features/base/about/components/about-hero-mobile";
+import { AboutIntroMobile } from "@/features/base/about/components/about-intro-mobile";
 import { CtaBanner } from "@/features/base/about/components/cta-banner";
 import { FourCs } from "@/features/base/about/components/four-cs";
 import { Legacy } from "@/features/base/about/components/legacy";
@@ -15,9 +17,15 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      <AboutHero />
-      <PullQuote />
-      <VisionMission />
+      <div className="hidden lg:contents">
+        <AboutHero />
+        <PullQuote />
+        <VisionMission />
+      </div>
+      <div className="contents lg:hidden">
+        <AboutHeroMobile />
+        <AboutIntroMobile />
+      </div>
       <FourCs />
       <Legacy />
       <CtaBanner />
