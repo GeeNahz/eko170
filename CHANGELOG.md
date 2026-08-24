@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Dedicated mobile layout for the Gallery page
+  (`src/app/(base)/(content)/gallery/page.tsx`), verified against the
+  mobile mockup via the same `getComputedStyle` DOM diff used for the
+  prior pages — zero discrepancies. No new components needed.
+  `GalleryHero` had no background of its own (inherited the page's cream
+  background at every width) but the mockup wants a solid `bg-brand-teal`
+  block with light-on-dark text on mobile, matching the same pattern as
+  `AboutHero`/`RoutesHero`; restored to its original transparent/dark-text
+  treatment at `sm:`. `GalleryGrid` similarly gains a `bg-white`
+  edge-to-edge wrapper on mobile (also inherited cream before), transparent
+  again at `sm:`. `GalleryCta` only needed the now-familiar card-margin
+  correction (`mx-4`→`mx-3`, padding to the mockup's exact numbers).
 - Dedicated mobile layout for the Routes pages (`/routes` overview and the
   shared `RouteDetail` component behind `/routes/170`/`/routes/70`),
   verified against the mobile mockup via the same `getComputedStyle` DOM

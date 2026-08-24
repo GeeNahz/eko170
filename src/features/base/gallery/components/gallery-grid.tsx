@@ -20,7 +20,7 @@ export function GalleryGrid() {
   }, [selected]);
 
   return (
-    <div className="mx-auto flex w-full max-w-[1280px] flex-col gap-14 px-6 pb-20 sm:px-10">
+    <div className="flex w-full flex-col gap-14 bg-white px-5 pt-8 pb-11 sm:mx-auto sm:max-w-[1280px] sm:bg-transparent sm:px-10 sm:pt-0 sm:pb-20">
       {GALLERY_CATEGORIES.map((category) => (
         <div key={category.id}>
           <Reveal className="mb-5 flex items-baseline gap-3.5 border-l-4 border-brand-green pl-3.5">
