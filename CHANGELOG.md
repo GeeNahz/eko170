@@ -8,6 +8,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Dedicated mobile layout for the Register page
+  (`src/app/(base)/(content)/register/page.tsx`), verified against the
+  mobile mockup via the same `getComputedStyle` DOM diff used for every
+  other page (see the Home entry below for the method). No new
+  components — `RegisterHero` drops its desktop photo for a solid
+  `bg-brand-teal` on mobile (`sm:` restores the photo and
+  `brand-teal-deep` background) and gains a subtitle line
+  ("Sunday, 10 January 2027 · Eko Atlantic City, Lagos · Road · 170KM /
+  70KM.") the mockup shows but the page was missing; `RegistrationForm`
+  drops its white bordered card for a flat `bg-brand-cream` block that
+  sits directly on the page background on mobile, matching the mockup's
+  numbers exactly (padding `32px/20px/44px/20px`), restoring the white
+  card at `sm:`. Fixing the form's wrapper also surfaced a real instance
+  of the documented `body`-is-`flex-flex-col` bug (see
+  [[eko170-design-system]]): once the wrapper's own horizontal padding
+  was removed, its `mx-auto max-w-[920px]` collapsed to its content's
+  max-content width instead of filling the viewport, because it had no
+  `w-full` alongside `mx-auto max-w-[...]` as a direct flex child of
+  `body` — added `w-full` to fix, same class of bug as the earlier
+  `GalleryGrid` fix that first documented this pattern.
 - Dedicated mobile layout for the Discover page
   (`src/app/(base)/(content)/discover/page.tsx`), verified against the
   mobile mockup via the same `getComputedStyle` DOM diff used for every

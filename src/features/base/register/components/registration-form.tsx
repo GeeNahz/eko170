@@ -135,18 +135,18 @@ export function RegistrationForm() {
 
   if (state?.status === "success") {
     return (
-      <div className="mx-auto max-w-[920px] px-6 pb-24 sm:px-10">
+      <div className="mx-auto w-full max-w-[920px] px-0 pb-24 sm:px-10">
         <RegistrationSuccess data={state.data} />
       </div>
     );
   }
 
   return (
-    <div className="mx-auto max-w-[920px] px-6 pb-24 sm:px-10">
+    <div className="mx-auto w-full max-w-[920px] px-0 pb-24 sm:px-10">
       <form
         onSubmit={handleSubmit((values) => formAction(values))}
         noValidate
-        className="flex flex-col gap-6 rounded-[20px] border border-brand-cream-border bg-white p-6 sm:p-10"
+        className="flex flex-col gap-6 bg-brand-cream px-5 pt-8 pb-11 sm:rounded-[20px] sm:border sm:border-brand-cream-border sm:bg-white sm:p-10"
       >
         <div>
           <div className="mb-5 border-b border-brand-cream-border pb-2.5 font-mono text-xs tracking-[2px] text-brand-green uppercase">
