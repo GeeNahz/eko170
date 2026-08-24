@@ -3,23 +3,23 @@ import { Reveal } from "@/components/motion/reveal";
 
 export function PartnersHero() {
   return (
-    <div className="relative mx-4 mt-4 overflow-hidden rounded-[22px] bg-brand-teal-deep px-6 pt-28 pb-32 sm:px-10">
+    <div className="relative overflow-hidden bg-brand-teal px-5 pt-8 pb-8.5 sm:mx-4 sm:mt-4 sm:rounded-[22px] sm:bg-brand-teal-deep sm:px-10 sm:pt-28 sm:pb-32">
       <Image
         src="/images/sm-CR2A2877.jpg"
         alt="EKO170 partners"
         fill
         priority
-        className="object-cover opacity-50"
+        className="hidden object-cover opacity-50 sm:block"
       />
-      <div className="absolute inset-0 bg-linear-to-r from-brand-teal-deep/90 via-brand-teal-deep/55 to-brand-teal-deep/35" />
+      <div className="absolute inset-0 hidden bg-linear-to-r from-brand-teal-deep/90 via-brand-teal-deep/55 to-brand-teal-deep/35 sm:block" />
 
       <div
         aria-hidden
-        className="absolute -top-30 -right-35 size-130 rounded-full border-[70px] border-brand-green/14"
+        className="absolute -top-30 -right-35 hidden size-130 rounded-full border-[70px] border-brand-green/14 sm:block"
       />
       <div
         aria-hidden
-        className="absolute right-30 -bottom-22 size-70 rounded-full border-[44px] border-brand-yellow/10"
+        className="absolute right-30 -bottom-22 hidden size-70 rounded-full border-[44px] border-brand-yellow/10 sm:block"
       />
 
       <div className="relative mx-auto max-w-[1280px]">

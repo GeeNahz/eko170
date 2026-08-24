@@ -4,7 +4,7 @@ import { HEADLINE_PARTNERS } from "../constants";
 
 export function HeadlinePartners() {
   return (
-    <div className="mx-auto w-full max-w-[1280px] px-6 py-24 sm:px-10">
+    <div className="mx-3 mt-4 overflow-hidden rounded-[22px] bg-white px-5 pt-10 pb-11 sm:mx-auto sm:mt-0 sm:w-full sm:max-w-[1280px] sm:rounded-none sm:bg-transparent sm:px-10 sm:py-24">
       <Reveal className="mb-4 border-l-4 border-brand-green pl-3 font-mono text-xs tracking-wide text-brand-green uppercase">
         Headline Partners
       </Reveal>

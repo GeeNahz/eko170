@@ -8,6 +8,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Dedicated mobile layout for the Partners page
+  (`src/app/(base)/(content)/partners/page.tsx`), verified against the
+  mobile mockup via the same `getComputedStyle` DOM diff used for the
+  prior pages — zero discrepancies. No new components needed, only
+  responsive-class corrections on existing ones. `PartnersHero` drops
+  its photo for a solid `bg-brand-teal` on mobile (was `brand-teal-deep`
+  with a photo); `PartnersStats` corrected padding to the mockup's exact
+  numbers; `HeadlinePartners` gained the card treatment it was missing
+  entirely on mobile (`mx-3 rounded-[22px] bg-white`, desktop keeps its
+  original borderless full-width layout at `sm:`); `PartnersSponsors`
+  corrected `bg-white`→`bg-brand-cream` and `PartnersGovernment`
+  corrected the opposite, `bg-brand-cream`→`bg-white` — the two had each
+  other's mobile background; `PartnersWhy` corrected
+  `brand-teal-deep`→`brand-teal`; `PartnersCta` had its card margin and
+  padding tightened to the mockup's values. All six card sections'
+  margin corrected from `mx-4` to `mx-3` on mobile, restored to `mx-4`
+  at `sm:`.
 - Dedicated mobile layout for the Gallery page
   (`src/app/(base)/(content)/gallery/page.tsx`), verified against the
   mobile mockup via the same `getComputedStyle` DOM diff used for the
