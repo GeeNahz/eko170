@@ -8,7 +8,7 @@ export function ResultsCta() {
   const { data } = useGetResultsInfo();
 
   return (
-    <div className="mx-4 mt-4 overflow-hidden rounded-[22px] bg-brand-teal-deep px-6 py-20 text-center sm:px-10">
+    <div className="mx-3 mt-4 overflow-hidden rounded-[22px] bg-brand-teal-deep px-5 pt-11 pb-12 text-center sm:mx-4 sm:px-10 sm:py-20">
       <Reveal className="font-heading mb-4 text-4xl leading-[0.95] font-black text-white uppercase italic sm:text-5xl">
         Full Results on FinishTime
       </Reveal>

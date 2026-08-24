@@ -7,7 +7,7 @@ export function RouteIntroduction({ data }: { data: RouteDetailData }) {
   return (
     <div
       id="introduction"
-      className="mx-4 mt-4 scroll-mt-[170px] overflow-hidden rounded-[22px] bg-brand-teal-deep px-6 py-24 sm:px-10 sm:py-28"
+      className="scroll-mt-[170px] overflow-hidden bg-brand-teal px-5 pt-11 pb-12 sm:mx-4 sm:mt-4 sm:rounded-[22px] sm:bg-brand-teal-deep sm:px-10 sm:py-28"
     >
       <div className="mx-auto max-w-[840px] text-center">
         <Reveal className="mb-4 font-mono text-xs tracking-[2px] text-white/60 uppercase">

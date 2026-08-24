@@ -4,7 +4,7 @@ export function RouteMap() {
   return (
     <div
       id="map"
-      className="mx-4 mt-4 scroll-mt-[140px] overflow-hidden rounded-[22px] bg-white px-6 py-24 sm:px-10"
+      className="scroll-mt-[140px] overflow-hidden bg-white px-5 pt-9 pb-11 sm:mx-4 sm:mt-4 sm:rounded-[22px] sm:px-10 sm:py-24"
     >
       <div className="mx-auto max-w-[1280px]">
         <Reveal className="mb-4 border-l-4 border-brand-green pl-3 font-mono text-xs tracking-wide text-brand-green uppercase">

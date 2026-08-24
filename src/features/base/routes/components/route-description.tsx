@@ -6,10 +6,10 @@ export function RouteDescription({ data }: { data: RouteDetailData }) {
   return (
     <div
       id="route-description"
-      className="mx-4 mt-4 scroll-mt-[170px] overflow-hidden rounded-[22px] bg-white px-6 py-24 sm:px-10"
+      className="scroll-mt-[170px] overflow-hidden bg-white px-5 pt-9 pb-11 sm:mx-4 sm:mt-4 sm:rounded-[22px] sm:px-10 sm:py-24"
     >
       <div className="mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-16 lg:grid-cols-2">
-        <Reveal className="relative aspect-[4/3.4] overflow-hidden rounded-2xl">
+        <Reveal className="relative hidden aspect-[4/3.4] overflow-hidden rounded-2xl lg:block">
           <Image
             src={data.routeDescriptionImage}
             alt={`${data.navLabel} route`}

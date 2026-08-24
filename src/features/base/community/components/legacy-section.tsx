@@ -5,7 +5,7 @@ export function LegacySection() {
   return (
     <div
       id="legacy"
-      className="mx-4 mt-4 scroll-mt-[140px] overflow-hidden rounded-[22px] bg-white px-6 py-24 sm:px-10"
+      className="mx-3 mt-4 scroll-mt-[140px] overflow-hidden rounded-[22px] bg-brand-cream px-5 pt-10 pb-11 sm:mx-4 sm:bg-white sm:px-10 sm:py-24"
     >
       <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 items-center gap-16 lg:grid-cols-[1.05fr_0.95fr]">
         <Reveal>
@@ -22,7 +22,7 @@ export function LegacySection() {
             the next step, and the movement grows.
           </p>
         </Reveal>
-        <Reveal delay={0.1} className="relative aspect-[4/3] overflow-hidden rounded-2xl">
+        <Reveal delay={0.1} className="relative hidden aspect-[4/3] overflow-hidden rounded-2xl lg:block">
           <Image
             src="/images/sm-DSC_1924.jpg"
             alt="EKO170 legacy"

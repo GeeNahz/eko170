@@ -3,7 +3,7 @@ import { RESULT_CATEGORIES } from "../constants";
 
 export function ResultCategories() {
   return (
-    <div className="mx-4 mt-4 overflow-hidden rounded-[22px] bg-white px-6 py-16 sm:px-10">
+    <div className="overflow-hidden bg-white px-5 pt-11 pb-12 sm:mx-4 sm:mt-4 sm:rounded-[22px] sm:px-10 sm:py-16">
       <Reveal className="mb-8 font-mono text-xs tracking-wide text-brand-green uppercase">
         Race Categories
       </Reveal>

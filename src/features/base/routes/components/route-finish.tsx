@@ -6,7 +6,7 @@ export function RouteFinish({ data }: { data: RouteDetailData }) {
   return (
     <div
       id="finish"
-      className="mx-4 mt-4 scroll-mt-[170px] overflow-hidden rounded-[22px] bg-brand-cream px-6 py-24 sm:px-10"
+      className="scroll-mt-[170px] overflow-hidden bg-brand-cream px-5 pt-9 pb-11 sm:mx-4 sm:mt-4 sm:rounded-[22px] sm:px-10 sm:py-24"
     >
       <div className="mx-auto grid max-w-[1280px] grid-cols-1 items-center gap-16 lg:grid-cols-2">
         <Reveal>
@@ -42,7 +42,7 @@ export function RouteFinish({ data }: { data: RouteDetailData }) {
             View Finish Area Map
           </a>
         </Reveal>
-        <Reveal delay={0.1} className="relative aspect-[4/3] overflow-hidden rounded-2xl">
+        <Reveal delay={0.1} className="relative hidden aspect-[4/3] overflow-hidden rounded-2xl lg:block">
           <Image src={data.finishImage} alt="Finish line" fill className="object-cover" />
         </Reveal>
       </div>

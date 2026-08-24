@@ -7,6 +7,7 @@ import { EventBar } from "@/features/base/home/components/event-bar";
 import { FeatureCommunity, FeatureRoute } from "@/features/base/home/components/feature-rows";
 import { Figures } from "@/features/base/home/components/figures";
 import { Hero } from "@/features/base/home/components/hero";
+import { HomeMobileSections } from "@/features/base/home/components/home-mobile-sections";
 import { MomentsInMotion } from "@/features/base/home/components/moments-in-motion";
 import { Newsletter } from "@/features/base/home/components/newsletter";
 import { RegistrationBanner } from "@/features/base/home/components/registration-banner";
@@ -17,22 +18,27 @@ import { Ticker } from "@/features/base/event/components/ticker";
 export default function HomePage() {
   return (
     <>
-      <Hero />
-      <Ticker />
-      <EventBar />
-      <DistanceBar />
-      <CountdownSection />
-      <SeedingEvents />
-      <RegistrationBanner />
-      <Figures />
-      <AboutEko />
-      <ChooseDistance />
-      <AtlanticChallenge />
-      <FeatureRoute />
-      <FeatureCommunity />
-      <SponsorsMarquee />
-      <MomentsInMotion />
-      <Newsletter />
+      <div className="hidden lg:contents">
+        <Hero />
+        <Ticker />
+        <EventBar />
+        <DistanceBar />
+        <CountdownSection />
+        <SeedingEvents />
+        <RegistrationBanner />
+        <Figures />
+        <AboutEko />
+        <ChooseDistance />
+        <AtlanticChallenge />
+        <FeatureRoute />
+        <FeatureCommunity />
+        <SponsorsMarquee />
+        <MomentsInMotion />
+        <Newsletter />
+      </div>
+      <div className="contents lg:hidden">
+        <HomeMobileSections />
+      </div>
     </>
   );
 }

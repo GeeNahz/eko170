@@ -25,7 +25,7 @@ export function Newsletter() {
         </div>
         <button
           type="submit"
-          className="inline-flex items-center gap-2.5 rounded-full bg-white px-6 py-4 font-sans text-base font-semibold text-brand-teal"
+          className="inline-flex w-full max-w-[480px] items-center justify-center gap-2.5 rounded-full bg-white px-6 py-4 font-sans text-base font-semibold text-brand-teal sm:w-auto sm:max-w-none"
         >
           Subscribe
           <ArrowRight className="size-4" />

@@ -98,7 +98,13 @@ export function NavBar() {
           </Link>
         </motion.div>
 
-        <div className="lg:hidden">
+        <div className="flex shrink-0 items-center gap-2 lg:hidden">
+          <Link
+            href={REGISTER_HREF}
+            className="inline-flex h-10 items-center justify-center rounded-full bg-linear-100 from-brand-teal via-brand-green to-brand-yellow px-4 font-sans text-sm font-semibold whitespace-nowrap text-white shadow-[0_8px_24px_rgba(22,163,74,0.28)]"
+          >
+            Register Now
+          </Link>
           <MobileNav links={PRIMARY_NAV} registerHref={REGISTER_HREF} />
         </div>
       </div>

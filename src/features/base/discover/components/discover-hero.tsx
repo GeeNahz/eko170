@@ -3,18 +3,26 @@ import { Reveal } from "@/components/motion/reveal";
 
 export function DiscoverHero() {
   return (
-    <div className="relative mx-4 mt-4 overflow-hidden rounded-[22px] bg-brand-teal-deep px-6 pt-28 pb-32 sm:px-10">
+    <div className="relative overflow-hidden bg-brand-teal px-5 pt-[30px] pb-[34px] sm:mx-4 sm:mt-4 sm:rounded-[22px] sm:bg-brand-teal-deep sm:px-10 sm:pt-28 sm:pb-32">
+      <div
+        aria-hidden
+        className="absolute inset-0 opacity-[0.04] sm:hidden"
+        style={{
+          backgroundImage:
+            "repeating-linear-gradient(45deg, #fff 0, #fff 14px, transparent 14px, transparent 28px)",
+        }}
+      />
       <Image
         src="/images/sm-DSC_2032.jpg"
         alt="Lagos"
         fill
         priority
-        className="object-cover opacity-55"
+        className="hidden object-cover opacity-55 sm:block"
       />
-      <div className="absolute inset-0 bg-linear-to-r from-brand-teal-deep/90 via-brand-teal-deep/50 to-brand-teal-deep/30" />
+      <div className="absolute inset-0 hidden bg-linear-to-r from-brand-teal-deep/90 via-brand-teal-deep/50 to-brand-teal-deep/30 sm:block" />
       <div
         aria-hidden
-        className="absolute -top-30 -right-35 size-130 rounded-full border-[70px] border-brand-green/14"
+        className="absolute -top-30 -right-35 hidden size-130 rounded-full border-[70px] border-brand-green/14 sm:block"
       />
 
       <div className="relative mx-auto max-w-[1280px]">

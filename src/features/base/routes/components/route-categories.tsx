@@ -5,7 +5,7 @@ import { ROUTE_CATEGORY_CARDS } from "../constants";
 
 export function RouteCategories() {
   return (
-    <div className="mx-4 mt-4 overflow-hidden rounded-[22px] bg-brand-cream px-6 py-24 sm:px-10">
+    <div className="overflow-hidden bg-white px-5 pt-8 pb-5 sm:mx-4 sm:mt-4 sm:rounded-[22px] sm:bg-brand-cream sm:px-10 sm:py-24">
       <div className="mx-auto max-w-[1280px]">
         <Reveal className="mb-4 border-l-4 border-brand-green pl-3 font-mono text-xs tracking-wide text-brand-green uppercase">
           Race Categories

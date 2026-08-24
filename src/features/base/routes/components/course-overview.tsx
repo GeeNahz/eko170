@@ -6,11 +6,12 @@ import { ROUTE_HIGHLIGHTS, ROUTE_STATS } from "../constants";
 
 export function CourseOverview() {
   return (
-    <div className="mx-auto w-full max-w-[1280px] px-6 py-20 sm:px-10">
-      <Reveal className="mb-4 font-mono text-xs tracking-wide text-brand-green uppercase">
-        Course Overview
-      </Reveal>
-      <div className="grid grid-cols-1 items-start gap-14 lg:grid-cols-2">
+    <div className="bg-white px-5 pt-9 pb-2 sm:bg-transparent sm:px-0 sm:py-0">
+      <div className="mx-auto w-full max-w-[1280px] sm:px-10 sm:py-20">
+        <Reveal className="mb-4 font-mono text-xs tracking-wide text-brand-green uppercase">
+          Course Overview
+        </Reveal>
+        <div className="grid grid-cols-1 items-start gap-14 lg:grid-cols-2">
         <Reveal delay={0.1}>
           <p className="mb-6 font-sans text-lg leading-relaxed text-gray-700">
             Starting and finishing at Eko Atlantic Boulevard, the Full Ride
@@ -74,6 +75,7 @@ export function CourseOverview() {
             ))}
           </div>
         </Reveal>
+        </div>
       </div>
     </div>
   );

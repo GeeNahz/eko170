@@ -8,10 +8,10 @@ export function VolunteersSection() {
   return (
     <div
       id="volunteers"
-      className="mx-4 mt-4 scroll-mt-[140px] overflow-hidden rounded-[22px] bg-white px-6 py-24 sm:px-10"
+      className="mx-3 mt-4 scroll-mt-[140px] overflow-hidden rounded-[22px] bg-white px-5 pt-10 pb-11 sm:mx-4 sm:px-10 sm:py-24"
     >
       <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 items-center gap-16 lg:grid-cols-[0.95fr_1.05fr]">
-        <Reveal className="relative aspect-[4/5] overflow-hidden rounded-2xl">
+        <Reveal className="relative hidden aspect-[4/5] overflow-hidden rounded-2xl lg:block">
           <Image
             src="/images/sm-DSC_1708.jpg"
             alt="Volunteers"

@@ -6,14 +6,14 @@ import { REGISTER_HREF } from "../../navigation/constants";
 
 export function CtaBanner() {
   return (
-    <div className="relative mx-4 mt-4 overflow-hidden rounded-[22px] px-6 py-32 text-center sm:px-10 sm:py-36">
+    <div className="relative mx-3 mt-4 overflow-hidden rounded-[22px] bg-linear-120 from-brand-teal via-brand-green to-brand-yellow px-5 pt-11 pb-12 text-center sm:mx-4 sm:bg-none sm:px-10 sm:py-36">
       <Image
         src="/images/CR2A2850.jpg"
         alt="EKO170 riders celebrating"
         fill
-        className="object-cover"
+        className="hidden object-cover sm:block"
       />
-      <div className="absolute inset-0 bg-linear-to-t from-brand-teal-deep/75 to-brand-teal-deep/30" />
+      <div className="absolute inset-0 hidden bg-linear-to-t from-brand-teal-deep/75 to-brand-teal-deep/30 sm:block" />
 
       <div className="relative">
         <Reveal className="font-heading mx-auto mb-8 max-w-[900px] text-4xl leading-[0.95] font-black text-white uppercase italic sm:text-5xl lg:text-6xl">

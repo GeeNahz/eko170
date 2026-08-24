@@ -11,9 +11,9 @@ export function RouteFaqs() {
   return (
     <div
       id="faqs"
-      className="mx-4 mt-4 scroll-mt-[170px] overflow-hidden rounded-[22px] bg-brand-yellow px-6 py-24 sm:px-10"
+      className="mx-3 mt-4 scroll-mt-[170px] overflow-hidden rounded-[22px] bg-brand-cream px-5 pt-11 pb-12 sm:mx-4 sm:bg-brand-yellow sm:px-10 sm:py-24"
     >
-      <Reveal className="mx-auto max-w-[840px] rounded-2xl bg-white px-8 py-12 shadow-[0_24px_60px_rgba(15,58,68,0.18)] sm:px-14">
+      <Reveal className="mx-auto max-w-[840px] rounded-2xl bg-white px-6 py-9 shadow-[0_24px_60px_rgba(15,58,68,0.18)] sm:px-14 sm:py-12">
         <h2 className="font-heading mb-1.5 text-4xl leading-[0.95] font-black text-brand-teal uppercase italic sm:text-5xl">
           Entries &amp; Substitutions
         </h2>

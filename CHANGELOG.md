@@ -8,6 +8,195 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Dedicated mobile layout for the Register page
+  (`src/app/(base)/(content)/register/page.tsx`), verified against the
+  mobile mockup via the same `getComputedStyle` DOM diff used for every
+  other page (see the Home entry below for the method). No new
+  components — `RegisterHero` drops its desktop photo for a solid
+  `bg-brand-teal` on mobile (`sm:` restores the photo and
+  `brand-teal-deep` background) and gains a subtitle line
+  ("Sunday, 10 January 2027 · Eko Atlantic City, Lagos · Road · 170KM /
+  70KM.") the mockup shows but the page was missing; `RegistrationForm`
+  drops its white bordered card for a flat `bg-brand-cream` block that
+  sits directly on the page background on mobile, matching the mockup's
+  numbers exactly (padding `32px/20px/44px/20px`), restoring the white
+  card at `sm:`. Fixing the form's wrapper also surfaced a real instance
+  of the documented `body`-is-`flex-flex-col` bug (see
+  [[eko170-design-system]]): once the wrapper's own horizontal padding
+  was removed, its `mx-auto max-w-[920px]` collapsed to its content's
+  max-content width instead of filling the viewport, because it had no
+  `w-full` alongside `mx-auto max-w-[...]` as a direct flex child of
+  `body` — added `w-full` to fix, same class of bug as the earlier
+  `GalleryGrid` fix that first documented this pattern.
+- Dedicated mobile layout for the Discover page
+  (`src/app/(base)/(content)/discover/page.tsx`), verified against the
+  mobile mockup via the same `getComputedStyle` DOM diff used for every
+  prior page (see the Home page entry below for the method). No new
+  components needed — every fix was a responsive-class correction on
+  existing components. `DiscoverHero` drops its photo, gradient overlay,
+  and decorative ring for a solid `bg-brand-teal` (was `brand-teal-deep`
+  with a photo) below `sm:`, adding the same subtle diagonal-stripe
+  texture used on About's mobile hero; `CityIntro` hides its photo below
+  `lg:` and corrects its card margin/padding to the mockup's exact
+  numbers (`mx-3`, `pad 40/20/44/20`); `AttractionsSection`/
+  `HotelsSection`/`RestaurantsSection`/`RaceWeekendTimeline`/
+  `DiscoverCta` needed the same margin/padding correction only, no color
+  or photo changes; `TransportSection` additionally corrected from
+  `bg-brand-teal-deep` to `bg-brand-teal` below `sm:` to match the
+  mockup. Verified zero discrepancies across all sections including the
+  footer.
+- Mobile style-consistency pass for the Results page
+  (`src/app/(base)/(content)/results/page.tsx`) — the last page in the
+  responsiveness pass. Unlike every other page, this one was **not**
+  diffed against the mobile mockup: the mockup's "Results" nav
+  destination shows a completely different feature (tabs, filter pills,
+  a native sortable 95-row results table), which was already scoped out
+  as a separate future integration with FinishTime.co.za, not a layout
+  fix (see the Routes entry below for the same exclusion). Instead this
+  applies the conventions every other page converged on, by judgment
+  rather than a pixel diff: `ResultsHero` had no explicit background at
+  all (silently inheriting the page's cream — the same latent bug found
+  on Gallery's and Community's heroes), now set explicitly to
+  `bg-brand-cream` since its dark-on-light text colors were already
+  designed for a light background, unlike the photo-dropping dark heroes
+  on other pages. `ResultCategories` (a stat-card-style section) went
+  edge-to-edge on mobile like the equivalent sections on other pages;
+  `ResultsCta` and `RegisterCta` (both gradient/solid CTA banners with no
+  photo to drop) kept the `mx-3` card treatment used by every other CTA
+  banner (`CtaBanner`, `PartnersCta`, `CommunityCta`), just with
+  corrected padding. All four components restore their original desktop
+  values at `sm:`, unchanged.
+- Dedicated mobile layout for the Community page
+  (`src/app/(base)/(content)/community/page.tsx`), verified against the
+  mobile mockup via the same `getComputedStyle` DOM diff used for every
+  prior page (see the Home entry below for the method). No new components
+  needed — every fix was a responsive-class correction on the existing
+  8 section components, matching Routes' pattern of "same structure, just
+  wrong colors/margins/photo-visibility on mobile." `CommunityHero`
+  corrected from `bg-brand-teal-deep` to `bg-brand-teal` and drops its
+  background photo entirely below `sm:` (the mockup has no `<img>` there
+  at all, just the solid color); `CommunityStats` kept its color but went
+  edge-to-edge; `VolunteersSection`, `CyclingClubs`, `CharityCauses`,
+  `SustainabilitySection`, `LegacySection`, `CommunityCta` all had their
+  card margin corrected from `mx-4` to `mx-3` and padding tightened to the
+  mockup's exact numbers (`px-5 pt-10 pb-11`, restored to desktop's values
+  at `sm:`); `SustainabilitySection` additionally corrected
+  `brand-teal-deep`→`brand-teal` and `LegacySection` corrected
+  `bg-white`→`bg-brand-cream`; `VolunteersSection` and `LegacySection` both
+  hide their desktop photo below `lg:`, matching the same drop-the-photo
+  pattern seen on every page so far (Home's `FeatureRoute`, About's
+  `Legacy`/`CtaBanner`, Routes' several detail sections).
+- Dedicated mobile layout for the Partners page
+  (`src/app/(base)/(content)/partners/page.tsx`), verified against the
+  mobile mockup via the same `getComputedStyle` DOM diff used for the
+  prior pages — zero discrepancies. No new components needed, only
+  responsive-class corrections on existing ones. `PartnersHero` drops
+  its photo for a solid `bg-brand-teal` on mobile (was `brand-teal-deep`
+  with a photo); `PartnersStats` corrected padding to the mockup's exact
+  numbers; `HeadlinePartners` gained the card treatment it was missing
+  entirely on mobile (`mx-3 rounded-[22px] bg-white`, desktop keeps its
+  original borderless full-width layout at `sm:`); `PartnersSponsors`
+  corrected `bg-white`→`bg-brand-cream` and `PartnersGovernment`
+  corrected the opposite, `bg-brand-cream`→`bg-white` — the two had each
+  other's mobile background; `PartnersWhy` corrected
+  `brand-teal-deep`→`brand-teal`; `PartnersCta` had its card margin and
+  padding tightened to the mockup's values. All six card sections'
+  margin corrected from `mx-4` to `mx-3` on mobile, restored to `mx-4`
+  at `sm:`.
+- Dedicated mobile layout for the Gallery page
+  (`src/app/(base)/(content)/gallery/page.tsx`), verified against the
+  mobile mockup via the same `getComputedStyle` DOM diff used for the
+  prior pages — zero discrepancies. No new components needed.
+  `GalleryHero` had no background of its own (inherited the page's cream
+  background at every width) but the mockup wants a solid `bg-brand-teal`
+  block with light-on-dark text on mobile, matching the same pattern as
+  `AboutHero`/`RoutesHero`; restored to its original transparent/dark-text
+  treatment at `sm:`. `GalleryGrid` similarly gains a `bg-white`
+  edge-to-edge wrapper on mobile (also inherited cream before), transparent
+  again at `sm:`. `GalleryCta` only needed the now-familiar card-margin
+  correction (`mx-4`→`mx-3`, padding to the mockup's exact numbers).
+- Dedicated mobile layout for the Routes pages (`/routes` overview and the
+  shared `RouteDetail` component behind `/routes/170`/`/routes/70`),
+  verified against the mobile mockup via the same `getComputedStyle` DOM
+  diff used for Home and About — see those entries below for the method.
+  No new components needed; every fix was a responsive-class correction on
+  existing components since the mockup's Routes design reuses the same
+  edge-to-edge/card patterns established elsewhere, just applied to
+  different sections than Home or About. On `/routes`: `RoutesHero` drops
+  its photo for a solid `bg-brand-teal` (was `brand-teal-deep` with a
+  photo), `CourseOverview` gained a `bg-white` wrapper it didn't have
+  before, `RouteCategories` corrected from `bg-brand-cream` to `bg-white`
+  and dropped its card margin, `RouteSupport` gained a mobile-only
+  `bg-brand-cream` card (it had no wrapper at all before), `RouteMap`
+  dropped its card margin for edge-to-edge. On the shared route-detail
+  components: `RouteDetailHero` drops its photo for solid `bg-brand-teal`;
+  `RouteIntroduction`/`RouteMoreAbout` corrected from `brand-teal-deep` to
+  `brand-teal`; `RouteDescription`/`RouteStart`/`RouteFinish` drop their
+  photos below `lg:`, `RouteStart` also corrected from `bg-white` to
+  `bg-brand-cream`; `RouteFaqs`'s outer wrapper corrected from
+  `bg-brand-yellow` to `bg-brand-cream` (its inner white question card is
+  unchanged); `RouteEntries`/`RouteMoreAbout`/`RouteFaqs` margins
+  corrected to the mockup's exact numbers. Verified separately for
+  `/routes/170` and `/routes/70` since they share one component with
+  different data — both matched with zero discrepancies. Two known gaps
+  intentionally left unaddressed rather than guessed at: the mockup's
+  merged "Routes" nav view shows a horizontal stat-strip
+  (170KM/70KM/Roads-Fully-Closed) and a final "Ready to Ride the Route?"
+  CTA that don't correspond to any existing component or constant in the
+  codebase — added only once real content/data exists for them, not
+  invented here.
+- Dedicated mobile layout for the About page
+  (`src/app/(base)/(content)/about/page.tsx`), built and verified against
+  the mobile mockup via a `getComputedStyle` DOM diff (see the Home page
+  entry below for the method) rather than a screenshot pass alone. Two new
+  mobile-only components for the sections whose mobile design drops the
+  desktop photo entirely for a solid color: `AboutHeroMobile`
+  (`features/base/about/components/about-hero-mobile.tsx`) replaces the
+  photo-background hero with a solid `bg-brand-teal` block (plus a subtle
+  diagonal stripe texture) and merges the stat strip into the same
+  component; `AboutIntroMobile` (`about-intro-mobile.tsx`) merges
+  `PullQuote` and `VisionMission` into one continuous `bg-brand-teal`
+  block with light-on-dark text, matching the mockup's single-background
+  section (desktop keeps both as separate light/dark cards, unchanged).
+  `FourCs`, `Legacy`, and `CtaBanner` needed no new components — their
+  card margin/padding now matches the mockup's exact numbers (`mx-3`,
+  `px-5 pt-11 pb-12`, restored to desktop's values at `sm:`), and `Legacy`
+  /`CtaBanner` hide their desktop photo behind `hidden lg:block`/
+  `hidden sm:block` to match the mockup, `CtaBanner` swapping in the same
+  brand gradient `Newsletter` already uses when the photo is hidden.
+- Dedicated mobile layout for the Home page (`src/app/(base)/page.tsx`),
+  built to match the mobile design mockup (`docs/EKO170 Mobile
+  (standalone).html`) rather than just reflowing the desktop grid. The
+  page now renders two section trees gated by `lg:` — `hidden lg:contents`
+  for the existing desktop order/components, `contents lg:hidden` for a
+  new `HomeMobileSections` composition
+  (`features/base/home/components/home-mobile-sections.tsx`) — since the
+  mockup's section order differs from desktop's (registration banner and
+  countdown move up, seeding events/figures move down, sponsors/moments
+  swap) and can't be reached with breakpoint classes alone. Four sections
+  needed genuinely different mobile markup, so they get dedicated
+  components read by the mobile tree only: `EventBarMobile` (compact
+  ride cards with a big distance number, shared side-by-side "Enter the
+  Full/Half Ride" buttons and a single "Results" link, replacing the
+  desktop 4-cell-per-card stack), `SeedingEventsMobile` (horizontal-scroll
+  carousel of compact cards instead of a `min-h-[280px]` vertical stack),
+  `AtlanticChallengeMobile` (reorders to paragraph → map → stats →
+  highlights → buttons, which the desktop 2-column split can't express),
+  and `MomentsInMotionMobile` (reorders to paragraph → video → buttons,
+  and turns the photo strip into a horizontal-scroll carousel). Everything
+  else got smaller in-place responsive fixes instead of a new component:
+  `CountdownSection`'s four tiles now shrink to fit one row below `sm:`
+  instead of wrapping to 2×2; `AboutEko`'s traffic-closure callout had a
+  `min-w-70` that clipped its paragraph at mobile widths, now relaxed
+  below `sm:`; `ChooseDistance` and `SponsorsMarquee` both had their
+  eyebrow label + CTA button drop to separate lines on mobile, now paired
+  on one row with the heading below; `FeatureCommunity`'s image/text order
+  no longer flips only below `lg:` (image is first at every width, not
+  just desktop); `FeatureRoute` swaps its photo+badge for a plain inline
+  "2,000+ Expected Riders" stat below `lg:`, matching the mockup instead
+  of keeping the desktop image; `Newsletter`'s `Subscribe` button now
+  matches the email input's width below `sm:` instead of shrinking to
+  content width.
 - Register page (`src/app/(base)/(content)/register/page.tsx`), the
   last page in the build order — every "Register Now" CTA site-wide now
   resolves to a real page. Built under `features/base/register/`:
@@ -205,6 +394,54 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   sub-nav's anchor jumps and any other in-page `#anchor` link.
 
 ### Fixed
+- Home page's mobile layout (added above) still didn't visually match the
+  mobile mockup: the Hero used the same near-full-viewport-height,
+  vertically-centered box as desktop (`h-[calc(100vh-32px)]
+  min-h-[760px]` with `items-center`), leaving a large empty gap before
+  any text appeared on a phone screen, and every section kept desktop's
+  floating rounded-card treatment (`mx-4 rounded-[22px]`) instead of the
+  mockup's edge-to-edge mobile sections. Root-caused this time by loading
+  the mockup in a real browser and reading its actual rendered DOM
+  (`getComputedStyle` on each top-level section — background color,
+  padding, border-radius, x-position) rather than eyeballing screenshots,
+  then diffing the same extraction against the live site. Added
+  `HeroMobile` (`features/base/home/components/hero-mobile.tsx`) with
+  content starting right below the nav instead of vertically centered.
+  Confirmed the mockup treats `EventBar`+`DistanceBar`+
+  `RegistrationBanner`+`CountdownSection` as one continuous edge-to-edge
+  block (not four separate cards) — merged into a new `EventGroupMobile`
+  (`event-group-mobile.tsx`), replacing the now-deleted
+  `event-bar-mobile.tsx`. Stripped the `mx-4`/`rounded-[22px]` card
+  treatment to edge-to-edge (`sm:` still restores it for desktop) from
+  every other Home section, `Ticker`, and `SiteFooter`. Also corrected
+  two real background-color mismatches the DOM diff caught: `Figures`
+  and `SiteFooter` use a darker `#0b1f25` on mobile, not `brand-teal`;
+  `FeatureRoute` (`feature-rows.tsx`) uses a dark `brand-teal` background
+  with white/yellow text on mobile, not the white background it and
+  desktop share — plus `ChooseDistance`'s mobile background is
+  `brand-cream`, not white.
+- Mobile responsiveness pass across the site, guided by a mobile design
+  mockup (`docs/EKO170 Mobile (standalone).html`) covering every built
+  page. `MobileNav` (`features/base/navigation/components/
+  mobile-nav.tsx`) rebuilt to match: full-bleed dark `Sheet` panel
+  (`bg-brand-teal-deep`) instead of the previous light theme, with the
+  "Routes" entry now a collapsed shadcn `Accordion` instead of
+  always-expanded children — surfaced and fixed a latent Base UI warning
+  in the process (`SheetClose` rendering a `<Link>` needs
+  `nativeButton={false}`, since it defaults to expecting a real
+  `<button>`). `SiteFooter`'s link-group grid
+  (`features/base/components/site-footer.tsx`) collapsed to a single
+  column below the `sm:` breakpoint, stacking the brand block on top of
+  "The Event"/"Discover" instead of keeping those two side-by-side;
+  restructured so the brand block stacks alone on mobile while the two
+  `FOOTER_NAV` groups stay in an unconditional 2-column row (`sm:contents`
+  releases them into the existing 3-column desktop grid at `sm:` and up).
+  Two spacing polish fixes: `RouteSubNav`'s sticky pill nav
+  (`features/base/routes/components/route-sub-nav.tsx`) had an
+  unconditional `mx-10` cramping the horizontal-scroll row on narrow
+  phones (`mx-4 sm:mx-10`); `RegistrationForm`'s form card
+  (`features/base/register/components/registration-form.tsx`) had an
+  unconditional `p-10` (`p-6 sm:p-10`).
 - `GalleryGrid`'s photo grid rendered as a ~60px-wide sliver instead of
   full width. `body` is `flex flex-col`; a section root using
   `mx-auto max-w-[...]` (rather than a full-width `mx-4` wrapper) becomes
