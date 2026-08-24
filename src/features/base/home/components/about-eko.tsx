@@ -8,7 +8,7 @@ export function AboutEko() {
   return (
     <div
       id="about-eko"
-      className="mx-4 mt-4 overflow-hidden rounded-[22px] bg-white px-6 pt-24 pb-10 sm:px-10"
+      className="overflow-hidden bg-white px-5 pt-11 pb-12 sm:mx-4 sm:mt-4 sm:rounded-[22px] sm:px-10 sm:pt-24 sm:pb-10"
     >
       <div className="mx-auto mb-14 max-w-3xl text-center">
         <div className="mb-4 border-l-4 border-brand-green pl-3 font-mono text-xs tracking-wide text-brand-green uppercase">

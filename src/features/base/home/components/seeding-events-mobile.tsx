@@ -5,9 +5,9 @@ export function SeedingEventsMobile() {
   return (
     <div
       id="seeding"
-      className="mx-4 mt-4 overflow-hidden rounded-[22px] bg-brand-cream py-16 [scroll-margin-top:140px]"
+      className="overflow-hidden bg-brand-cream pt-11 pb-12 [scroll-margin-top:140px]"
     >
-      <div className="px-6">
+      <div className="px-5">
         <h2 className="font-heading mb-3 text-center text-4xl leading-[0.95] font-black text-brand-teal italic uppercase">
           Seeding Events
         </h2>
@@ -15,7 +15,7 @@ export function SeedingEventsMobile() {
           All Available Seeding Race Events
         </p>
       </div>
-      <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-2">
+      <div className="flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2">
         {SEEDING_EVENTS.map((event) => (
           <div
             key={event.id}

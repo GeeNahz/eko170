@@ -5,7 +5,7 @@ import { ROUTE_HIGHLIGHTS, ROUTE_STATS } from "../../routes/constants";
 
 export function AtlanticChallengeMobile() {
   return (
-    <div id="route" className="mx-4 mt-4 overflow-hidden rounded-[22px] bg-white px-6 py-16">
+    <div id="route" className="overflow-hidden bg-white px-5 pt-11 pb-12">
       <Reveal>
         <div className="mb-4 border-l-4 border-brand-green pl-3 font-mono text-xs tracking-wide text-brand-green uppercase">
           Route Preview

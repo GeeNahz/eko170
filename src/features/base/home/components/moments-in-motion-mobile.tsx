@@ -6,7 +6,7 @@ import { GALLERY_FEATURED, GALLERY_PREVIEW, GALLERY_TOTAL_PHOTOS } from "../cons
 
 export function MomentsInMotionMobile() {
   return (
-    <div className="relative mx-4 mt-4 overflow-hidden rounded-[22px] border-t border-white/[0.06] bg-[#0b1119] px-6 py-16">
+    <div className="relative overflow-hidden border-t border-white/[0.06] bg-[#0b1119] pt-11 pb-12">
       <Image
         src="/images/DSC_2480.jpg"
         alt=""
@@ -16,7 +16,7 @@ export function MomentsInMotionMobile() {
       />
       <div className="absolute inset-0 bg-linear-to-b from-[#0b1119]/92 to-[#0b1119]/78" />
 
-      <div className="relative">
+      <div className="relative px-5">
         <Reveal className="mb-9 text-center">
           <div className="mb-4 font-mono text-xs tracking-wide text-brand-yellow uppercase">
             Moments in Motion
@@ -69,7 +69,7 @@ export function MomentsInMotionMobile() {
           </Link>
         </div>
 
-        <div className="flex snap-x snap-mandatory gap-3 overflow-x-auto pb-2">
+        <div className="-mx-5 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-2">
           {GALLERY_PREVIEW.map((photo) => (
             <div
               key={photo.id}

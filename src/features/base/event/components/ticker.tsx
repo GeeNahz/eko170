@@ -22,7 +22,7 @@ export function Ticker() {
   );
 
   return (
-    <div className="mx-4 mt-3.5 overflow-hidden rounded-full bg-brand-teal-deep py-2.5 [mask-image:linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)]">
+    <div className="overflow-hidden bg-brand-teal-deep py-2.5 [mask-image:linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)] sm:mx-4 sm:mt-3.5 sm:rounded-full">
       <div className="flex w-max animate-marquee [--marquee-duration:26s]">
         {track}
         {track}

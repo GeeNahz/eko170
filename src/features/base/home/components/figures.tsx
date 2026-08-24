@@ -21,7 +21,7 @@ function Stat({ value, label, Icon }: { value: string; label: string; Icon: type
 
 export function Figures() {
   return (
-    <div className="mx-4 mt-4 overflow-hidden rounded-[22px] bg-brand-teal px-6 py-24 text-center sm:px-10">
+    <div className="overflow-hidden bg-[#0b1f25] px-5 pt-11 pb-12 text-center sm:mx-4 sm:mt-4 sm:rounded-[22px] sm:bg-brand-teal sm:px-10 sm:py-24">
       <div className="mb-4 font-mono text-xs tracking-wide text-brand-yellow uppercase">
         By the Numbers
       </div>

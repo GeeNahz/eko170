@@ -238,6 +238,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   sub-nav's anchor jumps and any other in-page `#anchor` link.
 
 ### Fixed
+- Home page's mobile layout (added above) still didn't visually match the
+  mobile mockup: the Hero used the same near-full-viewport-height,
+  vertically-centered box as desktop (`h-[calc(100vh-32px)]
+  min-h-[760px]` with `items-center`), leaving a large empty gap before
+  any text appeared on a phone screen, and every section kept desktop's
+  floating rounded-card treatment (`mx-4 rounded-[22px]`) instead of the
+  mockup's edge-to-edge mobile sections. Root-caused this time by loading
+  the mockup in a real browser and reading its actual rendered DOM
+  (`getComputedStyle` on each top-level section — background color,
+  padding, border-radius, x-position) rather than eyeballing screenshots,
+  then diffing the same extraction against the live site. Added
+  `HeroMobile` (`features/base/home/components/hero-mobile.tsx`) with
+  content starting right below the nav instead of vertically centered.
+  Confirmed the mockup treats `EventBar`+`DistanceBar`+
+  `RegistrationBanner`+`CountdownSection` as one continuous edge-to-edge
+  block (not four separate cards) — merged into a new `EventGroupMobile`
+  (`event-group-mobile.tsx`), replacing the now-deleted
+  `event-bar-mobile.tsx`. Stripped the `mx-4`/`rounded-[22px]` card
+  treatment to edge-to-edge (`sm:` still restores it for desktop) from
+  every other Home section, `Ticker`, and `SiteFooter`. Also corrected
+  two real background-color mismatches the DOM diff caught: `Figures`
+  and `SiteFooter` use a darker `#0b1f25` on mobile, not `brand-teal`;
+  `FeatureRoute` (`feature-rows.tsx`) uses a dark `brand-teal` background
+  with white/yellow text on mobile, not the white background it and
+  desktop share — plus `ChooseDistance`'s mobile background is
+  `brand-cream`, not white.
 - Mobile responsiveness pass across the site, guided by a mobile design
   mockup (`docs/EKO170 Mobile (standalone).html`) covering every built
   page. `MobileNav` (`features/base/navigation/components/

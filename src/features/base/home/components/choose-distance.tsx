@@ -8,7 +8,7 @@ export function ChooseDistance() {
   return (
     <div
       id="race"
-      className="mx-4 mt-4 overflow-hidden rounded-[22px] bg-white px-6 py-24 sm:px-10"
+      className="overflow-hidden bg-brand-cream px-5 pt-11 pb-12 sm:mx-4 sm:mt-4 sm:rounded-[22px] sm:bg-white sm:px-10 sm:py-24"
     >
       <div className="mx-auto max-w-7xl">
         <div className="mb-14 flex flex-col gap-6 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between">

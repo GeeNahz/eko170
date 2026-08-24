@@ -21,7 +21,7 @@ export function SiteFooter() {
   const { data: event } = useGetEventDetails();
 
   return (
-    <footer className="mx-4 mb-4 overflow-hidden rounded-[22px] bg-brand-teal px-6 pt-16 pb-10 sm:px-10">
+    <footer className="overflow-hidden bg-[#0b1f25] px-5 pt-10 pb-8.5 sm:mx-4 sm:mb-4 sm:rounded-[22px] sm:bg-brand-teal sm:px-10 sm:pt-16 sm:pb-10">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col gap-12 sm:grid sm:grid-cols-[2fr_1fr_1fr]">
           <div>
