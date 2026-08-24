@@ -6,7 +6,7 @@ export function AttractionsSection() {
   return (
     <div
       id="attractions"
-      className="mx-4 mt-4 scroll-mt-[140px] overflow-hidden rounded-[22px] border-t border-brand-cream-border bg-brand-cream px-6 py-24 sm:px-10"
+      className="mx-3 mt-4 scroll-mt-[140px] overflow-hidden rounded-[22px] border-t border-brand-cream-border bg-brand-cream px-5 pt-10 pb-11 sm:mx-4 sm:px-10 sm:py-24"
     >
       <div className="mx-auto w-full max-w-[1280px]">
         <Reveal className="mb-4 border-l-4 border-brand-green pl-3 font-mono text-xs tracking-wide text-brand-green uppercase">

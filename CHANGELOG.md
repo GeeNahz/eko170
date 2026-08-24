@@ -8,6 +8,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Dedicated mobile layout for the Discover page
+  (`src/app/(base)/(content)/discover/page.tsx`), verified against the
+  mobile mockup via the same `getComputedStyle` DOM diff used for every
+  prior page (see the Home page entry below for the method). No new
+  components needed — every fix was a responsive-class correction on
+  existing components. `DiscoverHero` drops its photo, gradient overlay,
+  and decorative ring for a solid `bg-brand-teal` (was `brand-teal-deep`
+  with a photo) below `sm:`, adding the same subtle diagonal-stripe
+  texture used on About's mobile hero; `CityIntro` hides its photo below
+  `lg:` and corrects its card margin/padding to the mockup's exact
+  numbers (`mx-3`, `pad 40/20/44/20`); `AttractionsSection`/
+  `HotelsSection`/`RestaurantsSection`/`RaceWeekendTimeline`/
+  `DiscoverCta` needed the same margin/padding correction only, no color
+  or photo changes; `TransportSection` additionally corrected from
+  `bg-brand-teal-deep` to `bg-brand-teal` below `sm:` to match the
+  mockup. Verified zero discrepancies across all sections including the
+  footer.
 - Mobile style-consistency pass for the Results page
   (`src/app/(base)/(content)/results/page.tsx`) — the last page in the
   responsiveness pass. Unlike every other page, this one was **not**
