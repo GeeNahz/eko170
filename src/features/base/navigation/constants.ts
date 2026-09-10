@@ -11,6 +11,7 @@ export const PRIMARY_NAV: NavLink[] = [
       { id: "nav-routes-170", label: "EKO 170", href: "/routes/170" },
       { id: "nav-routes-70", label: "EKO 70", href: "/routes/70" },
       { id: "nav-routes-map", label: "Interactive Map", href: "/routes#map" },
+      { id: "nav-routes-seeding", label: "Seeding Events", href: "/#seeding" },
     ],
   },
   { id: "nav-results", label: "Results", href: "/results" },
@@ -18,6 +19,8 @@ export const PRIMARY_NAV: NavLink[] = [
   { id: "nav-partners", label: "Sponsors & Partners", href: "/partners" },
   { id: "nav-discover", label: "Discover", href: "/discover" },
   { id: "nav-community", label: "Community", href: "/community" },
+  { id: "nav-volunteer", label: "Volunteer", href: "/volunteer" },
+  { id: "nav-partner-apply", label: "Become a Partner", href: "/partners/apply" },
 ];
 
 export const FOOTER_NAV: FooterLinkGroup[] = [
@@ -25,10 +28,11 @@ export const FOOTER_NAV: FooterLinkGroup[] = [
     id: "footer-event",
     title: "The Event",
     links: [
+      { id: "footer-event-home", label: "Home", href: "/" },
       { id: "footer-event-race", label: "The Race", href: "/routes" },
       { id: "footer-event-route", label: "Route", href: "/routes" },
-      { id: "footer-event-riders", label: "Rider Information", href: "/#riders" },
-      { id: "footer-event-spectators", label: "Spectators", href: "/#spectators" },
+      { id: "footer-event-riders", label: "Rider Information", href: "/routes" },
+      { id: "footer-event-spectators", label: "Spectators", href: "/discover" },
     ],
   },
   {
