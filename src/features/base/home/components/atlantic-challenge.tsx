@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Download, MapPin } from "lucide-react";
+import { ArrowRight, Download } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
-import { ROUTE_HIGHLIGHTS, ROUTE_STATS } from "../../routes/constants";
+import { RouteMapEmbed } from "../../lib/components/route-map-embed";
+import { ROUTE_170_PATH, ROUTE_HIGHLIGHTS, ROUTE_STATS } from "../../routes/constants";
 
 export function AtlanticChallenge() {
   return (
@@ -62,12 +63,12 @@ export function AtlanticChallenge() {
 
         <Reveal delay={0.1}>
           <div className="overflow-hidden rounded-2xl border border-brand-cream-border">
-            <div className="flex h-[300px] flex-col items-center justify-center gap-2 bg-brand-teal">
-              <MapPin className="size-7 text-brand-yellow" />
-              <span className="font-mono text-xs tracking-wide text-white/70 uppercase">
-                Interactive route map coming soon
-              </span>
-            </div>
+            <RouteMapEmbed
+              path={ROUTE_170_PATH}
+              height={300}
+              startLabel="Eko Atlantic City"
+              finishLabel="Epe"
+            />
           </div>
           <div className="mt-4 flex flex-col gap-2">
             <div className="mb-0.5 font-mono text-xs tracking-wide text-brand-green uppercase">
