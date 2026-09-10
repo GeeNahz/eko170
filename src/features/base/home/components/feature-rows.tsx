@@ -90,7 +90,7 @@ export function FeatureCommunity() {
             and volunteers united by 170 kilometres and one city.
           </p>
           <Link
-            href="/community"
+            href="/about"
             className="inline-flex items-center gap-2.5 rounded-full border-2 border-brand-green px-6 py-4 font-sans text-sm font-semibold text-brand-green"
           >
             Learn About the Event

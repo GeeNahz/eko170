@@ -1,4 +1,6 @@
 import { Reveal } from "@/components/motion/reveal";
+import { RouteMapEmbed } from "../../lib/components/route-map-embed";
+import { ROUTE_170_PATH } from "../constants";
 
 export function RouteMap() {
   return (
@@ -21,12 +23,14 @@ export function RouteMap() {
           delay={0.2}
           className="overflow-hidden rounded-2xl border border-brand-cream-border shadow-[0_12px_40px_rgba(16,24,40,0.08)]"
         >
-          <iframe
-            src="https://www.openstreetmap.org/export/embed.html?bbox=3.3691%2C6.3899%2C3.4620%2C6.4432&layer=mapnik&marker=6.4166%2C3.4155"
-            title="EKO170 course map — Eko Atlantic City"
-            className="block h-[520px] w-full border-0"
-            loading="lazy"
-          />
+          <div className="h-[320px] sm:h-[520px]">
+            <RouteMapEmbed
+              path={ROUTE_170_PATH}
+              height="100%"
+              startLabel="Eko Atlantic City"
+              finishLabel="Epe"
+            />
+          </div>
           <div className="flex flex-wrap items-center justify-between gap-4 border-t border-brand-cream-border bg-brand-cream px-6 py-4">
             <span className="font-mono text-xs tracking-wide text-gray-500 uppercase">
               Start / Finish · Eko Atlantic City, Lagos

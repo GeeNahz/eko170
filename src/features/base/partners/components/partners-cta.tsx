@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { Reveal } from "@/components/motion/reveal";
 
 export function PartnersCta() {
@@ -14,13 +15,13 @@ export function PartnersCta() {
         Let&apos;s put your brand at the heart of Lagos&apos; biggest ride.
         Packages available across every tier.
       </Reveal>
-      <a
-        href="mailto:partners@eko170.com"
+      <Link
+        href="/partners/apply"
         className="inline-flex items-center gap-2.5 rounded-full bg-white px-9 py-4 font-sans text-base font-semibold text-brand-teal"
       >
         Become a Partner
         <ArrowRight className="size-4" />
-      </a>
+      </Link>
     </div>
   );
 }

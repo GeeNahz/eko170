@@ -8,6 +8,90 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- New Home page design (`HomeRevamped`,
+  `src/features/base/home/components/home-revamped.tsx`), swapped in at
+  `/` in place of the previous Home. The previous Home is kept intact and
+  swappable back in (`HomeCurrent`, same directory) rather than edited in
+  place, per explicit instruction — every section component is reused
+  unchanged except for the one new addition below.
+- Rider route-vote widget on Home ("Which Route Should We Ride?",
+  `src/features/base/home/route-vote/`) — riders pick between two
+  candidate 170KM courses (Ikorodu/Imota Loop vs. Lekki–Epe Corridor),
+  each previewed on its own live map, then optionally cast a vote
+  (name/email/distance/reason) that posts to the `route-votes` Sheet tab.
+  Vote state persists per-browser via `localStorage`, not a server-side
+  duplicate check — documented as a known limitation, not a guarantee.
+- "Become a Partner" form as its own route (`/partners/apply`,
+  `src/features/base/partners/apply/`) — organisation details plus a
+  partnership-type dropdown (Sponsorship/In-Kind/Media/Community/Other)
+  covering both "partner" and "sponsor" enquiries in one form. Linked
+  from a new "Become a Partner" nav entry and from `PartnersCta`'s button
+  (previously a `mailto:` link).
+- Volunteer sign-up as its own route (`/volunteer`,
+  `src/features/base/volunteer/`). Linked from a new "Volunteer" nav
+  entry and from Community's `VolunteersSection` button (previously
+  pointed at the registration page by mistake).
+- Real interactive route maps (Leaflet, via `RouteMapEmbed`,
+  `src/features/base/lib/components/`) replacing the "Interactive route
+  map coming soon" placeholder on Home's Atlantic Challenge section and
+  the generic OpenStreetMap city-overview iframe on the Routes page —
+  both now plot the actual 170KM course. Route polyline data
+  (`ROUTE_170_PATH`/`ROUTE_70_PATH`/`ROUTE_VOTE_OPTION_B_PATH`,
+  `src/features/base/routes/constants.ts`) is a visual approximation
+  traced from rider-supplied route screenshots against known Lagos
+  geography, not GPS survey data.
+- Google Sheets submission for all four forms (registration, partner,
+  volunteer, route-vote) via a single Apps Script Web App
+  (`scripts/google-apps-script.gs`) that the site POSTs to
+  (`src/features/base/lib/server/sheets-client.ts`,
+  `GOOGLE_SHEETS_WEBHOOK_URL` env var). Each form type writes to its own
+  predictably-named sheet tab (`registrations`/`partners`/`volunteers`/
+  `route-votes`), auto-created on first submission.
+
+### Fixed
+- Route detail pages (`/routes/170`, `/routes/70`) were missing the
+  mockup's closing "Ready to Ride the Route? / Register Now" CTA
+  entirely after the FAQ section — added as a new `RouteClosingCta`.
+- Site footer was missing a "Home" link (mockup has 5 items under "The
+  Event", we had 4) and "Rider Information"/"Spectators" pointed at
+  `/#riders`/`/#spectators` anchors that don't exist — "Rider
+  Information" now points at `/routes` and "Spectators" at `/discover`,
+  matching the mockup's actual handlers.
+- Registration form was missing the mockup's "Not Riding?" cross-links —
+  added "Volunteer Instead" (`/volunteer`) and "Become a Partner"
+  (`/partners/apply`) buttons after the submit button, matching the
+  mockup's `goVolunteer`/`goPartnerForm` handlers exactly.
+- Routes nav dropdown was missing a "Seeding Events" entry (mockup's
+  `goSeeding`) — added, linking to `/#seeding`.
+- Home's `FeatureCommunity` "Learn About the Event" button linked to
+  `/community`; the mockup's own handler for that exact button
+  (`goAbout`) points at `/about` — corrected.
+- Home's section order after the revamp was wrong — `SeedingEvents` was
+  appearing before `AboutEko` because the new order was never actually
+  re-derived from the mockup, just copied from the old page with the
+  vote widget inserted. Re-derived from the mockup's real id sequence and
+  dropped `FeatureRoute`, which has no counterpart in the new design.
+- The "register" merged card (Full/Half ride entries, stats grid,
+  registration-open box, countdown) was still rendering via the old
+  `EventBar`/`DistanceBar`/`RegistrationBanner`/`CountdownSection`/
+  `EventGroupMobile` components, none of which matched this mockup
+  revision's styling (green pill buttons instead of white grid-divided
+  buttons, solid-green registration box instead of the dark yellow-glass
+  treatment, D/H/M/S-suffixed countdown instead of plain colon-separated
+  numbers). Replaced with a new `EventCardSection` for `HomeRevamped`
+  only — the old components are untouched and still power `HomeCurrent`.
+- Global `TopBar`/`Countdown` had the date and countdown swapped (mockup
+  shows countdown first) and used a teal-to-yellow gradient background
+  instead of the mockup's solid `#0b1f25`.
+- Route map polyline color was green, changed to red to match the
+  reference route screenshots; waypoints re-derived more carefully by
+  reading place labels directly off the screenshots.
+- Home's "Expected Participants" figure was showing a stale `2,000+`;
+  corrected to `250+` per the current mockup.
+- `useActionState`'s dispatch was being called outside a `startTransition`
+  in every form on the site (Register, and now Partner/Volunteer/Vote),
+  which React flags as breaking reliable `isPending` state. Wrapped each
+  form's submit handler in `startTransition`.
 - Dedicated mobile layout for the Register page
   (`src/app/(base)/(content)/register/page.tsx`), verified against the
   mobile mockup via the same `getComputedStyle` DOM diff used for every

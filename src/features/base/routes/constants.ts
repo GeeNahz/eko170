@@ -6,6 +6,65 @@ import type {
   SupportFeature,
 } from "./types";
 
+// Waypoints below are a visual approximation traced from the rider-supplied
+// route-map screenshots (eko70.png / eko170.png / eko170-2.png) against
+// known Lagos geography (place names, relative label positions) — not
+// survey-grade GPS. Good enough for the Leaflet overview map; swap for
+// real GPX data once a course survey exists.
+const EKO_ATLANTIC: [number, number] = [6.4166, 3.4155];
+
+// Shared coastal corridor (Eko Atlantic -> Ilado -> ... -> Eleko) that the
+// confirmed 70KM route, the 170KM route's return leg, and vote Option B
+// all trace identically per the reference screenshots.
+const COASTAL_OUT: [number, number][] = [
+  EKO_ATLANTIC,
+  [6.45, 3.427], // Falomo
+  [6.44, 3.5], // Ilado
+  [6.455, 3.575], // Okun-Ajah
+  [6.462, 3.62], // Mopo Onijebu
+  [6.46, 3.635], // Mosere Ikoga
+  [6.465, 3.67], // Iwerekun
+  [6.47, 3.71], // Iwesolu
+  [6.475, 3.745], // Igando
+  [6.483, 3.77], // Eleko
+];
+const COASTAL_BACK: [number, number][] = [...COASTAL_OUT].reverse();
+
+// Confirmed 70KM Half Ride — coastal out-and-back to Eleko (eko70.png).
+export const ROUTE_70_PATH: [number, number][] = COASTAL_OUT;
+
+// Vote Option A / the working 170KM Full Ride route — Ikorodu/Imota inland
+// loop, confirmed as the route shown outside the vote widget (eko170.png).
+export const ROUTE_170_PATH: [number, number][] = [
+  EKO_ATLANTIC,
+  [6.596, 3.484], // Majidun / Ebute Ikorodu
+  [6.6194, 3.5106], // Ikorodu
+  [6.645, 3.548], // Maya
+  [6.672, 3.598], // Salabo
+  [6.6975, 3.633], // Imota
+  [6.6608, 3.707], // Agbowa
+  [6.658, 3.78], // Odo
+  [6.64, 3.855], // Ketu
+  [6.585, 3.875], // Ejirin
+  [6.575, 3.93], // Tewon
+  [6.5833, 3.9833], // Epe
+  [6.47, 3.9], // Alaro City
+  [6.455, 3.855], // Ibeju
+  ...COASTAL_BACK.slice(1), // Eleko -> ... -> back to Eko Atlantic
+];
+
+// Vote Option B — coastal "Lekki–Epe Corridor" all the way to Epe, with the
+// small Eredo/Poka detour near the end (eko170-2.png).
+export const ROUTE_VOTE_OPTION_B_PATH: [number, number][] = [
+  ...COASTAL_OUT,
+  [6.455, 3.855], // Ibeju
+  [6.47, 3.9], // Alaro City
+  [6.575, 3.93], // Tewon
+  [6.5833, 3.9833], // Epe
+  [6.605, 3.965], // Eredo / Poka detour
+  [6.5833, 3.9833], // back through Epe
+];
+
 export const ROUTE_STATS: RouteStat[] = [
   { id: "route-distance", label: "Distance", value: "~170KM" },
   { id: "route-elevation", label: "Elevation", value: "Moderate rolling" },

@@ -104,7 +104,7 @@ export const SEEDING_EVENTS: SeedingEvent[] = [
 
 export const FIGURES: FigureStat[] = [
   { id: "fig-distance", value: "170KM", label: "Full Ride Distance" },
-  { id: "fig-participants", value: "2,000+", label: "Expected Participants" },
+  { id: "fig-participants", value: "250+", label: "Expected Participants" },
   { id: "fig-stations", value: "10+", label: "Support Stations" },
   { id: "fig-categories", value: "4", label: "Race Categories" },
   { id: "fig-hours", value: "7+", label: "Hours of Racing" },

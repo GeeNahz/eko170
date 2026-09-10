@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
-import { REGISTER_HREF } from "../../navigation/constants";
 
 export function VolunteersSection() {
   return (
@@ -33,7 +32,7 @@ export function VolunteersSection() {
             a front-row seat to the day.
           </p>
           <Link
-            href={REGISTER_HREF}
+            href="/volunteer"
             className="inline-flex items-center gap-2.5 rounded-full bg-brand-green px-7.5 py-3.5 font-sans text-[15px] font-semibold text-white"
           >
             Volunteer With Us

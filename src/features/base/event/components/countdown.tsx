@@ -4,27 +4,17 @@ import { useCountdown } from "../hooks/use-countdown";
 
 export function Countdown({ targetISO }: { targetISO: string | undefined }) {
   const { days, hours, minutes, seconds } = useCountdown(targetISO);
-  const units = [
-    { label: "D", value: days },
-    { label: "H", value: hours },
-    { label: "M", value: minutes },
-    { label: "S", value: seconds },
-  ];
+  const values = [days, hours, minutes, seconds];
 
   return (
-    <div className="flex items-center gap-1">
-      {units.map((unit, index) => (
-        <div key={unit.label} className="flex items-center">
-          <div className="flex items-center gap-0.5">
-            <span className="font-mono text-xs font-medium text-white">{unit.value}</span>
-            <span className="font-mono text-[9px] text-brand-yellow">{unit.label}</span>
-          </div>
-          {index < units.length - 1 && (
-            <span className="w-2.5 px-0.5 text-center font-mono text-[10px] text-green-500">
-              :
-            </span>
+    <div className="flex shrink-0 items-center font-mono text-[11px] font-medium">
+      {values.map((value, index) => (
+        <span key={index} className="flex items-center">
+          <span className="text-brand-yellow">{value}</span>
+          {index < values.length - 1 && (
+            <span className="px-1 text-white/40">:</span>
           )}
-        </div>
+        </span>
       ))}
     </div>
   );

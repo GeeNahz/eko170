@@ -1,9 +1,10 @@
 "use client";
 
-import { useActionState, useEffect } from "react";
+import { startTransition, useActionState, useEffect } from "react";
 import { useForm, type FieldError, type UseFormRegister } from "react-hook-form";
 import { toast } from "sonner";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -144,7 +145,7 @@ export function RegistrationForm() {
   return (
     <div className="mx-auto w-full max-w-[920px] px-0 pb-24 sm:px-10">
       <form
-        onSubmit={handleSubmit((values) => formAction(values))}
+        onSubmit={handleSubmit((values) => startTransition(() => formAction(values)))}
         noValidate
         className="flex flex-col gap-6 bg-brand-cream px-5 pt-8 pb-11 sm:rounded-[20px] sm:border sm:border-brand-cream-border sm:bg-white sm:p-10"
       >
@@ -330,6 +331,29 @@ export function RegistrationForm() {
             {isPending ? "Submitting…" : "Submit Registration"}
             {!isPending && <ArrowRight className="size-4" />}
           </Button>
+
+          <div className="flex w-full max-w-[420px] items-center gap-3">
+            <span className="h-px flex-1 bg-brand-cream-border" />
+            <span className="font-mono text-[10px] tracking-[2px] text-gray-400 uppercase">
+              Not Riding?
+            </span>
+            <span className="h-px flex-1 bg-brand-cream-border" />
+          </div>
+          <Link
+            href="/volunteer"
+            className="flex h-14 w-full max-w-[420px] items-center justify-between rounded-full border-[1.5px] border-brand-green px-5.5 font-sans text-base font-bold text-brand-green"
+          >
+            Volunteer Instead
+            <ArrowRight className="size-4" />
+          </Link>
+          <Link
+            href="/partners/apply"
+            className="flex h-14 w-full max-w-[420px] items-center justify-between rounded-full border-[1.5px] border-brand-teal px-5.5 font-sans text-base font-bold text-brand-teal"
+          >
+            Become a Partner
+            <ArrowRight className="size-4" />
+          </Link>
+
           <p className="font-sans text-sm text-gray-400">
             Have questions? Email us at{" "}
             <a href="mailto:info@eko170.com" className="text-brand-green">
