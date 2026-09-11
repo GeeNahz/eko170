@@ -7,7 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Replaced the site favicon (`src/app/favicon.ico`) with the new EKO170
+  icon.
+- The Instagram link in the footer's social icons
+  (`src/features/base/event/stubs.ts`) now points at the real EKO170
+  Instagram profile instead of a `#` placeholder.
+
 ### Added
+- `GOOGLE_SHEETS_WEBHOOK_URL_DEPLOYMENT_ID` documented in `.env.example`,
+  alongside the existing `GOOGLE_SHEETS_WEBHOOK_URL`.
 - New Home page design (`HomeRevamped`,
   `src/features/base/home/components/home-revamped.tsx`), swapped in at
   `/` in place of the previous Home. The previous Home is kept intact and
