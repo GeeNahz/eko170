@@ -8,6 +8,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+- Corrected three stale participation figures per organiser feedback:
+  Partners page's "Riders Reached" stat
+  (`src/features/base/partners/constants.ts`) from `5,000+` to `120+`
+  (last year's actual rider count, also matches the current mockup);
+  Community page's "Volunteers" stat
+  (`src/features/base/community/constants.ts`) from `500+` to `60`;
+  and Home's leftover "Expected Riders" badge
+  (`src/features/base/home/components/feature-rows.tsx`, not on the
+  currently-live Home but corrected for consistency) from `2,000+` to
+  `250+`, matching the already-corrected Home figures stat.
 - Replaced the site favicon (`src/app/favicon.ico`) with the new EKO170
   icon.
 - The Instagram link in the footer's social icons

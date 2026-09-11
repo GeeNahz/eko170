@@ -24,7 +24,7 @@ export function FeatureRoute() {
           </p>
           <div className="mb-8 flex items-center gap-4 lg:hidden">
             <div className="font-heading text-3xl leading-none font-black text-brand-green">
-              2,000+
+              250+
             </div>
             <div className="font-mono text-[11px] tracking-wide text-white/60 uppercase">
               Expected Riders
@@ -49,7 +49,7 @@ export function FeatureRoute() {
             />
           </div>
           <div className="absolute right-[-12px] bottom-[-20px] rounded-2xl bg-brand-green px-6 py-4">
-            <div className="font-heading text-3xl leading-none font-black text-white">2,000+</div>
+            <div className="font-heading text-3xl leading-none font-black text-white">250+</div>
             <div className="mt-1 font-mono text-[10px] tracking-wide text-white/85 uppercase">
               Expected Riders
             </div>

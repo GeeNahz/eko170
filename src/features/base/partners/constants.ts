@@ -4,7 +4,7 @@ import type { HeadlinePartner, PartnerStat, WhyPartnerCard } from "./types";
 export const PARTNER_STATS: PartnerStat[] = [
   { id: "stat-commercial", value: "12", label: "Commercial Partners" },
   { id: "stat-government", value: "8", label: "Government Bodies" },
-  { id: "stat-riders", value: "5,000+", label: "Riders Reached" },
+  { id: "stat-riders", value: "120+", label: "Riders Reached" },
   { id: "stat-day", value: "1", label: "Unforgettable Day" },
 ];
 
