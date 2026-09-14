@@ -14,27 +14,27 @@ import type {
 export const EVENT_CARDS: EventCard[] = [
   {
     id: "event-full",
-    title: "EKO170 — Full Ride",
+    title: "EKO170 — Gran Fondo",
     distanceLabel: "170KM",
     dateLabel: "10 Jan 2027",
     resultsHref: "/results",
     registerHref: "/register",
-    registerLabel: "Enter the Full Ride",
+    registerLabel: "Enter the Gran Fondo",
   },
   {
     id: "event-half",
-    title: "EKO170 — Half Ride",
-    distanceLabel: "70KM",
+    title: "EKO170 — Medio Fondo",
+    distanceLabel: "94.5KM",
     dateLabel: "10 Jan 2027",
     resultsHref: "/results",
     registerHref: "/register",
-    registerLabel: "Enter the Half Ride",
+    registerLabel: "Enter the Medio Fondo",
   },
 ];
 
 export const DISTANCE_STATS: RouteStat[] = [
-  { id: "dist-full", label: "Full Ride Distance", value: "170KM" },
-  { id: "dist-half", label: "Half Ride Distance", value: "70KM" },
+  { id: "dist-full", label: "Gran Fondo Distance", value: "170KM" },
+  { id: "dist-half", label: "Medio Fondo Distance", value: "94.5KM" },
   { id: "dist-location", label: "Race Location", value: "Eko Atlantic City" },
   { id: "dist-date", label: "Race Date", value: "10 January 2027" },
 ];
@@ -103,7 +103,7 @@ export const SEEDING_EVENTS: SeedingEvent[] = [
 ];
 
 export const FIGURES: FigureStat[] = [
-  { id: "fig-distance", value: "170KM", label: "Full Ride Distance" },
+  { id: "fig-distance", value: "170KM", label: "Gran Fondo Distance" },
   { id: "fig-participants", value: "250+", label: "Expected Participants" },
   { id: "fig-stations", value: "10+", label: "Support Stations" },
   { id: "fig-categories", value: "4", label: "Race Categories" },
@@ -139,7 +139,7 @@ export const DISTANCE_CARDS: DistanceCard[] = [
     distanceValue: "170",
     distanceSuffix: "KM",
     tagline: "The Full Distance",
-    title: "Full Ride",
+    title: "Gran Fondo",
     description:
       "The flagship route. Start and finish at Eko Atlantic Boulevard, traversing Victoria Island, crossing the Lekki–Ikoyi Bridge, through the Lagos Free Trade Zone and Dangote Refinery corridor, into the open countryside of Epe.",
     tags: ["Elite", "Seasoned Cyclists", "Community", "Teams"],
@@ -148,10 +148,10 @@ export const DISTANCE_CARDS: DistanceCard[] = [
   {
     id: "distance-half",
     image: "/images/CR2A2850.jpg",
-    distanceValue: "70",
+    distanceValue: "94.5",
     distanceSuffix: "KM",
     tagline: "For Strong Riders",
-    title: "Half Ride",
+    title: "Medio Fondo",
     description:
       "The ideal distance for strong riders seeking a balance of challenge and accessibility. Experience the energy of race day across Lekki–Ikoyi Bridge, Lekki Phase 1, and Sangotedo — returning to a festival-style finish at Eko Atlantic City.",
     tags: ["Fitness Riders", "Enthusiasts", "Corporate Teams", "Families"],

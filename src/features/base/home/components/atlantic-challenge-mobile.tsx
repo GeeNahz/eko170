@@ -21,7 +21,7 @@ export function AtlanticChallengeMobile() {
         </div>
         <p className="mb-8 font-sans text-base leading-relaxed text-gray-500">
           Roads completely closed to traffic. Starting and finishing at Eko
-          Atlantic City, the 170KM Full Ride takes you through Victoria
+          Atlantic City, the 170KM Gran Fondo takes you through Victoria
           Island, Ahmadu Bello Way, over the Lekki–Ikoyi Bridge, along the
           Lekki–Epe Expressway, through the Dangote Refinery corridor, and
           into the open countryside of Epe.

@@ -14,7 +14,7 @@ export function CourseOverview() {
         <div className="grid grid-cols-1 items-start gap-14 lg:grid-cols-2">
         <Reveal delay={0.1}>
           <p className="mb-6 font-sans text-lg leading-relaxed text-gray-700">
-            Starting and finishing at Eko Atlantic Boulevard, the Full Ride
+            Starting and finishing at Eko Atlantic Boulevard, the Gran Fondo
             takes you through Victoria Island, Ahmadu Bello Way, over the
             Lekki–Ikoyi Bridge, along the Lekki–Epe Expressway, through the
             Lekki Free Trade Zone and Dangote Refinery corridor, and into

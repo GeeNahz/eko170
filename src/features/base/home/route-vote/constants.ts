@@ -24,7 +24,7 @@ export const ROUTE_VOTE_OPTIONS: RouteVoteOption[] = [
   },
 ];
 
-export const DISTANCE_OPTIONS = ["Gran Fondo · 170KM", "Medio Fondo · 70KM", "Undecided"];
+export const DISTANCE_OPTIONS = ["Gran Fondo · 170KM", "Medio Fondo · 94.5KM", "Undecided"];
 
 export const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 

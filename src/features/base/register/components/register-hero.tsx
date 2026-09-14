@@ -28,7 +28,7 @@ export function RegisterHero() {
           className="mt-4 font-sans text-sm text-white/72 sm:hidden"
         >
           Sunday, 10 January 2027 · Eko Atlantic City, Lagos · Road · 170KM /
-          70KM.
+          94.5KM.
         </Reveal>
       </div>
     </div>
