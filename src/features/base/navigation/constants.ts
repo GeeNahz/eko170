@@ -11,7 +11,6 @@ export const PRIMARY_NAV: NavLink[] = [
       { id: "nav-routes-170", label: "EKO 170", href: "/routes/170" },
       { id: "nav-routes-70", label: "EKO 70", href: "/routes/70" },
       { id: "nav-routes-map", label: "Interactive Map", href: "/routes#map" },
-      { id: "nav-routes-seeding", label: "Seeding Events", href: "/#seeding" },
     ],
   },
   { id: "nav-results", label: "Results", href: "/results" },
