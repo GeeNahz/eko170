@@ -16,9 +16,11 @@ export function ResultsHero() {
         delay={0.2}
         className="mt-4 max-w-[620px] font-sans text-base leading-relaxed text-gray-500"
       >
-        EKO170 is officially timed by FinishTime. Full results — overall,
-        gender, and age-category placings — are published on their
-        platform and updated after race day.
+        EKO170 is officially timed by FinishTime. The results linked below
+        are from the <strong className="font-semibold text-brand-teal">2026 edition</strong> — 2027&apos;s
+        overall, gender, and age-category placings will be published here
+        once race day is over. We&apos;re also planning to live stream the
+        2027 event.
       </Reveal>
     </div>
   );
