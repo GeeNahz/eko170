@@ -8,6 +8,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+- Renamed "Full Ride"/"Half Ride" to "Gran Fondo"/"Medio Fondo"
+  throughout the site (`EKO170 — Full Ride` → `EKO170 — Gran Fondo`,
+  etc. across Home, About, Routes, Results, Register, and the route-vote
+  widget), and changed the Medio Fondo's stated distance from 70KM to
+  94.5KM in every label, stat, and dropdown option — e.g.
+  `src/features/base/home/constants.ts` (`EVENT_CARDS`,
+  `DISTANCE_STATS`, `DISTANCE_CARDS`), `src/features/base/routes/constants.ts`
+  (`ROUTE_CATEGORY_CARDS`, `ROUTE_70_DETAIL`'s `distanceKm`/
+  `introHeading`), `src/features/base/register/constants.ts`
+  (`DISTANCE_OPTIONS`), `src/features/base/event/stubs.ts` (ticker
+  facts). The `/routes/70` URL and the route's narrative prose (cutoff
+  times, wave-timing descriptions, multi-sentence course descriptions)
+  are intentionally unchanged — those need real route-planning input,
+  not a label swap. `seed-vi-70` ("Victoria Island 70", a different,
+  real seeding race) is also untouched.
+- Moved the "Which Route Should We Ride?" rider-vote widget on Home to
+  directly after the Hero section (was after the registration/event-card
+  block).
+- Removed the Atlantic Challenge and Seeding Events sections from Home
+  per client feedback (`src/features/base/home/components/home-revamped.tsx`,
+  `home-mobile-sections-revamped.tsx`) — both components are untouched
+  and still available; Routes page keeps its own interactive map.
+  Removed the now-dead "Seeding Events" entry from the Routes nav
+  dropdown (`src/features/base/navigation/constants.ts`).
+- Results page now explicitly labels the linked results as the 2026
+  edition, with a note that 2027 results follow the event and a live
+  stream is planned (`src/features/base/results/components/results-hero.tsx`,
+  `results-cta.tsx`).
 - Corrected three stale participation figures per organiser feedback:
   Partners page's "Riders Reached" stat
   (`src/features/base/partners/constants.ts`) from `5,000+` to `120+`

@@ -7,7 +7,7 @@ import { ResultsHero } from "@/features/base/results/components/results-hero";
 export const metadata: Metadata = {
   title: "Results — EKO170",
   description:
-    "EKO170 is officially timed by FinishTime. View official race results, split by Full Ride and Half Ride categories.",
+    "EKO170 is officially timed by FinishTime. View official race results, split by Gran Fondo and Medio Fondo categories.",
 };
 
 export default function ResultsPage() {

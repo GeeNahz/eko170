@@ -1,5 +1,4 @@
 import { AboutEko } from "./about-eko";
-import { AtlanticChallenge } from "./atlantic-challenge";
 import { ChooseDistance } from "./choose-distance";
 import { EventCardSection } from "./event-card-section";
 import { FeatureCommunity } from "./feature-rows";
@@ -8,30 +7,28 @@ import { Hero } from "./hero";
 import { HomeMobileSectionsRevamped } from "./home-mobile-sections-revamped";
 import { MomentsInMotion } from "./moments-in-motion";
 import { Newsletter } from "./newsletter";
-import { SeedingEvents } from "./seeding-events";
 import { SponsorsMarquee } from "./sponsors-marquee";
 import { RouteVoteSection } from "../route-vote/components/route-vote-section";
 import { Ticker } from "../../event/components/ticker";
 
-// The updated Home from the latest design pass. Section order here is
-// re-derived from the mockup's actual id order (top -> register -> about
-// -> routevote -> race -> route -> seeding -> [figures, no id] -> riders
-// -> gallery -> sponsors -> [newsletter, no id]), NOT copied from the old
-// page's order — FeatureRoute has no counterpart in the new mockup at
-// all and is dropped here (it stays in HomeCurrent, untouched). See
-// src/app/(base)/page.tsx for the swap point back to HomeCurrent.
+// The updated Home from the latest design pass. Section order here was
+// originally re-derived from the mockup's actual id order, then adjusted
+// per client feedback: the route-vote widget moved up to right after
+// Hero, and Atlantic Challenge / Seeding Events were dropped from Home
+// entirely (Routes page keeps its own interactive map; those two
+// components are untouched, just not rendered here). See
+// src/app/(base)/page.tsx for the swap point back to HomeCurrent, which
+// still renders the original section set unchanged.
 export function HomeRevamped() {
   return (
     <>
       <div className="hidden lg:contents">
         <Hero />
         <Ticker />
+        <RouteVoteSection />
         <EventCardSection />
         <AboutEko />
-        <RouteVoteSection />
         <ChooseDistance />
-        <AtlanticChallenge />
-        <SeedingEvents />
         <Figures />
         <FeatureCommunity />
         <MomentsInMotion />

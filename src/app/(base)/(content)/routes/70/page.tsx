@@ -5,7 +5,7 @@ import { ROUTE_70_DETAIL } from "@/features/base/routes/constants";
 export const metadata: Metadata = {
   title: "EKO 70 Route — EKO170",
   description:
-    "The 70km EKO170 Lagos Cycle Race — the accessible Half Ride from Eko Atlantic City through Victoria Island and the Lekki–Ikoyi Bridge, back to the marina.",
+    "The 94.5km EKO170 Lagos Cycle Race — the accessible Medio Fondo from Eko Atlantic City through Victoria Island and the Lekki–Ikoyi Bridge, back to the marina.",
 };
 
 export default function Route70Page() {

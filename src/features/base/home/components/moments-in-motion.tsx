@@ -27,7 +27,7 @@ export function MomentsInMotion() {
           <p className="mb-9 font-sans text-lg leading-relaxed text-white/78">
             EKO170 is more than a ride — it&apos;s a celebration of cycling,
             community, and the unstoppable spirit of Lagos. Covering a full
-            170 kilometres and a half-ride of 70km, this challenge is
+            170 kilometres and a Medio Fondo of 94.5km, this challenge is
             designed to push limits, showcase the city&apos;s heartbeat, and
             unite riders of all levels.
           </p>

@@ -14,7 +14,7 @@ import type {
 const EKO_ATLANTIC: [number, number] = [6.4166, 3.4155];
 
 // Shared coastal corridor (Eko Atlantic -> Ilado -> ... -> Eleko) that the
-// confirmed 70KM route, the 170KM route's return leg, and vote Option B
+// confirmed 94.5KM route, the 170KM route's return leg, and vote Option B
 // all trace identically per the reference screenshots.
 const COASTAL_OUT: [number, number][] = [
   EKO_ATLANTIC,
@@ -30,10 +30,10 @@ const COASTAL_OUT: [number, number][] = [
 ];
 const COASTAL_BACK: [number, number][] = [...COASTAL_OUT].reverse();
 
-// Confirmed 70KM Half Ride — coastal out-and-back to Eleko (eko70.png).
+// Confirmed 94.5KM Medio Fondo — coastal out-and-back to Eleko (eko70.png).
 export const ROUTE_70_PATH: [number, number][] = COASTAL_OUT;
 
-// Vote Option A / the working 170KM Full Ride route — Ikorodu/Imota inland
+// Vote Option A / the working 170KM Gran Fondo route — Ikorodu/Imota inland
 // loop, confirmed as the route shown outside the vote widget (eko170.png).
 export const ROUTE_170_PATH: [number, number][] = [
   EKO_ATLANTIC,
@@ -85,7 +85,7 @@ export const ROUTE_CATEGORY_CARDS: RouteCategoryCard[] = [
     image: "/images/CR2A2942.jpg",
     distanceValue: "170",
     distanceSuffix: "KM",
-    title: "Full Ride",
+    title: "Gran Fondo",
     description:
       "The flagship route for elite and seasoned cyclists — the complete 170KM journey from Eko Atlantic City to Epe and back.",
     href: "/routes/170",
@@ -93,11 +93,11 @@ export const ROUTE_CATEGORY_CARDS: RouteCategoryCard[] = [
   {
     id: "category-70",
     image: "/images/DSC_1924.jpg",
-    distanceValue: "70",
+    distanceValue: "94.5",
     distanceSuffix: "KM",
-    title: "Half Ride",
+    title: "Medio Fondo",
     description:
-      "A balanced 70KM route for strong riders — festival energy across Lekki–Ikoyi Bridge and Lekki Phase 1.",
+      "A balanced 94.5KM route for strong riders — festival energy across Lekki–Ikoyi Bridge and Lekki Phase 1.",
     href: "/routes/70",
   },
 ];
@@ -256,9 +256,9 @@ export const ROUTE_70_DETAIL: RouteDetailData = {
   finishImage: "/images/g-CR2A3170.jpg",
   price: "₦40,000",
   earlyBirdPrice: "₦32,000",
-  distanceKm: "70 kilometres",
+  distanceKm: "94.5 kilometres",
   introEyebrow: "An Exhilarating Experience",
-  introHeading: "The 70KM EKO170 Lagos Cycle Race",
+  introHeading: "The 94.5KM EKO170 Lagos Cycle Race",
   introBody:
     "The 70km is the perfect introduction to the world of Gran Fondo cycling — a more accessible option for a wider range of cyclists, including first-timers, junior riders, and anyone who prefers a less demanding challenge than the full 170km. Same fully closed roads, same Atlantic start, same festival finish — in a friendlier format.",
   routeDescHeading: "EKO 70 Route",

@@ -8,7 +8,7 @@ import { RoutesHero } from "@/features/base/routes/components/routes-hero";
 export const metadata: Metadata = {
   title: "Routes — EKO170",
   description:
-    "The Atlantic Challenge — 170km and 70km closed-road routes through Eko Atlantic City, Victoria Island, Lekki, and Epe.",
+    "The Atlantic Challenge — 170km and 94.5km closed-road routes through Eko Atlantic City, Victoria Island, Lekki, and Epe.",
 };
 
 export default function RoutesPage() {

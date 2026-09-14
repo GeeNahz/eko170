@@ -40,7 +40,7 @@ export const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export const GENDER_OPTIONS = ["Male", "Female"];
 
-export const DISTANCE_OPTIONS = ["70 KM", "170 KM"];
+export const DISTANCE_OPTIONS = ["Medio Fondo · 94.5 KM", "Gran Fondo · 170 KM"];
 
 export const SPEED_OPTIONS = [">40kph", "35 - 40", "30 - 35", "25 - 30", "<25"];
 

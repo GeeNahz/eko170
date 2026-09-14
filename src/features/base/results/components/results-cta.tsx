@@ -10,7 +10,7 @@ export function ResultsCta() {
   return (
     <div className="mx-3 mt-4 overflow-hidden rounded-[22px] bg-brand-teal-deep px-5 pt-11 pb-12 text-center sm:mx-4 sm:px-10 sm:py-20">
       <Reveal className="font-heading mb-4 text-4xl leading-[0.95] font-black text-white uppercase italic sm:text-5xl">
-        Full Results on FinishTime
+        2026 Results on FinishTime
       </Reveal>
       <Reveal
         delay={0.1}
@@ -26,7 +26,7 @@ export function ResultsCta() {
         rel="noopener noreferrer"
         className="inline-flex items-center gap-2.5 rounded-full bg-brand-yellow px-9 py-4 font-sans text-base font-semibold text-brand-teal"
       >
-        View Official Results on FinishTime
+        View 2026 Results on FinishTime
         <ArrowUpRight className="size-4" />
       </a>
     </div>
