@@ -30,8 +30,6 @@ export const GALLERY_CATEGORIES: GalleryCategory[] = [
       "DSC_2032",
       "DSC_2056",
       "DSC_2087",
-      "DSC_2129",
-      "DSC_2160",
       "CR2A2942",
       "CR2A2986",
       "CR2A3040",
