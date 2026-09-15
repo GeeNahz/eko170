@@ -35,7 +35,9 @@ export function RouteVoteSection() {
   }
 
   const votedOption = ROUTE_VOTE_OPTIONS.find((o) => o.id === votedOptionId);
-  const { days, hours, minutes, seconds } = useCountdown(REGISTRATION_OPEN_DATE);
+  const { days, hours, minutes, seconds } = useCountdown(
+    REGISTRATION_OPEN_DATE,
+  );
   const registrationCountdownUnits = [
     { label: "Days", value: days },
     { label: "Hours", value: hours },
@@ -64,9 +66,9 @@ export function RouteVoteSection() {
           delay={0.15}
           className="mb-8 max-w-2xl font-sans text-base leading-relaxed text-gray-600 sm:text-lg"
         >
-          The 2027 Gran Fondo course is not final. Two options are on the
-          table and the riders decide. Pick the one you want to ride and we
-          will publish the result with the confirmed course.
+          The 2027 Gran Fondo course is not final. Two options are on the table
+          and the riders decide. Pick the one you want to ride and we will
+          publish the result with the confirmed course.
         </Reveal>
 
         <Reveal
@@ -79,8 +81,11 @@ export function RouteVoteSection() {
           <div className="flex flex-wrap items-center gap-5 sm:gap-8">
             <div className="flex flex-wrap items-center gap-2 sm:gap-3">
               {registrationCountdownUnits.map((unit, i) => (
-                <div key={unit.label} className="flex items-center gap-2 sm:gap-3">
-                  <div className="w-[56px] rounded-xl border border-brand-cream-border bg-white py-2 text-center sm:w-[68px] sm:py-3">
+                <div
+                  key={unit.label}
+                  className="flex items-center gap-2 sm:gap-3"
+                >
+                  <div className="w-14 rounded-xl border border-brand-cream-border bg-white py-2 text-center sm:w-17 sm:py-3">
                     <div className="font-heading text-lg leading-none font-black text-brand-teal sm:text-2xl">
                       {unit.value}
                     </div>
@@ -97,8 +102,8 @@ export function RouteVoteSection() {
               ))}
             </div>
             <p className="max-w-sm font-sans text-sm leading-relaxed text-gray-600">
-              Pre-register now to vote for a route and receive updates about
-              the event.
+              Pre-register now to vote for a route and receive updates about the
+              event.
             </p>
           </div>
         </Reveal>
@@ -111,11 +116,11 @@ export function RouteVoteSection() {
             <h3 className="font-heading mb-2.5 text-3xl font-extrabold text-brand-teal uppercase">
               Vote Counted
             </h3>
-            <p className="mx-auto mb-6 max-w-[440px] font-sans text-sm leading-relaxed text-gray-600">
+            <p className="mx-auto mb-6 max-w-110 font-sans text-sm leading-relaxed text-gray-600">
               You voted for{" "}
-              <strong className="text-brand-teal">{votedOption.title}</strong>. We
-              will announce the confirmed 2027 Gran Fondo course by email once
-              voting closes.
+              <strong className="text-brand-teal">{votedOption.title}</strong>.
+              We will announce the confirmed 2027 Gran Fondo course by email
+              once voting closes.
             </p>
             <button
               type="button"
@@ -142,7 +147,9 @@ export function RouteVoteSection() {
                   >
                     <button
                       type="button"
-                      onClick={() => setPickedOptionId(picked ? null : option.id)}
+                      onClick={() =>
+                        setPickedOptionId(picked ? null : option.id)
+                      }
                       className="flex w-full items-start gap-3 px-4 pt-4 pb-3.5 text-left sm:px-6 sm:pt-6"
                     >
                       <span
@@ -174,7 +181,7 @@ export function RouteVoteSection() {
                         </div>
                       </div>
                     </button>
-                    <div className="relative h-[140px] border-t border-brand-cream-border sm:h-[180px]">
+                    <div className="relative h-44 border-t border-brand-cream-border sm:h-64">
                       <Image
                         src={option.mapImage}
                         alt={`${option.title} route map`}
@@ -207,7 +214,10 @@ export function RouteVoteSection() {
             </div>
             {pickedOptionId && (
               <div className="mx-auto w-full max-w-2xl">
-                <RouteVoteCastForm optionId={pickedOptionId} onVoted={handleVoted} />
+                <RouteVoteCastForm
+                  optionId={pickedOptionId}
+                  onVoted={handleVoted}
+                />
               </div>
             )}
           </div>
