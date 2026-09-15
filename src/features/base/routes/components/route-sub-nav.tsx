@@ -35,7 +35,7 @@ export function RouteSubNav({ navLabel }: { navLabel: string }) {
           href={REGISTER_HREF}
           className="ml-auto inline-flex items-center gap-2 rounded-full bg-brand-green px-5 py-3 font-sans text-[13px] font-bold whitespace-nowrap text-white"
         >
-          Register Now
+          Pre-register Now
         </Link>
       </div>
     </div>

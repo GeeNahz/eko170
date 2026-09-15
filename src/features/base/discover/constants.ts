@@ -3,7 +3,7 @@ import type { Attraction, DiscoverCard, TimelineDay } from "./types";
 export const ATTRACTIONS: Attraction[] = [
   {
     id: "attraction-nike-art",
-    image: "/images/sm-DSC_2129.jpg",
+    image: "/images/CR2A3221.jpg",
     category: "Art",
     title: "Nike Art Gallery",
     description:

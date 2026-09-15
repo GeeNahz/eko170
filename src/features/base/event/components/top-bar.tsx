@@ -20,7 +20,7 @@ export function TopBar() {
           href={REGISTER_HREF}
           className="hidden rounded-full bg-brand-green px-3 py-1 font-sans text-[10px] font-semibold whitespace-nowrap text-white lg:inline-block"
         >
-          Register →
+          Pre-register Now →
         </Link>
       </div>
     </div>

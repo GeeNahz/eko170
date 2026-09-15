@@ -67,7 +67,7 @@ export function FeatureCommunity() {
         <Reveal className="relative order-1 aspect-4/3 overflow-hidden rounded-2xl">
           <div className="group relative size-full">
             <Image
-              src="/images/DSC_2129.jpg"
+              src="/images/CR2A3221.jpg"
               alt="The Community"
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"

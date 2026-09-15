@@ -8,6 +8,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+- "Which Route Should We Ride?" option cards
+  (`src/features/base/home/route-vote/components/route-vote-section.tsx`)
+  now show the client's own route-map screenshots
+  (`public/images/route-vote-option-a.png`/`-b.png`, via a new
+  `mapImage` field on `RouteVoteOption`) instead of the live Leaflet
+  embed, ahead of a confirmed route from the vote outcome.
+- Swapped the "Thousands of Riders. One City." image
+  (`src/features/base/home/components/feature-rows.tsx`'s
+  `FeatureCommunity`) and Discover's "Nike Art Gallery" attraction card
+  image (`src/features/base/discover/constants.ts`) to `CR2A3221.jpg`.
+- Registration now opens 30 September 2026. Retargeted `REGISTER_HREF`
+  (`src/features/base/navigation/constants.ts`) from `/register` to
+  `/#routevote`, and relabeled every site-wide "Register"/"Enter" CTA
+  (~18 files, including the nav bar, hero, and route pages) to
+  "Pre-register Now" so they route to the "Which Route Should We Ride?"
+  section instead. `/register` itself is unchanged and still reachable
+  directly, just no longer linked from anywhere on the site.
+- Collapsed `EventCardSection`'s two distance-specific register buttons
+  into one full-width "Pre-register Now" button (same for its mobile
+  equivalent, `EventGroupMobile`), and updated the stale "Registration
+  opens 12 November 2025" copy in both components' registration boxes to
+  the real 30 September 2026 date.
+- Disabled the "Routes" nav item (desktop dropdown and mobile accordion,
+  `src/features/base/navigation/components/nav-bar.tsx`,
+  `mobile-nav.tsx`) since no route is confirmed yet — shown greyed out
+  and non-interactive rather than removed, via a new `disabled` field on
+  `NavLink` (`src/features/base/navigation/types.ts`).
+- Home hero's "View Challenge Results" button now reads "View 2026
+  Challenge Results" (`hero.tsx`, `hero-mobile.tsx`).
+- Normalized the site contact email to `info@eko170.com`: fixed the
+  volunteer form's `crew@eko170.com` mailto link
+  (`src/features/base/volunteer/components/volunteer-form.tsx`) and the
+  casing of the event stub's `contactEmail`
+  (`src/features/base/event/stubs.ts`).
 - Renamed "Full Ride"/"Half Ride" to "Gran Fondo"/"Medio Fondo"
   throughout the site (`EKO170 — Full Ride` → `EKO170 — Gran Fondo`,
   etc. across Home, About, Routes, Results, Register, and the route-vote
@@ -53,6 +87,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Instagram profile instead of a `#` placeholder.
 
 ### Added
+- New "Registration Opens 30 September 2026" countdown on the "Which
+  Route Should We Ride?" section
+  (`src/features/base/home/route-vote/components/route-vote-section.tsx`),
+  independent of the existing Race Day countdown, with copy inviting
+  riders to pre-register and vote for a route ahead of the confirmed
+  registration date.
 - `GOOGLE_SHEETS_WEBHOOK_URL_DEPLOYMENT_ID` documented in `.env.example`,
   alongside the existing `GOOGLE_SHEETS_WEBHOOK_URL`.
 - New Home page design (`HomeRevamped`,
@@ -94,6 +134,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `GOOGLE_SHEETS_WEBHOOK_URL` env var). Each form type writes to its own
   predictably-named sheet tab (`registrations`/`partners`/`volunteers`/
   `route-votes`), auto-created on first submission.
+
+### Removed
+- Removed `DSC_2129.jpg`, `sm-DSC_2129.jpg`, and `DSC_2160.jpg` from
+  `public/images/` and from the gallery grid
+  (`src/features/base/gallery/constants.ts`'s "on-the-road" category,
+  `GALLERY_TOTAL_PHOTOS` 46→44 in `src/features/base/home/constants.ts`)
+  per client request; both non-gallery reuses of these photos were
+  replaced rather than left dangling (see Changed, above).
+- Removed the "Results" link from `EventCardSection`'s register grid
+  (Home's card following the "Which Route Should We Ride?" section) — it
+  was replaced by the single "Pre-register Now" button described above;
+  the Results page itself is unaffected and still reachable from the
+  Home hero and nav.
 
 ### Fixed
 - Route detail pages (`/routes/170`, `/routes/70`) were missing the

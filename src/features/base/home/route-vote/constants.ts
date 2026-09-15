@@ -11,6 +11,7 @@ export const ROUTE_VOTE_OPTIONS: RouteVoteOption[] = [
     shape: "Full loop",
     character: "Rolling, varied",
     path: ROUTE_170_PATH,
+    mapImage: "/images/route-vote-option-a.png",
   },
   {
     id: "b",
@@ -21,6 +22,7 @@ export const ROUTE_VOTE_OPTIONS: RouteVoteOption[] = [
     shape: "Out & back",
     character: "Fast, flat",
     path: ROUTE_VOTE_OPTION_B_PATH,
+    mapImage: "/images/route-vote-option-b.png",
   },
 ];
 

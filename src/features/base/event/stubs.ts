@@ -15,7 +15,7 @@ export const STUB_EVENT_DETAILS: EventDetails = {
     "EKO ATLANTIC CITY",
     "CLOSED ROADS",
   ],
-  contactEmail: "Info@eko170.com",
+  contactEmail: "info@eko170.com",
   contactTwitter: "@eko170info",
   socials: [
     { id: "social-instagram", platform: "instagram", href: "https://www.instagram.com/eko170info?utm_source=ig_web_button_share_sheet&stkn=ZDNlZDc0MzIxNw==" },

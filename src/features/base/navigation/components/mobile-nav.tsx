@@ -42,7 +42,15 @@ export function MobileNav({
         </SheetHeader>
         <nav className="flex flex-1 flex-col overflow-y-auto px-4">
           {links.map((link) =>
-            link.children ? (
+            link.disabled ? (
+              <div
+                key={link.id}
+                aria-disabled="true"
+                className="block cursor-not-allowed border-b border-white/10 py-4 font-heading text-lg font-bold tracking-wide text-white/40 uppercase"
+              >
+                {link.label}
+              </div>
+            ) : link.children ? (
               <Accordion key={link.id} className="border-b border-white/10">
                 <AccordionItem className="border-none">
                   <AccordionTrigger className="rounded-none py-4 font-heading text-lg font-bold tracking-wide text-white uppercase hover:no-underline **:data-[slot=accordion-trigger-icon]:text-brand-yellow">
@@ -94,7 +102,7 @@ export function MobileNav({
               />
             }
           >
-            Register Now
+            Pre-register Now
           </SheetClose>
         </div>
       </SheetContent>

@@ -51,6 +51,18 @@ export function NavBar() {
         <div className="hidden items-center gap-0.5 rounded-full border border-white/60 bg-[rgba(241,245,242,0.62)] px-2.5 py-0 shadow-[0_6px_20px_rgba(16,24,40,0.05)] backdrop-blur-md lg:flex">
           {PRIMARY_NAV.map((link) => {
             const active = isActive(pathname, link.href);
+            if (link.disabled) {
+              return (
+                <div key={link.id} className="flex items-center">
+                  <span
+                    aria-disabled="true"
+                    className="inline-flex cursor-not-allowed items-center gap-1 rounded-full px-2.5 py-2 font-sans text-[13px] font-medium whitespace-nowrap text-gray-400 opacity-60"
+                  >
+                    {link.label}
+                  </span>
+                </div>
+              );
+            }
             return (
               <div key={link.id} className="group relative flex items-center">
                 <Link
@@ -93,7 +105,7 @@ export function NavBar() {
             href={REGISTER_HREF}
             className="inline-flex h-[60px] items-center justify-center gap-2.5 rounded-full border border-white/60 bg-linear-100 from-brand-teal via-brand-green to-brand-yellow px-6 font-sans text-[15px] font-semibold text-white shadow-[0_8px_24px_rgba(22,163,74,0.28)]"
           >
-            Register Now
+            Pre-register Now
             <ArrowRight className="size-4" />
           </Link>
         </motion.div>
@@ -103,7 +115,7 @@ export function NavBar() {
             href={REGISTER_HREF}
             className="inline-flex h-10 items-center justify-center rounded-full bg-linear-100 from-brand-teal via-brand-green to-brand-yellow px-4 font-sans text-sm font-semibold whitespace-nowrap text-white shadow-[0_8px_24px_rgba(22,163,74,0.28)]"
           >
-            Register Now
+            Pre-register Now
           </Link>
           <MobileNav links={PRIMARY_NAV} registerHref={REGISTER_HREF} />
         </div>
