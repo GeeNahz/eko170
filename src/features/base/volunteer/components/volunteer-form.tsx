@@ -203,8 +203,8 @@ function VolunteerFormInner({ onReset }: { onReset: () => void }) {
           </Button>
           <p className="font-sans text-sm text-gray-400">
             Questions about volunteering? Email{" "}
-            <a href="mailto:crew@eko170.com" className="text-brand-green">
-              crew@eko170.com
+            <a href="mailto:info@eko170.com" className="text-brand-green">
+              info@eko170.com
             </a>
           </p>
         </div>
