@@ -25,7 +25,7 @@ export function CtaBanner() {
           href={REGISTER_HREF}
           className="inline-flex items-center gap-2.5 rounded-full bg-brand-green px-10 py-4 font-sans text-base font-semibold text-white shadow-[0_8px_24px_rgba(22,163,74,0.35)]"
         >
-          Enter Race!
+          Pre-register Now
           <ArrowRight className="size-4" />
         </Link>
       </div>

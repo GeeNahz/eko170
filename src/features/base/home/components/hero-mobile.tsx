@@ -74,14 +74,14 @@ export function HeroMobile() {
               href={REGISTER_HREF}
               className="inline-flex items-center justify-center gap-3 rounded-full bg-white px-9 py-[18px] font-sans text-base font-semibold text-brand-teal"
             >
-              Register Now
+              Pre-register Now
               <ArrowRight className="size-[17px]" />
             </Link>
             <Link
               href="/results"
               className="inline-flex items-center justify-center gap-3 rounded-full border-2 border-white/85 px-9 py-4 font-sans text-base font-semibold text-white"
             >
-              View Challenge Results
+              View 2026 Challenge Results
               <ArrowRight className="size-4" />
             </Link>
           </div>

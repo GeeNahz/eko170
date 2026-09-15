@@ -13,7 +13,7 @@ export function RouteClosingCta() {
           href={REGISTER_HREF}
           className="inline-flex w-full max-w-[420px] items-center justify-center rounded-full bg-white px-9 py-4 font-sans text-base font-semibold text-brand-teal"
         >
-          Register Now
+          Pre-register Now
         </Link>
       </Reveal>
     </div>

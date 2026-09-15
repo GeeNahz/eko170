@@ -40,7 +40,7 @@ export function CourseOverview() {
               href={REGISTER_HREF}
               className="inline-flex items-center gap-2.5 rounded-full bg-brand-green px-6 py-4 font-sans text-sm font-semibold text-white"
             >
-              Register for This Route
+              Pre-register Now
               <ArrowRight className="size-4" />
             </Link>
             <button

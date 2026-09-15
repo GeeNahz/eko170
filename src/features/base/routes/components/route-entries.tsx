@@ -50,7 +50,7 @@ export function RouteEntries({ data }: { data: RouteDetailData }) {
               href={REGISTER_HREF}
               className="inline-flex h-[46px] items-center gap-2 rounded-full bg-brand-yellow px-8 font-sans text-sm font-bold text-brand-teal"
             >
-              Enter Now
+              Pre-register Now
             </Link>
           </div>
         </Reveal>

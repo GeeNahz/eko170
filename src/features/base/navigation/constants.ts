@@ -7,6 +7,7 @@ export const PRIMARY_NAV: NavLink[] = [
     id: "nav-routes",
     label: "Routes",
     href: "/routes",
+    disabled: true,
     children: [
       { id: "nav-routes-170", label: "EKO 170", href: "/routes/170" },
       { id: "nav-routes-70", label: "EKO 70", href: "/routes/70" },
@@ -46,4 +47,4 @@ export const FOOTER_NAV: FooterLinkGroup[] = [
   },
 ];
 
-export const REGISTER_HREF = "/register";
+export const REGISTER_HREF = "/#routevote";

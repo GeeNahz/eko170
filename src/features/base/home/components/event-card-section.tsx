@@ -55,23 +55,12 @@ export function EventCardSection() {
               </div>
             </div>
           ))}
-          <div className="grid grid-cols-2 gap-px bg-brand-cream-border">
-            {EVENT_CARDS.map((card) => (
-              <Link
-                key={card.id}
-                href={card.registerHref}
-                className="flex min-h-14 items-center justify-center bg-white px-2 text-center font-sans text-sm font-bold text-brand-green"
-              >
-                {card.registerLabel}
-              </Link>
-            ))}
-            <Link
-              href={EVENT_CARDS[0].resultsHref}
-              className="col-span-2 flex min-h-14 items-center justify-center bg-white font-sans text-sm font-bold text-brand-teal"
-            >
-              Results
-            </Link>
-          </div>
+          <Link
+            href={REGISTER_HREF}
+            className="flex min-h-14 items-center justify-center bg-white px-2 text-center font-sans text-sm font-bold text-brand-green"
+          >
+            Pre-register Now
+          </Link>
         </Reveal>
 
         <Reveal
@@ -100,17 +89,17 @@ export function EventCardSection() {
           className="mt-3.5 rounded-[18px] border border-brand-yellow/30 bg-brand-yellow/8 p-5 sm:p-7"
         >
           <div className="mb-2.5 font-mono text-[10px] tracking-[2.2px] text-brand-yellow uppercase">
-            Registration Open
+            Registration Opens 30 September 2026
           </div>
           <p className="mb-4 font-sans text-sm leading-relaxed text-white/85 sm:text-base">
-            Registration opens 12 November 2025 at 10am WAT. Secure your
-            place now.
+            Registration opens 30 September 2026. Pre-register now to vote
+            for a route and receive updates about the event.
           </p>
           <Link
             href={REGISTER_HREF}
             className="flex min-h-13 w-full items-center justify-center rounded-full bg-brand-yellow font-sans text-[15px] font-bold text-brand-teal"
           >
-            Register Now
+            Pre-register Now
           </Link>
         </Reveal>
 

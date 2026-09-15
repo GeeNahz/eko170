@@ -39,23 +39,11 @@ export function EventGroupMobile() {
           </div>
         ))}
 
-        <div className="flex gap-3">
-          {EVENT_CARDS.map((card) => (
-            <Link
-              key={card.id}
-              href={card.registerHref}
-              className="flex-1 rounded-full bg-brand-green px-4 py-3 text-center font-sans text-sm font-semibold text-white"
-            >
-              {card.registerLabel}
-            </Link>
-          ))}
-        </div>
-
         <Link
-          href={EVENT_CARDS[0].resultsHref}
-          className="text-center font-sans text-sm font-semibold text-white/80 underline underline-offset-4"
+          href={REGISTER_HREF}
+          className="rounded-full bg-brand-green px-4 py-3 text-center font-sans text-sm font-semibold text-white"
         >
-          Results
+          Pre-register Now
         </Link>
       </div>
 
@@ -72,16 +60,17 @@ export function EventGroupMobile() {
 
       <div className="bg-brand-green px-3.5 py-7">
         <div className="mb-1.5 font-mono text-[11px] tracking-wide text-white/80 uppercase">
-          Registration Open
+          Registration Opens 30 September 2026
         </div>
         <div className="mb-5 font-sans text-lg font-semibold text-white">
-          Registration opens 12 November 2025 at 10am WAT. Secure your place now.
+          Registration opens 30 September 2026. Pre-register now to vote for
+          a route and receive updates about the event.
         </div>
         <Link
           href={REGISTER_HREF}
           className="inline-flex items-center justify-center rounded-full bg-brand-yellow px-6 py-4 font-sans text-sm font-semibold text-brand-teal"
         >
-          Register Now
+          Pre-register Now
         </Link>
       </div>
 
