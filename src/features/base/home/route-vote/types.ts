@@ -6,6 +6,7 @@ export type RouteVoteOption = {
   shape: string;
   character: string;
   path: [number, number][];
+  mapImage: string;
 };
 
 export type RouteVoteFormValues = {

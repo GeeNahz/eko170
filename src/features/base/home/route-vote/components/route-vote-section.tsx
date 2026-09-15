@@ -1,11 +1,14 @@
 "use client";
 
 import { useState, useSyncExternalStore } from "react";
+import Image from "next/image";
 import { Check } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { cn } from "@/lib/utils";
-import { RouteMapEmbed } from "../../../lib/components/route-map-embed";
+import { useCountdown } from "../../../event/hooks/use-countdown";
 import { ROUTE_VOTE_OPTIONS } from "../constants";
+
+const REGISTRATION_OPEN_DATE = "2026-09-30T00:00:00+01:00";
 import {
   getServerVotedOptionId,
   getVotedOptionId,
@@ -32,6 +35,13 @@ export function RouteVoteSection() {
   }
 
   const votedOption = ROUTE_VOTE_OPTIONS.find((o) => o.id === votedOptionId);
+  const { days, hours, minutes, seconds } = useCountdown(REGISTRATION_OPEN_DATE);
+  const registrationCountdownUnits = [
+    { label: "Days", value: days },
+    { label: "Hours", value: hours },
+    { label: "Minutes", value: minutes },
+    { label: "Seconds", value: seconds },
+  ];
 
   return (
     <div
@@ -57,6 +67,40 @@ export function RouteVoteSection() {
           The 2027 Gran Fondo course is not final. Two options are on the
           table and the riders decide. Pick the one you want to ride and we
           will publish the result with the confirmed course.
+        </Reveal>
+
+        <Reveal
+          delay={0.18}
+          className="mb-10 rounded-[18px] border border-brand-cream-border bg-brand-cream px-6 py-6 sm:px-8"
+        >
+          <div className="mb-3 font-mono text-xs tracking-[2.2px] text-brand-green uppercase">
+            Registration Opens 30 September 2026
+          </div>
+          <div className="flex flex-wrap items-center gap-5 sm:gap-8">
+            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+              {registrationCountdownUnits.map((unit, i) => (
+                <div key={unit.label} className="flex items-center gap-2 sm:gap-3">
+                  <div className="w-[56px] rounded-xl border border-brand-cream-border bg-white py-2 text-center sm:w-[68px] sm:py-3">
+                    <div className="font-heading text-lg leading-none font-black text-brand-teal sm:text-2xl">
+                      {unit.value}
+                    </div>
+                    <div className="mt-1 font-mono text-[7px] tracking-wide text-gray-400 uppercase sm:text-[9px]">
+                      {unit.label}
+                    </div>
+                  </div>
+                  {i < registrationCountdownUnits.length - 1 && (
+                    <div className="font-heading hidden text-xl font-black text-gray-300 sm:block">
+                      –
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+            <p className="max-w-sm font-sans text-sm leading-relaxed text-gray-600">
+              Pre-register now to vote for a route and receive updates about
+              the event.
+            </p>
+          </div>
         </Reveal>
 
         {votedOption ? (
@@ -130,8 +174,14 @@ export function RouteVoteSection() {
                         </div>
                       </div>
                     </button>
-                    <div className="h-[140px] border-t border-brand-cream-border sm:h-[180px]">
-                      <RouteMapEmbed path={option.path} height="100%" startLabel="Start" />
+                    <div className="relative h-[140px] border-t border-brand-cream-border sm:h-[180px]">
+                      <Image
+                        src={option.mapImage}
+                        alt={`${option.title} route map`}
+                        fill
+                        sizes="(min-width: 1024px) 50vw, 100vw"
+                        className="object-cover"
+                      />
                     </div>
                     <div className="flex gap-5 border-t border-brand-cream-border px-4 py-3 sm:px-6">
                       <div>
