@@ -47,4 +47,4 @@ export const FOOTER_NAV: FooterLinkGroup[] = [
   },
 ];
 
-export const REGISTER_HREF = "/#routevote";
+export const REGISTER_HREF = "/register";

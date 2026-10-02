@@ -105,7 +105,7 @@ export function NavBar() {
             href={REGISTER_HREF}
             className="inline-flex h-[60px] items-center justify-center gap-2.5 rounded-full border border-white/60 bg-linear-100 from-brand-teal via-brand-green to-brand-yellow px-6 font-sans text-[15px] font-semibold text-white shadow-[0_8px_24px_rgba(22,163,74,0.28)]"
           >
-            Pre-register Now
+            Register Now
             <ArrowRight className="size-4" />
           </Link>
         </motion.div>
@@ -115,7 +115,7 @@ export function NavBar() {
             href={REGISTER_HREF}
             className="inline-flex h-10 items-center justify-center rounded-full bg-linear-100 from-brand-teal via-brand-green to-brand-yellow px-4 font-sans text-sm font-semibold whitespace-nowrap text-white shadow-[0_8px_24px_rgba(22,163,74,0.28)]"
           >
-            Pre-register Now
+            Register Now
           </Link>
           <MobileNav links={PRIMARY_NAV} registerHref={REGISTER_HREF} />
         </div>

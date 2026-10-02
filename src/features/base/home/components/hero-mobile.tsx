@@ -74,7 +74,7 @@ export function HeroMobile() {
               href={REGISTER_HREF}
               className="inline-flex items-center justify-center gap-3 rounded-full bg-white px-9 py-[18px] font-sans text-base font-semibold text-brand-teal"
             >
-              Pre-register Now
+              Register Now
               <ArrowRight className="size-[17px]" />
             </Link>
             <Link

@@ -82,7 +82,7 @@ export function Hero() {
                   href={REGISTER_HREF}
                   className="inline-flex items-center gap-3 rounded-full bg-white px-9 py-[18px] font-sans text-base font-semibold text-brand-teal"
                 >
-                  Pre-register Now
+                  Register Now
                   <ArrowRight className="size-[17px]" />
                 </Link>
               </motion.div>

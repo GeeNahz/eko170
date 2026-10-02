@@ -59,7 +59,7 @@ export function EventCardSection() {
             href={REGISTER_HREF}
             className="flex min-h-14 items-center justify-center bg-white px-2 text-center font-sans text-sm font-bold text-brand-green"
           >
-            Pre-register Now
+            Register Now
           </Link>
         </Reveal>
 
@@ -89,17 +89,16 @@ export function EventCardSection() {
           className="mt-3.5 rounded-[18px] border border-brand-yellow/30 bg-brand-yellow/8 p-5 sm:p-7"
         >
           <div className="mb-2.5 font-mono text-[10px] tracking-[2.2px] text-brand-yellow uppercase">
-            Registration Opens 30 September 2026
+            Registration Open
           </div>
           <p className="mb-4 font-sans text-sm leading-relaxed text-white/85 sm:text-base">
-            Registration opens 30 September 2026. Pre-register now to vote
-            for a route and receive updates about the event.
+            Registration is open — secure your place now.
           </p>
           <Link
             href={REGISTER_HREF}
             className="flex min-h-13 w-full items-center justify-center rounded-full bg-brand-yellow font-sans text-[15px] font-bold text-brand-teal"
           >
-            Pre-register Now
+            Register Now
           </Link>
         </Reveal>
 

@@ -102,7 +102,7 @@ export function MobileNav({
               />
             }
           >
-            Pre-register Now
+            Register Now
           </SheetClose>
         </div>
       </SheetContent>
