@@ -13,7 +13,7 @@ function formatNaira(amount: number) {
   return `₦${amount.toLocaleString("en-NG")}`;
 }
 
-function buildHtml(data: RegistrationConfirmationEmail) {
+function buildHtml(data: RegistrationConfirmationEmail, replyTo: string) {
   return `<!doctype html>
 <html>
   <body style="margin:0;padding:0;background:#f1f5f2;font-family:Arial,Helvetica,sans-serif;">
@@ -50,7 +50,7 @@ function buildHtml(data: RegistrationConfirmationEmail) {
                 <p style="margin:0 0 24px;color:#444;font-size:15px;line-height:1.6;">
                   Race-day details and further updates will follow by email.
                   Questions in the meantime? Write to
-                  <a href="mailto:info@eko170.com" style="color:#16a34a;">info@eko170.com</a>.
+                  <a href="mailto:${replyTo}" style="color:#16a34a;">${replyTo}</a>.
                 </p>
                 <p style="margin:0;color:#999;font-size:12px;line-height:1.6;">
                   This is a transactional email confirming your EKO170
@@ -67,7 +67,7 @@ function buildHtml(data: RegistrationConfirmationEmail) {
 </html>`;
 }
 
-function buildText(data: RegistrationConfirmationEmail) {
+function buildText(data: RegistrationConfirmationEmail, replyTo: string) {
   return [
     `You're in, ${data.name}!`,
     "",
@@ -78,7 +78,7 @@ function buildText(data: RegistrationConfirmationEmail) {
     `Amount Paid: ${formatNaira(data.amount)}`,
     "",
     "Race-day details and further updates will follow by email.",
-    "Questions in the meantime? Write to info@eko170.com.",
+    `Questions in the meantime? Write to ${replyTo}.`,
     "",
     "This is a transactional email confirming your EKO170 registration — you're receiving it because you just registered for the event.",
   ].join("\n");
@@ -92,9 +92,10 @@ export async function sendRegistrationConfirmationEmail(
 ): Promise<void> {
   const apiKey = process.env.RESEND_API_KEY;
   const from = process.env.EMAIL_FROM;
-  if (!apiKey || !from) {
+  const replyTo = process.env.EMAIL_REPLY_TO;
+  if (!apiKey || !from || !replyTo) {
     console.error(
-      "[email-client] RESEND_API_KEY/EMAIL_FROM not set — skipped confirmation email",
+      "[email-client] RESEND_API_KEY/EMAIL_FROM/EMAIL_REPLY_TO not set — skipped confirmation email",
     );
     return;
   }
@@ -104,10 +105,10 @@ export async function sendRegistrationConfirmationEmail(
     const { error } = await resend.emails.send({
       from,
       to: data.to,
-      replyTo: "info@eko170.com",
+      replyTo,
       subject: `Your EKO170 registration is confirmed — Ref ${data.refCode}`,
-      html: buildHtml(data),
-      text: buildText(data),
+      html: buildHtml(data, replyTo),
+      text: buildText(data, replyTo),
     });
     if (error) {
       console.error("[email-client] confirmation email failed", error);

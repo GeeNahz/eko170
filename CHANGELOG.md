@@ -30,7 +30,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   a Flutterwave-hosted checkout for the amount matching the chosen
   distance (₦75,000 Gran Fondo / ₦40,000 Medio Fondo, flat pricing).
   Payment is verified server-to-server before anything is recorded —
-  see Added, below, for the new payment/email infrastructure.
+  see Added, below, for the new payment/email infrastructure. The form
+  now shows the registration fee for the selected distance and labels
+  its submit button "Continue to Payment" so riders know what's coming.
 - "Which Route Should We Ride?" option cards
   (`src/features/base/home/route-vote/components/route-vote-section.tsx`)
   now show the client's own route-map screenshots
@@ -111,10 +113,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   reference, for reconciliation) alongside the existing form fields.
 - Resend-based confirmation email
   (`src/features/base/lib/server/email-client.ts`) sent once payment is
-  verified — multipart HTML/text, reply-to `info@eko170.com`. Scoped as
-  a one-time transactional receipt (no unsubscribe link — there's
-  nothing to unsubscribe from; a broader marketing-list use case would
-  need separate infrastructure).
+  verified — multipart HTML/text, reply-to address configurable via
+  `EMAIL_REPLY_TO` (kept independent of `EMAIL_FROM`'s sending domain,
+  since the two don't have to match). Scoped as a one-time transactional
+  receipt (no unsubscribe link — there's nothing to unsubscribe from; a
+  broader marketing-list use case would need separate infrastructure).
 - `GOOGLE_SHEETS_WEBHOOK_URL_DEPLOYMENT_ID` documented in `.env.example`,
   alongside the existing `GOOGLE_SHEETS_WEBHOOK_URL`.
 - New Home page design (`HomeRevamped`,
