@@ -10,6 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
   DISTANCE_OPTIONS,
+  DISTANCE_PRICES,
   EMAIL_PATTERN,
   FIELD_LABELS,
   GENDER_OPTIONS,
@@ -18,7 +19,6 @@ import {
 } from "../constants";
 import { registerAction } from "../server/actions";
 import type { RegistrationFormValues } from "../types";
-import { RegistrationSuccess } from "./registration-success";
 
 const inputClassName =
   "h-auto rounded-[10px] border-brand-cream-border px-4 py-3.5 font-sans text-[15px] text-brand-teal focus-visible:border-brand-green focus-visible:ring-brand-green/12";
@@ -119,28 +119,20 @@ export function RegistrationForm() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<RegistrationFormValues>({
     defaultValues: state?.status === "error" ? state.values : undefined,
   });
 
+  const selectedDistance = watch("distance");
+  const fee = DISTANCE_PRICES[selectedDistance];
+
   useEffect(() => {
-    if (state?.status === "success") {
-      toast.success("Registration received", {
-        description: `Reference ${state.data.refCode} — check your email for next steps.`,
-      });
-    } else if (state?.status === "error" && state.message) {
+    if (state?.status === "error" && state.message) {
       toast.error(state.message);
     }
   }, [state]);
-
-  if (state?.status === "success") {
-    return (
-      <div className="mx-auto w-full max-w-[920px] px-0 pb-24 sm:px-10">
-        <RegistrationSuccess data={state.data} />
-      </div>
-    );
-  }
 
   return (
     <div className="mx-auto w-full max-w-[920px] px-0 pb-24 sm:px-10">
@@ -323,12 +315,25 @@ export function RegistrationForm() {
         </div>
 
         <div className="flex flex-col items-center gap-3.5 pt-2">
+          <div className="flex w-full max-w-[420px] items-center justify-between rounded-[14px] border border-brand-cream-border bg-brand-cream px-5 py-4">
+            <span className="font-mono text-[11px] tracking-wide text-gray-500 uppercase">
+              Registration Fee
+            </span>
+            <span className="font-sans text-lg font-bold text-brand-teal">
+              {fee ? `₦${fee.toLocaleString("en-NG")}` : "Choose a distance"}
+            </span>
+          </div>
+          <p className="max-w-[420px] text-center font-sans text-xs text-gray-400">
+            You&apos;ll be taken to a secure Flutterwave checkout to pay this
+            amount — your registration is only confirmed once payment goes
+            through.
+          </p>
           <Button
             type="submit"
             disabled={isPending}
             className="h-14 rounded-full bg-brand-green px-11 font-sans text-base font-semibold text-white hover:bg-brand-green/90 disabled:opacity-70"
           >
-            {isPending ? "Submitting…" : "Submit Registration"}
+            {isPending ? "Redirecting to payment…" : "Continue to Payment"}
             {!isPending && <ArrowRight className="size-4" />}
           </Button>
 

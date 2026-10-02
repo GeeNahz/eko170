@@ -12,9 +12,9 @@ export function RegistrationSuccess({ data }: { data: RegistrationSuccessData })
         You&apos;re In!
       </h2>
       <p className="mx-auto mb-2 max-w-[480px] font-sans text-base leading-relaxed text-gray-500">
-        Thanks, {data.name || "Rider"} — your EKO170 registration has been
-        received. A confirmation with your payment link and race-day
-        details is on its way to {data.email}.
+        Thanks, {data.name || "Rider"} — your payment is confirmed and your
+        EKO170 registration has been received. A confirmation with your
+        race-day details has been sent to {data.email}.
       </p>
       <p className="mt-5 mb-8 font-mono text-xs tracking-wide text-gray-400 uppercase">
         Reference · {data.refCode}

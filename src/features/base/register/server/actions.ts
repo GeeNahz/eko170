@@ -1,5 +1,6 @@
 "use server";
 
+import { redirect } from "next/navigation";
 import type { ActionResponse } from "@/lib/types";
 import { EMAIL_PATTERN, FIELD_LABELS, REQUIRED_FIELDS } from "../constants";
 import { RegisterService } from "./service";
@@ -31,6 +32,19 @@ export async function registerAction(
     return { status: "error", fieldErrors, values };
   }
 
-  const data = await RegisterService.submitRegistration(values);
-  return { status: "success", data };
+  let link: string;
+  try {
+    link = await RegisterService.initiateRegistrationPayment(values);
+  } catch (error) {
+    console.error("[register] payment initiation failed", error);
+    return {
+      status: "error",
+      message: "We couldn't start your payment. Please try again.",
+      values,
+    };
+  }
+
+  // Outside the try/catch — redirect() throws internally and must not
+  // be swallowed by the error handling above.
+  redirect(link);
 }

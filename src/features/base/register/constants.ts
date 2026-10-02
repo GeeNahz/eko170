@@ -42,6 +42,13 @@ export const GENDER_OPTIONS = ["Male", "Female"];
 
 export const DISTANCE_OPTIONS = ["Medio Fondo · 94.5 KM", "Gran Fondo · 170 KM"];
 
+// NGN, flat standard pricing (no early-bird tier) — matches the prices
+// already shown on the route detail pages (routes/constants.ts).
+export const DISTANCE_PRICES: Record<string, number> = {
+  "Medio Fondo · 94.5 KM": 40000,
+  "Gran Fondo · 170 KM": 75000,
+};
+
 export const SPEED_OPTIONS = [">40kph", "35 - 40", "30 - 35", "25 - 30", "<25"];
 
 export const ID_TYPE_OPTIONS = [
