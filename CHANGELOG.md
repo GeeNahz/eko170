@@ -8,6 +8,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+- Reverted the pre-registration sweep now that the route vote has
+  closed: `REGISTER_HREF` points back at `/register`, and every CTA
+  that was temporarily relabeled "Pre-register Now" is back to its
+  original text and target (nav bar, hero, event section, route pages,
+  CTA banners). `EventCardSection`/`EventGroupMobile`/`RegistrationBanner`
+  keep the single-button layout introduced during the pre-register
+  period (not the old two-button-plus-Results grid) but now read
+  "Register Now" and point at the real form. See
+  `eko170_preregister_revert_checklist.md` for the full file-by-file map.
+- "Which Route Should We Ride?" (`route-vote-section.tsx`) now shows
+  "Voting is now closed" with both option cards displayed read-only
+  (no pick/submit interaction) — the vote closed once two options were
+  on the table and a winner is pending. `submitVoteAction` also rejects
+  server-side now, independent of the UI. A `CONFIRMED_ROUTE_ID`
+  constant (`route-vote/constants.ts`, defaulting to `null`) preps the
+  section for a future pass that shows only the winning route — not
+  built yet, by design.
+- Registration (`/register`) is now gated behind a real Flutterwave
+  payment: the form collects rider details as before, then redirects to
+  a Flutterwave-hosted checkout for the amount matching the chosen
+  distance (₦75,000 Gran Fondo / ₦40,000 Medio Fondo, flat pricing).
+  Payment is verified server-to-server before anything is recorded —
+  see Added, below, for the new payment/email infrastructure.
 - "Which Route Should We Ride?" option cards
   (`src/features/base/home/route-vote/components/route-vote-section.tsx`)
   now show the client's own route-map screenshots
@@ -18,18 +41,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   (`src/features/base/home/components/feature-rows.tsx`'s
   `FeatureCommunity`) and Discover's "Nike Art Gallery" attraction card
   image (`src/features/base/discover/constants.ts`) to `CR2A3221.jpg`.
-- Registration now opens 30 September 2026. Retargeted `REGISTER_HREF`
-  (`src/features/base/navigation/constants.ts`) from `/register` to
-  `/#routevote`, and relabeled every site-wide "Register"/"Enter" CTA
-  (~18 files, including the nav bar, hero, and route pages) to
-  "Pre-register Now" so they route to the "Which Route Should We Ride?"
-  section instead. `/register` itself is unchanged and still reachable
-  directly, just no longer linked from anywhere on the site.
-- Collapsed `EventCardSection`'s two distance-specific register buttons
-  into one full-width "Pre-register Now" button (same for its mobile
-  equivalent, `EventGroupMobile`), and updated the stale "Registration
-  opens 12 November 2025" copy in both components' registration boxes to
-  the real 30 September 2026 date.
 - Disabled the "Routes" nav item (desktop dropdown and mobile accordion,
   `src/features/base/navigation/components/nav-bar.tsx`,
   `mobile-nav.tsx`) since no route is confirmed yet — shown greyed out
@@ -87,12 +98,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Instagram profile instead of a `#` placeholder.
 
 ### Added
-- New "Registration Opens 30 September 2026" countdown on the "Which
-  Route Should We Ride?" section
-  (`src/features/base/home/route-vote/components/route-vote-section.tsx`),
-  independent of the existing Race Day countdown, with copy inviting
-  riders to pre-register and vote for a route ahead of the confirmed
-  registration date.
+- Flutterwave Standard-flow payment gate for registration
+  (`src/features/base/lib/server/flutterwave-client.ts`): the
+  registration form now redirects to a Flutterwave-hosted checkout
+  instead of recording directly. A new webhook
+  (`src/app/api/webhooks/flutterwave/route.ts`) is the sole writer —
+  it re-verifies the transaction server-to-server (status, currency,
+  amount recomputed from the distance, tx_ref) before recording
+  anything, and a read-only callback page (`/register/verify`) shows
+  the rider a success or failure view. The registrations Sheet row now
+  also carries `amountPaid`, `currency`, and `flwRef` (Flutterwave's own
+  reference, for reconciliation) alongside the existing form fields.
+- Resend-based confirmation email
+  (`src/features/base/lib/server/email-client.ts`) sent once payment is
+  verified — multipart HTML/text, reply-to `info@eko170.com`. Scoped as
+  a one-time transactional receipt (no unsubscribe link — there's
+  nothing to unsubscribe from; a broader marketing-list use case would
+  need separate infrastructure).
 - `GOOGLE_SHEETS_WEBHOOK_URL_DEPLOYMENT_ID` documented in `.env.example`,
   alongside the existing `GOOGLE_SHEETS_WEBHOOK_URL`.
 - New Home page design (`HomeRevamped`,
