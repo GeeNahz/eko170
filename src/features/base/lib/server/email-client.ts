@@ -1,5 +1,6 @@
 import "server-only";
 import { Resend } from "resend";
+import { EMAIL_FROM, EMAIL_REPLY_TO, RESEND_API_KEY } from "../constants";
 
 export type RegistrationConfirmationEmail = {
   to: string;
@@ -90,9 +91,9 @@ function buildText(data: RegistrationConfirmationEmail, replyTo: string) {
 export async function sendRegistrationConfirmationEmail(
   data: RegistrationConfirmationEmail,
 ): Promise<void> {
-  const apiKey = process.env.RESEND_API_KEY;
-  const from = process.env.EMAIL_FROM;
-  const replyTo = process.env.EMAIL_REPLY_TO;
+  const apiKey = RESEND_API_KEY;
+  const from = EMAIL_FROM;
+  const replyTo = EMAIL_REPLY_TO;
   if (!apiKey || !from || !replyTo) {
     console.error(
       "[email-client] RESEND_API_KEY/EMAIL_FROM/EMAIL_REPLY_TO not set — skipped confirmation email",
