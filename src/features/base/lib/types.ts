@@ -22,7 +22,7 @@ export type GalleryPhoto = {
   alt: string;
 };
 
-export type RegistrationState = "pre-register" | "register";
+export type RegistrationState = "pre-register" | "register" | "starting_soon";
 
 export type RegistrationConfig = {
   state: RegistrationState;

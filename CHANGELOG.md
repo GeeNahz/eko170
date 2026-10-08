@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+- Introduced a third `REGISTRATION_STATE` value, `starting_soon`, and
+  made it the live state: every CTA site-wide now reads "Registration
+  Starts Soon" and links to `#` (no real route yet), and the route
+  vote section (`route-vote-section.tsx`) drops its "Which Route
+  Should We Ride?" picker/maps entirely in favor of a "Route
+  Announcement" / "Routes will be announced soon" header with just a
+  countdown to 13 October 2026. No CTA file needed touching — they
+  already render `registration.href`/`registration.label` generically.
 - Replaced per-distance registration pricing with one flat early-bird
   price (₦25,000, through 31 October 2026) and one flat standard price
   (₦35,000, from 1 November 2026) applied to both Medio Fondo and
