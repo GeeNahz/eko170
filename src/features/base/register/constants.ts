@@ -1,4 +1,4 @@
-import type { RegistrationFormValues } from "./types";
+import type { DistancePriceConfig, RegistrationFormValues } from "./types";
 
 export const FIELD_LABELS: Record<keyof RegistrationFormValues, string> = {
   firstName: "First name",
@@ -42,12 +42,30 @@ export const GENDER_OPTIONS = ["Male", "Female"];
 
 export const DISTANCE_OPTIONS = ["Medio Fondo · 94.5 KM", "Gran Fondo · 170 KM"];
 
-// NGN, flat standard pricing (no early-bird tier) — matches the prices
-// already shown on the route detail pages (routes/constants.ts).
-export const DISTANCE_PRICES: Record<string, number> = {
-  "Medio Fondo · 94.5 KM": 40000,
-  "Gran Fondo · 170 KM": 75000,
+// NGN. Standard price matches the route detail pages
+// (routes/constants.ts). `earlyBird` is optional per distance — add it
+// whenever a promo is actually running; no distance has one configured
+// right now, so resolveDistancePrice always falls through to the
+// standard price today.
+export const DISTANCE_PRICES: Record<string, DistancePriceConfig> = {
+  "Medio Fondo · 94.5 KM": { standardPrice: 40000 },
+  "Gran Fondo · 170 KM": { standardPrice: 75000 },
 };
+
+// Not server-only — the registration form's fee display calls this
+// client-side too. `now` is injectable for tests, defaults to the real
+// clock.
+export function resolveDistancePrice(
+  distance: string,
+  now: Date = new Date(),
+): number | undefined {
+  const config = DISTANCE_PRICES[distance];
+  if (!config) return undefined;
+  if (config.earlyBird && now < new Date(config.earlyBird.endsAt)) {
+    return config.earlyBird.price;
+  }
+  return config.standardPrice;
+}
 
 export const SPEED_OPTIONS = [">40kph", "35 - 40", "30 - 35", "25 - 30", "<25"];
 

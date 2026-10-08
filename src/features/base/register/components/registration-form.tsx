@@ -15,6 +15,7 @@ import {
   FIELD_LABELS,
   GENDER_OPTIONS,
   ID_TYPE_OPTIONS,
+  resolveDistancePrice,
   SPEED_OPTIONS,
 } from "../constants";
 import { registerAction } from "../server/actions";
@@ -126,7 +127,9 @@ export function RegistrationForm() {
   });
 
   const selectedDistance = watch("distance");
-  const fee = DISTANCE_PRICES[selectedDistance];
+  const fee = resolveDistancePrice(selectedDistance);
+  const earlyBird = DISTANCE_PRICES[selectedDistance]?.earlyBird;
+  const earlyBirdActive = earlyBird && new Date() < new Date(earlyBird.endsAt);
 
   useEffect(() => {
     if (state?.status === "error" && state.message) {
@@ -323,10 +326,19 @@ export function RegistrationForm() {
               {fee ? `₦${fee.toLocaleString("en-NG")}` : "Choose a distance"}
             </span>
           </div>
+          {earlyBirdActive && (
+            <p className="max-w-[420px] text-center font-sans text-xs font-semibold text-brand-green">
+              Early-bird price — ends{" "}
+              {new Date(earlyBird.endsAt).toLocaleDateString("en-NG", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })}
+            </p>
+          )}
           <p className="max-w-[420px] text-center font-sans text-xs text-gray-400">
-            You&apos;ll be taken to a secure Flutterwave checkout to pay this
-            amount — your registration is only confirmed once payment goes
-            through.
+            You&apos;ll be taken to a secure checkout to pay this amount —
+            your registration is only confirmed once payment goes through.
           </p>
           <Button
             type="submit"
