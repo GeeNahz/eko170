@@ -14,6 +14,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Gran Fondo (`register/constants.ts`'s `DISTANCE_PRICES`). Route
   detail pages' price callouts (`routes/constants.ts`) updated to
   match.
+- Home's sponsor section (`sponsors-marquee.tsx`) no longer links to
+  `/partners` ("Partnership Info") and no longer visually duplicates
+  the single Lagos State Government logo — the scrolling marquee
+  (which duplicated its track for a seamless loop, an artifact of
+  having only one logo) was replaced with a single static logo card.
 - Registration date moved to **13 October 2026** — the route vote
   reopened and every "Register" CTA reverted to "Pre-register Now",
   routed through a new, single `REGISTRATION` config
