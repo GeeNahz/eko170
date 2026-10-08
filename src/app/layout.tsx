@@ -25,9 +25,30 @@ const dmMono = DM_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.eko170.com"),
   title: "EKO170 — Lagos' Biggest Cycling Challenge",
   description:
     "170 kilometres of closed roads from Eko Atlantic City through Victoria Island, Lekki, and Epe. Register for EKO170.",
+  openGraph: {
+    title: "EKO170 — Lagos' Biggest Cycling Challenge",
+    description:
+      "170 kilometres of closed roads from Eko Atlantic City through Victoria Island, Lekki, and Epe.",
+    url: "https://www.eko170.com",
+    siteName: "EKO170",
+    type: "website",
+    images: [
+      {
+        url: "/og-image.png", // resolved against metadataBase
+        width: 1200,
+        height: 630,
+        alt: "EKO170 logo",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
