@@ -8,31 +8,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
-- Reverted the pre-registration sweep now that the route vote has
-  closed: `REGISTER_HREF` points back at `/register`, and every CTA
-  that was temporarily relabeled "Pre-register Now" is back to its
-  original text and target (nav bar, hero, event section, route pages,
-  CTA banners). `EventCardSection`/`EventGroupMobile`/`RegistrationBanner`
-  keep the single-button layout introduced during the pre-register
-  period (not the old two-button-plus-Results grid) but now read
-  "Register Now" and point at the real form. See
-  `eko170_preregister_revert_checklist.md` for the full file-by-file map.
-- "Which Route Should We Ride?" (`route-vote-section.tsx`) now shows
-  "Voting is now closed" with both option cards displayed read-only
-  (no pick/submit interaction) — the vote closed once two options were
-  on the table and a winner is pending. `submitVoteAction` also rejects
-  server-side now, independent of the UI. A `CONFIRMED_ROUTE_ID`
-  constant (`route-vote/constants.ts`, defaulting to `null`) preps the
-  section for a future pass that shows only the winning route — not
-  built yet, by design.
-- Registration (`/register`) is now gated behind a real Flutterwave
-  payment: the form collects rider details as before, then redirects to
-  a Flutterwave-hosted checkout for the amount matching the chosen
-  distance (₦75,000 Gran Fondo / ₦40,000 Medio Fondo, flat pricing).
+- Registration date moved to **13 October 2026** — the route vote
+  reopened and every "Register" CTA reverted to "Pre-register Now",
+  routed through a new, single `REGISTRATION` config
+  (`src/features/base/lib/server/registration.ts`) resolved from the
+  `REGISTRATION_STATE` env var (`pre-register` | `register`) instead of
+  per-file literals. Client Components (nav bar, hero, event section,
+  route sub-nav, the vote section) receive it as a `registration` prop
+  from their nearest Server Component ancestor rather than reading the
+  env var themselves — deliberately not `NEXT_PUBLIC_`-prefixed.
+  Flipping that one env var and redeploying is now the whole switch;
+  see `eko170_registration_state.md` for the full file map and the
+  label/copy rules each CTA follows.
+- "Which Route Should We Ride?" (`route-vote-section.tsx`) is
+  interactive again (picker, vote form, map images) with a countdown to
+  the 13 October date; it automatically falls back to a read-only
+  "Voting is now closed" view once `REGISTRATION_STATE=register`, no
+  separate flag to remember to flip. `submitVoteAction` rejects votes
+  server-side on the same `REGISTRATION.isOpen` check. `CONFIRMED_ROUTE_ID`
+  (`route-vote/constants.ts`, still `null`) remains prep-only for a
+  future single-winner pass.
+- Registration (`/register`) is gated behind a real payment, gateway-
+  agnostic: `PAYMENT_GATEWAY` (`flutterwave` | `paystack`) selects the
+  implementation (`src/features/base/lib/server/payment/`), each
+  self-checking its required env vars before a rider reaches checkout.
+  The form redirects to the active gateway's hosted checkout for the
+  amount matching the chosen distance, now resolved via
+  `resolveDistancePrice` (`register/constants.ts`) to support an
+  optional early-bird price + end date per distance (none configured
+  yet — flat pricing today: ₦75,000 Gran Fondo / ₦40,000 Medio Fondo).
   Payment is verified server-to-server before anything is recorded —
-  see Added, below, for the new payment/email infrastructure. The form
-  now shows the registration fee for the selected distance and labels
-  its submit button "Continue to Payment" so riders know what's coming.
+  see Added, below. The form shows the resolved fee (and an early-bird
+  note when one's active) and labels its submit button "Continue to
+  Payment".
+- Lagos State Government is now the sole sponsor shown on Home
+  (`SponsorsMarquee`) — the rest of the former sponsor lineup is
+  dropped from that section and the "Partners" row is removed entirely;
+  moved out of `PARTNER_LOGOS` into `SPONSOR_LOGOS`
+  (`src/features/base/home/constants.ts`). The "Sponsors & Partners"
+  nav and footer links are hidden (not deleted — a new `hidden` field
+  on `NavLink`) while the page itself stays reachable by URL.
 - "Which Route Should We Ride?" option cards
   (`src/features/base/home/route-vote/components/route-vote-section.tsx`)
   now show the client's own route-map screenshots
@@ -100,17 +115,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Instagram profile instead of a `#` placeholder.
 
 ### Added
-- Flutterwave Standard-flow payment gate for registration
-  (`src/features/base/lib/server/flutterwave-client.ts`): the
-  registration form now redirects to a Flutterwave-hosted checkout
-  instead of recording directly. A new webhook
-  (`src/app/api/webhooks/flutterwave/route.ts`) is the sole writer —
-  it re-verifies the transaction server-to-server (status, currency,
-  amount recomputed from the distance, tx_ref) before recording
-  anything, and a read-only callback page (`/register/verify`) shows
-  the rider a success or failure view. The registrations Sheet row now
-  also carries `amountPaid`, `currency`, and `flwRef` (Flutterwave's own
-  reference, for reconciliation) alongside the existing form fields.
+- Payment gate for registration behind a `PaymentGateway` interface
+  (`src/features/base/lib/types.ts`) with two implementations
+  (`lib/server/payment/flutterwave.ts`, `paystack.ts`), selected by
+  `PAYMENT_GATEWAY`: the registration form redirects to the active
+  gateway's hosted checkout instead of recording directly. Each
+  gateway's webhook (`src/app/api/webhooks/flutterwave/route.ts`,
+  `.../paystack/route.ts`) is the sole writer for its own transactions
+  — it re-verifies server-to-server (status normalized to `"successful"`
+  for both gateways, currency, amount checked against the price
+  snapshotted at checkout time, reference) before recording anything,
+  and a read-only callback page (`/register/verify`) shows the rider a
+  success or failure view regardless of which gateway ran. The
+  registrations Sheet row now also carries `amountPaid`, `currency`,
+  `gateway`, and `gatewayRef` (for reconciliation) alongside the
+  existing form fields.
+- Early-bird pricing support: `DISTANCE_PRICES`
+  (`register/constants.ts`) can carry an optional `earlyBird` price +
+  end date per distance, resolved by `resolveDistancePrice` (falls back
+  to the standard price once the deadline passes). The amount actually
+  charged is snapshotted at checkout initiation and that's what
+  verification checks against — not re-resolved from "now" — so a
+  payment that started before the deadline isn't wrongly rejected if
+  verification happens after it. No early-bird configured yet for
+  either distance.
 - Resend-based confirmation email
   (`src/features/base/lib/server/email-client.ts`) sent once payment is
   verified — multipart HTML/text, reply-to address configurable via
