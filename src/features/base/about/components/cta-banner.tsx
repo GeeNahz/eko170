@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
-import { REGISTER_HREF } from "../../navigation/constants";
+import { REGISTRATION } from "../../lib/server/registration";
 
 export function CtaBanner() {
   return (
@@ -22,10 +22,10 @@ export function CtaBanner() {
           Be Part of <span className="text-brand-yellow">EKO170</span>.
         </Reveal>
         <Link
-          href={REGISTER_HREF}
+          href={REGISTRATION.href}
           className="inline-flex items-center gap-2.5 rounded-full bg-brand-green px-10 py-4 font-sans text-base font-semibold text-white shadow-[0_8px_24px_rgba(22,163,74,0.35)]"
         >
-          Enter Race!
+          {REGISTRATION.isOpen ? "Enter Race!" : REGISTRATION.label}
           <ArrowRight className="size-4" />
         </Link>
       </div>

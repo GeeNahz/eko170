@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { Reveal } from "@/components/motion/reveal";
-import { REGISTER_HREF } from "../../navigation/constants";
+import type { RegistrationConfig } from "../../lib/types";
 import { useCountdown } from "../../event/hooks/use-countdown";
 import { useGetEventDetails } from "../../event/hooks/use-event";
 import { DISTANCE_STATS, EVENT_CARDS } from "../constants";
@@ -14,7 +14,7 @@ import { DISTANCE_STATS, EVENT_CARDS } from "../constants";
 // four components are still built (and still used, unchanged, by
 // HomeCurrent). Single responsive component rather than a mobile/desktop
 // split since nothing here needs a different element order at `lg:`.
-export function EventCardSection() {
+export function EventCardSection({ registration }: { registration: RegistrationConfig }) {
   const { data: event } = useGetEventDetails();
   const { days, hours, minutes, seconds } = useCountdown(event?.eventDate);
 
@@ -56,10 +56,10 @@ export function EventCardSection() {
             </div>
           ))}
           <Link
-            href={REGISTER_HREF}
+            href={registration.href}
             className="flex min-h-14 items-center justify-center bg-white px-2 text-center font-sans text-sm font-bold text-brand-green"
           >
-            Register Now
+            {registration.label}
           </Link>
         </Reveal>
 
@@ -89,16 +89,18 @@ export function EventCardSection() {
           className="mt-3.5 rounded-[18px] border border-brand-yellow/30 bg-brand-yellow/8 p-5 sm:p-7"
         >
           <div className="mb-2.5 font-mono text-[10px] tracking-[2.2px] text-brand-yellow uppercase">
-            Registration Open
+            {registration.isOpen ? "Registration Open" : `Registration Opens ${registration.opensAtLabel}`}
           </div>
           <p className="mb-4 font-sans text-sm leading-relaxed text-white/85 sm:text-base">
-            Registration is open — secure your place now.
+            {registration.isOpen
+              ? "Registration is open — secure your place now."
+              : `Registration opens ${registration.opensAtLabel}. Pre-register now to vote for a route and receive updates about the event.`}
           </p>
           <Link
-            href={REGISTER_HREF}
+            href={registration.href}
             className="flex min-h-13 w-full items-center justify-center rounded-full bg-brand-yellow font-sans text-[15px] font-bold text-brand-teal"
           >
-            Register Now
+            {registration.label}
           </Link>
         </Reveal>
 

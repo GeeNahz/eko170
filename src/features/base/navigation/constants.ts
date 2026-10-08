@@ -16,7 +16,7 @@ export const PRIMARY_NAV: NavLink[] = [
   },
   { id: "nav-results", label: "Results", href: "/results" },
   { id: "nav-gallery", label: "Gallery", href: "/gallery" },
-  { id: "nav-partners", label: "Sponsors & Partners", href: "/partners" },
+  { id: "nav-partners", label: "Sponsors & Partners", href: "/partners", hidden: true },
   { id: "nav-discover", label: "Discover", href: "/discover" },
   { id: "nav-community", label: "Community", href: "/community" },
   { id: "nav-volunteer", label: "Volunteer", href: "/volunteer" },
@@ -40,11 +40,9 @@ export const FOOTER_NAV: FooterLinkGroup[] = [
     title: "Discover",
     links: [
       { id: "footer-discover-news", label: "News", href: "/gallery" },
-      { id: "footer-discover-sponsors", label: "Sponsors", href: "/partners" },
+      { id: "footer-discover-sponsors", label: "Sponsors", href: "/partners", hidden: true },
       { id: "footer-discover-about", label: "About EKO170", href: "/about" },
       { id: "footer-discover-gallery", label: "Gallery", href: "/gallery" },
     ],
   },
 ];
-
-export const REGISTER_HREF = "/register";

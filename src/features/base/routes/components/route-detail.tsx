@@ -9,12 +9,13 @@ import { RouteIntroduction } from "./route-introduction";
 import { RouteMoreAbout } from "./route-more-about";
 import { RouteStart } from "./route-start";
 import { RouteSubNav } from "./route-sub-nav";
+import { REGISTRATION } from "../../lib/server/registration";
 
 export function RouteDetail({ data }: { data: RouteDetailData }) {
   return (
     <>
       <RouteDetailHero data={data} />
-      <RouteSubNav navLabel={data.navLabel} />
+      <RouteSubNav navLabel={data.navLabel} registration={REGISTRATION} />
       <RouteEntries data={data} />
       <RouteIntroduction data={data} />
       <RouteDescription data={data} />

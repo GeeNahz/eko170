@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { REGISTER_HREF } from "../../navigation/constants";
+import type { RegistrationConfig } from "../../lib/types";
 import { useGetEventDetails } from "../hooks/use-event";
 import { Countdown } from "./countdown";
 
-export function TopBar() {
+export function TopBar({ registration }: { registration: RegistrationConfig }) {
   const { data: event } = useGetEventDetails();
 
   return (
@@ -17,10 +17,10 @@ export function TopBar() {
         </span>
 
         <Link
-          href={REGISTER_HREF}
+          href={registration.href}
           className="hidden rounded-full bg-brand-green px-3 py-1 font-sans text-[10px] font-semibold whitespace-nowrap text-white lg:inline-block"
         >
-          Register →
+          {registration.label} →
         </Link>
       </div>
     </div>

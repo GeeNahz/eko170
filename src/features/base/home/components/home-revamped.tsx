@@ -10,6 +10,7 @@ import { Newsletter } from "./newsletter";
 import { SponsorsMarquee } from "./sponsors-marquee";
 import { RouteVoteSection } from "../route-vote/components/route-vote-section";
 import { Ticker } from "../../event/components/ticker";
+import { REGISTRATION } from "../../lib/server/registration";
 
 // The updated Home from the latest design pass. Section order here was
 // originally re-derived from the mockup's actual id order, then adjusted
@@ -23,10 +24,10 @@ export function HomeRevamped() {
   return (
     <>
       <div className="hidden lg:contents">
-        <Hero />
+        <Hero registration={REGISTRATION} />
         <Ticker />
-        <RouteVoteSection />
-        <EventCardSection />
+        <RouteVoteSection registration={REGISTRATION} />
+        <EventCardSection registration={REGISTRATION} />
         <AboutEko />
         <ChooseDistance />
         <Figures />

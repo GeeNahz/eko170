@@ -1,21 +1,20 @@
 "use server";
 
 import type { ActionResponse } from "@/lib/types";
+import { REGISTRATION } from "../../../lib/server/registration";
 import { EMAIL_PATTERN } from "../constants";
 import { RouteVoteService } from "./service";
 import type { RouteVoteFieldErrors, RouteVoteFormValues, RouteVoteSuccess } from "../types";
-
-// The vote closed once the client chose a route from the two options.
-// Hardcoded (not date-based) since there's no future reopening planned —
-// this is the server-side guard backing route-vote-section.tsx's removed
-// picker UI, so a direct POST to this action can't sneak a late vote in.
-const VOTING_CLOSED = true;
 
 export async function submitVoteAction(
   _prevState: ActionResponse<RouteVoteSuccess> | null,
   values: RouteVoteFormValues,
 ): Promise<ActionResponse<RouteVoteSuccess>> {
-  if (VOTING_CLOSED) {
+  // Voting is only open during the pre-register period — once
+  // REGISTRATION_STATE flips to "register" (the route is confirmed and
+  // real registration is live), the vote closes automatically with it,
+  // no separate flag to remember to flip.
+  if (REGISTRATION.isOpen) {
     return { status: "error", message: "Voting is closed." };
   }
 

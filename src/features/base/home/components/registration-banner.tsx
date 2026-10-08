@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { REGISTER_HREF } from "../../navigation/constants";
+import { REGISTRATION } from "../../lib/server/registration";
 
 export function RegistrationBanner() {
   return (
@@ -8,17 +8,19 @@ export function RegistrationBanner() {
       <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-6">
         <div>
           <div className="mb-1.5 font-mono text-[11px] tracking-wide text-white/80 uppercase">
-            Registration Open
+            {REGISTRATION.isOpen ? "Registration Open" : `Registration Opens ${REGISTRATION.opensAtLabel}`}
           </div>
           <div className="font-sans text-lg font-semibold text-white">
-            Registration is open — secure your place now.
+            {REGISTRATION.isOpen
+              ? "Registration is open — secure your place now."
+              : `Registration opens ${REGISTRATION.opensAtLabel}. Pre-register now to vote for a route and receive updates about the event.`}
           </div>
         </div>
         <Link
-          href={REGISTER_HREF}
+          href={REGISTRATION.href}
           className="inline-flex items-center gap-2.5 rounded-full bg-white px-6 py-4 font-sans text-sm font-semibold text-brand-teal"
         >
-          Register Now
+          {REGISTRATION.label}
           <ArrowRight className="size-4" />
         </Link>
       </div>

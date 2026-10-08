@@ -15,14 +15,15 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import type { RegistrationConfig } from "../../lib/types";
 import type { NavLink } from "../types";
 
 export function MobileNav({
   links,
-  registerHref,
+  registration,
 }: {
   links: NavLink[];
-  registerHref: string;
+  registration: RegistrationConfig;
 }) {
   return (
     <Sheet>
@@ -41,7 +42,7 @@ export function MobileNav({
           </SheetTitle>
         </SheetHeader>
         <nav className="flex flex-1 flex-col overflow-y-auto px-4">
-          {links.map((link) =>
+          {links.filter((link) => !link.hidden).map((link) =>
             link.disabled ? (
               <div
                 key={link.id}
@@ -97,12 +98,12 @@ export function MobileNav({
             nativeButton={false}
             render={
               <Link
-                href={registerHref}
+                href={registration.href}
                 className="flex h-12 w-full items-center justify-center rounded-full bg-linear-100 from-brand-teal via-brand-green to-brand-yellow font-sans text-sm font-semibold text-white"
               />
             }
           >
-            Register Now
+            {registration.label}
           </SheetClose>
         </div>
       </SheetContent>

@@ -4,11 +4,11 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
 import { useMagneticHover } from "@/hooks/use-magnetic-hover";
-import { REGISTER_HREF } from "../../navigation/constants";
+import type { RegistrationConfig } from "../../lib/types";
 import { useGetEventDetails } from "../../event/hooks/use-event";
 import { SplashLoader } from "./splash-loader";
 
-export function Hero() {
+export function Hero({ registration }: { registration: RegistrationConfig }) {
   const { data: event } = useGetEventDetails();
   const magnetic = useMagneticHover(0.25);
 
@@ -79,10 +79,10 @@ export function Hero() {
                 onMouseLeave={magnetic.onMouseLeave}
               >
                 <Link
-                  href={REGISTER_HREF}
+                  href={registration.href}
                   className="inline-flex items-center gap-3 rounded-full bg-white px-9 py-[18px] font-sans text-base font-semibold text-brand-teal"
                 >
-                  Register Now
+                  {registration.label}
                   <ArrowRight className="size-[17px]" />
                 </Link>
               </motion.div>

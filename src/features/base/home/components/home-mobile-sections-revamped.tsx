@@ -9,6 +9,7 @@ import { Newsletter } from "./newsletter";
 import { SponsorsMarquee } from "./sponsors-marquee";
 import { RouteVoteSection } from "../route-vote/components/route-vote-section";
 import { Ticker } from "../../event/components/ticker";
+import { REGISTRATION } from "../../lib/server/registration";
 
 // Order originally re-derived from the mockup's id order, then adjusted
 // per client feedback: route-vote moved to right after Hero, and Atlantic
@@ -17,10 +18,10 @@ import { Ticker } from "../../event/components/ticker";
 export function HomeMobileSectionsRevamped() {
   return (
     <>
-      <HeroMobile />
+      <HeroMobile registration={REGISTRATION} />
       <Ticker />
-      <RouteVoteSection />
-      <EventCardSection />
+      <RouteVoteSection registration={REGISTRATION} />
+      <EventCardSection registration={REGISTRATION} />
       <AboutEko />
       <ChooseDistance />
       <Figures />

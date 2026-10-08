@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Reveal } from "@/components/motion/reveal";
-import { REGISTER_HREF } from "../../navigation/constants";
+import { REGISTRATION } from "../../lib/server/registration";
 import type { RouteDetailData } from "../types";
 
 export function RouteIntroduction({ data }: { data: RouteDetailData }) {
@@ -32,10 +32,10 @@ export function RouteIntroduction({ data }: { data: RouteDetailData }) {
           {data.introBody}
         </Reveal>
         <Link
-          href={REGISTER_HREF}
+          href={REGISTRATION.href}
           className="inline-flex h-12 items-center gap-2 rounded-full bg-brand-yellow px-9 font-sans text-sm font-bold text-brand-teal"
         >
-          Enter Now
+          {REGISTRATION.isOpen ? "Enter Now" : REGISTRATION.label}
         </Link>
       </div>
     </div>

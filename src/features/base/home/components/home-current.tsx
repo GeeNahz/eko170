@@ -14,6 +14,7 @@ import { RegistrationBanner } from "./registration-banner";
 import { SeedingEvents } from "./seeding-events";
 import { SponsorsMarquee } from "./sponsors-marquee";
 import { Ticker } from "../../event/components/ticker";
+import { REGISTRATION } from "../../lib/server/registration";
 
 // The pre-update Home, kept intact and swappable with HomeRevamped (see
 // src/app/(base)/page.tsx) rather than edited in place — per explicit
@@ -23,7 +24,7 @@ export function HomeCurrent() {
   return (
     <>
       <div className="hidden lg:contents">
-        <Hero />
+        <Hero registration={REGISTRATION} />
         <Ticker />
         <EventBar />
         <DistanceBar />

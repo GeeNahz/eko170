@@ -2,11 +2,17 @@
 
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { REGISTER_HREF } from "../../navigation/constants";
+import type { RegistrationConfig } from "../../lib/types";
 import { ROUTE_SUBNAV_LINKS } from "../constants";
 import { useScrollSpy } from "../hooks/use-scroll-spy";
 
-export function RouteSubNav({ navLabel }: { navLabel: string }) {
+export function RouteSubNav({
+  navLabel,
+  registration,
+}: {
+  navLabel: string;
+  registration: RegistrationConfig;
+}) {
   const ids = ROUTE_SUBNAV_LINKS.map((link) => link.id);
   const activeId = useScrollSpy(ids);
 
@@ -32,10 +38,10 @@ export function RouteSubNav({ navLabel }: { navLabel: string }) {
           </a>
         ))}
         <Link
-          href={REGISTER_HREF}
+          href={registration.href}
           className="ml-auto inline-flex items-center gap-2 rounded-full bg-brand-green px-5 py-3 font-sans text-[13px] font-bold whitespace-nowrap text-white"
         >
-          Register Now
+          {registration.label}
         </Link>
       </div>
     </div>
