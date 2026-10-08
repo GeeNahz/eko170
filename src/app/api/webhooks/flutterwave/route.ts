@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { RegisterService } from "@/features/base/register/server/service";
+import { FLUTTERWAVE_SECRET_HASH, PAYMENT_GATEWAY } from "@/features/base/lib/constants";
 
 // Flutterwave's recommended source of truth: this is the only path that
 // writes a registration to the Sheet. The redirect-back verify page only
@@ -8,15 +9,21 @@ import { RegisterService } from "@/features/base/register/server/service";
 // treating exactly one path as authoritative avoids a double-recorded
 // registration if the rider refreshes the verify page.
 export async function POST(request: Request) {
-  const expectedHash = process.env.FLUTTERWAVE_SECRET_HASH;
   const signature = request.headers.get("verif-hash");
-  if (!expectedHash || !signature || signature !== expectedHash) {
+  if (!FLUTTERWAVE_SECRET_HASH || !signature || signature !== FLUTTERWAVE_SECRET_HASH) {
     return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
   }
 
   const body = await request.json();
   if (body.event !== "charge.completed" || body.data?.status !== "successful") {
     return NextResponse.json({ status: "ignored" });
+  }
+
+  // Flutterwave's webhook is still configured in the dashboard but
+  // isn't the active gateway right now — ignore rather than process
+  // against the wrong adapter.
+  if ((PAYMENT_GATEWAY ?? "flutterwave") !== "flutterwave") {
+    return NextResponse.json({ status: "ignored (inactive gateway)" });
   }
 
   try {

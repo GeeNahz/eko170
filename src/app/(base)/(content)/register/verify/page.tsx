@@ -11,18 +11,30 @@ export const metadata: Metadata = {
 export default async function RegisterVerifyPage({
   searchParams,
 }: {
-  searchParams: Promise<{ transaction_id?: string; status?: string }>;
+  searchParams: Promise<{ transaction_id?: string; reference?: string }>;
 }) {
-  const { transaction_id: transactionId, status } = await searchParams;
+  // Flutterwave's redirect sends `transaction_id` (+ a `status` param
+  // we no longer gate on); Paystack's sends `reference` with no status
+  // param at all. Only one gateway is ever active, so only its own
+  // param will actually be present — whichever shows up is the
+  // identifier to verify.
+  const { transaction_id: transactionId, reference } = await searchParams;
+  const identifier = transactionId ?? reference;
 
   // Read-only — this page never writes to the Sheet. It just re-verifies
-  // with Flutterwave to show the rider the right outcome; the webhook is
-  // the only path that actually records the registration (see
-  // RegisterService.recordPaidRegistration / the webhook route for why).
-  const verified =
-    status === "successful" && transactionId
-      ? await RegisterService.verifyRegistrationPayment(transactionId)
-      : null;
+  // with the active gateway to show the rider the right outcome; the
+  // webhook is the only path that actually records the registration
+  // (see RegisterService.recordPaidRegistration / the webhook routes
+  // for why). A thrown config error renders the failure view rather
+  // than crashing the page.
+  let verified = null;
+  if (identifier) {
+    try {
+      verified = await RegisterService.verifyRegistrationPayment(identifier);
+    } catch (error) {
+      console.error("[register/verify] verification failed", error);
+    }
+  }
 
   return (
     <>

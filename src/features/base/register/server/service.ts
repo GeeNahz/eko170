@@ -1,36 +1,39 @@
 import "server-only";
 import { postToSheet } from "../../lib/server/sheets-client";
-import {
-  initiatePayment,
-  verifyTransaction,
-} from "../../lib/server/flutterwave-client";
+import { getActiveGateway } from "../../lib/server/payment";
 import { sendRegistrationConfirmationEmail } from "../../lib/server/email-client";
-import { DISTANCE_PRICES } from "../constants";
+import { SITE_URL } from "../../lib/constants";
+import { resolveDistancePrice } from "../constants";
 import type { RegistrationFormValues, VerifiedRegistration } from "../types";
 
 function siteUrl() {
-  const url = process.env.SITE_URL;
-  if (!url) throw new Error("SITE_URL is not set");
-  return url;
+  if (!SITE_URL) throw new Error("SITE_URL is not set");
+  return SITE_URL;
 }
 
 export const RegisterService = {
   // Kicks off payment — the registration itself isn't recorded anywhere
-  // yet. The entire form payload rides along as Flutterwave `meta`, so
+  // yet. The entire form payload rides along as gateway `meta`, so
   // there's nothing else to persist before redirecting: once the rider
-  // pays, Flutterwave hands all of it straight back on verify.
+  // pays, the gateway hands all of it straight back on verify.
+  //
+  // The resolved amount is snapshotted into `meta.amount` here, at
+  // initiation time — verification must check against this snapshot,
+  // not re-resolve the price from scratch (see verifyRegistrationPayment).
   async initiateRegistrationPayment(values: RegistrationFormValues): Promise<string> {
-    const amount = DISTANCE_PRICES[values.distance];
+    const amount = resolveDistancePrice(values.distance);
     if (!amount) {
       throw new Error(`No price configured for distance "${values.distance}"`);
     }
 
     const refCode = `EKO170-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
-    const meta: Record<string, string> = { ...values, refCode };
+    const meta: Record<string, string> = { ...values, refCode, amount: String(amount) };
 
-    return initiatePayment({
+    const gateway = getActiveGateway();
+    return gateway.initiatePayment({
       txRef: refCode,
       amount,
+      currency: "NGN",
       email: values.email,
       name: `${values.firstName} ${values.lastName}`,
       phone: values.phone,
@@ -42,15 +45,18 @@ export const RegisterService = {
   },
 
   // Read-only: re-verifies the transaction server-to-server and checks
-  // it actually matches what we expect — status, currency, amount (never
-  // trust the amount Flutterwave's webhook payload or query string
-  // claims, recompute it from the distance in `meta`), and that the
-  // tx_ref matches the refCode we minted. Safe to call from both the
-  // redirect-back page and the webhook; writes nothing.
+  // it actually matches what we expect — status, currency, amount (the
+  // amount snapshotted into `meta` at initiation time, never re-derived
+  // from "now" — an early-bird price that was valid when the rider
+  // started paying must not be rejected just because the deadline
+  // passed while they were on the checkout page), and that the
+  // reference matches the refCode we minted. Safe to call from both
+  // the redirect-back page and the webhook; writes nothing.
   async verifyRegistrationPayment(
-    transactionId: string,
+    identifier: string,
   ): Promise<VerifiedRegistration | null> {
-    const transaction = await verifyTransaction(transactionId);
+    const gateway = getActiveGateway();
+    const transaction = await gateway.verifyTransaction(identifier);
     const meta = transaction.meta as
       | (Record<string, string> & Partial<RegistrationFormValues>)
       | null;
@@ -59,19 +65,19 @@ export const RegisterService = {
       return null;
     }
 
-    const expectedAmount = DISTANCE_PRICES[meta.distance];
+    const expectedAmount = Number(meta.amount);
     if (
       !expectedAmount ||
       transaction.currency !== "NGN" ||
       transaction.amount < expectedAmount ||
-      transaction.tx_ref !== meta.refCode
+      transaction.reference !== meta.refCode
     ) {
       return null;
     }
 
-    // Built explicitly (not spread) so a field Flutterwave ever dropped
-    // from `meta` fails loudly as a missing property, not silently via a
-    // type cast.
+    // Built explicitly (not spread) so a field the gateway ever dropped
+    // from `meta` fails loudly as a missing property, not silently via
+    // a type cast.
     const fields: RegistrationFormValues = {
       firstName: meta.firstName ?? "",
       lastName: meta.lastName ?? "",
@@ -97,23 +103,25 @@ export const RegisterService = {
       distance: meta.distance,
       amount: transaction.amount,
       currency: transaction.currency,
-      flwRef: transaction.flw_ref,
+      gateway: gateway.id,
+      gatewayRef: transaction.gatewayRef,
       name: meta.firstName ?? "",
       email: meta.email ?? "",
       fields,
     };
   },
 
-  // The one place that writes. Called only by the webhook — see
-  // flutterwave webhook route for why the redirect-back page never
-  // calls this (no database to dedupe a double-write against).
+  // The one place that writes. Called only by the webhook — see the
+  // webhook routes for why the redirect-back page never calls this (no
+  // database to dedupe a double-write against).
   async recordPaidRegistration(data: VerifiedRegistration): Promise<void> {
     await postToSheet("registrations", {
       ...data.fields,
       refCode: data.refCode,
       amountPaid: String(data.amount),
       currency: data.currency,
-      flwRef: data.flwRef,
+      gateway: data.gateway,
+      gatewayRef: data.gatewayRef,
     });
     await sendRegistrationConfirmationEmail({
       to: data.email,
