@@ -159,17 +159,20 @@ export const DISTANCE_CARDS: DistanceCard[] = [
   },
 ];
 
+// Lagos State Government is the sole sponsor shown on Home per client
+// request — the rest of the former lineup (Quest Oil, Avis, Elektron,
+// Watch Galleries) is dropped from this section.
 export const SPONSOR_LOGOS: SponsorLogo[] = [
-  { id: "sponsor-quest", name: "Quest Oil", src: "/sponsors/logo-quest-sm.jpg" },
-  { id: "sponsor-avis", name: "Avis", src: "/sponsors/logo-avis-sm.jpg" },
-  { id: "sponsor-elektron", name: "Elektron", src: "/sponsors/logo-elektron-sm.jpg" },
-  { id: "sponsor-watch", name: "Watch Galleries", src: "/sponsors/logo-watch-sm.jpg" },
+  { id: "sponsor-lsg", name: "Lagos State Government", src: "/sponsors/logo-lsg-sm.jpg" },
 ];
 
+// No longer rendered on Home (sponsors-marquee.tsx dropped its
+// "Partners" block entirely) — kept defined, not deleted, in case it's
+// needed again. Lagos State Government moved out of this list into
+// SPONSOR_LOGOS above.
 export const PARTNER_LOGOS: SponsorLogo[] = [
   { id: "partner-dynastar", name: "Dynastar", src: "/sponsors/logo-dynastar-sm.jpg" },
   { id: "partner-tourism", name: "Ministry of Tourism Lagos", src: "/sponsors/logo-tourism-sm.jpg" },
-  { id: "partner-lsg", name: "Lagos State Government", src: "/sponsors/logo-lsg-sm.jpg" },
   { id: "partner-lssc", name: "LSSC", src: "/sponsors/logo-lssc-sm.jpg" },
   { id: "partner-etiosa", name: "Eti-Osa Local Government", src: "/sponsors/logo-etiosa-sm.jpg" },
   { id: "partner-sdg", name: "Lagos SDG", src: "/sponsors/logo-sdg-sm.jpg" },
