@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { SponsorLogo } from "../../lib/types";
-import { PARTNER_LOGOS, SPONSOR_LOGOS } from "../constants";
+import { SPONSOR_LOGOS } from "../constants";
 
 function LogoRow({
   logos,
@@ -74,15 +74,8 @@ export function SponsorsMarquee() {
         <div className="mb-5 font-mono text-xs tracking-wide text-gray-400 uppercase">
           Sponsors
         </div>
-        <div className="-mx-5 mb-12 sm:mx-0">
-          <LogoRow logos={SPONSOR_LOGOS} duration="32s" cardWidth={220} cardHeight={104} />
-        </div>
-
-        <div className="mb-5 font-mono text-xs tracking-wide text-gray-400 uppercase">
-          Partners
-        </div>
         <div className="-mx-5 sm:mx-0">
-          <LogoRow logos={PARTNER_LOGOS} duration="48s" cardWidth={180} cardHeight={96} />
+          <LogoRow logos={SPONSOR_LOGOS} duration="32s" cardWidth={220} cardHeight={104} />
         </div>
       </div>
     </div>

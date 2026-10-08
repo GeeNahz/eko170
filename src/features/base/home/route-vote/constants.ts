@@ -28,6 +28,12 @@ export const ROUTE_VOTE_OPTIONS: RouteVoteOption[] = [
 
 export const DISTANCE_OPTIONS = ["Gran Fondo · 170KM", "Medio Fondo · 94.5KM", "Undecided"];
 
+// Set to "a" or "b" once the winning route is confirmed. This is prep
+// only — route-vote-section.tsx does not yet read this value; showing
+// just the winner and hiding the other option is a separate, deliberate
+// follow-up pass once this is set, not an automatic effect of setting it.
+export const CONFIRMED_ROUTE_ID: RouteVoteOption["id"] | null = null;
+
 export const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 // Client-side only — see route-vote-section.tsx for the caveat this implies.

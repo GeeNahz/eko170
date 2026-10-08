@@ -5,10 +5,9 @@ import Image from "next/image";
 import { Check } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { cn } from "@/lib/utils";
+import type { RegistrationConfig } from "../../../lib/types";
 import { useCountdown } from "../../../event/hooks/use-countdown";
 import { ROUTE_VOTE_OPTIONS } from "../constants";
-
-const REGISTRATION_OPEN_DATE = "2026-09-30T00:00:00+01:00";
 import {
   getServerVotedOptionId,
   getVotedOptionId,
@@ -17,7 +16,7 @@ import {
 } from "../lib/vote-store";
 import { RouteVoteCastForm } from "./route-vote-cast-form";
 
-export function RouteVoteSection() {
+export function RouteVoteSection({ registration }: { registration: RegistrationConfig }) {
   const votedOptionId = useSyncExternalStore(
     subscribeVotedOptionId,
     getVotedOptionId,
@@ -35,15 +34,95 @@ export function RouteVoteSection() {
   }
 
   const votedOption = ROUTE_VOTE_OPTIONS.find((o) => o.id === votedOptionId);
-  const { days, hours, minutes, seconds } = useCountdown(
-    REGISTRATION_OPEN_DATE,
-  );
+  const { days, hours, minutes, seconds } = useCountdown(registration.opensAt ?? undefined);
   const registrationCountdownUnits = [
     { label: "Days", value: days },
     { label: "Hours", value: hours },
     { label: "Minutes", value: minutes },
     { label: "Seconds", value: seconds },
   ];
+
+  if (registration.isOpen) {
+    // Voting only runs during the pre-register period — once
+    // registration is actually open the route is confirmed, so this
+    // becomes a read-only record of what was on the table rather than
+    // a live picker.
+    return (
+      <div
+        id="routevote"
+        className="overflow-hidden bg-white px-5 pt-11 pb-12 sm:mx-4 sm:mt-4 sm:rounded-[22px] sm:px-10 sm:py-24"
+      >
+        <div className="mx-auto max-w-6xl">
+          <Reveal className="mb-4 border-l-4 border-brand-green pl-3 font-mono text-xs tracking-wide text-brand-green uppercase">
+            Rider Vote · Closed
+          </Reveal>
+          <Reveal
+            delay={0.1}
+            className="font-heading mb-4 text-4xl leading-[0.95] font-black text-brand-teal italic uppercase sm:text-[52px]"
+          >
+            Which Route
+            <br />
+            Should We Ride?
+          </Reveal>
+          <Reveal
+            delay={0.15}
+            className="mb-10 max-w-2xl font-sans text-base leading-relaxed text-gray-600 sm:text-lg"
+          >
+            Voting is now closed. Thank you to everyone who voted — we will
+            announce the confirmed 2027 Gran Fondo course soon.
+          </Reveal>
+
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-6">
+            {ROUTE_VOTE_OPTIONS.map((option) => (
+              <div
+                key={option.id}
+                className="overflow-hidden rounded-[18px] border-[1.5px] border-brand-cream-border bg-white"
+              >
+                <div className="px-4 pt-4 pb-3.5 sm:px-6 sm:pt-6">
+                  <span className="font-mono text-[10px] tracking-wide text-gray-400 uppercase">
+                    {option.eyebrow}
+                  </span>
+                  <div className="font-heading mb-1.5 text-2xl leading-none font-extrabold text-brand-teal uppercase sm:text-[28px]">
+                    {option.title}
+                  </div>
+                  <div className="font-sans text-sm leading-relaxed text-gray-600">
+                    {option.description}
+                  </div>
+                </div>
+                <div className="relative h-44 border-t border-brand-cream-border sm:h-64">
+                  <Image
+                    src={option.mapImage}
+                    alt={`${option.title} route map`}
+                    fill
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                    className="object-cover"
+                  />
+                </div>
+                <div className="flex gap-5 border-t border-brand-cream-border px-4 py-3 sm:px-6">
+                  <div>
+                    <div className="font-mono text-[9px] tracking-wide text-gray-400 uppercase">
+                      Shape
+                    </div>
+                    <div className="font-sans text-sm font-semibold text-brand-teal">
+                      {option.shape}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="font-mono text-[9px] tracking-wide text-gray-400 uppercase">
+                      Character
+                    </div>
+                    <div className="font-sans text-sm font-semibold text-brand-teal">
+                      {option.character}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -71,42 +150,41 @@ export function RouteVoteSection() {
           publish the result with the confirmed course.
         </Reveal>
 
-        <Reveal
-          delay={0.18}
-          className="mb-10 rounded-[18px] border border-brand-cream-border bg-brand-cream px-6 py-6 sm:px-8"
-        >
-          <div className="mb-3 font-mono text-xs tracking-[2.2px] text-brand-green uppercase">
-            Registration Opens 30 September 2026
-          </div>
-          <div className="flex flex-wrap items-center gap-5 sm:gap-8">
-            <div className="flex flex-wrap items-center gap-2 sm:gap-3">
-              {registrationCountdownUnits.map((unit, i) => (
-                <div
-                  key={unit.label}
-                  className="flex items-center gap-2 sm:gap-3"
-                >
-                  <div className="w-14 rounded-xl border border-brand-cream-border bg-white py-2 text-center sm:w-17 sm:py-3">
-                    <div className="font-heading text-lg leading-none font-black text-brand-teal sm:text-2xl">
-                      {unit.value}
-                    </div>
-                    <div className="mt-1 font-mono text-[7px] tracking-wide text-gray-400 uppercase sm:text-[9px]">
-                      {unit.label}
-                    </div>
-                  </div>
-                  {i < registrationCountdownUnits.length - 1 && (
-                    <div className="font-heading hidden text-xl font-black text-gray-300 sm:block">
-                      –
-                    </div>
-                  )}
-                </div>
-              ))}
+        {registration.opensAt && (
+          <Reveal
+            delay={0.18}
+            className="mb-10 rounded-[18px] border border-brand-cream-border bg-brand-cream px-6 py-6 sm:px-8"
+          >
+            <div className="mb-3 font-mono text-xs tracking-[2.2px] text-brand-green uppercase">
+              Registration Opens {registration.opensAtLabel}
             </div>
-            <p className="max-w-sm font-sans text-sm leading-relaxed text-gray-600">
-              Pre-register now to vote for a route and receive updates about the
-              event.
-            </p>
-          </div>
-        </Reveal>
+            <div className="flex flex-wrap items-center gap-5 sm:gap-8">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                {registrationCountdownUnits.map((unit, i) => (
+                  <div key={unit.label} className="flex items-center gap-2 sm:gap-3">
+                    <div className="w-14 rounded-xl border border-brand-cream-border bg-white py-2 text-center sm:w-17 sm:py-3">
+                      <div className="font-heading text-lg leading-none font-black text-brand-teal sm:text-2xl">
+                        {unit.value}
+                      </div>
+                      <div className="mt-1 font-mono text-[7px] tracking-wide text-gray-400 uppercase sm:text-[9px]">
+                        {unit.label}
+                      </div>
+                    </div>
+                    {i < registrationCountdownUnits.length - 1 && (
+                      <div className="font-heading hidden text-xl font-black text-gray-300 sm:block">
+                        –
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+              <p className="max-w-sm font-sans text-sm leading-relaxed text-gray-600">
+                Pre-register now to vote for a route and receive updates about
+                the event.
+              </p>
+            </div>
+          </Reveal>
+        )}
 
         {votedOption ? (
           <div className="mx-auto max-w-2xl rounded-[18px] border border-brand-cream-border bg-brand-cream px-6 py-10 text-center sm:px-10 sm:py-14">
@@ -118,9 +196,9 @@ export function RouteVoteSection() {
             </h3>
             <p className="mx-auto mb-6 max-w-110 font-sans text-sm leading-relaxed text-gray-600">
               You voted for{" "}
-              <strong className="text-brand-teal">{votedOption.title}</strong>.
-              We will announce the confirmed 2027 Gran Fondo course by email
-              once voting closes.
+              <strong className="text-brand-teal">{votedOption.title}</strong>. We
+              will announce the confirmed 2027 Gran Fondo course by email once
+              voting closes.
             </p>
             <button
               type="button"
@@ -147,9 +225,7 @@ export function RouteVoteSection() {
                   >
                     <button
                       type="button"
-                      onClick={() =>
-                        setPickedOptionId(picked ? null : option.id)
-                      }
+                      onClick={() => setPickedOptionId(picked ? null : option.id)}
                       className="flex w-full items-start gap-3 px-4 pt-4 pb-3.5 text-left sm:px-6 sm:pt-6"
                     >
                       <span
@@ -214,10 +290,7 @@ export function RouteVoteSection() {
             </div>
             {pickedOptionId && (
               <div className="mx-auto w-full max-w-2xl">
-                <RouteVoteCastForm
-                  optionId={pickedOptionId}
-                  onVoted={handleVoted}
-                />
+                <RouteVoteCastForm optionId={pickedOptionId} onVoted={handleVoted} />
               </div>
             )}
           </div>

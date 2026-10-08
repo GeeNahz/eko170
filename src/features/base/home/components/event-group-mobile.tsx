@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { REGISTER_HREF } from "../../navigation/constants";
+import type { RegistrationConfig } from "../../lib/types";
 import { useGetEventDetails } from "../../event/hooks/use-event";
 import { useCountdown } from "../../event/hooks/use-countdown";
 import { DISTANCE_STATS, EVENT_CARDS } from "../constants";
 
-export function EventGroupMobile() {
+export function EventGroupMobile({ registration }: { registration: RegistrationConfig }) {
   const { data: event } = useGetEventDetails();
   const { days, hours, minutes, seconds } = useCountdown(event?.eventDate);
 
@@ -40,10 +40,10 @@ export function EventGroupMobile() {
         ))}
 
         <Link
-          href={REGISTER_HREF}
+          href={registration.href}
           className="rounded-full bg-brand-green px-4 py-3 text-center font-sans text-sm font-semibold text-white"
         >
-          Pre-register Now
+          {registration.label}
         </Link>
       </div>
 
@@ -60,17 +60,18 @@ export function EventGroupMobile() {
 
       <div className="bg-brand-green px-3.5 py-7">
         <div className="mb-1.5 font-mono text-[11px] tracking-wide text-white/80 uppercase">
-          Registration Opens 30 September 2026
+          {registration.isOpen ? "Registration Open" : `Registration Opens ${registration.opensAtLabel}`}
         </div>
         <div className="mb-5 font-sans text-lg font-semibold text-white">
-          Registration opens 30 September 2026. Pre-register now to vote for
-          a route and receive updates about the event.
+          {registration.isOpen
+            ? "Registration is open — secure your place now."
+            : `Registration opens ${registration.opensAtLabel}. Pre-register now to vote for a route and receive updates about the event.`}
         </div>
         <Link
-          href={REGISTER_HREF}
+          href={registration.href}
           className="inline-flex items-center justify-center rounded-full bg-brand-yellow px-6 py-4 font-sans text-sm font-semibold text-brand-teal"
         >
-          Pre-register Now
+          {registration.label}
         </Link>
       </div>
 

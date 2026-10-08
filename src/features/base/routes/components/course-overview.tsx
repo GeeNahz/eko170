@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Download, MapPin } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
-import { REGISTER_HREF } from "../../navigation/constants";
+import { REGISTRATION } from "../../lib/server/registration";
 import { ROUTE_HIGHLIGHTS, ROUTE_STATS } from "../constants";
 
 export function CourseOverview() {
@@ -37,10 +37,10 @@ export function CourseOverview() {
           </div>
           <div className="flex flex-wrap gap-4">
             <Link
-              href={REGISTER_HREF}
+              href={REGISTRATION.href}
               className="inline-flex items-center gap-2.5 rounded-full bg-brand-green px-6 py-4 font-sans text-sm font-semibold text-white"
             >
-              Pre-register Now
+              {REGISTRATION.isOpen ? "Register for This Route" : REGISTRATION.label}
               <ArrowRight className="size-4" />
             </Link>
             <button

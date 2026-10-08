@@ -3,11 +3,11 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
-import { REGISTER_HREF } from "../../navigation/constants";
+import type { RegistrationConfig } from "../../lib/types";
 import { useGetEventDetails } from "../../event/hooks/use-event";
 import { SplashLoader } from "./splash-loader";
 
-export function HeroMobile() {
+export function HeroMobile({ registration }: { registration: RegistrationConfig }) {
   const { data: event } = useGetEventDetails();
 
   return (
@@ -71,10 +71,10 @@ export function HeroMobile() {
           </p>
           <div className="mb-6 flex flex-col gap-3">
             <Link
-              href={REGISTER_HREF}
+              href={registration.href}
               className="inline-flex items-center justify-center gap-3 rounded-full bg-white px-9 py-[18px] font-sans text-base font-semibold text-brand-teal"
             >
-              Pre-register Now
+              {registration.label}
               <ArrowRight className="size-[17px]" />
             </Link>
             <Link

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Reveal } from "@/components/motion/reveal";
-import { REGISTER_HREF } from "../../navigation/constants";
+import { REGISTRATION } from "../../lib/server/registration";
 
 export function RouteClosingCta() {
   return (
@@ -10,10 +10,10 @@ export function RouteClosingCta() {
       </Reveal>
       <Reveal delay={0.1}>
         <Link
-          href={REGISTER_HREF}
+          href={REGISTRATION.href}
           className="inline-flex w-full max-w-[420px] items-center justify-center rounded-full bg-white px-9 py-4 font-sans text-base font-semibold text-brand-teal"
         >
-          Pre-register Now
+          {REGISTRATION.label}
         </Link>
       </Reveal>
     </div>

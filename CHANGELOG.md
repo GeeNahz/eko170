@@ -8,6 +8,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+- Registration date moved to **13 October 2026** — the route vote
+  reopened and every "Register" CTA reverted to "Pre-register Now",
+  routed through a new, single `REGISTRATION` config
+  (`src/features/base/lib/server/registration.ts`) resolved from the
+  `REGISTRATION_STATE` env var (`pre-register` | `register`) instead of
+  per-file literals. Client Components (nav bar, hero, event section,
+  route sub-nav, the vote section) receive it as a `registration` prop
+  from their nearest Server Component ancestor rather than reading the
+  env var themselves — deliberately not `NEXT_PUBLIC_`-prefixed.
+  Flipping that one env var and redeploying is now the whole switch;
+  see `eko170_registration_state.md` for the full file map and the
+  label/copy rules each CTA follows.
+- "Which Route Should We Ride?" (`route-vote-section.tsx`) is
+  interactive again (picker, vote form, map images) with a countdown to
+  the 13 October date; it automatically falls back to a read-only
+  "Voting is now closed" view once `REGISTRATION_STATE=register`, no
+  separate flag to remember to flip. `submitVoteAction` rejects votes
+  server-side on the same `REGISTRATION.isOpen` check. `CONFIRMED_ROUTE_ID`
+  (`route-vote/constants.ts`, still `null`) remains prep-only for a
+  future single-winner pass.
+- Registration (`/register`) is gated behind a real payment, gateway-
+  agnostic: `PAYMENT_GATEWAY` (`flutterwave` | `paystack`) selects the
+  implementation (`src/features/base/lib/server/payment/`), each
+  self-checking its required env vars before a rider reaches checkout.
+  The form redirects to the active gateway's hosted checkout for the
+  amount matching the chosen distance, now resolved via
+  `resolveDistancePrice` (`register/constants.ts`) to support an
+  optional early-bird price + end date per distance (none configured
+  yet — flat pricing today: ₦75,000 Gran Fondo / ₦40,000 Medio Fondo).
+  Payment is verified server-to-server before anything is recorded —
+  see Added, below. The form shows the resolved fee (and an early-bird
+  note when one's active) and labels its submit button "Continue to
+  Payment".
+- Lagos State Government is now the sole sponsor shown on Home
+  (`SponsorsMarquee`) — the rest of the former sponsor lineup is
+  dropped from that section and the "Partners" row is removed entirely;
+  moved out of `PARTNER_LOGOS` into `SPONSOR_LOGOS`
+  (`src/features/base/home/constants.ts`). The "Sponsors & Partners"
+  nav and footer links are hidden (not deleted — a new `hidden` field
+  on `NavLink`) while the page itself stays reachable by URL.
 - "Which Route Should We Ride?" option cards
   (`src/features/base/home/route-vote/components/route-vote-section.tsx`)
   now show the client's own route-map screenshots
@@ -18,18 +58,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   (`src/features/base/home/components/feature-rows.tsx`'s
   `FeatureCommunity`) and Discover's "Nike Art Gallery" attraction card
   image (`src/features/base/discover/constants.ts`) to `CR2A3221.jpg`.
-- Registration now opens 30 September 2026. Retargeted `REGISTER_HREF`
-  (`src/features/base/navigation/constants.ts`) from `/register` to
-  `/#routevote`, and relabeled every site-wide "Register"/"Enter" CTA
-  (~18 files, including the nav bar, hero, and route pages) to
-  "Pre-register Now" so they route to the "Which Route Should We Ride?"
-  section instead. `/register` itself is unchanged and still reachable
-  directly, just no longer linked from anywhere on the site.
-- Collapsed `EventCardSection`'s two distance-specific register buttons
-  into one full-width "Pre-register Now" button (same for its mobile
-  equivalent, `EventGroupMobile`), and updated the stale "Registration
-  opens 12 November 2025" copy in both components' registration boxes to
-  the real 30 September 2026 date.
 - Disabled the "Routes" nav item (desktop dropdown and mobile accordion,
   `src/features/base/navigation/components/nav-bar.tsx`,
   `mobile-nav.tsx`) since no route is confirmed yet — shown greyed out
@@ -87,12 +115,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Instagram profile instead of a `#` placeholder.
 
 ### Added
-- New "Registration Opens 30 September 2026" countdown on the "Which
-  Route Should We Ride?" section
-  (`src/features/base/home/route-vote/components/route-vote-section.tsx`),
-  independent of the existing Race Day countdown, with copy inviting
-  riders to pre-register and vote for a route ahead of the confirmed
-  registration date.
+- Payment gate for registration behind a `PaymentGateway` interface
+  (`src/features/base/lib/types.ts`) with two implementations
+  (`lib/server/payment/flutterwave.ts`, `paystack.ts`), selected by
+  `PAYMENT_GATEWAY`: the registration form redirects to the active
+  gateway's hosted checkout instead of recording directly. Each
+  gateway's webhook (`src/app/api/webhooks/flutterwave/route.ts`,
+  `.../paystack/route.ts`) is the sole writer for its own transactions
+  — it re-verifies server-to-server (status normalized to `"successful"`
+  for both gateways, currency, amount checked against the price
+  snapshotted at checkout time, reference) before recording anything,
+  and a read-only callback page (`/register/verify`) shows the rider a
+  success or failure view regardless of which gateway ran. The
+  registrations Sheet row now also carries `amountPaid`, `currency`,
+  `gateway`, and `gatewayRef` (for reconciliation) alongside the
+  existing form fields.
+- Early-bird pricing support: `DISTANCE_PRICES`
+  (`register/constants.ts`) can carry an optional `earlyBird` price +
+  end date per distance, resolved by `resolveDistancePrice` (falls back
+  to the standard price once the deadline passes). The amount actually
+  charged is snapshotted at checkout initiation and that's what
+  verification checks against — not re-resolved from "now" — so a
+  payment that started before the deadline isn't wrongly rejected if
+  verification happens after it. No early-bird configured yet for
+  either distance.
+- Resend-based confirmation email
+  (`src/features/base/lib/server/email-client.ts`) sent once payment is
+  verified — multipart HTML/text, reply-to address configurable via
+  `EMAIL_REPLY_TO` (kept independent of `EMAIL_FROM`'s sending domain,
+  since the two don't have to match). Scoped as a one-time transactional
+  receipt (no unsubscribe link — there's nothing to unsubscribe from; a
+  broader marketing-list use case would need separate infrastructure).
 - `GOOGLE_SHEETS_WEBHOOK_URL_DEPLOYMENT_ID` documented in `.env.example`,
   alongside the existing `GOOGLE_SHEETS_WEBHOOK_URL`.
 - New Home page design (`HomeRevamped`,

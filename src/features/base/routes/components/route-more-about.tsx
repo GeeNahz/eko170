@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
-import { REGISTER_HREF } from "../../navigation/constants";
+import { REGISTRATION } from "../../lib/server/registration";
 import type { RouteDetailData } from "../types";
 
 export function RouteMoreAbout({ data }: { data: RouteDetailData }) {
@@ -30,7 +30,7 @@ export function RouteMoreAbout({ data }: { data: RouteDetailData }) {
                 {card.description}
               </p>
               <Link
-                href={REGISTER_HREF}
+                href={REGISTRATION.href}
                 className="mx-auto inline-flex h-8.5 items-center rounded-full bg-brand-yellow px-5 font-sans text-xs font-bold text-brand-teal"
               >
                 More Info

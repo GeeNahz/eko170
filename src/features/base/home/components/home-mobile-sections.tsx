@@ -10,13 +10,14 @@ import { Newsletter } from "./newsletter";
 import { SeedingEventsMobile } from "./seeding-events-mobile";
 import { SponsorsMarquee } from "./sponsors-marquee";
 import { Ticker } from "../../event/components/ticker";
+import { REGISTRATION } from "../../lib/server/registration";
 
 export function HomeMobileSections() {
   return (
     <>
-      <HeroMobile />
+      <HeroMobile registration={REGISTRATION} />
       <Ticker />
-      <EventGroupMobile />
+      <EventGroupMobile registration={REGISTRATION} />
       <AboutEko />
       <ChooseDistance />
       <AtlanticChallengeMobile />

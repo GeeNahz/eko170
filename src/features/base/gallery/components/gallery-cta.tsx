@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
-import { REGISTER_HREF } from "../../navigation/constants";
+import { REGISTRATION } from "../../lib/server/registration";
 
 export function GalleryCta() {
   return (
@@ -10,10 +10,10 @@ export function GalleryCta() {
         Be Part of the Next One.
       </Reveal>
       <Link
-        href={REGISTER_HREF}
+        href={REGISTRATION.href}
         className="inline-flex items-center gap-2.5 rounded-full bg-white px-9 py-4 font-sans text-base font-semibold text-brand-teal"
       >
-        Pre-register Now
+        {REGISTRATION.label}
         <ArrowRight className="size-4" />
       </Link>
     </div>

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
-import { REGISTER_HREF } from "../../navigation/constants";
+import { REGISTRATION } from "../../lib/server/registration";
 
 export function RegisterCta() {
   return (
@@ -10,10 +10,10 @@ export function RegisterCta() {
         Think You Can Beat These Times?
       </Reveal>
       <Link
-        href={REGISTER_HREF}
+        href={REGISTRATION.href}
         className="inline-flex items-center gap-2.5 rounded-full bg-white px-9 py-4 font-sans text-base font-semibold text-brand-teal"
       >
-        Pre-register Now
+        {REGISTRATION.isOpen ? "Register for 2027" : REGISTRATION.label}
         <ArrowRight className="size-4" />
       </Link>
     </div>

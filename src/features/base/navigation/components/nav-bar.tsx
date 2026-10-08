@@ -7,7 +7,8 @@ import { ArrowRight, ChevronDown } from "lucide-react";
 import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 import { useMagneticHover } from "@/hooks/use-magnetic-hover";
-import { PRIMARY_NAV, REGISTER_HREF } from "../constants";
+import type { RegistrationConfig } from "../../lib/types";
+import { PRIMARY_NAV } from "../constants";
 import { useHideOnScroll } from "../hooks/use-hide-on-scroll";
 import { MobileNav } from "./mobile-nav";
 
@@ -17,7 +18,7 @@ function isActive(pathname: string, href: string) {
   return pathname === base || pathname.startsWith(`${base}/`);
 }
 
-export function NavBar() {
+export function NavBar({ registration }: { registration: RegistrationConfig }) {
   const pathname = usePathname();
   const { hidden, scrolled } = useHideOnScroll();
   const magnetic = useMagneticHover(0.3);
@@ -49,7 +50,7 @@ export function NavBar() {
         </Link>
 
         <div className="hidden items-center gap-0.5 rounded-full border border-white/60 bg-[rgba(241,245,242,0.62)] px-2.5 py-0 shadow-[0_6px_20px_rgba(16,24,40,0.05)] backdrop-blur-md lg:flex">
-          {PRIMARY_NAV.map((link) => {
+          {PRIMARY_NAV.filter((link) => !link.hidden).map((link) => {
             const active = isActive(pathname, link.href);
             if (link.disabled) {
               return (
@@ -102,22 +103,22 @@ export function NavBar() {
           className="hidden shrink-0 lg:block"
         >
           <Link
-            href={REGISTER_HREF}
+            href={registration.href}
             className="inline-flex h-[60px] items-center justify-center gap-2.5 rounded-full border border-white/60 bg-linear-100 from-brand-teal via-brand-green to-brand-yellow px-6 font-sans text-[15px] font-semibold text-white shadow-[0_8px_24px_rgba(22,163,74,0.28)]"
           >
-            Pre-register Now
+            {registration.label}
             <ArrowRight className="size-4" />
           </Link>
         </motion.div>
 
         <div className="flex shrink-0 items-center gap-2 lg:hidden">
           <Link
-            href={REGISTER_HREF}
+            href={registration.href}
             className="inline-flex h-10 items-center justify-center rounded-full bg-linear-100 from-brand-teal via-brand-green to-brand-yellow px-4 font-sans text-sm font-semibold whitespace-nowrap text-white shadow-[0_8px_24px_rgba(22,163,74,0.28)]"
           >
-            Pre-register Now
+            {registration.label}
           </Link>
-          <MobileNav links={PRIMARY_NAV} registerHref={REGISTER_HREF} />
+          <MobileNav links={PRIMARY_NAV} registration={registration} />
         </div>
       </div>
     </motion.div>

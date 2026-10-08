@@ -4,6 +4,7 @@ export type NavLink = {
   href: string;
   children?: NavLink[];
   disabled?: boolean;
+  hidden?: boolean;
 };
 
 export type FooterLinkGroup = {

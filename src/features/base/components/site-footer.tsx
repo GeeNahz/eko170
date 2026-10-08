@@ -72,7 +72,7 @@ export function SiteFooter() {
                   {group.title}
                 </div>
                 <div className="flex flex-col gap-3.5">
-                  {group.links.map((link) => (
+                  {group.links.filter((link) => !link.hidden).map((link) => (
                     <Link
                       key={link.id}
                       href={link.href}
