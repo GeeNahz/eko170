@@ -42,14 +42,19 @@ export const GENDER_OPTIONS = ["Male", "Female"];
 
 export const DISTANCE_OPTIONS = ["Medio Fondo · 94.5 KM", "Gran Fondo · 170 KM"];
 
-// NGN. Standard price matches the route detail pages
-// (routes/constants.ts). `earlyBird` is optional per distance — add it
-// whenever a promo is actually running; no distance has one configured
-// right now, so resolveDistancePrice always falls through to the
-// standard price today.
+// NGN. Flat pricing across both distances (client decision — one price
+// for every route, not a per-distance one). Matches the route detail
+// pages (routes/constants.ts). Early-bird ends 31 Oct 2026; the
+// standard ("late-bird") price takes over from 1 Nov 2026.
 export const DISTANCE_PRICES: Record<string, DistancePriceConfig> = {
-  "Medio Fondo · 94.5 KM": { standardPrice: 40000 },
-  "Gran Fondo · 170 KM": { standardPrice: 75000 },
+  "Medio Fondo · 94.5 KM": {
+    standardPrice: 35000,
+    earlyBird: { price: 25000, endsAt: "2026-11-01T00:00:00+01:00" },
+  },
+  "Gran Fondo · 170 KM": {
+    standardPrice: 35000,
+    earlyBird: { price: 25000, endsAt: "2026-11-01T00:00:00+01:00" },
+  },
 };
 
 // Not server-only — the registration form's fee display calls this
