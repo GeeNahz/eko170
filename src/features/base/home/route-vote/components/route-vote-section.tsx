@@ -42,6 +42,70 @@ export function RouteVoteSection({ registration }: { registration: RegistrationC
     { label: "Seconds", value: seconds },
   ];
 
+  if (registration.state === "starting_soon") {
+    // No routes to vote on or show yet — just the announcement copy
+    // and a countdown. No map cards, no picker, no vote form.
+    return (
+      <div
+        id="routevote"
+        className="overflow-hidden bg-white px-5 pt-11 pb-12 sm:mx-4 sm:mt-4 sm:rounded-[22px] sm:px-10 sm:py-24"
+      >
+        <div className="mx-auto max-w-6xl">
+          <Reveal className="mb-4 border-l-4 border-brand-green pl-3 font-mono text-xs tracking-wide text-brand-green uppercase">
+            Route Announcement
+          </Reveal>
+          <Reveal
+            delay={0.1}
+            className="font-heading mb-4 text-4xl leading-[0.95] font-black text-brand-teal italic uppercase sm:text-[52px]"
+          >
+            Route Announcement
+          </Reveal>
+          <Reveal
+            delay={0.15}
+            className="mb-10 max-w-2xl font-sans text-base leading-relaxed text-gray-600 sm:text-lg"
+          >
+            Routes will be announced soon.
+          </Reveal>
+
+          {registration.opensAt && (
+            <Reveal
+              delay={0.18}
+              className="rounded-[18px] border border-brand-cream-border bg-brand-cream px-6 py-6 sm:px-8"
+            >
+              <div className="mb-3 font-mono text-xs tracking-[2.2px] text-brand-green uppercase">
+                Registration Opens {registration.opensAtLabel}
+              </div>
+              <div className="flex flex-wrap items-center gap-5 sm:gap-8">
+                <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                  {registrationCountdownUnits.map((unit, i) => (
+                    <div key={unit.label} className="flex items-center gap-2 sm:gap-3">
+                      <div className="w-14 rounded-xl border border-brand-cream-border bg-white py-2 text-center sm:w-17 sm:py-3">
+                        <div className="font-heading text-lg leading-none font-black text-brand-teal sm:text-2xl">
+                          {unit.value}
+                        </div>
+                        <div className="mt-1 font-mono text-[7px] tracking-wide text-gray-400 uppercase sm:text-[9px]">
+                          {unit.label}
+                        </div>
+                      </div>
+                      {i < registrationCountdownUnits.length - 1 && (
+                        <div className="font-heading hidden text-xl font-black text-gray-300 sm:block">
+                          –
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                <p className="max-w-sm font-sans text-sm leading-relaxed text-gray-600">
+                  We will email everyone once routes are announced.
+                </p>
+              </div>
+            </Reveal>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   if (registration.isOpen) {
     // Voting only runs during the pre-register period — once
     // registration is actually open the route is confirmed, so this

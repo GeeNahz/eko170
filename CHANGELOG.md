@@ -8,6 +8,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+- Introduced a third `REGISTRATION_STATE` value, `starting_soon`, and
+  made it the live state: every CTA site-wide now reads "Registration
+  Starts Soon" and links to `#` (no real route yet), and the route
+  vote section (`route-vote-section.tsx`) drops its "Which Route
+  Should We Ride?" picker/maps entirely in favor of a "Route
+  Announcement" / "Routes will be announced soon" header with just a
+  countdown to 13 October 2026. No CTA file needed touching — they
+  already render `registration.href`/`registration.label` generically.
+- Replaced per-distance registration pricing with one flat early-bird
+  price (₦25,000, through 31 October 2026) and one flat standard price
+  (₦35,000, from 1 November 2026) applied to both Medio Fondo and
+  Gran Fondo (`register/constants.ts`'s `DISTANCE_PRICES`). Route
+  detail pages' price callouts (`routes/constants.ts`) updated to
+  match.
+- Home's sponsor section (`sponsors-marquee.tsx`) no longer links to
+  `/partners` ("Partnership Info") and no longer visually duplicates
+  the single Lagos State Government logo — the scrolling marquee
+  (which duplicated its track for a seamless loop, an artifact of
+  having only one logo) was replaced with a single static logo card.
 - Registration date moved to **13 October 2026** — the route vote
   reopened and every "Register" CTA reverted to "Pre-register Now",
   routed through a new, single `REGISTRATION` config
@@ -35,8 +54,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   The form redirects to the active gateway's hosted checkout for the
   amount matching the chosen distance, now resolved via
   `resolveDistancePrice` (`register/constants.ts`) to support an
-  optional early-bird price + end date per distance (none configured
-  yet — flat pricing today: ₦75,000 Gran Fondo / ₦40,000 Medio Fondo).
+  optional early-bird price + end date per distance (see the flat
+  early/late-bird pricing entry above for current values).
   Payment is verified server-to-server before anything is recorded —
   see Added, below. The form shows the resolved fee (and an early-bird
   note when one's active) and labels its submit button "Continue to
