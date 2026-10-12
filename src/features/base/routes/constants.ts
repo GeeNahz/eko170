@@ -6,36 +6,38 @@ import type {
   SupportFeature,
 } from "./types";
 
-// Waypoints below are a visual approximation traced from the rider-supplied
-// route-map screenshots (eko70.png / eko170.png / eko170-2.png) against
-// known Lagos geography (place names, relative label positions) — not
-// survey-grade GPS. Good enough for the Leaflet overview map; swap for
-// real GPX data once a course survey exists.
-const EKO_ATLANTIC: [number, number] = [6.4166, 3.4155];
-
-// Shared coastal corridor (Eko Atlantic -> Ilado -> ... -> Eleko) that the
-// confirmed 94.5KM route, the 170KM route's return leg, and vote Option B
-// all trace identically per the reference screenshots.
-const COASTAL_OUT: [number, number][] = [
-  EKO_ATLANTIC,
-  [6.45, 3.427], // Falomo
-  [6.44, 3.5], // Ilado
-  [6.455, 3.575], // Okun-Ajah
-  [6.462, 3.62], // Mopo Onijebu
-  [6.46, 3.635], // Mosere Ikoga
-  [6.465, 3.67], // Iwerekun
-  [6.47, 3.71], // Iwesolu
-  [6.475, 3.745], // Igando
-  [6.483, 3.77], // Eleko
+// Source GPX files behind ROUTE_170_PATH/ROUTE_70_PATH above — served
+// from public/gpx/ so the "Download GPX" button (course-overview.tsx)
+// can link straight to them.
+export const GPX_DOWNLOADS: { href: string; filename: string }[] = [
+  { href: "/gpx/eko170-2027-gran-fondo.gpx", filename: "EKO170-2027-Gran-Fondo.gpx" },
+  { href: "/gpx/eko170-2027-medio-fondo.gpx", filename: "EKO170-2027-Medio-Fondo.gpx" },
 ];
-const COASTAL_BACK: [number, number][] = [...COASTAL_OUT].reverse();
 
-// Confirmed 94.5KM Medio Fondo — coastal out-and-back to Eleko (eko70.png).
-export const ROUTE_70_PATH: [number, number][] = COASTAL_OUT;
+// Fallback waypoints for Option A, the route the rider vote did NOT pick
+// (2026-10-12) — a visual approximation traced from the rider-supplied
+// route-map screenshot (eko170.png) against known Lagos geography, not
+// survey-grade GPS. Kept only as vote-history data on `ROUTE_VOTE_OPTIONS`
+// (home/route-vote/constants.ts) — no "confirmed route" rendering uses
+// this anymore; those all use the real GPX-derived `ROUTE_170_PATH` and
+// `ROUTE_70_PATH` below instead.
+const EKO_ATLANTIC: [number, number] = [6.4166, 3.4155];
+const COASTAL_BACK: [number, number][] = [
+  [6.483, 3.77], // Eleko
+  [6.475, 3.745], // Igando
+  [6.47, 3.71], // Iwesolu
+  [6.465, 3.67], // Iwerekun
+  [6.46, 3.635], // Mosere Ikoga
+  [6.462, 3.62], // Mopo Onijebu
+  [6.455, 3.575], // Okun-Ajah
+  [6.44, 3.5], // Ilado
+  [6.45, 3.427], // Falomo
+  EKO_ATLANTIC,
+];
 
-// Vote Option A / the working 170KM Gran Fondo route — Ikorodu/Imota inland
-// loop, confirmed as the route shown outside the vote widget (eko170.png).
-export const ROUTE_170_PATH: [number, number][] = [
+// Vote Option A / the Ikorodu/Imota inland loop that lost the rider vote
+// to Option B. See the comment above — vote-history data only.
+export const ROUTE_VOTE_OPTION_A_PATH: [number, number][] = [
   EKO_ATLANTIC,
   [6.596, 3.484], // Majidun / Ebute Ikorodu
   [6.6194, 3.5106], // Ikorodu
@@ -53,13 +55,14 @@ export const ROUTE_170_PATH: [number, number][] = [
   ...COASTAL_BACK.slice(1), // Eleko -> ... -> back to Eko Atlantic
 ];
 
-// Vote Option B — coastal "Lekki–Epe Corridor". Confirmed as the 2027
-// Gran Fondo course (vote closed 2026-10-12, Option B won). This is
-// the real GPS track from the client-provided GPX file
-// (public/assets/EKO170 2027 Gran Fondo.gpx — 29,048 raw trackpoints),
+// Confirmed 2027 Gran Fondo course (vote closed 2026-10-12, Option B
+// won) — the real GPS track from the client-provided GPX file
+// (assets/gpx/eko170-2027-gran-fondo.gpx — 29,048 raw trackpoints),
 // simplified via Douglas-Peucker (epsilon=0.00005deg) down to 441
-// points, replacing the earlier hand-traced screenshot approximation.
-export const ROUTE_VOTE_OPTION_B_PATH: [number, number][] = [
+// points. Used everywhere the official 170KM route map is shown: Home's
+// Atlantic Challenge section, the /routes page's own map, and
+// /routes/170's own map section.
+export const ROUTE_170_PATH: [number, number][] = [
   [6.42257, 3.42414], [6.42264, 3.42454], [6.42248, 3.42978], [6.42245, 3.44190], [6.42220, 3.44610],
   [6.42225, 3.44911], [6.42248, 3.45076], [6.42252, 3.45179], [6.42253, 3.46837], [6.42271, 3.46949],
   [6.42317, 3.47079], [6.42364, 3.47161], [6.42516, 3.47378], [6.42535, 3.47442], [6.42548, 3.47565],
@@ -151,6 +154,46 @@ export const ROUTE_VOTE_OPTION_B_PATH: [number, number][] = [
   [6.42267, 3.42757],
 ];
 
+// Confirmed 94.5KM Medio Fondo course — the real GPS track from
+// assets/gpx/eko170-2027-medio-fondo.gpx (14,528 raw trackpoints),
+// simplified the same way down to 165 points, replacing the earlier
+// hand-traced coastal-corridor approximation.
+export const ROUTE_70_PATH: [number, number][] = [
+  [6.42260, 3.42427], [6.42247, 3.42984], [6.42245, 3.44207], [6.42221, 3.44613], [6.42225, 3.44889],
+  [6.42248, 3.45071], [6.42252, 3.45189], [6.42252, 3.46841], [6.42273, 3.46961], [6.42314, 3.47074],
+  [6.42353, 3.47144], [6.42494, 3.47339], [6.42520, 3.47388], [6.42536, 3.47444], [6.42547, 3.47551],
+  [6.42555, 3.47696], [6.42539, 3.48276], [6.42547, 3.48557], [6.42515, 3.49289], [6.42517, 3.49576],
+  [6.42533, 3.49786], [6.42539, 3.50008], [6.42586, 3.50493], [6.42617, 3.50695], [6.42763, 3.52438],
+  [6.42803, 3.53052], [6.42779, 3.53336], [6.42741, 3.53512], [6.42689, 3.53701], [6.42652, 3.53914],
+  [6.42628, 3.54409], [6.42527, 3.54821], [6.42497, 3.55001], [6.42480, 3.55566], [6.42475, 3.56120],
+  [6.42496, 3.56282], [6.42584, 3.56644], [6.42630, 3.56974], [6.42672, 3.57181], [6.42960, 3.58317],
+  [6.43202, 3.59070], [6.43249, 3.59292], [6.43268, 3.59503], [6.43211, 3.60786], [6.43161, 3.63387],
+  [6.43152, 3.63566], [6.43134, 3.63729], [6.43099, 3.63937], [6.42971, 3.64460], [6.42910, 3.64876],
+  [6.42857, 3.65056], [6.42691, 3.65489], [6.42657, 3.65635], [6.42642, 3.65803], [6.42649, 3.66358],
+  [6.42667, 3.66581], [6.42753, 3.67197], [6.42775, 3.67442], [6.42912, 3.70709], [6.43048, 3.72122],
+  [6.43147, 3.72955], [6.43235, 3.74005], [6.43265, 3.74217], [6.43489, 3.75426], [6.43626, 3.76262],
+  [6.43735, 3.77008], [6.43769, 3.77149], [6.43870, 3.77459], [6.43916, 3.77667], [6.44134, 3.79366],
+  [6.44190, 3.80051], [6.44277, 3.80823], [6.44313, 3.81775], [6.44327, 3.82811], [6.44273, 3.84629],
+  [6.44251, 3.84883], [6.44264, 3.84910], [6.44290, 3.84915], [6.44299, 3.84906], [6.44321, 3.84402],
+  [6.44367, 3.82827], [6.44355, 3.81931], [6.44313, 3.80818], [6.44225, 3.80050], [6.44171, 3.79352],
+  [6.43947, 3.77625], [6.43921, 3.77507], [6.43809, 3.77159], [6.43769, 3.76997], [6.43742, 3.76814],
+  [6.43728, 3.76770], [6.43666, 3.76336], [6.43535, 3.75531], [6.43316, 3.74344], [6.43267, 3.74021],
+  [6.43170, 3.72889], [6.43079, 3.72152], [6.42942, 3.70722], [6.42924, 3.70377], [6.42933, 3.70339],
+  [6.42921, 3.70290], [6.42803, 3.67389], [6.42791, 3.67253], [6.42696, 3.66566], [6.42677, 3.66331],
+  [6.42671, 3.65820], [6.42692, 3.65610], [6.42732, 3.65459], [6.42887, 3.65063], [6.42927, 3.64937],
+  [6.42958, 3.64802], [6.42998, 3.64478], [6.43125, 3.63963], [6.43176, 3.63623], [6.43193, 3.63313],
+  [6.43241, 3.60766], [6.43298, 3.59552], [6.43284, 3.59330], [6.43252, 3.59141], [6.43205, 3.58974],
+  [6.42988, 3.58303], [6.42718, 3.57247], [6.42663, 3.56982], [6.42612, 3.56636], [6.42537, 3.56329],
+  [6.42516, 3.56210], [6.42520, 3.56182], [6.42510, 3.56056], [6.42511, 3.55879], [6.42530, 3.55049],
+  [6.42568, 3.54805], [6.42647, 3.54499], [6.42664, 3.54400], [6.42678, 3.54044], [6.42691, 3.53921],
+  [6.42728, 3.53705], [6.42782, 3.53524], [6.42817, 3.53353], [6.42837, 3.53179], [6.42841, 3.53019],
+  [6.42749, 3.51795], [6.42718, 3.51555], [6.42671, 3.50989], [6.42650, 3.50672], [6.42655, 3.50606],
+  [6.42649, 3.50475], [6.42605, 3.50025], [6.42560, 3.49731], [6.42546, 3.49535], [6.42551, 3.49118],
+  [6.42573, 3.48673], [6.42571, 3.48239], [6.42585, 3.47697], [6.42551, 3.47195], [6.42546, 3.45812],
+  [6.42530, 3.45675], [6.42499, 3.45536], [6.42452, 3.45435], [6.42360, 3.45284], [6.42312, 3.45189],
+  [6.42262, 3.45031], [6.42242, 3.44868], [6.42241, 3.44552], [6.42273, 3.44188], [6.42265, 3.42708],
+];
+
 export const ROUTE_STATS: RouteStat[] = [
   { id: "route-distance", label: "Distance", value: "~170KM" },
   { id: "route-elevation", label: "Elevation", value: "Moderate rolling" },
@@ -168,7 +211,9 @@ export const ROUTE_HIGHLIGHTS: string[] = [
 export const ROUTE_CATEGORY_CARDS: RouteCategoryCard[] = [
   {
     id: "category-170",
-    image: "/images/CR2A2942.jpg",
+    // The confirmed route-vote winner (Option B) — see
+    // home/route-vote/constants.ts's CONFIRMED_ROUTE_ID.
+    image: "/images/route-vote-option-b.png",
     distanceValue: "170",
     distanceSuffix: "KM",
     title: "Gran Fondo",
@@ -178,7 +223,7 @@ export const ROUTE_CATEGORY_CARDS: RouteCategoryCard[] = [
   },
   {
     id: "category-70",
-    image: "/images/DSC_1924.jpg",
+    image: "/images/medio-fondo-route-map.png",
     distanceValue: "94.5",
     distanceSuffix: "KM",
     title: "Medio Fondo",
@@ -218,6 +263,7 @@ export const SUPPORT_FEATURES: SupportFeature[] = [
 export const ROUTE_SUBNAV_LINKS: { id: string; label: string; href: string }[] = [
   { id: "introduction", label: "Introduction", href: "#introduction" },
   { id: "route-description", label: "Route Description", href: "#route-description" },
+  { id: "map", label: "Route Map", href: "#map" },
   { id: "start", label: "Start-Line", href: "#start" },
   { id: "finish", label: "Finish Line", href: "#finish" },
   { id: "more", label: "Additional Information", href: "#more" },
@@ -286,10 +332,9 @@ export const ROUTE_170_DETAIL: RouteDetailData = {
   introBody:
     "The 170km is the flagship of EKO170 — West Africa's biggest closed-road Gran Fondo. From Eko Atlantic City through Victoria Island, over the Lekki–Ikoyi Bridge and out along the Lekki–Epe corridor to the open countryside of Epe, it is a true test of endurance with world-class support at every kilometre, finishing at a festival on the Atlantic marina.",
   routeDescHeading: "EKO 170 Route",
-  routeDescParagraphs: [
-    "The route starts on Eko Atlantic Boulevard beneath the towers of the new city. Riders head out through Victoria Island on Ahmadu Bello Way, cross the Lekki–Ikoyi Link Bridge — the day's signature climb — and settle into the long, fast run along the Lekki–Epe Expressway.",
-    "Past the Lekki Free Trade Zone and the Dangote Refinery corridor, the course opens into the green countryside of Epe before the turn for home. The return leg rides the coast the whole way back — the Atlantic on your left, the skyline ahead — to the finish chute on the marina. Cut-off: 8 hours.",
-  ],
+  routeDescription:
+    "Conquer the ultimate endurance test on this scenic 170km route, where you'll battle the rolling hills of Epe before facing a grueling 47km return leg along the Coastal Road, testing your grit against relentless headwinds that feel like a continuous hill climb all the way to the finish.",
+  path: ROUTE_170_PATH,
   startWaveBody:
     "The Eko Atlantic Boulevard Start Precinct welcomes riders for the 170 kilometres — waves roll out from 06:00, at first light.",
   moreAboutCards: [
@@ -334,8 +379,8 @@ export const ROUTE_170_DETAIL: RouteDetailData = {
 
 export const ROUTE_70_DETAIL: RouteDetailData = {
   slug: "70",
-  navLabel: "EKO 70",
-  distanceLabel: "eko 70",
+  navLabel: "EKO 94.5",
+  distanceLabel: "eko 94.5",
   heroImage: "/images/sm-DSC_1924.jpg",
   routeDescriptionImage: "/images/sm-DSC_1924.jpg",
   startImage: "/images/sm-CR2A2942.jpg",
@@ -346,20 +391,19 @@ export const ROUTE_70_DETAIL: RouteDetailData = {
   introEyebrow: "An Exhilarating Experience",
   introHeading: "The 94.5KM EKO170 Lagos Cycle Race",
   introBody:
-    "The 70km is the perfect introduction to the world of Gran Fondo cycling — a more accessible option for a wider range of cyclists, including first-timers, junior riders, and anyone who prefers a less demanding challenge than the full 170km. Same fully closed roads, same Atlantic start, same festival finish — in a friendlier format.",
-  routeDescHeading: "EKO 70 Route",
-  routeDescParagraphs: [
-    "The 70km starts exactly where the 170km does, on Eko Atlantic Boulevard, shortly after that event's final riders have set off. The route crosses Victoria Island and takes in the Lekki–Ikoyi Link Bridge — short and steep, but soon a fast, fun ride down to the coastal road.",
-    "At the Lekki halfway point the 70km riders make their turn — the 170km field will have carried straight on — and come back along the shoreline with the breakers of the Atlantic for company, all the way downhill to the finish chute on the marina. Cut-off: 5 hours.",
-  ],
+    "The 94.5km is the perfect introduction to the world of Gran Fondo cycling — a more accessible option for a wider range of cyclists, including first-timers, junior riders, and anyone who prefers a less demanding challenge than the full 170km. Same fully closed roads, same Atlantic start, same festival finish — in a friendlier format.",
+  routeDescHeading: "EKO 94.5 Route",
+  routeDescription:
+    "Experience the thrilling energy of mass participation on this fast-paced half-distance ride, perfectly tailored for fitness riders who want to bypass the punishing Epe hills but are still ready to test their grit against the brutal coastal headwinds on the return leg.",
+  path: ROUTE_70_PATH,
   startWaveBody:
-    "The Eko Atlantic Boulevard Start Precinct welcomes riders for the 70 kilometres — waves roll out from 06:45, shortly after the 170km riders.",
+    "The Eko Atlantic Boulevard Start Precinct welcomes riders for the 94.5 kilometres — waves roll out from 06:45, shortly after the 170km riders.",
   moreAboutCards: [
     {
       id: "start-times",
       title: "Start Times",
       description:
-        "Group start times for the 70km follow the 170km waves, rolling out from 06:45.",
+        "Group start times for the 94.5km follow the 170km waves, rolling out from 06:45.",
     },
     {
       id: "cut-offs",
@@ -389,7 +433,7 @@ export const ROUTE_70_DETAIL: RouteDetailData = {
       id: "strava-route",
       title: "Strava Route",
       description:
-        "Preview the 70km course on Strava and load the GPX onto your bike computer.",
+        "Preview the 94.5km course on Strava and load the GPX onto your bike computer.",
     },
   ],
 };

@@ -1,4 +1,4 @@
-import { ROUTE_170_PATH, ROUTE_VOTE_OPTION_B_PATH } from "../../routes/constants";
+import { ROUTE_170_PATH, ROUTE_VOTE_OPTION_A_PATH } from "../../routes/constants";
 import type { RouteVoteOption } from "./types";
 
 export const ROUTE_VOTE_OPTIONS: RouteVoteOption[] = [
@@ -10,7 +10,7 @@ export const ROUTE_VOTE_OPTIONS: RouteVoteOption[] = [
       "A true loop north through Ikorodu and Imota before the run back down to Epe. More varied roads, more countryside.",
     shape: "Full loop",
     character: "Rolling, varied",
-    path: ROUTE_170_PATH,
+    path: ROUTE_VOTE_OPTION_A_PATH,
     mapImage: "/images/route-vote-option-a.png",
   },
   {
@@ -21,7 +21,7 @@ export const ROUTE_VOTE_OPTIONS: RouteVoteOption[] = [
       "Out and back along the Lekki–Epe expressway. Wider, faster, and simpler to close and marshal end to end.",
     shape: "Out & back",
     character: "Fast, flat",
-    path: ROUTE_VOTE_OPTION_B_PATH,
+    path: ROUTE_170_PATH,
     mapImage: "/images/route-vote-option-b.png",
   },
 ];

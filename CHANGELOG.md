@@ -24,8 +24,45 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `choose-distance.tsx` cards ("Choose Your Distance") now link their
   bottom Terrain/arrow row to the registration CTA (`REGISTRATION.href`)
   — previously decorative, non-interactive.
+- `/routes/170` and `/routes/70` each get their own "Interactive Map"
+  section (`RouteDetailMap`), built from that route's real GPX-derived
+  path (`ROUTE_170_PATH`/`ROUTE_70_PATH`). "View Route Map" and the
+  "View Start/Finish Area Map" links now jump to that in-page section
+  (`#map`) instead of the `/routes` listing page; a new "Route Map"
+  sub-nav entry was added alongside the existing ones.
+- "Download GPX" on `/routes` (`course-overview.tsx`) now actually
+  downloads both real GPX files (`GpxDownloadButton`, firing two
+  staggered programmatic downloads) — previously a decorative button.
+  The GPX source files live at `public/gpx/` so they're servable.
+- `/routes/70`'s displayed distance changed from "70" to "94.5"
+  throughout the page (nav label, hero, route description heading, body
+  copy, start/cut-off/strava card text) to match its real 94.5km
+  distance — the URL (`/routes/70`) is unchanged.
+- Route detail pages' "Route Description" section now shows the same
+  client-supplied Gran Fondo/Medio Fondo copy used on Home's "Choose
+  Your Distance" cards, replacing the old two-paragraph turn-by-turn
+  narrative (`routeDescParagraphs` → single `routeDescription` field).
 
 ### Changed
+- The route-announcement view (title, Option B writeup, confirmed
+  route's map) now also stays in place once `REGISTRATION_STATE`
+  switches to `register` — previously only `starting_soon` showed it,
+  and `register` would have reverted to a stale "Rider Vote · Closed"
+  view (now deleted, having become unreachable once this merged in).
+  Only the "Registration Opens" countdown block disappears once
+  registration is actually open, since that state's `opensAt` is null.
+- The "Routes" nav dropdown's disabled state is now derived from
+  `registration.isOpen` (`nav-bar.tsx`) instead of a standalone
+  hardcoded flag — it enables automatically the same moment
+  `REGISTRATION_STATE` switches to `register`, no separate toggle to
+  remember.
+- `ROUTE_170_PATH` is now the real, confirmed Gran Fondo GPS track
+  (same data as the former `ROUTE_VOTE_OPTION_B_PATH`) and `ROUTE_70_PATH`
+  is now the real Medio Fondo GPS track — both used everywhere the
+  "official" route map renders (Home's Atlantic Challenge section, the
+  `/routes` page map, and the new per-route-detail maps above). The
+  losing vote option's old hand-traced path was renamed
+  `ROUTE_VOTE_OPTION_A_PATH` and kept only as vote-history data.
 - Introduced a third `REGISTRATION_STATE` value, `starting_soon`, and
   made it the live state: every CTA site-wide now reads "Registration
   Starts Soon" and links to `#` (no real route yet). The route vote

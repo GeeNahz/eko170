@@ -36,7 +36,7 @@ export function RouteFinish({ data }: { data: RouteDetailData }) {
             can check your bike in and out.
           </p>
           <a
-            href="/routes#map"
+            href="#map"
             className="inline-flex h-11 items-center gap-2 rounded-full bg-brand-yellow px-7 font-sans text-[13px] font-bold text-brand-teal"
           >
             View Finish Area Map

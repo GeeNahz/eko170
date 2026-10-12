@@ -2,6 +2,7 @@ import type { RouteDetailData } from "../types";
 import { RouteClosingCta } from "./route-closing-cta";
 import { RouteDescription } from "./route-description";
 import { RouteDetailHero } from "./route-detail-hero";
+import { RouteDetailMap } from "./route-detail-map";
 import { RouteEntries } from "./route-entries";
 import { RouteFaqs } from "./route-faqs";
 import { RouteFinish } from "./route-finish";
@@ -19,6 +20,7 @@ export function RouteDetail({ data }: { data: RouteDetailData }) {
       <RouteEntries data={data} />
       <RouteIntroduction data={data} />
       <RouteDescription data={data} />
+      <RouteDetailMap data={data} />
       <RouteStart data={data} />
       <RouteFinish data={data} />
       <RouteMoreAbout data={data} />

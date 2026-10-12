@@ -41,7 +41,8 @@ export type RouteDetailData = {
   introHeading: string;
   introBody: string;
   routeDescHeading: string;
-  routeDescParagraphs: [string, string];
+  routeDescription: string;
+  path: [number, number][];
   startWaveBody: string;
   moreAboutCards: [
     RouteMoreAboutCard,
