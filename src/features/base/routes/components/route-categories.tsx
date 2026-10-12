@@ -24,13 +24,13 @@ export function RouteCategories() {
                 href={card.href}
                 className="block overflow-hidden rounded-2xl border border-brand-cream-border bg-white"
               >
-                <div className="relative aspect-video">
+                <div className="relative aspect-[16/8] bg-brand-teal">
                   <Image
                     src={card.image}
                     alt={card.title}
                     fill
                     sizes="(min-width: 640px) 50vw, 100vw"
-                    className="object-cover"
+                    className="object-contain"
                   />
                   <div className="absolute inset-0 bg-linear-to-t from-black/75 to-transparent" />
                   <div className="absolute bottom-5 left-6 flex items-baseline gap-1">

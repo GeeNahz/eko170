@@ -27,6 +27,10 @@ export async function registerAction(
   if (values.email && !EMAIL_PATTERN.test(values.email)) {
     fieldErrors.email = "Enter a valid email address";
   }
+  if (values.medicalWaiverAgreed !== "true") {
+    fieldErrors.medicalWaiverAgreed =
+      "You must accept the medical waiver to continue";
+  }
 
   if (Object.keys(fieldErrors).length > 0) {
     return { status: "error", fieldErrors, values };

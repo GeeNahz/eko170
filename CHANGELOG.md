@@ -7,19 +7,87 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Registration form now requires accepting a medical waiver before
+  checkout: a shadcn `Dialog` (`register/components/medical-waiver-
+  dialog.tsx`) shows the full "Liability and Risk Declaration" with a
+  confirmation checkbox; the "Continue to Payment" button stays
+  disabled until it's checked and agreed. The attestation rides through
+  as a new `medicalWaiverAgreed` field on `RegistrationFormValues`,
+  validated server-side in `registerAction` (defense in depth, not just
+  a disabled button) and written as its own column in the registrations
+  Sheet via the existing `fields` spread in `recordPaidRegistration`.
+- Registration form shows a dismissive-free banner at the top
+  advertising the active early-bird discount and its 15 November 2026
+  deadline, computed from the same flat `DISTANCE_PRICES` data as the
+  per-distance fee note further down the form.
+- `choose-distance.tsx` cards ("Choose Your Distance") now link their
+  bottom Terrain/arrow row to the registration CTA (`REGISTRATION.href`)
+  — previously decorative, non-interactive.
+- `/routes/170` and `/routes/70` each get their own "Interactive Map"
+  section (`RouteDetailMap`), built from that route's real GPX-derived
+  path (`ROUTE_170_PATH`/`ROUTE_70_PATH`). "View Route Map" and the
+  "View Start/Finish Area Map" links now jump to that in-page section
+  (`#map`) instead of the `/routes` listing page; a new "Route Map"
+  sub-nav entry was added alongside the existing ones.
+- "Download GPX" on `/routes` (`course-overview.tsx`) now actually
+  downloads both real GPX files (`GpxDownloadButton`, firing two
+  staggered programmatic downloads) — previously a decorative button.
+  The GPX source files live at `public/gpx/` so they're servable.
+- `/routes/70`'s displayed distance changed from "70" to "94.5"
+  throughout the page (nav label, hero, route description heading, body
+  copy, start/cut-off/strava card text) to match its real 94.5km
+  distance — the URL (`/routes/70`) is unchanged.
+- Route detail pages' "Route Description" section now shows the same
+  client-supplied Gran Fondo/Medio Fondo copy used on Home's "Choose
+  Your Distance" cards, replacing the old two-paragraph turn-by-turn
+  narrative (`routeDescParagraphs` → single `routeDescription` field).
+
 ### Changed
+- The route-announcement view (title, Option B writeup, confirmed
+  route's map) now also stays in place once `REGISTRATION_STATE`
+  switches to `register` — previously only `starting_soon` showed it,
+  and `register` would have reverted to a stale "Rider Vote · Closed"
+  view (now deleted, having become unreachable once this merged in).
+  Only the "Registration Opens" countdown block disappears once
+  registration is actually open, since that state's `opensAt` is null.
+- The "Routes" nav dropdown's disabled state is now derived from
+  `registration.isOpen` (`nav-bar.tsx`) instead of a standalone
+  hardcoded flag — it enables automatically the same moment
+  `REGISTRATION_STATE` switches to `register`, no separate toggle to
+  remember.
+- `ROUTE_170_PATH` is now the real, confirmed Gran Fondo GPS track
+  (same data as the former `ROUTE_VOTE_OPTION_B_PATH`) and `ROUTE_70_PATH`
+  is now the real Medio Fondo GPS track — both used everywhere the
+  "official" route map renders (Home's Atlantic Challenge section, the
+  `/routes` page map, and the new per-route-detail maps above). The
+  losing vote option's old hand-traced path was renamed
+  `ROUTE_VOTE_OPTION_A_PATH` and kept only as vote-history data.
 - Introduced a third `REGISTRATION_STATE` value, `starting_soon`, and
   made it the live state: every CTA site-wide now reads "Registration
-  Starts Soon" and links to `#` (no real route yet), and the route
-  vote section (`route-vote-section.tsx`) drops its "Which Route
-  Should We Ride?" picker/maps entirely in favor of a "Route
-  Announcement" / "Routes will be announced soon" header with just a
-  countdown to 13 October 2026. No CTA file needed touching — they
-  already render `registration.href`/`registration.label` generically.
+  Starts Soon" and links to `#` (no real route yet). The route vote
+  section (`route-vote-section.tsx`) keeps the "Route Announcement"
+  title but now shows the vote outcome (Option B won, confirmed via
+  `CONFIRMED_ROUTE_ID` in `route-vote/constants.ts`) — a short writeup,
+  the confirmed route's map, and the existing countdown, narrowed to
+  match "The Event" card's width below it. No CTA file needed
+  touching — they already render `registration.href`/`registration.label`
+  generically.
+- `ROUTE_VOTE_OPTION_B_PATH` (`routes/constants.ts`) is now the real GPS
+  track from the client-provided GPX file, simplified via
+  Douglas-Peucker from 29,048 raw trackpoints down to 441, replacing
+  the earlier hand-traced screenshot approximation.
+- "Choose Your Distance" cards: the 170KM card now shows the confirmed
+  route-vote winner's map image and the 94.5KM card shows its own route
+  map (previously generic event photography); both image boxes switched
+  from a cropped `object-cover` fill to `object-contain` on a branded
+  background, since panoramic route-map screenshots were being cropped
+  down to an unrecognizable sliver by the old photo-oriented treatment.
+  Both cards' descriptions updated to client-supplied copy.
 - Replaced per-distance registration pricing with one flat early-bird
-  price (₦25,000, through 31 October 2026) and one flat standard price
-  (₦35,000, from 1 November 2026) applied to both Medio Fondo and
-  Gran Fondo (`register/constants.ts`'s `DISTANCE_PRICES`). Route
+  price (₦25,000, through 15 November 2026) and one flat standard
+  price (₦35,000, from 16 November 2026) applied to both Medio Fondo
+  and Gran Fondo (`register/constants.ts`'s `DISTANCE_PRICES`). Route
   detail pages' price callouts (`routes/constants.ts`) updated to
   match.
 - Home's sponsor section (`sponsors-marquee.tsx`) no longer links to
@@ -221,6 +289,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Home hero and nav.
 
 ### Fixed
+- Nav bar's Routes dropdown still showed "EKO 70" for the Medio Fondo
+  link after that page's displayed distance changed to 94.5 — missed
+  because the label was a separate hardcoded string in
+  `navigation/constants.ts` rather than reading `ROUTE_70_DETAIL`'s own
+  `navLabel`. Both dropdown entries now read `navLabel` directly off
+  `ROUTE_170_DETAIL`/`ROUTE_70_DETAIL`, so they can't drift again.
+- Registration form's early-bird note (`registration-form.tsx`) showed
+  the wrong last eligible day — `endsAt` is the cutoff moment
+  (midnight starting the next day), so rendering it directly showed
+  "ends 16 November 2026" instead of the 15th. Now subtracts a day
+  before formatting, so it reads the actual last day the early-bird
+  price applies.
 - Route detail pages (`/routes/170`, `/routes/70`) were missing the
   mockup's closing "Ready to Ride the Route? / Register Now" CTA
   entirely after the FAQ section — added as a new `RouteClosingCta`.

@@ -27,14 +27,11 @@ export function RouteDescription({ data }: { data: RouteDetailData }) {
           <div className="mb-6 font-heading text-xl font-semibold text-gray-500">
             From Start to Finish
           </div>
-          <p className="mb-4 font-sans text-[15px] leading-relaxed text-gray-700">
-            {data.routeDescParagraphs[0]}
-          </p>
           <p className="mb-8 font-sans text-[15px] leading-relaxed text-gray-700">
-            {data.routeDescParagraphs[1]}
+            {data.routeDescription}
           </p>
           <a
-            href="/routes#map"
+            href="#map"
             className="inline-flex h-11 items-center gap-2 rounded-full bg-brand-yellow px-7 font-sans text-[13px] font-bold text-brand-teal"
           >
             View Route Map

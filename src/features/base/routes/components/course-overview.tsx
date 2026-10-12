@@ -1,8 +1,9 @@
 import Link from "next/link";
-import { ArrowRight, Download, MapPin } from "lucide-react";
+import { ArrowRight, MapPin } from "lucide-react";
 import { Reveal } from "@/components/motion/reveal";
 import { REGISTRATION } from "../../lib/server/registration";
 import { ROUTE_HIGHLIGHTS, ROUTE_STATS } from "../constants";
+import { GpxDownloadButton } from "./gpx-download-button";
 
 export function CourseOverview() {
   return (
@@ -43,13 +44,7 @@ export function CourseOverview() {
               {REGISTRATION.isOpen ? "Register for This Route" : REGISTRATION.label}
               <ArrowRight className="size-4" />
             </Link>
-            <button
-              type="button"
-              className="inline-flex items-center gap-2.5 rounded-full border-2 border-brand-green px-6 py-4 font-sans text-sm font-semibold text-brand-green"
-            >
-              <Download className="size-4" />
-              Download GPX
-            </button>
+            <GpxDownloadButton />
           </div>
         </Reveal>
 

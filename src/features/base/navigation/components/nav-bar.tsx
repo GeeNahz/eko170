@@ -23,6 +23,14 @@ export function NavBar({ registration }: { registration: RegistrationConfig }) {
   const { hidden, scrolled } = useHideOnScroll();
   const magnetic = useMagneticHover(0.3);
 
+  // Routes only has a confirmed course to show once registration is
+  // open — tied to REGISTRATION_STATE via `registration.isOpen` rather
+  // than a standalone flag, so flipping that one env var enables this
+  // too.
+  const navLinks = PRIMARY_NAV.map((link) =>
+    link.id === "nav-routes" ? { ...link, disabled: !registration.isOpen } : link,
+  );
+
   return (
     <motion.div
       className="fixed inset-x-0 top-9 z-30 border-b border-brand-cream-border bg-white"
@@ -50,7 +58,7 @@ export function NavBar({ registration }: { registration: RegistrationConfig }) {
         </Link>
 
         <div className="hidden items-center gap-0.5 rounded-full border border-white/60 bg-[rgba(241,245,242,0.62)] px-2.5 py-0 shadow-[0_6px_20px_rgba(16,24,40,0.05)] backdrop-blur-md lg:flex">
-          {PRIMARY_NAV.filter((link) => !link.hidden).map((link) => {
+          {navLinks.filter((link) => !link.hidden).map((link) => {
             const active = isActive(pathname, link.href);
             if (link.disabled) {
               return (
@@ -118,7 +126,7 @@ export function NavBar({ registration }: { registration: RegistrationConfig }) {
           >
             {registration.label}
           </Link>
-          <MobileNav links={PRIMARY_NAV} registration={registration} />
+          <MobileNav links={navLinks} registration={registration} />
         </div>
       </div>
     </motion.div>

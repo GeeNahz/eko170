@@ -96,6 +96,7 @@ export const RegisterService = {
       insNumber: meta.insNumber ?? "",
       emergencyName: meta.emergencyName ?? "",
       emergencyPhone: meta.emergencyPhone ?? "",
+      medicalWaiverAgreed: meta.medicalWaiverAgreed ?? "false",
     };
 
     return {
