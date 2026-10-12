@@ -6,6 +6,7 @@ import { motion } from "motion/react";
 import { useMagneticHover } from "@/hooks/use-magnetic-hover";
 import type { RegistrationConfig } from "../../lib/types";
 import { useGetEventDetails } from "../../event/hooks/use-event";
+import { EarlyBirdBanner } from "../../components/early-bird-banner";
 import { SplashLoader } from "./splash-loader";
 
 export function Hero({ registration }: { registration: RegistrationConfig }) {
@@ -100,6 +101,7 @@ export function Hero({ registration }: { registration: RegistrationConfig }) {
             >
               Learn More about Eko170
             </Link>
+            <EarlyBirdBanner variant="dark" className="mt-8 max-w-[560px]" />
           </div>
         </div>
 

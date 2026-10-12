@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Home's hero section (desktop and mobile) now shows the same
+  early-bird pricing banner as the registration form, extracted into a
+  shared `EarlyBirdBanner` component (`features/base/components/`) so
+  both stay in sync — a `dark` variant handles the hero's video
+  background, where the form's light styling wouldn't read.
+
+### Added
 - Registration form now requires accepting a medical waiver before
   checkout: a shadcn `Dialog` (`register/components/medical-waiver-
   dialog.tsx`) shows the full "Liability and Risk Declaration" with a

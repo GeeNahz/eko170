@@ -5,6 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
 import type { RegistrationConfig } from "../../lib/types";
 import { useGetEventDetails } from "../../event/hooks/use-event";
+import { EarlyBirdBanner } from "../../components/early-bird-banner";
 import { SplashLoader } from "./splash-loader";
 
 export function HeroMobile({ registration }: { registration: RegistrationConfig }) {
@@ -91,6 +92,7 @@ export function HeroMobile({ registration }: { registration: RegistrationConfig 
           >
             Learn More about Eko170
           </Link>
+          <EarlyBirdBanner variant="dark" className="mt-6" />
         </div>
 
         <div className="mt-10 mb-20 flex items-center justify-between">
