@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { RevealGroup, RevealItem } from "@/components/motion/reveal";
+import { REGISTRATION } from "../../lib/server/registration";
 import { DISTANCE_CARDS } from "../constants";
 
 export function ChooseDistance() {
@@ -44,13 +45,13 @@ export function ChooseDistance() {
               key={card.id}
               className="overflow-hidden rounded-2xl border border-brand-cream-border"
             >
-              <div className="group relative aspect-4/3 overflow-hidden">
+              <div className="group relative aspect-[16/8] overflow-hidden bg-brand-teal">
                 <Image
                   src={card.image}
                   alt={card.title}
                   fill
                   sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  className="object-contain transition-transform duration-700 ease-out group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-black/75 to-transparent to-55%" />
                 <div className="absolute bottom-6 left-6">
@@ -84,7 +85,10 @@ export function ChooseDistance() {
                     </span>
                   ))}
                 </div>
-                <div className="flex items-center justify-between pt-5">
+                <Link
+                  href={REGISTRATION.href}
+                  className="group/cta flex items-center justify-between pt-5"
+                >
                   <div>
                     <div className="mb-1 font-mono text-[11px] tracking-wide text-gray-400 uppercase">
                       Terrain
@@ -93,8 +97,8 @@ export function ChooseDistance() {
                       {card.terrain}
                     </div>
                   </div>
-                  <ArrowRight className="size-[18px] text-brand-green" />
-                </div>
+                  <ArrowRight className="size-[18px] text-brand-green transition-transform group-hover/cta:translate-x-1" />
+                </Link>
               </div>
             </RevealItem>
           ))}

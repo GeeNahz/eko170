@@ -1,9 +1,9 @@
 "use client";
 
-import { startTransition, useActionState, useEffect } from "react";
+import { startTransition, useActionState, useEffect, useState } from "react";
 import { useForm, type FieldError, type UseFormRegister } from "react-hook-form";
 import { toast } from "sonner";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Check, Sparkles } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,6 +20,7 @@ import {
 } from "../constants";
 import { registerAction } from "../server/actions";
 import type { RegistrationFormValues } from "../types";
+import { MedicalWaiverDialog } from "./medical-waiver-dialog";
 
 const inputClassName =
   "h-auto rounded-[10px] border-brand-cream-border px-4 py-3.5 font-sans text-[15px] text-brand-teal focus-visible:border-brand-green focus-visible:ring-brand-green/12";
@@ -131,6 +132,19 @@ export function RegistrationForm() {
   const earlyBird = DISTANCE_PRICES[selectedDistance]?.earlyBird;
   const earlyBirdActive = earlyBird && new Date() < new Date(earlyBird.endsAt);
 
+  const [waiverOpen, setWaiverOpen] = useState(false);
+  const [waiverAgreed, setWaiverAgreed] = useState(false);
+
+  // Flat pricing — every distance shares the same early-bird window, so
+  // this banner (shown before a distance is even picked) reads it off
+  // either option rather than waiting on `selectedDistance`.
+  const topEarlyBird = DISTANCE_PRICES[DISTANCE_OPTIONS[0]].earlyBird;
+  const topEarlyBirdActive =
+    topEarlyBird && new Date() < new Date(topEarlyBird.endsAt);
+  const topEarlyBirdSavings = topEarlyBird
+    ? DISTANCE_PRICES[DISTANCE_OPTIONS[0]].standardPrice - topEarlyBird.price
+    : 0;
+
   useEffect(() => {
     if (state?.status === "error" && state.message) {
       toast.error(state.message);
@@ -140,10 +154,38 @@ export function RegistrationForm() {
   return (
     <div className="mx-auto w-full max-w-[920px] px-0 pb-24 sm:px-10">
       <form
-        onSubmit={handleSubmit((values) => startTransition(() => formAction(values)))}
+        onSubmit={handleSubmit((values) =>
+          startTransition(() =>
+            formAction({
+              ...values,
+              medicalWaiverAgreed: waiverAgreed ? "true" : "false",
+            }),
+          ),
+        )}
         noValidate
         className="flex flex-col gap-6 bg-brand-cream px-5 pt-8 pb-11 sm:rounded-[20px] sm:border sm:border-brand-cream-border sm:bg-white sm:p-10"
       >
+        {topEarlyBirdActive && (
+          <div className="flex items-center gap-3 rounded-[14px] border border-brand-green/30 bg-brand-green/8 px-5 py-4">
+            <Sparkles className="size-5 shrink-0 text-brand-green" />
+            <p className="font-sans text-sm leading-relaxed text-brand-teal">
+              <span className="font-bold">
+                Early-bird pricing is live — save ₦
+                {topEarlyBirdSavings.toLocaleString("en-NG")}
+              </span>{" "}
+              on your registration. Lock it in before it ends{" "}
+              {new Date(
+                new Date(topEarlyBird.endsAt).getTime() - 86400000,
+              ).toLocaleDateString("en-NG", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })}
+              .
+            </p>
+          </div>
+        )}
+
         <div>
           <div className="mb-5 border-b border-brand-cream-border pb-2.5 font-mono text-xs tracking-[2px] text-brand-green uppercase">
             Personal Information
@@ -342,14 +384,36 @@ export function RegistrationForm() {
             You&apos;ll be taken to a secure checkout to pay this amount —
             your registration is only confirmed once payment goes through.
           </p>
+
+          {waiverAgreed ? (
+            <div className="flex items-center gap-2 font-sans text-sm font-semibold text-brand-green">
+              <Check className="size-4" />
+              Medical waiver accepted
+            </div>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setWaiverOpen(true)}
+              className="font-sans text-sm font-semibold text-brand-green underline underline-offset-2"
+            >
+              Review &amp; accept the medical waiver to continue
+            </button>
+          )}
+
           <Button
             type="submit"
-            disabled={isPending}
+            disabled={isPending || !waiverAgreed}
             className="h-14 rounded-full bg-brand-green px-11 font-sans text-base font-semibold text-white hover:bg-brand-green/90 disabled:opacity-70"
           >
             {isPending ? "Redirecting to payment…" : "Continue to Payment"}
             {!isPending && <ArrowRight className="size-4" />}
           </Button>
+
+          <MedicalWaiverDialog
+            open={waiverOpen}
+            onOpenChange={setWaiverOpen}
+            onAgree={() => setWaiverAgreed(true)}
+          />
 
           <div className="flex w-full max-w-[420px] items-center gap-3">
             <span className="h-px flex-1 bg-brand-cream-border" />

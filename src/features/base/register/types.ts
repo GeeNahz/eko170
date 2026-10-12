@@ -16,6 +16,10 @@ export type RegistrationFormValues = {
   insNumber: string;
   emergencyName: string;
   emergencyPhone: string;
+  // "true" once the rider has checked the box in the medical-waiver
+  // modal — never rendered as a normal form input, set programmatically
+  // on submit. See register/components/medical-waiver-dialog.tsx.
+  medicalWaiverAgreed: string;
 };
 
 export type RegistrationFieldErrors = Partial<

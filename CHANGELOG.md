@@ -7,15 +7,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Registration form now requires accepting a medical waiver before
+  checkout: a shadcn `Dialog` (`register/components/medical-waiver-
+  dialog.tsx`) shows the full "Liability and Risk Declaration" with a
+  confirmation checkbox; the "Continue to Payment" button stays
+  disabled until it's checked and agreed. The attestation rides through
+  as a new `medicalWaiverAgreed` field on `RegistrationFormValues`,
+  validated server-side in `registerAction` (defense in depth, not just
+  a disabled button) and written as its own column in the registrations
+  Sheet via the existing `fields` spread in `recordPaidRegistration`.
+- Registration form shows a dismissive-free banner at the top
+  advertising the active early-bird discount and its 15 November 2026
+  deadline, computed from the same flat `DISTANCE_PRICES` data as the
+  per-distance fee note further down the form.
+- `choose-distance.tsx` cards ("Choose Your Distance") now link their
+  bottom Terrain/arrow row to the registration CTA (`REGISTRATION.href`)
+  — previously decorative, non-interactive.
+
 ### Changed
 - Introduced a third `REGISTRATION_STATE` value, `starting_soon`, and
   made it the live state: every CTA site-wide now reads "Registration
-  Starts Soon" and links to `#` (no real route yet), and the route
-  vote section (`route-vote-section.tsx`) drops its "Which Route
-  Should We Ride?" picker/maps entirely in favor of a "Route
-  Announcement" / "Routes will be announced soon" header with just a
-  countdown to 13 October 2026. No CTA file needed touching — they
-  already render `registration.href`/`registration.label` generically.
+  Starts Soon" and links to `#` (no real route yet). The route vote
+  section (`route-vote-section.tsx`) keeps the "Route Announcement"
+  title but now shows the vote outcome (Option B won, confirmed via
+  `CONFIRMED_ROUTE_ID` in `route-vote/constants.ts`) — a short writeup,
+  the confirmed route's map, and the existing countdown, narrowed to
+  match "The Event" card's width below it. No CTA file needed
+  touching — they already render `registration.href`/`registration.label`
+  generically.
+- `ROUTE_VOTE_OPTION_B_PATH` (`routes/constants.ts`) is now the real GPS
+  track from the client-provided GPX file, simplified via
+  Douglas-Peucker from 29,048 raw trackpoints down to 441, replacing
+  the earlier hand-traced screenshot approximation.
+- "Choose Your Distance" cards: the 170KM card now shows the confirmed
+  route-vote winner's map image and the 94.5KM card shows its own route
+  map (previously generic event photography); both image boxes switched
+  from a cropped `object-cover` fill to `object-contain` on a branded
+  background, since panoramic route-map screenshots were being cropped
+  down to an unrecognizable sliver by the old photo-oriented treatment.
+  Both cards' descriptions updated to client-supplied copy.
 - Replaced per-distance registration pricing with one flat early-bird
   price (₦25,000, through 15 November 2026) and one flat standard
   price (₦35,000, from 16 November 2026) applied to both Medio Fondo

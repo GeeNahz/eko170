@@ -135,25 +135,27 @@ export const ABOUT_FEATURE_CARDS: FeatureCard[] = [
 export const DISTANCE_CARDS: DistanceCard[] = [
   {
     id: "distance-full",
-    image: "/images/CR2A3106.jpg",
+    // The confirmed route-vote winner (Option B) — see
+    // home/route-vote/constants.ts's CONFIRMED_ROUTE_ID.
+    image: "/images/route-vote-option-b.png",
     distanceValue: "170",
     distanceSuffix: "KM",
     tagline: "The Full Distance",
     title: "Gran Fondo",
     description:
-      "The flagship route. Start and finish at Eko Atlantic Boulevard, traversing Victoria Island, crossing the Lekki–Ikoyi Bridge, through the Lagos Free Trade Zone and Dangote Refinery corridor, into the open countryside of Epe.",
+      "Conquer the ultimate endurance test on this scenic 170km route, where you'll battle the rolling hills of Epe before facing a grueling 47km return leg along the Coastal Road, testing your grit against relentless headwinds that feel like a continuous hill climb all the way to the finish.",
     tags: ["Elite", "Seasoned Cyclists", "Community", "Teams"],
     terrain: "Moderate rolling",
   },
   {
     id: "distance-half",
-    image: "/images/CR2A2850.jpg",
+    image: "/images/medio-fondo-route-map.png",
     distanceValue: "94.5",
     distanceSuffix: "KM",
     tagline: "For Strong Riders",
     title: "Medio Fondo",
     description:
-      "The ideal distance for strong riders seeking a balance of challenge and accessibility. Experience the energy of race day across Lekki–Ikoyi Bridge, Lekki Phase 1, and Sangotedo — returning to a festival-style finish at Eko Atlantic City.",
+      "Experience the thrilling energy of mass participation on this fast-paced half-distance ride, perfectly tailored for fitness riders who want to bypass the punishing Epe hills but are still ready to test their grit against the brutal coastal headwinds on the return leg.",
     tags: ["Fitness Riders", "Enthusiasts", "Corporate Teams", "Families"],
     terrain: "Flat to moderate",
   },
