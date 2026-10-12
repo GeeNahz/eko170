@@ -289,6 +289,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Home hero and nav.
 
 ### Fixed
+- Nav bar's Routes dropdown still showed "EKO 70" for the Medio Fondo
+  link after that page's displayed distance changed to 94.5 — missed
+  because the label was a separate hardcoded string in
+  `navigation/constants.ts` rather than reading `ROUTE_70_DETAIL`'s own
+  `navLabel`. Both dropdown entries now read `navLabel` directly off
+  `ROUTE_170_DETAIL`/`ROUTE_70_DETAIL`, so they can't drift again.
 - Registration form's early-bird note (`registration-form.tsx`) showed
   the wrong last eligible day — `endsAt` is the cutoff moment
   (midnight starting the next day), so rendering it directly showed

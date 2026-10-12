@@ -1,3 +1,4 @@
+import { ROUTE_70_DETAIL, ROUTE_170_DETAIL } from "../routes/constants";
 import type { FooterLinkGroup, NavLink } from "./types";
 
 export const PRIMARY_NAV: NavLink[] = [
@@ -8,8 +9,10 @@ export const PRIMARY_NAV: NavLink[] = [
     label: "Routes",
     href: "/routes",
     children: [
-      { id: "nav-routes-170", label: "EKO 170", href: "/routes/170" },
-      { id: "nav-routes-70", label: "EKO 70", href: "/routes/70" },
+      // Labels read off each route's own navLabel so this can't drift
+      // out of sync again (previously a hardcoded "EKO 70" string).
+      { id: "nav-routes-170", label: ROUTE_170_DETAIL.navLabel, href: "/routes/170" },
+      { id: "nav-routes-70", label: ROUTE_70_DETAIL.navLabel, href: "/routes/70" },
       { id: "nav-routes-map", label: "Interactive Map", href: "/routes#map" },
     ],
   },
