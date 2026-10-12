@@ -17,9 +17,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   countdown to 13 October 2026. No CTA file needed touching — they
   already render `registration.href`/`registration.label` generically.
 - Replaced per-distance registration pricing with one flat early-bird
-  price (₦25,000, through 31 October 2026) and one flat standard price
-  (₦35,000, from 1 November 2026) applied to both Medio Fondo and
-  Gran Fondo (`register/constants.ts`'s `DISTANCE_PRICES`). Route
+  price (₦25,000, through 15 November 2026) and one flat standard
+  price (₦35,000, from 16 November 2026) applied to both Medio Fondo
+  and Gran Fondo (`register/constants.ts`'s `DISTANCE_PRICES`). Route
   detail pages' price callouts (`routes/constants.ts`) updated to
   match.
 - Home's sponsor section (`sponsors-marquee.tsx`) no longer links to

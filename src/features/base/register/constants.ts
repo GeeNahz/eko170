@@ -44,16 +44,16 @@ export const DISTANCE_OPTIONS = ["Medio Fondo · 94.5 KM", "Gran Fondo · 170 KM
 
 // NGN. Flat pricing across both distances (client decision — one price
 // for every route, not a per-distance one). Matches the route detail
-// pages (routes/constants.ts). Early-bird ends 31 Oct 2026; the
-// standard ("late-bird") price takes over from 1 Nov 2026.
+// pages (routes/constants.ts). Early-bird ends 15 Nov 2026; the
+// standard ("late-bird") price takes over from 16 Nov 2026.
 export const DISTANCE_PRICES: Record<string, DistancePriceConfig> = {
   "Medio Fondo · 94.5 KM": {
     standardPrice: 35000,
-    earlyBird: { price: 25000, endsAt: "2026-11-01T00:00:00+01:00" },
+    earlyBird: { price: 25000, endsAt: "2026-11-16T00:00:00+01:00" },
   },
   "Gran Fondo · 170 KM": {
     standardPrice: 35000,
-    earlyBird: { price: 25000, endsAt: "2026-11-01T00:00:00+01:00" },
+    earlyBird: { price: 25000, endsAt: "2026-11-16T00:00:00+01:00" },
   },
 };
 
