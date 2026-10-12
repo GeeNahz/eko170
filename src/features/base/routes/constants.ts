@@ -266,7 +266,6 @@ export const ROUTE_SUBNAV_LINKS: { id: string; label: string; href: string }[] =
   { id: "map", label: "Route Map", href: "#map" },
   { id: "start", label: "Start-Line", href: "#start" },
   { id: "finish", label: "Finish Line", href: "#finish" },
-  { id: "more", label: "Additional Information", href: "#more" },
   { id: "faqs", label: "Entries & FAQs", href: "#faqs" },
 ];
 
@@ -319,7 +318,7 @@ export const ROUTE_FAQS: RouteFaq[] = [
 export const ROUTE_170_DETAIL: RouteDetailData = {
   slug: "170",
   navLabel: "EKO 170",
-  distanceLabel: "eko 170",
+  distanceLabel: "EKO 170",
   heroImage: "/images/DSC_2320.jpg",
   routeDescriptionImage: "/images/DSC_2320.jpg",
   startImage: "/images/sm-CR2A2942.jpg",
@@ -337,50 +336,12 @@ export const ROUTE_170_DETAIL: RouteDetailData = {
   path: ROUTE_170_PATH,
   startWaveBody:
     "The Eko Atlantic Boulevard Start Precinct welcomes riders for the 170 kilometres — waves roll out from 06:00, at first light.",
-  moreAboutCards: [
-    {
-      id: "start-times",
-      title: "Start Times",
-      description:
-        "Group start times for the 170km are seeded by your qualifying result. Waves roll out from 06:00.",
-    },
-    {
-      id: "cut-offs",
-      title: "Cut-Offs",
-      description:
-        "Three cut-off points keep the course safe. Riders outside the limits are taken by sweep vehicle to the finish.",
-    },
-    {
-      id: "get-to-finish",
-      title: "Get to the Finish",
-      description:
-        "After the finish, roll straight into the marina festival — medals, food, music, and the winners' podium.",
-    },
-    {
-      id: "bag-drop",
-      title: "Bag Drop-Off",
-      description:
-        "Drop your kit bag at the info tent on Eko Atlantic Boulevard before the start; collect it at the same point after.",
-    },
-    {
-      id: "info-tents",
-      title: "Info Tents",
-      description:
-        "Three info tents at the Start Precinct handle last-minute race queries and replacement timing chips.",
-    },
-    {
-      id: "strava-route",
-      title: "Strava Route",
-      description:
-        "Preview the full 170km course on Strava and load the GPX onto your bike computer.",
-    },
-  ],
 };
 
 export const ROUTE_70_DETAIL: RouteDetailData = {
   slug: "70",
   navLabel: "EKO 94.5",
-  distanceLabel: "eko 94.5",
+  distanceLabel: "EKO 94.5",
   heroImage: "/images/sm-DSC_1924.jpg",
   routeDescriptionImage: "/images/sm-DSC_1924.jpg",
   startImage: "/images/sm-CR2A2942.jpg",
@@ -398,42 +359,4 @@ export const ROUTE_70_DETAIL: RouteDetailData = {
   path: ROUTE_70_PATH,
   startWaveBody:
     "The Eko Atlantic Boulevard Start Precinct welcomes riders for the 94.5 kilometres — waves roll out from 06:45, shortly after the 170km riders.",
-  moreAboutCards: [
-    {
-      id: "start-times",
-      title: "Start Times",
-      description:
-        "Group start times for the 94.5km follow the 170km waves, rolling out from 06:45.",
-    },
-    {
-      id: "cut-offs",
-      title: "Cut-Offs",
-      description:
-        "One cut-off point at the Lekki turn keeps the course safe. Sweep vehicles carry riders outside the limit to the finish.",
-    },
-    {
-      id: "get-to-finish",
-      title: "Get to the Finish",
-      description:
-        "Cross the line and roll straight into the marina festival — the same finish as the 170km heroes.",
-    },
-    {
-      id: "bag-drop",
-      title: "Bag Drop-Off",
-      description:
-        "Drop your kit bag at the info tent on Eko Atlantic Boulevard before the start; collect it at the same point after.",
-    },
-    {
-      id: "info-tents",
-      title: "Info Tents",
-      description:
-        "Three info tents at the Start Precinct handle last-minute race queries and replacement timing chips.",
-    },
-    {
-      id: "strava-route",
-      title: "Strava Route",
-      description:
-        "Preview the 94.5km course on Strava and load the GPX onto your bike computer.",
-    },
-  ],
 };

@@ -20,6 +20,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   acceptance confirmation, server-side validation message, Sheet
   column label) — the legal document's own title ("Liability and Risk
   Declaration") is unchanged.
+- Route detail pages' hero distance label now renders uppercase
+  ("EKO 170" / "EKO 94.5") instead of lowercase ("eko 170" / "eko 94.5").
+
+### Removed
+- "More About the EKO 170" / "More About the EKO 94.5" sections
+  dropped from `/routes/170` and `/routes/70` (`RouteMoreAbout`
+  component and its sub-nav entry deleted; `moreAboutCards` field
+  removed from `RouteDetailData`).
 
 ### Added
 - Registration form now requires accepting a medical waiver before

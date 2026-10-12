@@ -20,12 +20,6 @@ export type RouteFaq = {
   answer: string;
 };
 
-export type RouteMoreAboutCard = {
-  id: string;
-  title: string;
-  description: string;
-};
-
 export type RouteDetailData = {
   slug: string;
   navLabel: string;
@@ -44,12 +38,4 @@ export type RouteDetailData = {
   routeDescription: string;
   path: [number, number][];
   startWaveBody: string;
-  moreAboutCards: [
-    RouteMoreAboutCard,
-    RouteMoreAboutCard,
-    RouteMoreAboutCard,
-    RouteMoreAboutCard,
-    RouteMoreAboutCard,
-    RouteMoreAboutCard,
-  ];
 };
