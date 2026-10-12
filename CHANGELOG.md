@@ -14,6 +14,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   both stay in sync — a `dark` variant handles the hero's video
   background, where the form's light styling wouldn't read.
 
+### Changed
+- "Medical waiver" renamed to "medical/liability waiver" throughout
+  the registration flow's user-facing copy (checkbox-gate link,
+  acceptance confirmation, server-side validation message, Sheet
+  column label) — the legal document's own title ("Liability and Risk
+  Declaration") is unchanged.
+
 ### Added
 - Registration form now requires accepting a medical waiver before
   checkout: a shadcn `Dialog` (`register/components/medical-waiver-

@@ -18,7 +18,7 @@ export const FIELD_LABELS: Record<keyof RegistrationFormValues, string> = {
   insNumber: "Enrollee number",
   emergencyName: "Emergency contact name",
   emergencyPhone: "Emergency contact phone",
-  medicalWaiverAgreed: "Medical waiver agreed",
+  medicalWaiverAgreed: "Medical/liability waiver agreed",
 };
 
 export const REQUIRED_FIELDS: (keyof RegistrationFormValues)[] = [

@@ -360,7 +360,7 @@ export function RegistrationForm() {
           {waiverAgreed ? (
             <div className="flex items-center gap-2 font-sans text-sm font-semibold text-brand-green">
               <Check className="size-4" />
-              Medical waiver accepted
+              Medical/liability waiver accepted
             </div>
           ) : (
             <button
@@ -368,7 +368,7 @@ export function RegistrationForm() {
               onClick={() => setWaiverOpen(true)}
               className="font-sans text-sm font-semibold text-brand-green underline underline-offset-2"
             >
-              Review &amp; accept the medical waiver to continue
+              Review &amp; accept the medical/liability waiver to continue
             </button>
           )}
 
