@@ -329,11 +329,13 @@ export function RegistrationForm() {
           {earlyBirdActive && (
             <p className="max-w-[420px] text-center font-sans text-xs font-semibold text-brand-green">
               Early-bird price — ends{" "}
-              {new Date(earlyBird.endsAt).toLocaleDateString("en-NG", {
-                day: "numeric",
-                month: "long",
-                year: "numeric",
-              })}
+              {/* `endsAt` is the cutoff moment (midnight starting the
+                  next day), so the last eligible day is one day
+                  earlier — show that, not the cutoff itself. */}
+              {new Date(new Date(earlyBird.endsAt).getTime() - 86400000).toLocaleDateString(
+                "en-NG",
+                { day: "numeric", month: "long", year: "numeric" },
+              )}
             </p>
           )}
           <p className="max-w-[420px] text-center font-sans text-xs text-gray-400">

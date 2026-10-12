@@ -221,6 +221,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Home hero and nav.
 
 ### Fixed
+- Registration form's early-bird note (`registration-form.tsx`) showed
+  the wrong last eligible day — `endsAt` is the cutoff moment
+  (midnight starting the next day), so rendering it directly showed
+  "ends 16 November 2026" instead of the 15th. Now subtracts a day
+  before formatting, so it reads the actual last day the early-bird
+  price applies.
 - Route detail pages (`/routes/170`, `/routes/70`) were missing the
   mockup's closing "Ready to Ride the Route? / Register Now" CTA
   entirely after the FAQ section — added as a new `RouteClosingCta`.
