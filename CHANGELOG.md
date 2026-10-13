@@ -28,6 +28,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   dropped from `/routes/170` and `/routes/70` (`RouteMoreAbout`
   component and its sub-nav entry deleted; `moreAboutCards` field
   removed from `RouteDetailData`).
+- Community page's stat row drops "Raised for Causes" and "Waste
+  Recycled", leaving Volunteers and Cycling Clubs in a centered
+  two-column layout (previously a four-column grid).
 
 ### Added
 - Registration form now requires accepting a medical waiver before

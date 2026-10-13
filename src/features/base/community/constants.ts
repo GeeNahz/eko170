@@ -3,8 +3,6 @@ import type { CommunityCard, CommunityStat } from "./types";
 export const COMMUNITY_STATS: CommunityStat[] = [
   { id: "stat-volunteers", value: "60", label: "Volunteers" },
   { id: "stat-clubs", value: "24", label: "Cycling Clubs" },
-  { id: "stat-raised", value: "₦25M", label: "Raised for Causes" },
-  { id: "stat-recycled", value: "100%", label: "Waste Recycled" },
 ];
 
 export const CLUB_CARDS: CommunityCard[] = [
