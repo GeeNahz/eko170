@@ -34,6 +34,14 @@ export async function POST(request: Request) {
     );
     if (verified) {
       await RegisterService.recordPaidRegistration(verified);
+    } else {
+      // Flutterwave reported success but our own re-verification
+      // rejected it (status/currency/amount/reference mismatch) — this
+      // means no Sheet row and no confirmation email went out for this
+      // payment, so it needs a human to look at it.
+      console.error(
+        `[webhooks/flutterwave] verification rejected for transaction ${body.data.id} — no registration recorded`,
+      );
     }
   } catch (error) {
     console.error("[webhooks/flutterwave] processing failed", error);

@@ -46,6 +46,14 @@ export async function POST(request: Request) {
     );
     if (verified) {
       await RegisterService.recordPaidRegistration(verified);
+    } else {
+      // Paystack reported success but our own re-verification rejected
+      // it (status/currency/amount/reference mismatch) — this means no
+      // Sheet row and no confirmation email went out for this payment,
+      // so it needs a human to look at it.
+      console.error(
+        `[webhooks/paystack] verification rejected for reference ${body.data.reference} — no registration recorded`,
+      );
     }
   } catch (error) {
     console.error("[webhooks/paystack] processing failed", error);

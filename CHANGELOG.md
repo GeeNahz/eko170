@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- Registration payment failures are now actually logged. Both webhooks
+  (`api/webhooks/paystack`, `api/webhooks/flutterwave`) previously did
+  nothing at all when server-side re-verification rejected a payment —
+  no Sheet row, no email, and no trace of why. They now `console.error`
+  with the gateway's transaction reference so a rejected payment can be
+  investigated instead of vanishing silently. `sheets-client.ts` and
+  `email-client.ts`'s existing failure logs were also missing which
+  submission/recipient failed — both now log the row/reference/
+  recipient alongside the error so a failure can be manually followed
+  up on, not just noticed.
+
 ### Changed
 - Registration confirmation email replaced with the client's final
   copy (`lib/server/email-client.ts`) — new subject line, rider-guide

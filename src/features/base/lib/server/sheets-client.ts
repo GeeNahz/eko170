@@ -19,6 +19,7 @@ export async function postToSheet(
   if (!WEBHOOK_URL) {
     console.error(
       `[sheets-client] GOOGLE_SHEETS_WEBHOOK_URL is not set — skipped ${formType} submission`,
+      fields,
     );
     return;
   }
@@ -30,11 +31,15 @@ export async function postToSheet(
       body: JSON.stringify({ formType, ...fields }),
     });
     if (!response.ok) {
+      // Logged with the full row so a failed submission can be
+      // manually re-entered into the Sheet rather than just knowing
+      // *that* something failed.
       console.error(
         `[sheets-client] ${formType} submission failed: ${response.status} ${response.statusText}`,
+        fields,
       );
     }
   } catch (error) {
-    console.error(`[sheets-client] ${formType} submission errored`, error);
+    console.error(`[sheets-client] ${formType} submission errored`, { fields, error });
   }
 }

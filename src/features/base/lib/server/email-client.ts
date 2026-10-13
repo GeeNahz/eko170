@@ -141,6 +141,7 @@ export async function sendRegistrationConfirmationEmail(
   if (!apiKey || !from || !replyTo) {
     console.error(
       "[email-client] RESEND_API_KEY/EMAIL_FROM/EMAIL_REPLY_TO not set — skipped confirmation email",
+      { to: data.to, refCode: data.refCode },
     );
     return;
   }
@@ -156,9 +157,20 @@ export async function sendRegistrationConfirmationEmail(
       text: buildText(data),
     });
     if (error) {
-      console.error("[email-client] confirmation email failed", error);
+      // Logged with recipient + reference so a failed send can be
+      // manually followed up on rather than just knowing *that*
+      // something failed.
+      console.error("[email-client] confirmation email failed", {
+        to: data.to,
+        refCode: data.refCode,
+        error,
+      });
     }
   } catch (error) {
-    console.error("[email-client] confirmation email errored", error);
+    console.error("[email-client] confirmation email errored", {
+      to: data.to,
+      refCode: data.refCode,
+      error,
+    });
   }
 }
