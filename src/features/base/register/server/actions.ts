@@ -29,7 +29,7 @@ export async function registerAction(
   }
   if (values.medicalWaiverAgreed !== "true") {
     fieldErrors.medicalWaiverAgreed =
-      "You must accept the medical waiver to continue";
+      "You must accept the medical/liability waiver to continue";
   }
 
   if (Object.keys(fieldErrors).length > 0) {

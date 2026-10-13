@@ -7,7 +7,6 @@ import { RouteEntries } from "./route-entries";
 import { RouteFaqs } from "./route-faqs";
 import { RouteFinish } from "./route-finish";
 import { RouteIntroduction } from "./route-introduction";
-import { RouteMoreAbout } from "./route-more-about";
 import { RouteStart } from "./route-start";
 import { RouteSubNav } from "./route-sub-nav";
 import { REGISTRATION } from "../../lib/server/registration";
@@ -23,7 +22,6 @@ export function RouteDetail({ data }: { data: RouteDetailData }) {
       <RouteDetailMap data={data} />
       <RouteStart data={data} />
       <RouteFinish data={data} />
-      <RouteMoreAbout data={data} />
       <RouteFaqs />
       <RouteClosingCta />
     </>

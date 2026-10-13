@@ -3,11 +3,12 @@
 import { startTransition, useActionState, useEffect, useState } from "react";
 import { useForm, type FieldError, type UseFormRegister } from "react-hook-form";
 import { toast } from "sonner";
-import { ArrowRight, Check, Sparkles } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { EarlyBirdBanner } from "../../components/early-bird-banner";
 import {
   DISTANCE_OPTIONS,
   DISTANCE_PRICES,
@@ -135,16 +136,6 @@ export function RegistrationForm() {
   const [waiverOpen, setWaiverOpen] = useState(false);
   const [waiverAgreed, setWaiverAgreed] = useState(false);
 
-  // Flat pricing — every distance shares the same early-bird window, so
-  // this banner (shown before a distance is even picked) reads it off
-  // either option rather than waiting on `selectedDistance`.
-  const topEarlyBird = DISTANCE_PRICES[DISTANCE_OPTIONS[0]].earlyBird;
-  const topEarlyBirdActive =
-    topEarlyBird && new Date() < new Date(topEarlyBird.endsAt);
-  const topEarlyBirdSavings = topEarlyBird
-    ? DISTANCE_PRICES[DISTANCE_OPTIONS[0]].standardPrice - topEarlyBird.price
-    : 0;
-
   useEffect(() => {
     if (state?.status === "error" && state.message) {
       toast.error(state.message);
@@ -165,26 +156,7 @@ export function RegistrationForm() {
         noValidate
         className="flex flex-col gap-6 bg-brand-cream px-5 pt-8 pb-11 sm:rounded-[20px] sm:border sm:border-brand-cream-border sm:bg-white sm:p-10"
       >
-        {topEarlyBirdActive && (
-          <div className="flex items-center gap-3 rounded-[14px] border border-brand-green/30 bg-brand-green/8 px-5 py-4">
-            <Sparkles className="size-5 shrink-0 text-brand-green" />
-            <p className="font-sans text-sm leading-relaxed text-brand-teal">
-              <span className="font-bold">
-                Early-bird pricing is live — save ₦
-                {topEarlyBirdSavings.toLocaleString("en-NG")}
-              </span>{" "}
-              on your registration. Lock it in before it ends{" "}
-              {new Date(
-                new Date(topEarlyBird.endsAt).getTime() - 86400000,
-              ).toLocaleDateString("en-NG", {
-                day: "numeric",
-                month: "long",
-                year: "numeric",
-              })}
-              .
-            </p>
-          </div>
-        )}
+        <EarlyBirdBanner />
 
         <div>
           <div className="mb-5 border-b border-brand-cream-border pb-2.5 font-mono text-xs tracking-[2px] text-brand-green uppercase">
@@ -388,7 +360,7 @@ export function RegistrationForm() {
           {waiverAgreed ? (
             <div className="flex items-center gap-2 font-sans text-sm font-semibold text-brand-green">
               <Check className="size-4" />
-              Medical waiver accepted
+              Medical/liability waiver accepted
             </div>
           ) : (
             <button
@@ -396,7 +368,7 @@ export function RegistrationForm() {
               onClick={() => setWaiverOpen(true)}
               className="font-sans text-sm font-semibold text-brand-green underline underline-offset-2"
             >
-              Review &amp; accept the medical waiver to continue
+              Review &amp; accept the medical/liability waiver to continue
             </button>
           )}
 

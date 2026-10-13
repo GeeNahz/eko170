@@ -8,6 +8,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Home's hero section (desktop and mobile) now shows the same
+  early-bird pricing banner as the registration form, extracted into a
+  shared `EarlyBirdBanner` component (`features/base/components/`) so
+  both stay in sync — a `dark` variant handles the hero's video
+  background, where the form's light styling wouldn't read.
+
+### Changed
+- "Medical waiver" renamed to "medical/liability waiver" throughout
+  the registration flow's user-facing copy (checkbox-gate link,
+  acceptance confirmation, server-side validation message, Sheet
+  column label) — the legal document's own title ("Liability and Risk
+  Declaration") is unchanged.
+- Route detail pages' hero distance label now renders uppercase
+  ("EKO 170" / "EKO 94.5") instead of lowercase ("eko 170" / "eko 94.5").
+
+### Removed
+- "More About the EKO 170" / "More About the EKO 94.5" sections
+  dropped from `/routes/170` and `/routes/70` (`RouteMoreAbout`
+  component and its sub-nav entry deleted; `moreAboutCards` field
+  removed from `RouteDetailData`).
+- Community page's stat row drops "Raised for Causes" and "Waste
+  Recycled", leaving Volunteers and Cycling Clubs in a centered
+  two-column layout (previously a four-column grid).
+
+### Added
 - Registration form now requires accepting a medical waiver before
   checkout: a shadcn `Dialog` (`register/components/medical-waiver-
   dialog.tsx`) shows the full "Liability and Risk Declaration" with a
