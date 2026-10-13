@@ -129,7 +129,6 @@ export const RegisterService = {
       name: data.name,
       refCode: data.refCode,
       distance: data.distance,
-      amount: data.amount,
     });
   },
 };

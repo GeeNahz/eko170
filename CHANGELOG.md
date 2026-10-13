@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Registration confirmation email replaced with the client's final
+  copy (`lib/server/email-client.ts`) — new subject line, rider-guide
+  and race-pack-collection details, note that either distance may be
+  ridden regardless of what was selected at registration. Dropped the
+  amount-paid receipt line (no longer part of the copy) and the raw
+  `[Distance · KM]` form string is now reformatted to match the
+  client's exact phrasing (e.g. "170 km Gran Fondo").
+
 ### Added
 - Home's hero section (desktop and mobile) now shows the same
   early-bird pricing banner as the registration form, extracted into a
