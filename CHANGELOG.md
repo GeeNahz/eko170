@@ -7,7 +7,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- `/routes/170` and `/routes/70` each add, stacked beneath their existing
+  Interactive Map, the client's operational route-flow infographic and
+  elevation-profile chart for that distance, plus a "Download GPX" button
+  that downloads the matching file (`eko170-2027-gran-fondo.gpx` /
+  `eko170-2027-medio-fondo.gpx`) with no multi-file JS trickery needed —
+  a new single-route `RouteGpxDownload` component alongside the existing
+  "download both" button used on the `/routes` overview page.
+- Home's "Race Options" cards (`ChooseDistance`) now route to their
+  distance's detail page on click — `/routes/170` for Gran Fondo,
+  `/routes/70` for Medio Fondo — via a new `DistanceCard.href` field;
+  the existing "Terrain" row keeps linking to registration.
+
 ### Changed
+- `/routes`' "Two Distances. One City." cards (`route-categories.tsx`) no
+  longer overlay the distance value on top of the route image — it now
+  renders in its own block beneath the (now text-free) image, above the
+  card title, matching the same cleanup already applied to Home's Race
+  Options cards.
+- Home's Race Options cards and `/routes`' "Two Distances. One City."
+  cards now use the client's official operational route-flow images
+  (`eko170-170.jpeg` / `eko170-94.5.jpeg`) in place of the earlier
+  placeholder route-vote/medio-fondo map images.
+- Home's section under "Race Options" (`EventCardSection`) drops "The
+  Event" card and the four-stat grid (Gran Fondo/Medio Fondo Distance,
+  Race Location, Race Date); the "Registration Open" card now renders
+  after the Race Day Countdown instead of before it.
+- `/routes/170` and `/routes/70`'s "Welcome" section (`introBody`) now
+  uses the client's updated route-specific copy instead of the earlier
+  flagship/intro-level description text.
+- `/routes/170` and `/routes/70`'s "Online Race Entries" eyebrow line now
+  reads "The Gran Fondo EKO170 Lagos Cycle Race" / "The Medio Fondo
+  EKO170 Lagos Cycle Race" (new `RouteDetailData.raceName` field) instead
+  of the redundant "The EKO 170 EKO170 Lagos Cycle Race" it produced by
+  reusing `navLabel`.
 - Home's "Choose Your Distance" section, renamed "Race Options", now
   sits in the slot right after the ticker, replacing the Route
   Announcement block there; `RouteVoteSection` is commented out in

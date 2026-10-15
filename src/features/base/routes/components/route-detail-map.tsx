@@ -1,6 +1,8 @@
+import Image from "next/image";
 import { Reveal } from "@/components/motion/reveal";
 import { RouteMapEmbed } from "../../lib/components/route-map-embed";
 import type { RouteDetailData } from "../types";
+import { RouteGpxDownload } from "./route-gpx-download";
 
 export function RouteDetailMap({ data }: { data: RouteDetailData }) {
   return (
@@ -44,6 +46,31 @@ export function RouteDetailMap({ data }: { data: RouteDetailData }) {
               Open full map ↗
             </a>
           </div>
+        </Reveal>
+
+        <Reveal delay={0.25} className="mt-10 flex flex-col gap-6">
+          <div className="overflow-hidden rounded-2xl border border-brand-cream-border">
+            <Image
+              src={data.operationalFlowImage.src}
+              alt={`${data.navLabel} operational route flow`}
+              width={data.operationalFlowImage.width}
+              height={data.operationalFlowImage.height}
+              className="h-auto w-full"
+            />
+          </div>
+          <div className="overflow-hidden rounded-2xl border border-brand-cream-border">
+            <Image
+              src={data.elevationProfileImage.src}
+              alt={`${data.navLabel} elevation profile`}
+              width={data.elevationProfileImage.width}
+              height={data.elevationProfileImage.height}
+              className="h-auto w-full"
+            />
+          </div>
+          <RouteGpxDownload
+            href={data.gpxDownload.href}
+            filename={data.gpxDownload.filename}
+          />
         </Reveal>
       </div>
     </div>

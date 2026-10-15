@@ -32,17 +32,16 @@ export function RouteCategories() {
                     sizes="(min-width: 640px) 50vw, 100vw"
                     className="object-contain"
                   />
-                  <div className="absolute inset-0 bg-linear-to-t from-black/75 to-transparent" />
-                  <div className="absolute bottom-5 left-6 flex items-baseline gap-1">
-                    <span className="font-heading text-5xl leading-none font-black text-white italic">
+                </div>
+                <div className="p-7">
+                  <div className="mb-3 flex items-baseline gap-1">
+                    <span className="font-heading text-5xl leading-none font-black text-brand-teal italic">
                       {card.distanceValue}
                     </span>
-                    <span className="font-heading text-xl font-extrabold text-white">
+                    <span className="font-heading text-xl font-extrabold text-brand-teal">
                       {card.distanceSuffix}
                     </span>
                   </div>
-                </div>
-                <div className="p-7">
                   <h3 className="font-heading mb-3 text-2xl font-extrabold text-brand-teal uppercase">
                     {card.title}
                   </h3>

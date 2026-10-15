@@ -5,15 +5,13 @@ import { Reveal } from "@/components/motion/reveal";
 import type { RegistrationConfig } from "../../lib/types";
 import { useCountdown } from "../../event/hooks/use-countdown";
 import { useGetEventDetails } from "../../event/hooks/use-event";
-import { DISTANCE_STATS, EVENT_CARDS } from "../constants";
-
 // Replaces EventBar + DistanceBar + RegistrationBanner + CountdownSection
 // (desktop) / EventGroupMobile (mobile) for the revamped Home only — the
-// new mockup merges all four into one continuous card+stats+countdown
-// block (id="register"), a real structural difference from how those
-// four components are still built (and still used, unchanged, by
-// HomeCurrent). Single responsive component rather than a mobile/desktop
-// split since nothing here needs a different element order at `lg:`.
+// new mockup merges the countdown and registration CTA into one block
+// (id="register"), a real structural difference from how those four
+// components are still built (and still used, unchanged, by HomeCurrent).
+// Single responsive component rather than a mobile/desktop split since
+// nothing here needs a different element order at `lg:`.
 export function EventCardSection({ registration }: { registration: RegistrationConfig }) {
   const { data: event } = useGetEventDetails();
   const { days, hours, minutes, seconds } = useCountdown(event?.eventDate);
@@ -28,83 +26,7 @@ export function EventCardSection({ registration }: { registration: RegistrationC
   return (
     <div className="bg-[#0b1f25] px-3.5 pt-10 pb-12 sm:px-10 sm:py-16">
       <div className="mx-auto max-w-3xl">
-        <Reveal className="overflow-hidden rounded-[20px] bg-white shadow-[0_20px_50px_rgba(0,0,0,0.35)]">
-          <div className="flex items-center justify-between bg-brand-teal px-5 py-4 sm:px-8">
-            <span className="font-mono text-[10px] tracking-[2.2px] text-brand-yellow uppercase">
-              The Event
-            </span>
-            <span className="font-mono text-[10px] tracking-[2.2px] text-white/60 uppercase">
-              10 Jan 2027
-            </span>
-          </div>
-          {EVENT_CARDS.map((card) => (
-            <div
-              key={card.id}
-              className="flex items-center justify-between gap-3.5 border-b border-brand-cream-border px-5 py-5 sm:px-8"
-            >
-              <div>
-                <div className="font-heading text-xl leading-none font-extrabold text-brand-teal uppercase sm:text-2xl">
-                  {card.title}
-                </div>
-                <div className="mt-1.5 font-mono text-[10.5px] tracking-wide text-gray-400 uppercase">
-                  Event Date · {card.dateLabel}
-                </div>
-              </div>
-              <div className="font-heading shrink-0 text-3xl font-black text-brand-green italic sm:text-4xl">
-                {card.distanceLabel}
-              </div>
-            </div>
-          ))}
-          <Link
-            href={registration.href}
-            className="flex min-h-14 items-center justify-center bg-white px-2 text-center font-sans text-sm font-bold text-brand-green"
-          >
-            {registration.label}
-          </Link>
-        </Reveal>
-
-        <Reveal
-          delay={0.1}
-          className="mt-3.5 grid grid-cols-2 gap-px overflow-hidden rounded-[18px] border border-white/10 bg-white/10"
-        >
-          {DISTANCE_STATS.map((stat) => (
-            <div key={stat.id} className="bg-[#0b1f25] px-3.5 py-4 sm:px-6">
-              <div className="font-mono text-[10px] tracking-wide text-white/50 uppercase">
-                {stat.label}
-              </div>
-              <div
-                className={
-                  "font-heading mt-1.5 text-2xl font-black " +
-                  (stat.id === "dist-date" ? "text-brand-yellow" : "text-white")
-                }
-              >
-                {stat.value}
-              </div>
-            </div>
-          ))}
-        </Reveal>
-
-        <Reveal
-          delay={0.15}
-          className="mt-3.5 rounded-[18px] border border-brand-yellow/30 bg-brand-yellow/8 p-5 sm:p-7"
-        >
-          <div className="mb-2.5 font-mono text-[10px] tracking-[2.2px] text-brand-yellow uppercase">
-            {registration.isOpen ? "Registration Open" : `Registration Opens ${registration.opensAtLabel}`}
-          </div>
-          <p className="mb-4 font-sans text-sm leading-relaxed text-white/85 sm:text-base">
-            {registration.isOpen
-              ? "Registration is open — secure your place now."
-              : `Registration opens ${registration.opensAtLabel}. Pre-register now to vote for a route and receive updates about the event.`}
-          </p>
-          <Link
-            href={registration.href}
-            className="flex min-h-13 w-full items-center justify-center rounded-full bg-brand-yellow font-sans text-[15px] font-bold text-brand-teal"
-          >
-            {registration.label}
-          </Link>
-        </Reveal>
-
-        <div className="px-1.5 pt-8 text-center sm:pt-14">
+        <div className="px-1.5 text-center">
           <Reveal className="mb-2.5 font-mono text-xs tracking-[2.4px] text-brand-yellow uppercase">
             — Race Day Countdown
           </Reveal>
@@ -147,6 +69,26 @@ export function EventCardSection({ registration }: { registration: RegistrationC
             })}
           </div>
         </div>
+
+        <Reveal
+          delay={0.15}
+          className="mt-8 rounded-[18px] border border-brand-yellow/30 bg-brand-yellow/8 p-5 sm:mt-10 sm:p-7"
+        >
+          <div className="mb-2.5 font-mono text-[10px] tracking-[2.2px] text-brand-yellow uppercase">
+            {registration.isOpen ? "Registration Open" : `Registration Opens ${registration.opensAtLabel}`}
+          </div>
+          <p className="mb-4 font-sans text-sm leading-relaxed text-white/85 sm:text-base">
+            {registration.isOpen
+              ? "Registration is open — secure your place now."
+              : `Registration opens ${registration.opensAtLabel}. Pre-register now to vote for a route and receive updates about the event.`}
+          </p>
+          <Link
+            href={registration.href}
+            className="flex min-h-13 w-full items-center justify-center rounded-full bg-brand-yellow font-sans text-[15px] font-bold text-brand-teal"
+          >
+            {registration.label}
+          </Link>
+        </Reveal>
       </div>
     </div>
   );

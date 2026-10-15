@@ -34,4 +34,5 @@ export type DistanceCard = {
   description: string;
   tags: string[];
   terrain: string;
+  href: string;
 };

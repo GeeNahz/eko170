@@ -9,7 +9,7 @@ export function RouteEntries({ data }: { data: RouteDetailData }) {
       <div className="mx-auto grid max-w-[1280px] grid-cols-1 items-start gap-16 lg:grid-cols-[1.1fr_1fr]">
         <Reveal>
           <div className="mb-4 font-mono text-xs tracking-wide text-brand-yellow uppercase">
-            The {data.navLabel} EKO170 Lagos Cycle Race
+            The {data.raceName} EKO170 Lagos Cycle Race
           </div>
           <h2 className="font-heading mb-6 text-5xl leading-[0.95] font-black text-white italic sm:text-6xl">
             Online
