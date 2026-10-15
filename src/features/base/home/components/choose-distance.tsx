@@ -26,9 +26,7 @@ export function ChooseDistance() {
             </Link>
           </div>
           <h2 className="font-heading text-4xl leading-[0.95] font-black text-brand-teal italic uppercase sm:text-[52px]">
-            Choose Your
-            <br />
-            Distance
+            Race Options
           </h2>
           <Link
             href="/routes"
@@ -53,22 +51,16 @@ export function ChooseDistance() {
                   sizes="(min-width: 1024px) 50vw, 100vw"
                   className="object-contain transition-transform duration-700 ease-out group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-linear-to-t from-black/75 to-transparent to-55%" />
-                <div className="absolute bottom-6 left-6">
-                  <div className="flex items-baseline gap-1">
-                    <span className="font-heading text-6xl leading-[0.95] font-black text-white italic">
-                      {card.distanceValue}
-                    </span>
-                    <span className="font-heading text-2xl font-extrabold text-white">
-                      {card.distanceSuffix}
-                    </span>
-                  </div>
-                  <div className="font-sans text-base font-medium text-white/90">
-                    {card.tagline}
-                  </div>
-                </div>
               </div>
               <div className="p-8">
+                <div className="mb-4 flex items-baseline gap-1">
+                  <span className="font-heading text-6xl leading-[0.95] font-black text-brand-teal italic">
+                    {card.distanceValue}
+                  </span>
+                  <span className="font-heading text-2xl font-extrabold text-brand-teal">
+                    {card.distanceSuffix}
+                  </span>
+                </div>
                 <h3 className="font-heading mb-4 text-2xl font-extrabold text-brand-teal uppercase">
                   {card.title}
                 </h3>

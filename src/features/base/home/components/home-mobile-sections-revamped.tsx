@@ -7,7 +7,9 @@ import { HeroMobile } from "./hero-mobile";
 import { MomentsInMotionMobile } from "./moments-in-motion-mobile";
 import { Newsletter } from "./newsletter";
 import { SponsorsMarquee } from "./sponsors-marquee";
-import { RouteVoteSection } from "../route-vote/components/route-vote-section";
+// RouteVoteSection (route-vote/components/route-vote-section) is no longer
+// rendered here — re-add the import if the Route Announcement block below
+// is ever restored.
 import { Ticker } from "../../event/components/ticker";
 import { REGISTRATION } from "../../lib/server/registration";
 
@@ -20,10 +22,13 @@ export function HomeMobileSectionsRevamped() {
     <>
       <HeroMobile registration={REGISTRATION} />
       <Ticker />
-      <RouteVoteSection registration={REGISTRATION} />
+      {/* Route Announcement replaced by Race Options in this slot — see
+          choose-distance.tsx. Kept commented, not deleted, in case the
+          route-vote/announcement block is needed again. */}
+      {/* <RouteVoteSection registration={REGISTRATION} /> */}
+      <ChooseDistance />
       <EventCardSection registration={REGISTRATION} />
       <AboutEko />
-      <ChooseDistance />
       <Figures />
       <FeatureCommunity />
       <MomentsInMotionMobile />

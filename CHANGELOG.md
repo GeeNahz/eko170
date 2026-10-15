@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Home's "Choose Your Distance" section, renamed "Race Options", now
+  sits in the slot right after the ticker, replacing the Route
+  Announcement block there; `RouteVoteSection` is commented out in
+  `home-revamped.tsx`/`home-mobile-sections-revamped.tsx`, not deleted.
+- Race Options cards no longer overlay the distance value/tagline text
+  on top of the route image — the "170 KM"/"94.5 KM" value now renders
+  in its own block directly beneath the (now text-free) image, and the
+  "The Full Distance"/"For Strong Riders" tagline text is dropped
+  entirely (`DistanceCard.tagline` removed from `types.ts`/
+  `constants.ts` as it had no other use).
+
 ### Fixed
 - Registration payment failures are now actually logged. Both webhooks
   (`api/webhooks/paystack`, `api/webhooks/flutterwave`) previously did

@@ -140,7 +140,6 @@ export const DISTANCE_CARDS: DistanceCard[] = [
     image: "/images/route-vote-option-b.png",
     distanceValue: "170",
     distanceSuffix: "KM",
-    tagline: "The Full Distance",
     title: "Gran Fondo",
     description:
       "Conquer the ultimate endurance test on this scenic 170km route, where you'll battle the rolling hills of Epe before facing a grueling 47km return leg along the Coastal Road, testing your grit against relentless headwinds that feel like a continuous hill climb all the way to the finish.",
@@ -152,7 +151,6 @@ export const DISTANCE_CARDS: DistanceCard[] = [
     image: "/images/medio-fondo-route-map.png",
     distanceValue: "94.5",
     distanceSuffix: "KM",
-    tagline: "For Strong Riders",
     title: "Medio Fondo",
     description:
       "Experience the thrilling energy of mass participation on this fast-paced half-distance ride, perfectly tailored for fitness riders who want to bypass the punishing Epe hills but are still ready to test their grit against the brutal coastal headwinds on the return leg.",
