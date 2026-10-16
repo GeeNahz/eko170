@@ -211,9 +211,7 @@ export const ROUTE_HIGHLIGHTS: string[] = [
 export const ROUTE_CATEGORY_CARDS: RouteCategoryCard[] = [
   {
     id: "category-170",
-    // The confirmed route-vote winner (Option B) — see
-    // home/route-vote/constants.ts's CONFIRMED_ROUTE_ID.
-    image: "/images/route-vote-option-b.png",
+    image: "/images/eko170-170.jpeg",
     distanceValue: "170",
     distanceSuffix: "KM",
     title: "Gran Fondo",
@@ -223,7 +221,7 @@ export const ROUTE_CATEGORY_CARDS: RouteCategoryCard[] = [
   },
   {
     id: "category-70",
-    image: "/images/medio-fondo-route-map.png",
+    image: "/images/eko170-94.5.jpeg",
     distanceValue: "94.5",
     distanceSuffix: "KM",
     title: "Medio Fondo",
@@ -318,6 +316,7 @@ export const ROUTE_FAQS: RouteFaq[] = [
 export const ROUTE_170_DETAIL: RouteDetailData = {
   slug: "170",
   navLabel: "EKO 170",
+  raceName: "Gran Fondo",
   distanceLabel: "EKO 170",
   heroImage: "/images/DSC_2320.jpg",
   routeDescriptionImage: "/images/DSC_2320.jpg",
@@ -329,18 +328,30 @@ export const ROUTE_170_DETAIL: RouteDetailData = {
   introEyebrow: "The Full Atlantic Challenge",
   introHeading: "The 170KM EKO170 Lagos Cycle Race",
   introBody:
-    "The 170km is the flagship of EKO170 — West Africa's biggest closed-road Gran Fondo. From Eko Atlantic City through Victoria Island, over the Lekki–Ikoyi Bridge and out along the Lekki–Epe corridor to the open countryside of Epe, it is a true test of endurance with world-class support at every kilometre, finishing at a festival on the Atlantic marina.",
+    "Conquer the ultimate endurance test on this scenic 170km route, where you'll battle the rolling hills of Epe before facing a grueling 47km return leg along the Coastal Road, testing your grit against relentless headwinds that feel like a continuous hill climb all the way to the finish.",
   routeDescHeading: "EKO 170 Route",
   routeDescription:
     "Conquer the ultimate endurance test on this scenic 170km route, where you'll battle the rolling hills of Epe before facing a grueling 47km return leg along the Coastal Road, testing your grit against relentless headwinds that feel like a continuous hill climb all the way to the finish.",
   path: ROUTE_170_PATH,
   startWaveBody:
     "The Eko Atlantic Boulevard Start Precinct welcomes riders for the 170 kilometres — waves roll out from 06:00, at first light.",
+  operationalFlowImage: {
+    src: "/images/eko170-170.jpeg",
+    width: 2000,
+    height: 1333,
+  },
+  elevationProfileImage: {
+    src: "/images/eko170-170-eprofile.jpeg",
+    width: 2560,
+    height: 1440,
+  },
+  gpxDownload: GPX_DOWNLOADS[0],
 };
 
 export const ROUTE_70_DETAIL: RouteDetailData = {
   slug: "70",
   navLabel: "EKO 94.5",
+  raceName: "Medio Fondo",
   distanceLabel: "EKO 94.5",
   heroImage: "/images/sm-DSC_1924.jpg",
   routeDescriptionImage: "/images/sm-DSC_1924.jpg",
@@ -352,11 +363,22 @@ export const ROUTE_70_DETAIL: RouteDetailData = {
   introEyebrow: "An Exhilarating Experience",
   introHeading: "The 94.5KM EKO170 Lagos Cycle Race",
   introBody:
-    "The 94.5km is the perfect introduction to the world of Gran Fondo cycling — a more accessible option for a wider range of cyclists, including first-timers, junior riders, and anyone who prefers a less demanding challenge than the full 170km. Same fully closed roads, same Atlantic start, same festival finish — in a friendlier format.",
+    "Experience the thrilling energy of mass participation on this fast-paced half-distance ride, perfectly tailored for fitness riders who want to bypass the punishing Epe hills but are still ready to test their grit against the brutal coastal headwinds on the return leg.",
   routeDescHeading: "EKO 94.5 Route",
   routeDescription:
     "Experience the thrilling energy of mass participation on this fast-paced half-distance ride, perfectly tailored for fitness riders who want to bypass the punishing Epe hills but are still ready to test their grit against the brutal coastal headwinds on the return leg.",
   path: ROUTE_70_PATH,
   startWaveBody:
     "The Eko Atlantic Boulevard Start Precinct welcomes riders for the 94.5 kilometres — waves roll out from 06:45, shortly after the 170km riders.",
+  operationalFlowImage: {
+    src: "/images/eko170-94.5.jpeg",
+    width: 2560,
+    height: 1564,
+  },
+  elevationProfileImage: {
+    src: "/images/eko170-94.5-eprofile.jpeg",
+    width: 2560,
+    height: 1440,
+  },
+  gpxDownload: GPX_DOWNLOADS[1],
 };

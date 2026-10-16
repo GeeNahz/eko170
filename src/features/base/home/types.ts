@@ -30,9 +30,9 @@ export type DistanceCard = {
   image: string;
   distanceValue: string;
   distanceSuffix: string;
-  tagline: string;
   title: string;
   description: string;
   tags: string[];
   terrain: string;
+  href: string;
 };

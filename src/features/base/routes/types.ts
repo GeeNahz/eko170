@@ -20,9 +20,12 @@ export type RouteFaq = {
   answer: string;
 };
 
+export type RouteCourseImage = { src: string; width: number; height: number };
+
 export type RouteDetailData = {
   slug: string;
   navLabel: string;
+  raceName: string;
   distanceLabel: string;
   heroImage: string;
   routeDescriptionImage: string;
@@ -38,4 +41,7 @@ export type RouteDetailData = {
   routeDescription: string;
   path: [number, number][];
   startWaveBody: string;
+  operationalFlowImage: RouteCourseImage;
+  elevationProfileImage: RouteCourseImage;
+  gpxDownload: { href: string; filename: string };
 };

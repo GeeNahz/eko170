@@ -26,9 +26,7 @@ export function ChooseDistance() {
             </Link>
           </div>
           <h2 className="font-heading text-4xl leading-[0.95] font-black text-brand-teal italic uppercase sm:text-[52px]">
-            Choose Your
-            <br />
-            Distance
+            Race Options
           </h2>
           <Link
             href="/routes"
@@ -45,46 +43,44 @@ export function ChooseDistance() {
               key={card.id}
               className="overflow-hidden rounded-2xl border border-brand-cream-border"
             >
-              <div className="group relative aspect-[16/8] overflow-hidden bg-brand-teal">
-                <Image
-                  src={card.image}
-                  alt={card.title}
-                  fill
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                  className="object-contain transition-transform duration-700 ease-out group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-black/75 to-transparent to-55%" />
-                <div className="absolute bottom-6 left-6">
-                  <div className="flex items-baseline gap-1">
-                    <span className="font-heading text-6xl leading-[0.95] font-black text-white italic">
+              <Link href={card.href} className="group block">
+                <div className="relative aspect-[16/8] overflow-hidden bg-brand-teal">
+                  <Image
+                    src={card.image}
+                    alt={card.title}
+                    fill
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                    className="object-contain transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+                </div>
+                <div className="px-8 pt-8">
+                  <div className="mb-4 flex items-baseline gap-1">
+                    <span className="font-heading text-6xl leading-[0.95] font-black text-brand-teal italic">
                       {card.distanceValue}
                     </span>
-                    <span className="font-heading text-2xl font-extrabold text-white">
+                    <span className="font-heading text-2xl font-extrabold text-brand-teal">
                       {card.distanceSuffix}
                     </span>
                   </div>
-                  <div className="font-sans text-base font-medium text-white/90">
-                    {card.tagline}
+                  <h3 className="font-heading mb-4 text-2xl font-extrabold text-brand-teal uppercase">
+                    {card.title}
+                  </h3>
+                  <p className="mb-6 font-sans text-base leading-relaxed text-gray-500">
+                    {card.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2 border-b border-brand-cream-border pb-6">
+                    {card.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full border border-brand-cream-border px-3.5 py-1.5 font-mono text-[11px] tracking-wide text-gray-600 uppercase"
+                      >
+                        {tag}
+                      </span>
+                    ))}
                   </div>
                 </div>
-              </div>
-              <div className="p-8">
-                <h3 className="font-heading mb-4 text-2xl font-extrabold text-brand-teal uppercase">
-                  {card.title}
-                </h3>
-                <p className="mb-6 font-sans text-base leading-relaxed text-gray-500">
-                  {card.description}
-                </p>
-                <div className="flex flex-wrap gap-2 border-b border-brand-cream-border pb-6">
-                  {card.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full border border-brand-cream-border px-3.5 py-1.5 font-mono text-[11px] tracking-wide text-gray-600 uppercase"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+              </Link>
+              <div className="px-8 pb-8">
                 <Link
                   href={REGISTRATION.href}
                   className="group/cta flex items-center justify-between pt-5"
