@@ -11,10 +11,9 @@ export function DiscoverCta() {
       </Reveal>
       <Reveal
         delay={0.1}
-        className="mx-auto mb-7 max-w-[520px] font-sans text-base text-white/85"
+        className="mx-auto mb-7 max-w-130 font-sans text-base text-white/85"
       >
-        Secure your place on the start line, then let the city do the
-        rest.
+        Secure your place on the start line, then let the city do the rest.
       </Reveal>
       <Link
         href={REGISTRATION.href}

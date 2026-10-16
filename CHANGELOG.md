@@ -52,6 +52,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   "The Full Distance"/"For Strong Riders" tagline text is dropped
   entirely (`DistanceCard.tagline` removed from `types.ts`/
   `constants.ts` as it had no other use).
+- The "Discover" link is hidden from both the desktop and mobile nav
+  bars (`nav-discover` now has `hidden: true` in `PRIMARY_NAV`); the
+  `/discover` page and its other links (e.g. footer "Spectators")
+  are unaffected.
 
 ### Fixed
 - Registration payment failures are now actually logged. Both webhooks

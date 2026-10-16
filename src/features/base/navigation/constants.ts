@@ -11,18 +11,35 @@ export const PRIMARY_NAV: NavLink[] = [
     children: [
       // Labels read off each route's own navLabel so this can't drift
       // out of sync again (previously a hardcoded "EKO 70" string).
-      { id: "nav-routes-170", label: ROUTE_170_DETAIL.navLabel, href: "/routes/170" },
-      { id: "nav-routes-70", label: ROUTE_70_DETAIL.navLabel, href: "/routes/70" },
+      {
+        id: "nav-routes-170",
+        label: ROUTE_170_DETAIL.navLabel,
+        href: "/routes/170",
+      },
+      {
+        id: "nav-routes-70",
+        label: ROUTE_70_DETAIL.navLabel,
+        href: "/routes/70",
+      },
       { id: "nav-routes-map", label: "Interactive Map", href: "/routes#map" },
     ],
   },
   { id: "nav-results", label: "Results", href: "/results" },
   { id: "nav-gallery", label: "Gallery", href: "/gallery" },
-  { id: "nav-partners", label: "Sponsors & Partners", href: "/partners", hidden: true },
-  { id: "nav-discover", label: "Discover", href: "/discover" },
+  {
+    id: "nav-partners",
+    label: "Sponsors & Partners",
+    href: "/partners",
+    hidden: true,
+  },
+  { id: "nav-discover", label: "Discover", href: "/discover", hidden: true },
   { id: "nav-community", label: "Community", href: "/community" },
   { id: "nav-volunteer", label: "Volunteer", href: "/volunteer" },
-  { id: "nav-partner-apply", label: "Become a Partner", href: "/partners/apply" },
+  {
+    id: "nav-partner-apply",
+    label: "Become a Partner",
+    href: "/partners/apply",
+  },
 ];
 
 export const FOOTER_NAV: FooterLinkGroup[] = [
@@ -33,7 +50,11 @@ export const FOOTER_NAV: FooterLinkGroup[] = [
       { id: "footer-event-home", label: "Home", href: "/" },
       { id: "footer-event-race", label: "The Race", href: "/routes" },
       { id: "footer-event-route", label: "Route", href: "/routes" },
-      { id: "footer-event-riders", label: "Rider Information", href: "/routes" },
+      {
+        id: "footer-event-riders",
+        label: "Rider Information",
+        href: "/routes",
+      },
       { id: "footer-event-spectators", label: "Spectators", href: "/discover" },
     ],
   },
@@ -42,7 +63,12 @@ export const FOOTER_NAV: FooterLinkGroup[] = [
     title: "Discover",
     links: [
       { id: "footer-discover-news", label: "News", href: "/gallery" },
-      { id: "footer-discover-sponsors", label: "Sponsors", href: "/partners", hidden: true },
+      {
+        id: "footer-discover-sponsors",
+        label: "Sponsors",
+        href: "/partners",
+        hidden: true,
+      },
       { id: "footer-discover-about", label: "About EKO170", href: "/about" },
       { id: "footer-discover-gallery", label: "Gallery", href: "/gallery" },
     ],
