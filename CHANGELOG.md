@@ -56,6 +56,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   bars (`nav-discover` now has `hidden: true` in `PRIMARY_NAV`); the
   `/discover` page and its other links (e.g. footer "Spectators")
   are unaffected.
+- Home's "Race Options" cards and `/routes`' "Two Distances. One City."
+  cards are now the exact same component (`RaceOptionCard`, new in
+  `features/base/components/`), reused as-is rather than kept as two
+  near-duplicate card implementations; `/routes`' cards pick up the
+  tags row and "Terrain → Register" link they were missing, plus
+  Home's longer per-route description text. New shared
+  `RaceOptionCardData` type in `lib/types.ts`; `DistanceCard`,
+  `DISTANCE_CARDS`, `RouteCategoryCard`, and `ROUTE_CATEGORY_CARDS`
+  are all removed in favor of one `RACE_OPTION_CARDS` array in
+  `routes/constants.ts`.
+- Race Options / Two Distances card images switch from `object-contain`
+  to `object-cover` (filling the fixed image box edge-to-edge instead
+  of letterboxing) with the box's backdrop changed from
+  `bg-brand-teal` to white, since the actual images aren't the box's
+  2:1 ratio and were leaving a visible dark strip top/bottom.
 
 ### Fixed
 - Registration payment failures are now actually logged. Both webhooks

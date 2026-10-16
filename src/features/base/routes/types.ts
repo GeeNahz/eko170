@@ -1,13 +1,3 @@
-export type RouteCategoryCard = {
-  id: string;
-  image: string;
-  distanceValue: string;
-  distanceSuffix: string;
-  title: string;
-  description: string;
-  href: string;
-};
-
 export type SupportFeature = {
   id: string;
   title: string;

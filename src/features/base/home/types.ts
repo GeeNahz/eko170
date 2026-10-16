@@ -24,15 +24,3 @@ export type FeatureCard = {
   title: string;
   description: string;
 };
-
-export type DistanceCard = {
-  id: string;
-  image: string;
-  distanceValue: string;
-  distanceSuffix: string;
-  title: string;
-  description: string;
-  tags: string[];
-  terrain: string;
-  href: string;
-};

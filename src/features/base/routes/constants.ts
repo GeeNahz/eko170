@@ -1,10 +1,5 @@
-import type { RouteStat } from "../lib/types";
-import type {
-  RouteCategoryCard,
-  RouteDetailData,
-  RouteFaq,
-  SupportFeature,
-} from "./types";
+import type { RaceOptionCardData, RouteStat } from "../lib/types";
+import type { RouteDetailData, RouteFaq, SupportFeature } from "./types";
 
 // Source GPX files behind ROUTE_170_PATH/ROUTE_70_PATH above — served
 // from public/gpx/ so the "Download GPX" button (course-overview.tsx)
@@ -208,25 +203,29 @@ export const ROUTE_HIGHLIGHTS: string[] = [
   "Scenic Epe countryside turnaround & festival-style finish",
 ];
 
-export const ROUTE_CATEGORY_CARDS: RouteCategoryCard[] = [
+export const RACE_OPTION_CARDS: RaceOptionCardData[] = [
   {
-    id: "category-170",
+    id: "race-option-170",
     image: "/images/eko170-170.jpeg",
     distanceValue: "170",
     distanceSuffix: "KM",
     title: "Gran Fondo",
     description:
-      "The flagship route for elite and seasoned cyclists — the complete 170KM journey from Eko Atlantic City to Epe and back.",
+      "Conquer the ultimate endurance test on this scenic 170km route, where you'll battle the rolling hills of Epe before facing a grueling 47km return leg along the Coastal Road, testing your grit against relentless headwinds that feel like a continuous hill climb all the way to the finish.",
+    tags: ["Elite", "Seasoned Cyclists", "Community", "Teams"],
+    terrain: "Moderate rolling",
     href: "/routes/170",
   },
   {
-    id: "category-70",
+    id: "race-option-70",
     image: "/images/eko170-94.5.jpeg",
     distanceValue: "94.5",
     distanceSuffix: "KM",
     title: "Medio Fondo",
     description:
-      "A balanced 94.5KM route for strong riders — festival energy across Lekki–Ikoyi Bridge and Lekki Phase 1.",
+      "Experience the thrilling energy of mass participation on this fast-paced half-distance ride, perfectly tailored for fitness riders who want to bypass the punishing Epe hills but are still ready to test their grit against the brutal coastal headwinds on the return leg.",
+    tags: ["Fitness Riders", "Enthusiasts", "Corporate Teams", "Families"],
+    terrain: "Flat to moderate",
     href: "/routes/70",
   },
 ];

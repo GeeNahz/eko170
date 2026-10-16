@@ -4,12 +4,7 @@ import type {
   RouteStat,
   SponsorLogo,
 } from "../lib/types";
-import type {
-  DistanceCard,
-  EventCard,
-  FeatureCard,
-  SeedingEvent,
-} from "./types";
+import type { EventCard, FeatureCard, SeedingEvent } from "./types";
 
 export const EVENT_CARDS: EventCard[] = [
   {
@@ -129,33 +124,6 @@ export const ABOUT_FEATURE_CARDS: FeatureCard[] = [
     title: "Global Community",
     description:
       "Riders from Lagos, Abuja, London, New York and beyond — one city, one unstoppable movement.",
-  },
-];
-
-export const DISTANCE_CARDS: DistanceCard[] = [
-  {
-    id: "distance-full",
-    image: "/images/eko170-170.jpeg",
-    distanceValue: "170",
-    distanceSuffix: "KM",
-    title: "Gran Fondo",
-    description:
-      "Conquer the ultimate endurance test on this scenic 170km route, where you'll battle the rolling hills of Epe before facing a grueling 47km return leg along the Coastal Road, testing your grit against relentless headwinds that feel like a continuous hill climb all the way to the finish.",
-    tags: ["Elite", "Seasoned Cyclists", "Community", "Teams"],
-    terrain: "Moderate rolling",
-    href: "/routes/170",
-  },
-  {
-    id: "distance-half",
-    image: "/images/eko170-94.5.jpeg",
-    distanceValue: "94.5",
-    distanceSuffix: "KM",
-    title: "Medio Fondo",
-    description:
-      "Experience the thrilling energy of mass participation on this fast-paced half-distance ride, perfectly tailored for fitness riders who want to bypass the punishing Epe hills but are still ready to test their grit against the brutal coastal headwinds on the return leg.",
-    tags: ["Fitness Riders", "Enthusiasts", "Corporate Teams", "Families"],
-    terrain: "Flat to moderate",
-    href: "/routes/70",
   },
 ];
 
