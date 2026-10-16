@@ -22,6 +22,18 @@ export type GalleryPhoto = {
   alt: string;
 };
 
+export type RaceOptionCardData = {
+  id: string;
+  image: string;
+  distanceValue: string;
+  distanceSuffix: string;
+  title: string;
+  description: string;
+  tags: string[];
+  terrain: string;
+  href: string;
+};
+
 export type RegistrationState = "pre-register" | "register" | "starting_soon";
 
 export type RegistrationConfig = {
