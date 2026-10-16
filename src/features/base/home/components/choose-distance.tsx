@@ -25,7 +25,7 @@ export function ChooseDistance() {
             </Link>
           </div>
           <h2 className="font-heading text-4xl leading-[0.95] font-black text-brand-teal italic uppercase sm:text-[52px]">
-            Race Options
+            Courses
           </h2>
           <Link
             href="/routes"

@@ -73,6 +73,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   of letterboxing) with the box's backdrop changed from
   `bg-brand-teal` to white, since the actual images aren't the box's
   2:1 ratio and were leaving a visible dark strip top/bottom.
+- Home's "Race Options" heading (`ChooseDistance`) is renamed
+  "Courses".
 
 ### Fixed
 - Registration payment failures are now actually logged. Both webhooks
