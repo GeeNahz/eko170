@@ -14,6 +14,7 @@ export type SponsorLogo = {
   id: string;
   name: string;
   src: string;
+  href?: string;
 };
 
 export type GalleryPhoto = {

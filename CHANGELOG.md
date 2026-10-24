@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- Home's Sponsors section adds the client's new CETPower logo
+  (`public/sponsors/cetpower.png`), linking out to
+  `https://cetpower.com/`; sponsor logos are now clickable, with the
+  existing Lagos State Government logo pointing to `#` until a URL is
+  provided.
 - Home gains a "12-Week Training Calendar" section right after
   "Courses", linking to a downloadable PDF
   (`public/docs/EKO170_2027_12_Week_Rider_Training_Calendar.pdf`)

@@ -131,7 +131,8 @@ export const ABOUT_FEATURE_CARDS: FeatureCard[] = [
 // request — the rest of the former lineup (Quest Oil, Avis, Elektron,
 // Watch Galleries) is dropped from this section.
 export const SPONSOR_LOGOS: SponsorLogo[] = [
-  { id: "sponsor-lsg", name: "Lagos State Government", src: "/sponsors/logo-lsg-sm.jpg" },
+  { id: "sponsor-lsg", name: "Lagos State Government", src: "/sponsors/logo-lsg-sm.jpg", href: "#" },
+  { id: "sponsor-cetpower", name: "CETPower", src: "/sponsors/cetpower.png", href: "https://cetpower.com/" },
 ];
 
 // No longer rendered on Home (sponsors-marquee.tsx dropped its
