@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- `/routes/170`'s operational-flow and elevation-profile images are
+  updated to the client's latest versions, with `ROUTE_170_DETAIL`'s
+  recorded width/height corrected to match (was stretching the images
+  since the new files have different pixel dimensions than the old
+  ones).
+
 ## [1.0.0] - 2026-10-16
 
 ### Added
