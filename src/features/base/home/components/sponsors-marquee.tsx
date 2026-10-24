@@ -20,16 +20,25 @@ export function SponsorsMarquee() {
         <div className="mb-5 font-mono text-xs tracking-wide text-gray-400 uppercase">
           Sponsors
         </div>
-        <div
-          style={{ width: 220, height: 104 }}
-          className="relative rounded-2xl border border-brand-cream-border bg-white"
-        >
-          <Image
-            src={SPONSOR_LOGOS[0].src}
-            alt={SPONSOR_LOGOS[0].name}
-            fill
-            className="object-contain p-5"
-          />
+        <div className="flex flex-wrap gap-5">
+          {SPONSOR_LOGOS.map((logo) => (
+            <a
+              key={logo.id}
+              href={logo.href ?? "#"}
+              {...(logo.href && logo.href !== "#"
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
+              style={{ width: 220, height: 104 }}
+              className="relative rounded-2xl border border-brand-cream-border bg-white"
+            >
+              <Image
+                src={logo.src}
+                alt={logo.name}
+                fill
+                className="object-contain p-5"
+              />
+            </a>
+          ))}
         </div>
       </div>
     </div>

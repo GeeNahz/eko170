@@ -336,13 +336,13 @@ export const ROUTE_170_DETAIL: RouteDetailData = {
     "The Eko Atlantic Boulevard Start Precinct welcomes riders for the 170 kilometres — waves roll out from 06:00, at first light.",
   operationalFlowImage: {
     src: "/images/eko170-170.jpeg",
-    width: 2000,
-    height: 1333,
+    width: 1280,
+    height: 550,
   },
   elevationProfileImage: {
     src: "/images/eko170-170-eprofile.jpeg",
-    width: 2560,
-    height: 1440,
+    width: 1080,
+    height: 544,
   },
   gpxDownload: GPX_DOWNLOADS[0],
 };

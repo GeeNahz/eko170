@@ -8,6 +8,7 @@ import { HomeMobileSectionsRevamped } from "./home-mobile-sections-revamped";
 import { MomentsInMotion } from "./moments-in-motion";
 import { Newsletter } from "./newsletter";
 import { SponsorsMarquee } from "./sponsors-marquee";
+import { TrainingCalendar } from "./training-calendar";
 // RouteVoteSection (route-vote/components/route-vote-section) is no longer
 // rendered here — re-add the import if the Route Announcement block below
 // is ever restored.
@@ -33,6 +34,7 @@ export function HomeRevamped() {
             route-vote/announcement block is needed again. */}
         {/* <RouteVoteSection registration={REGISTRATION} /> */}
         <ChooseDistance />
+        <TrainingCalendar />
         <EventCardSection registration={REGISTRATION} />
         <AboutEko />
         <Figures />
