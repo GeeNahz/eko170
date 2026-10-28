@@ -11,14 +11,14 @@ export function ShopHero() {
           delay={0.1}
           className="font-heading mb-5 text-5xl leading-[0.95] font-black text-white uppercase italic sm:text-7xl"
         >
-          Shop — Coming Soon
+          Official EKO170 Kit
         </Reveal>
         <Reveal
           delay={0.2}
           className="max-w-[640px] font-sans text-base leading-relaxed text-white/82"
         >
-          Official EKO170 kit and gear is on the way. Here's a preview of
-          what's coming — final photography, sizing, and pricing to follow.
+          Bib shorts, rider bundles, and the complete kit — browse the
+          lineup and check your size below. Purchasing opens soon.
         </Reveal>
       </div>
     </div>

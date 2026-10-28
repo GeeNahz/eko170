@@ -10,9 +10,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - A "Shop" navbar link.
 - A new `/shop` page and a "Shop" section on Home (right below
-  Courses) previewing EKO170 merchandise — placeholder products for
-  now (`features/base/shop/stubs.ts`), ready to swap in the client's
-  real catalogue, images, and pricing.
+  Courses) listing the client's three real merch items — Flux Block
+  Bib Shorts (₦117,000), the Rider Bundle (jersey, gloves, and socks,
+  ₦118,000), and the Complete Kit (everything in the Rider Bundle plus
+  the bib shorts, ₦230,000, saving ₦5,000) — each with an expandable
+  size guide transcribed from the client's Monton reference sheets.
+  Purchasing isn't wired up yet.
 
 ### Changed
 - `/routes/170` and `/routes/70` reorder their operational-flow and

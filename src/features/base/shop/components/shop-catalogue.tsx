@@ -13,9 +13,9 @@ export function ShopCatalogue({ products }: { products: ShopProduct[] }) {
           delay={0.1}
           className="font-heading mb-11 text-4xl leading-[0.95] font-black text-brand-teal uppercase italic sm:text-5xl"
         >
-          What's Coming
+          Shop the Kit
         </Reveal>
-        <ProductGrid products={products} />
+        <ProductGrid products={products} showSizeGuides />
       </div>
     </div>
   );
