@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import type { ActionResponse } from "@/lib/types";
+import type { CartItem } from "../../shop/types";
 import { EMAIL_PATTERN, FIELD_LABELS, REQUIRED_FIELDS } from "../constants";
 import { RegisterService } from "./service";
 import type {
@@ -10,10 +11,16 @@ import type {
   RegistrationSuccess,
 } from "../types";
 
+export type RegisterActionInput = {
+  values: RegistrationFormValues;
+  merchCart?: CartItem[];
+};
+
 export async function registerAction(
   _prevState: ActionResponse<RegistrationSuccess> | null,
-  values: RegistrationFormValues,
+  input: RegisterActionInput,
 ): Promise<ActionResponse<RegistrationSuccess>> {
+  const { values, merchCart = [] } = input;
   // Client-side (React Hook Form) already validates this exact shape —
   // this is defense in depth, never trust that a form submission on the
   // wire actually went through the client validation.
@@ -38,7 +45,7 @@ export async function registerAction(
 
   let link: string;
   try {
-    link = await RegisterService.initiateRegistrationPayment(values);
+    link = await RegisterService.initiateRegistrationPayment(values, merchCart);
   } catch (error) {
     console.error("[register] payment initiation failed", error);
     return {

@@ -3,6 +3,8 @@ import { postToSheet } from "../../lib/server/sheets-client";
 import { getActiveGateway } from "../../lib/server/payment";
 import { sendRegistrationConfirmationEmail } from "../../lib/server/email-client";
 import { SITE_URL } from "../../lib/constants";
+import { cartTotal, ShopService } from "../../shop/server/service";
+import type { CartItem } from "../../shop/types";
 import { resolveDistancePrice } from "../constants";
 import type { RegistrationFormValues, VerifiedRegistration } from "../types";
 
@@ -20,14 +22,31 @@ export const RegisterService = {
   // The resolved amount is snapshotted into `meta.amount` here, at
   // initiation time — verification must check against this snapshot,
   // not re-resolve the price from scratch (see verifyRegistrationPayment).
-  async initiateRegistrationPayment(values: RegistrationFormValues): Promise<string> {
-    const amount = resolveDistancePrice(values.distance);
-    if (!amount) {
+  //
+  // `merchCart` is the optional upsell pick (see
+  // register/components/merch-upsell-section.tsx) — when present, its
+  // total is folded into the one combined charge and snapshotted
+  // alongside the distance fee, same posture as `amount`.
+  async initiateRegistrationPayment(
+    values: RegistrationFormValues,
+    merchCart: CartItem[] = [],
+  ): Promise<string> {
+    const baseAmount = resolveDistancePrice(values.distance);
+    if (!baseAmount) {
       throw new Error(`No price configured for distance "${values.distance}"`);
     }
+    const merchAmount = cartTotal(merchCart);
+    const amount = baseAmount + merchAmount;
 
     const refCode = `EKO170-${Math.random().toString(36).slice(2, 8).toUpperCase()}`;
-    const meta: Record<string, string> = { ...values, refCode, amount: String(amount) };
+    const meta: Record<string, string> = {
+      ...values,
+      refCode,
+      amount: String(amount),
+      ...(merchCart.length > 0
+        ? { merchCartJson: JSON.stringify(merchCart), merchTotal: String(merchAmount) }
+        : {}),
+    };
 
     const gateway = getActiveGateway();
     return gateway.initiatePayment({
@@ -99,6 +118,15 @@ export const RegisterService = {
       medicalWaiverAgreed: meta.medicalWaiverAgreed ?? "false",
     };
 
+    let merchCart: CartItem[] | undefined;
+    if (meta.merchCartJson) {
+      try {
+        merchCart = JSON.parse(meta.merchCartJson);
+      } catch {
+        merchCart = undefined;
+      }
+    }
+
     return {
       refCode: meta.refCode,
       distance: meta.distance,
@@ -109,6 +137,8 @@ export const RegisterService = {
       name: meta.firstName ?? "",
       email: meta.email ?? "",
       fields,
+      merchCart,
+      merchTotal: meta.merchTotal ? Number(meta.merchTotal) : undefined,
     };
   },
 
@@ -130,5 +160,22 @@ export const RegisterService = {
       refCode: data.refCode,
       distance: data.distance,
     });
+
+    // Merch picked during the upsell lands in the same shop-orders
+    // tab as standalone /shop purchases, tagged by source, and gets
+    // its own confirmation email alongside the registration one.
+    if (data.merchCart?.length) {
+      await ShopService.recordShopOrder({
+        refCode: data.refCode,
+        amount: data.merchTotal ?? cartTotal(data.merchCart),
+        currency: data.currency,
+        gateway: data.gateway,
+        gatewayRef: data.gatewayRef,
+        email: data.email,
+        name: data.name,
+        cart: data.merchCart,
+        source: "registration",
+      });
+    }
   },
 };

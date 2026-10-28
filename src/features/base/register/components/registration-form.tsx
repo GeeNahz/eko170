@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { EarlyBirdBanner } from "../../components/early-bird-banner";
+import type { CartItem, ShopProduct } from "../../shop/types";
 import {
   DISTANCE_OPTIONS,
   DISTANCE_PRICES,
@@ -22,6 +23,7 @@ import {
 import { registerAction } from "../server/actions";
 import type { RegistrationFormValues } from "../types";
 import { MedicalWaiverDialog } from "./medical-waiver-dialog";
+import { MerchUpsellSection } from "./merch-upsell-section";
 
 const inputClassName =
   "h-auto rounded-[10px] border-brand-cream-border px-4 py-3.5 font-sans text-[15px] text-brand-teal focus-visible:border-brand-green focus-visible:ring-brand-green/12";
@@ -117,7 +119,13 @@ function SelectField({
   );
 }
 
-export function RegistrationForm() {
+export function RegistrationForm({
+  merchUpsellEnabled = false,
+  merchProducts = [],
+}: {
+  merchUpsellEnabled?: boolean;
+  merchProducts?: ShopProduct[];
+}) {
   const [state, formAction, isPending] = useActionState(registerAction, null);
   const {
     register,
@@ -136,6 +144,13 @@ export function RegistrationForm() {
   const [waiverOpen, setWaiverOpen] = useState(false);
   const [waiverAgreed, setWaiverAgreed] = useState(false);
 
+  const [merchCart, setMerchCart] = useState<CartItem[]>([]);
+  const merchTotal = merchCart.reduce(
+    (sum, item) => sum + item.priceValue * item.quantity,
+    0,
+  );
+  const grandTotal = (fee ?? 0) + merchTotal;
+
   useEffect(() => {
     if (state?.status === "error" && state.message) {
       toast.error(state.message);
@@ -148,8 +163,11 @@ export function RegistrationForm() {
         onSubmit={handleSubmit((values) =>
           startTransition(() =>
             formAction({
-              ...values,
-              medicalWaiverAgreed: waiverAgreed ? "true" : "false",
+              values: {
+                ...values,
+                medicalWaiverAgreed: waiverAgreed ? "true" : "false",
+              },
+              merchCart,
             }),
           ),
         )}
@@ -332,13 +350,35 @@ export function RegistrationForm() {
         </div>
 
         <div className="flex flex-col items-center gap-3.5 pt-2">
-          <div className="flex w-full max-w-[420px] items-center justify-between rounded-[14px] border border-brand-cream-border bg-brand-cream px-5 py-4">
-            <span className="font-mono text-[11px] tracking-wide text-gray-500 uppercase">
-              Registration Fee
-            </span>
-            <span className="font-sans text-lg font-bold text-brand-teal">
-              {fee ? `₦${fee.toLocaleString("en-NG")}` : "Choose a distance"}
-            </span>
+          <div className="flex w-full max-w-[420px] flex-col gap-2 rounded-[14px] border border-brand-cream-border bg-brand-cream px-5 py-4">
+            <div className="flex items-center justify-between">
+              <span className="font-mono text-[11px] tracking-wide text-gray-500 uppercase">
+                Registration Fee
+              </span>
+              <span className="font-sans text-base font-bold text-brand-teal">
+                {fee ? `₦${fee.toLocaleString("en-NG")}` : "Choose a distance"}
+              </span>
+            </div>
+            {merchTotal > 0 && (
+              <div className="flex items-center justify-between border-t border-brand-cream-border pt-2">
+                <span className="font-mono text-[11px] tracking-wide text-gray-500 uppercase">
+                  Merch
+                </span>
+                <span className="font-sans text-base font-bold text-brand-teal">
+                  ₦{merchTotal.toLocaleString("en-NG")}
+                </span>
+              </div>
+            )}
+            {merchTotal > 0 && (
+              <div className="flex items-center justify-between border-t border-brand-cream-border pt-2">
+                <span className="font-mono text-[11px] tracking-wide text-gray-500 uppercase">
+                  Total
+                </span>
+                <span className="font-sans text-lg font-bold text-brand-teal">
+                  ₦{grandTotal.toLocaleString("en-NG")}
+                </span>
+              </div>
+            )}
           </div>
           {earlyBirdActive && (
             <p className="max-w-[420px] text-center font-sans text-xs font-semibold text-brand-green">
@@ -370,6 +410,19 @@ export function RegistrationForm() {
             >
               Review &amp; accept the medical/liability waiver to continue
             </button>
+          )}
+
+          {merchUpsellEnabled && (
+            <div className="w-full">
+              <MerchUpsellSection
+                products={merchProducts}
+                cart={merchCart}
+                onAddToCart={(item) => setMerchCart((prev) => [...prev, item])}
+                onRemoveFromCart={(index) =>
+                  setMerchCart((prev) => prev.filter((_, i) => i !== index))
+                }
+              />
+            </div>
           )}
 
           <Button

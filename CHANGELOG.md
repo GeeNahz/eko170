@@ -26,6 +26,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   ship without purchasing being live.
 - `/shop?email=...` pre-fills the cart's checkout email, for linking
   already-registered riders straight to an unlocked checkout.
+- An optional "Add Merch to Your Order?" section on `/register`
+  (also behind `MERCH_UPSELL_ENABLED`), placed after the medical
+  waiver: preview cards for the 3 kits open the same size-picker
+  sheet as `/shop`, and whatever's picked is folded into one combined
+  charge with the distance fee — the fee summary box breaks out
+  Registration Fee / Merch / Total once something's added. The order
+  lands in the same `shop-orders` tab as a standalone purchase would.
 
 ### Changed
 - `/routes/170` and `/routes/70` reorder their operational-flow and
