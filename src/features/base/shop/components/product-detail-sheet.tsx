@@ -41,10 +41,12 @@ function DetailBody({
   product,
   onAddToCart,
   onBuyNow,
+  hasEmailAccess,
 }: {
   product: ShopProduct;
   onAddToCart: (item: CartItem) => void;
   onBuyNow: (item: CartItem) => void;
+  hasEmailAccess: boolean;
 }) {
   const guideGroups = useMemo(() => groupGuides(product.sizeGuides), [product]);
 
@@ -166,7 +168,7 @@ function DetailBody({
       <div className="flex flex-col gap-2.5 border-t border-brand-cream-border pt-4 sm:flex-row">
         <button
           type="button"
-          disabled={!allSelected}
+          disabled={!allSelected || !hasEmailAccess}
           onClick={() => onAddToCart(buildItem())}
           className="inline-flex flex-1 items-center justify-center gap-2.5 rounded-full border-2 border-brand-green px-6 py-3.5 font-sans text-sm font-semibold text-brand-green disabled:cursor-not-allowed disabled:opacity-40"
         >
@@ -174,17 +176,23 @@ function DetailBody({
         </button>
         <button
           type="button"
-          disabled={!allSelected}
+          disabled={!allSelected || !hasEmailAccess}
           onClick={() => onBuyNow(buildItem())}
           className="inline-flex flex-1 items-center justify-center gap-2.5 rounded-full bg-brand-green px-6 py-3.5 font-sans text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-40"
         >
           Buy Now
         </button>
       </div>
-      {!allSelected && (
+      {!hasEmailAccess ? (
         <p className="-mt-3 font-sans text-xs text-gray-400">
-          Choose a size for every item above to continue.
+          Purchasing is only available via your personal EKO170 link.
         </p>
+      ) : (
+        !allSelected && (
+          <p className="-mt-3 font-sans text-xs text-gray-400">
+            Choose a size for every item above to continue.
+          </p>
+        )
       )}
     </div>
   );
@@ -196,12 +204,18 @@ export function ProductDetailSheet({
   onOpenChange,
   onAddToCart,
   onBuyNow,
+  // Defaults to true — only /shop's standalone purchase flow gates on
+  // this (via the ?email= link); the registration upsell reuses this
+  // same sheet without an email gate, since the form collects email
+  // itself.
+  hasEmailAccess = true,
 }: {
   product: ShopProduct | null;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onAddToCart: (item: CartItem) => void;
   onBuyNow: (item: CartItem) => void;
+  hasEmailAccess?: boolean;
 }) {
   // Both Dialog and Sheet portal their content to document.body, so a
   // CSS-only hidden/sm:hidden wrapper doesn't actually hide whichever
@@ -221,7 +235,7 @@ export function ProductDetailSheet({
               {product.name}
             </DialogTitle>
           </DialogHeader>
-          <DetailBody product={product} onAddToCart={onAddToCart} onBuyNow={onBuyNow} />
+          <DetailBody product={product} onAddToCart={onAddToCart} onBuyNow={onBuyNow} hasEmailAccess={hasEmailAccess} />
         </DialogContent>
       </Dialog>
     );
@@ -236,7 +250,7 @@ export function ProductDetailSheet({
           </SheetTitle>
         </SheetHeader>
         <div className="px-4 pb-4">
-          <DetailBody product={product} onAddToCart={onAddToCart} onBuyNow={onBuyNow} />
+          <DetailBody product={product} onAddToCart={onAddToCart} onBuyNow={onBuyNow} hasEmailAccess={hasEmailAccess} />
         </div>
       </SheetContent>
     </Sheet>

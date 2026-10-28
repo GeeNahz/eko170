@@ -23,7 +23,13 @@ function formatNaira(amount: number) {
   return `₦${amount.toLocaleString("en-NG")}`;
 }
 
-export function ShopCartSheet({ prefilledEmail }: { prefilledEmail?: string }) {
+export function ShopCartSheet({
+  prefilledEmail,
+  hasEmailAccess,
+}: {
+  prefilledEmail?: string;
+  hasEmailAccess: boolean;
+}) {
   const { items, removeItem, updateQuantity, total } = useShopCart();
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState(prefilledEmail ?? "");
@@ -37,7 +43,10 @@ export function ShopCartSheet({ prefilledEmail }: { prefilledEmail?: string }) {
   }, [state]);
 
   const itemCount = items.reduce((n, item) => n + item.quantity, 0);
-  const canCheckout = items.length > 0 && email.trim().length > 0 && name.trim().length > 0;
+  // Gated on ?email= having been present on page load, not on the
+  // live field value — typing an email in without that link does not
+  // unlock checkout. See the /shop page for where this is computed.
+  const canCheckout = items.length > 0 && hasEmailAccess && name.trim().length > 0;
 
   function submitCheckout() {
     startTransition(() => formAction({ cart: items, email, name }));
@@ -142,6 +151,7 @@ export function ShopCartSheet({ prefilledEmail }: { prefilledEmail?: string }) {
                 placeholder="you@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                disabled={!hasEmailAccess}
                 className={inputClassName}
               />
             </div>
@@ -154,6 +164,7 @@ export function ShopCartSheet({ prefilledEmail }: { prefilledEmail?: string }) {
                 placeholder="Your name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                disabled={!hasEmailAccess}
                 className={inputClassName}
               />
             </div>
@@ -169,7 +180,9 @@ export function ShopCartSheet({ prefilledEmail }: { prefilledEmail?: string }) {
           </button>
           {!canCheckout && items.length > 0 && (
             <p className="mt-2 font-sans text-xs text-gray-400">
-              Enter your email and name to pay.
+              {hasEmailAccess
+                ? "Enter your name to pay."
+                : "Purchasing is only available via your personal EKO170 link."}
             </p>
           )}
         </SheetFooter>

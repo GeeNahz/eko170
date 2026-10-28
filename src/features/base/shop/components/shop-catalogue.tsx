@@ -4,10 +4,10 @@ import { ProductGrid } from "./product-grid";
 
 export function ShopCatalogue({
   products,
-  interactive,
+  hasEmailAccess,
 }: {
   products: ShopProduct[];
-  interactive: boolean;
+  hasEmailAccess: boolean;
 }) {
   return (
     <div className="overflow-hidden bg-white px-5 pt-10 pb-11 sm:mx-4 sm:mt-4 sm:rounded-[22px] sm:px-10 sm:py-24">
@@ -21,7 +21,7 @@ export function ShopCatalogue({
         >
           Shop the Kit
         </Reveal>
-        <ProductGrid products={products} interactive={interactive} />
+        <ProductGrid products={products} interactive hasEmailAccess={hasEmailAccess} />
       </div>
     </div>
   );

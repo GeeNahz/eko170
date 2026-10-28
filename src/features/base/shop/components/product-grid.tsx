@@ -11,9 +11,11 @@ import { useShopCart } from "./shop-cart-provider";
 export function ProductGrid({
   products,
   interactive = false,
+  hasEmailAccess = false,
 }: {
   products: ShopProduct[];
   interactive?: boolean;
+  hasEmailAccess?: boolean;
 }) {
   // Always called (rules of hooks) — callers that pass
   // interactive=false must still wrap this component in a
@@ -59,6 +61,7 @@ export function ProductGrid({
           onOpenChange={setOpen}
           onAddToCart={handleAddToCart}
           onBuyNow={handleBuyNow}
+          hasEmailAccess={hasEmailAccess}
         />
       )}
     </>

@@ -15,17 +15,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   ₦118,000), and the Complete Kit (everything in the Rider Bundle plus
   the bib shorts, ₦230,000, saving ₦5,000) — each with a size guide
   transcribed from the client's Monton reference sheets.
-- Merch purchasing on `/shop`: each product card opens a detail
-  modal (desktop) / bottom sheet (mobile) with size/gender pickers, Add
-  to Cart and Buy Now. A cart (multi-item, quantities) checks out with
-  a required email + name, paid via the existing payment gateway.
-  Orders are logged to a new `shop-orders` Google Sheet tab and
-  confirmed by email, regardless of whether they came from `/shop` or
-  the registration upsell below. Gated behind a new
-  `MERCH_UPSELL_ENABLED` env var — off by default, so the catalogue can
-  ship without purchasing being live.
-- `/shop?email=...` pre-fills the cart's checkout email, for linking
-  already-registered riders straight to an unlocked checkout.
+- Merch purchasing on `/shop`: the catalogue is always browsable, and
+  each product card opens a detail modal (desktop) / bottom sheet
+  (mobile) with size/gender pickers. Add to Cart, Buy Now, and the
+  cart's Pay button are all disabled unless the page was opened with
+  `?email=...` in the URL — not by typing an email into a field — so
+  purchasing only works for a rider who followed their personal
+  EKO170 link. A cart (multi-item, quantities) checks out with that
+  email plus a name, paid via the existing payment gateway. Orders
+  are logged to a new `shop-orders` Google Sheet tab and confirmed by
+  email, regardless of whether they came from `/shop` or the
+  registration upsell below.
 - An optional "Add Merch to Your Order?" section on `/register`
   (also behind `MERCH_UPSELL_ENABLED`), placed after the medical
   waiver: preview cards for the 3 kits open the same size-picker
@@ -39,6 +39,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   mobile bottom sheet at once (both were portaled to `document.body`,
   so CSS alone couldn't hide one) — now exactly one mounts, picked
   from the actual viewport width.
+- `/shop`'s catalogue and Add to Cart / Buy Now / checkout were
+  incorrectly gated behind `MERCH_UPSELL_ENABLED` — that flag now
+  only controls the `/register` upsell section. `/shop` is always
+  browsable; purchasing there is gated solely by `?email=...`.
 
 ### Changed
 - `/routes/170` and `/routes/70` reorder their operational-flow and

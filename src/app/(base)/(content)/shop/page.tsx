@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { MERCH_UPSELL_ENABLED } from "@/features/base/lib/constants";
 import { ShopCartProvider } from "@/features/base/shop/components/shop-cart-provider";
 import { ShopCartSheet } from "@/features/base/shop/components/shop-cart-sheet";
 import { ShopCatalogue } from "@/features/base/shop/components/shop-catalogue";
@@ -19,12 +18,17 @@ export default async function ShopPage({
 }) {
   const products = await ShopService.getProducts();
   const { email } = await searchParams;
+  // Purchasing (Add to Cart / Buy Now / Pay) is gated purely on
+  // whether this page load carries ?email=... — the client sends
+  // this link to riders who are registering now or already
+  // registered. Browsing the catalogue itself is always open.
+  const hasEmailAccess = Boolean(email && email.trim());
 
   return (
     <ShopCartProvider>
       <ShopHero />
-      <ShopCatalogue products={products} interactive={MERCH_UPSELL_ENABLED} />
-      {MERCH_UPSELL_ENABLED && <ShopCartSheet prefilledEmail={email} />}
+      <ShopCatalogue products={products} hasEmailAccess={hasEmailAccess} />
+      <ShopCartSheet prefilledEmail={email} hasEmailAccess={hasEmailAccess} />
     </ShopCartProvider>
   );
 }
