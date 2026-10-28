@@ -11,6 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - A "Shop" navbar link.
 
 ### Changed
+- `/routes/170` and `/routes/70` reorder their operational-flow and
+  elevation-profile images above the Interactive Map (previously
+  below); the hero, sub-nav, entries, description, start, and finish
+  sections are removed from these pages for now (kept commented, not
+  deleted, in case they're needed again).
+- Their Download GPX button is now filled (brand-green background,
+  white text) instead of outlined, for more visual weight.
 - The navbar's "Routes" item is now a dropdown-only trigger (EKO 170 /
   EKO 94.5) — it no longer links anywhere itself, and its "Interactive
   Map" entry is dropped along with the page it pointed to.

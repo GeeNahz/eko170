@@ -8,15 +8,36 @@ export function RouteDetailMap({ data }: { data: RouteDetailData }) {
   return (
     <div
       id="map"
-      className="scroll-mt-[170px] overflow-hidden bg-white px-5 pt-9 pb-11 sm:mx-4 sm:mt-4 sm:rounded-[22px] sm:px-10 sm:py-24"
+      className="scroll-mt-42.5 overflow-hidden bg-white px-5 pt-9 pb-11 sm:mx-4 sm:mt-4 sm:rounded-[22px] sm:px-10 sm:py-24"
     >
-      <div className="mx-auto max-w-[1280px]">
+      <div className="mx-auto max-w-7xl">
         <Reveal className="mb-4 border-l-4 border-brand-green pl-3 font-mono text-xs tracking-wide text-brand-green uppercase">
           Explore
         </Reveal>
+        <Reveal delay={0.25} className="mt-10 flex flex-col gap-6">
+          <div className="overflow-hidden rounded-2xl border border-brand-cream-border">
+            <Image
+              src={data.operationalFlowImage.src}
+              alt={`${data.navLabel} operational route flow`}
+              width={data.operationalFlowImage.width}
+              height={data.operationalFlowImage.height}
+              className="h-auto w-full"
+            />
+          </div>
+          <div className="overflow-hidden rounded-2xl border border-brand-cream-border">
+            <Image
+              src={data.elevationProfileImage.src}
+              alt={`${data.navLabel} elevation profile`}
+              width={data.elevationProfileImage.width}
+              height={data.elevationProfileImage.height}
+              className="h-auto w-full"
+            />
+          </div>
+        </Reveal>
+
         <Reveal
           delay={0.1}
-          className="font-heading mb-12 text-4xl leading-[0.95] font-black text-brand-teal uppercase italic sm:text-5xl"
+          className="font-heading mb-4 text-4xl leading-[0.95] font-black text-brand-teal uppercase italic sm:text-5xl mt-8"
         >
           Interactive Map
         </Reveal>
@@ -25,7 +46,7 @@ export function RouteDetailMap({ data }: { data: RouteDetailData }) {
           delay={0.2}
           className="overflow-hidden rounded-2xl border border-brand-cream-border shadow-[0_12px_40px_rgba(16,24,40,0.08)]"
         >
-          <div className="h-[320px] sm:h-[520px]">
+          <div className="h-80 sm:h-130">
             <RouteMapEmbed
               path={data.path}
               height="100%"
@@ -48,30 +69,10 @@ export function RouteDetailMap({ data }: { data: RouteDetailData }) {
           </div>
         </Reveal>
 
-        <Reveal delay={0.25} className="mt-10 flex flex-col gap-6">
-          <div className="overflow-hidden rounded-2xl border border-brand-cream-border">
-            <Image
-              src={data.operationalFlowImage.src}
-              alt={`${data.navLabel} operational route flow`}
-              width={data.operationalFlowImage.width}
-              height={data.operationalFlowImage.height}
-              className="h-auto w-full"
-            />
-          </div>
-          <div className="overflow-hidden rounded-2xl border border-brand-cream-border">
-            <Image
-              src={data.elevationProfileImage.src}
-              alt={`${data.navLabel} elevation profile`}
-              width={data.elevationProfileImage.width}
-              height={data.elevationProfileImage.height}
-              className="h-auto w-full"
-            />
-          </div>
-          <RouteGpxDownload
-            href={data.gpxDownload.href}
-            filename={data.gpxDownload.filename}
-          />
-        </Reveal>
+        <RouteGpxDownload
+          href={data.gpxDownload.href}
+          filename={data.gpxDownload.filename}
+        />
       </div>
     </div>
   );

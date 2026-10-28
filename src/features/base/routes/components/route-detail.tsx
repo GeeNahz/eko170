@@ -14,14 +14,14 @@ import { REGISTRATION } from "../../lib/server/registration";
 export function RouteDetail({ data }: { data: RouteDetailData }) {
   return (
     <>
-      <RouteDetailHero data={data} />
-      <RouteSubNav navLabel={data.navLabel} registration={REGISTRATION} />
-      <RouteEntries data={data} />
+      {/*<RouteDetailHero data={data} />*/}
+      {/*<RouteSubNav navLabel={data.navLabel} registration={REGISTRATION} />*/}
+      {/*<RouteEntries data={data} />*/}
       <RouteIntroduction data={data} />
-      <RouteDescription data={data} />
+      {/*<RouteDescription data={data} />*/}
       <RouteDetailMap data={data} />
-      <RouteStart data={data} />
-      <RouteFinish data={data} />
+      {/*<RouteStart data={data} />*/}
+      {/*<RouteFinish data={data} />*/}
       <RouteFaqs />
       <RouteClosingCta />
     </>
