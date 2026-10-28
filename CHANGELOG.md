@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+- Both transactional emails (registration confirmation, shop order
+  confirmation) now show the actual EKO170 logo in the header instead
+  of the "EKO170" text wordmark.
 - `shop-orders` Sheet rows no longer pack a product's size selections
   into one `itemsJson` blob column — each selection (e.g. "Jersey",
   "Socks", "Bib Shorts — Men & Women") now gets its own column, with

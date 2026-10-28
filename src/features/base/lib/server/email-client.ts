@@ -33,7 +33,7 @@ function buildHtml(data: RegistrationConfirmationEmail) {
           <table role="presentation" width="100%" style="max-width:480px;background:#ffffff;border-radius:16px;overflow:hidden;">
             <tr>
               <td style="background:#0f3a44;padding:24px 32px;">
-                <span style="color:#ffffff;font-size:20px;font-weight:800;letter-spacing:0.5px;">EKO<span style="color:#16a34a;">170</span></span>
+                <img src="https://www.eko170.com/_next/image?url=%2Feko170-logo.jpg&w=48&q=75" alt="EKO170" width="40" height="40" style="display:block;border-radius:999px;" />
               </td>
             </tr>
             <tr>
@@ -197,7 +197,7 @@ function buildShopOrderHtml(data: ShopOrderConfirmationEmail) {
           <table role="presentation" width="100%" style="max-width:480px;background:#ffffff;border-radius:16px;overflow:hidden;">
             <tr>
               <td style="background:#0f3a44;padding:24px 32px;">
-                <span style="color:#ffffff;font-size:20px;font-weight:800;letter-spacing:0.5px;">EKO<span style="color:#16a34a;">170</span></span>
+                <img src="https://www.eko170.com/_next/image?url=%2Feko170-logo.jpg&w=48&q=75" alt="EKO170" width="40" height="40" style="display:block;border-radius:999px;" />
               </td>
             </tr>
             <tr>
