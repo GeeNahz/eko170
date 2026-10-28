@@ -141,6 +141,12 @@ export function RegistrationForm({
   const earlyBird = DISTANCE_PRICES[selectedDistance]?.earlyBird;
   const earlyBirdActive = earlyBird && new Date() < new Date(earlyBird.endsAt);
 
+  // The merch upsell's Add to Cart / Buy Now only activate once the
+  // rider has entered their email in the form above — same posture as
+  // /shop's ?email= gate, just sourced from this form's own field
+  // instead of a query param.
+  const hasEmailAccess = Boolean(watch("email")?.trim());
+
   const [waiverOpen, setWaiverOpen] = useState(false);
   const [waiverAgreed, setWaiverAgreed] = useState(false);
 
@@ -369,7 +375,13 @@ export function RegistrationForm({
                 </span>
               </div>
             )}
-            {merchTotal > 0 && (
+            {/* Shown once a distance is picked — not just once merch
+                is added — so riders always see the exact amount
+                they're about to pay, even when it's just the
+                registration fee. The "Choose a distance" placeholder
+                above already covers the no-fee case, so this row
+                doesn't repeat it. */}
+            {Boolean(fee) && (
               <div className="flex items-center justify-between border-t border-brand-cream-border pt-2">
                 <span className="font-mono text-[11px] tracking-wide text-gray-500 uppercase">
                   Total
@@ -421,6 +433,7 @@ export function RegistrationForm({
                 onRemoveFromCart={(index) =>
                   setMerchCart((prev) => prev.filter((_, i) => i !== index))
                 }
+                hasEmailAccess={hasEmailAccess}
               />
             </div>
           )}

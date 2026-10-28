@@ -27,12 +27,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   email, regardless of whether they came from `/shop` or the
   registration upsell below.
 - An optional "Add Merch to Your Order?" section on `/register`
-  (also behind `MERCH_UPSELL_ENABLED`), placed after the medical
-  waiver: preview cards for the 3 kits open the same size-picker
-  sheet as `/shop`, and whatever's picked is folded into one combined
-  charge with the distance fee — the fee summary box breaks out
-  Registration Fee / Merch / Total once something's added. The order
-  lands in the same `shop-orders` tab as a standalone purchase would.
+  (behind `MERCH_UPSELL_ENABLED`), placed after the medical waiver:
+  preview cards for the 3 kits open the same size-picker sheet as
+  `/shop`, whose Add to Cart / Buy Now only activate once the rider
+  has entered their email in the form above. Whatever's picked is
+  folded into one combined charge with the distance fee. The order
+  lands in the same `shop-orders` tab as a standalone purchase would,
+  using that same email plus the rider's name.
+- The fee summary box now always shows a "Total" once a distance is
+  picked (on top of "Registration Fee"), so riders see exactly what
+  they're about to pay even before adding merch; a "Merch" row joins
+  it once something's added.
 
 ### Fixed
 - A product's "View Details" opened both the desktop modal and the

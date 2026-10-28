@@ -42,11 +42,13 @@ function DetailBody({
   onAddToCart,
   onBuyNow,
   hasEmailAccess,
+  noEmailAccessMessage,
 }: {
   product: ShopProduct;
   onAddToCart: (item: CartItem) => void;
   onBuyNow: (item: CartItem) => void;
   hasEmailAccess: boolean;
+  noEmailAccessMessage: string;
 }) {
   const guideGroups = useMemo(() => groupGuides(product.sizeGuides), [product]);
 
@@ -184,9 +186,7 @@ function DetailBody({
         </button>
       </div>
       {!hasEmailAccess ? (
-        <p className="-mt-3 font-sans text-xs text-gray-400">
-          Purchasing is only available via your personal EKO170 link.
-        </p>
+        <p className="-mt-3 font-sans text-xs text-gray-400">{noEmailAccessMessage}</p>
       ) : (
         !allSelected && (
           <p className="-mt-3 font-sans text-xs text-gray-400">
@@ -204,11 +204,13 @@ export function ProductDetailSheet({
   onOpenChange,
   onAddToCart,
   onBuyNow,
-  // Defaults to true — only /shop's standalone purchase flow gates on
-  // this (via the ?email= link); the registration upsell reuses this
-  // same sheet without an email gate, since the form collects email
-  // itself.
+  // Defaults to true so callers that never need this gate (e.g. a
+  // future always-open flow) don't have to think about it — both
+  // current callers pass their own value: /shop gates on the
+  // ?email= link, the registration upsell gates on the form's own
+  // email field.
   hasEmailAccess = true,
+  noEmailAccessMessage = "Purchasing is only available via your personal EKO170 link.",
 }: {
   product: ShopProduct | null;
   open: boolean;
@@ -216,6 +218,7 @@ export function ProductDetailSheet({
   onAddToCart: (item: CartItem) => void;
   onBuyNow: (item: CartItem) => void;
   hasEmailAccess?: boolean;
+  noEmailAccessMessage?: string;
 }) {
   // Both Dialog and Sheet portal their content to document.body, so a
   // CSS-only hidden/sm:hidden wrapper doesn't actually hide whichever
@@ -235,7 +238,7 @@ export function ProductDetailSheet({
               {product.name}
             </DialogTitle>
           </DialogHeader>
-          <DetailBody product={product} onAddToCart={onAddToCart} onBuyNow={onBuyNow} hasEmailAccess={hasEmailAccess} />
+          <DetailBody product={product} onAddToCart={onAddToCart} onBuyNow={onBuyNow} hasEmailAccess={hasEmailAccess} noEmailAccessMessage={noEmailAccessMessage} />
         </DialogContent>
       </Dialog>
     );
@@ -250,7 +253,7 @@ export function ProductDetailSheet({
           </SheetTitle>
         </SheetHeader>
         <div className="px-4 pb-4">
-          <DetailBody product={product} onAddToCart={onAddToCart} onBuyNow={onBuyNow} hasEmailAccess={hasEmailAccess} />
+          <DetailBody product={product} onAddToCart={onAddToCart} onBuyNow={onBuyNow} hasEmailAccess={hasEmailAccess} noEmailAccessMessage={noEmailAccessMessage} />
         </div>
       </SheetContent>
     </Sheet>

@@ -11,11 +11,13 @@ export function MerchUpsellSection({
   cart,
   onAddToCart,
   onRemoveFromCart,
+  hasEmailAccess,
 }: {
   products: ShopProduct[];
   cart: CartItem[];
   onAddToCart: (item: CartItem) => void;
   onRemoveFromCart: (index: number) => void;
+  hasEmailAccess: boolean;
 }) {
   const [selected, setSelected] = useState<ShopProduct | null>(null);
   const [open, setOpen] = useState(false);
@@ -27,9 +29,14 @@ export function MerchUpsellSection({
 
   return (
     <div>
-      <div className="mb-5 border-b border-brand-cream-border pb-2.5 font-mono text-xs tracking-[2px] text-brand-green uppercase">
+      <div className="mb-2 border-b border-brand-cream-border pb-2.5 font-mono text-xs tracking-[2px] text-brand-green uppercase">
         Add Merch to Your Order? (Optional)
       </div>
+      {!hasEmailAccess && (
+        <p className="mb-4 font-sans text-xs text-gray-400">
+          Enter your email above first to add merch to your order.
+        </p>
+      )}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         {products.map((product) => (
           <ProductCard
@@ -82,6 +89,8 @@ export function MerchUpsellSection({
         onOpenChange={setOpen}
         onAddToCart={handleAdd}
         onBuyNow={handleAdd}
+        hasEmailAccess={hasEmailAccess}
+        noEmailAccessMessage="Enter your email above to add merch to your order."
       />
     </div>
   );
