@@ -1,6 +1,7 @@
 import { createHmac } from "node:crypto";
 import { NextResponse } from "next/server";
 import { RegisterService } from "@/features/base/register/server/service";
+import { isShopOrderReference, ShopService } from "@/features/base/shop/server/service";
 import { PAYMENT_GATEWAY, PAYSTACK_SECRET_KEY } from "@/features/base/lib/constants";
 
 // Same source-of-truth posture as the Flutterwave webhook (see that
@@ -40,20 +41,32 @@ export async function POST(request: Request) {
 
   try {
     // Never trust the webhook payload's own amount/status — re-verify
-    // server-to-server via RegisterService, same as the verify page does.
-    const verified = await RegisterService.verifyRegistrationPayment(
-      String(body.data.reference),
-    );
-    if (verified) {
-      await RegisterService.recordPaidRegistration(verified);
+    // server-to-server, same as the verify pages do. See the
+    // Flutterwave webhook for why shop-only orders (distinct tx_ref
+    // prefix) dispatch to ShopService instead.
+    const reference = String(body.data.reference);
+    if (isShopOrderReference(reference)) {
+      const verified = await ShopService.verifyShopPurchase(reference);
+      if (verified) {
+        await ShopService.recordShopOrder(verified);
+      } else {
+        console.error(
+          `[webhooks/paystack] shop order verification rejected for reference ${reference} — no order recorded`,
+        );
+      }
     } else {
-      // Paystack reported success but our own re-verification rejected
-      // it (status/currency/amount/reference mismatch) — this means no
-      // Sheet row and no confirmation email went out for this payment,
-      // so it needs a human to look at it.
-      console.error(
-        `[webhooks/paystack] verification rejected for reference ${body.data.reference} — no registration recorded`,
-      );
+      const verified = await RegisterService.verifyRegistrationPayment(reference);
+      if (verified) {
+        await RegisterService.recordPaidRegistration(verified);
+      } else {
+        // Paystack reported success but our own re-verification rejected
+        // it (status/currency/amount/reference mismatch) — this means no
+        // Sheet row and no confirmation email went out for this payment,
+        // so it needs a human to look at it.
+        console.error(
+          `[webhooks/paystack] verification rejected for reference ${reference} — no registration recorded`,
+        );
+      }
     }
   } catch (error) {
     console.error("[webhooks/paystack] processing failed", error);

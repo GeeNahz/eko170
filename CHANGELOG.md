@@ -13,9 +13,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Courses) listing the client's three real merch items — Flux Block
   Bib Shorts (₦117,000), the Rider Bundle (jersey, gloves, and socks,
   ₦118,000), and the Complete Kit (everything in the Rider Bundle plus
-  the bib shorts, ₦230,000, saving ₦5,000) — each with an expandable
-  size guide transcribed from the client's Monton reference sheets.
-  Purchasing isn't wired up yet.
+  the bib shorts, ₦230,000, saving ₦5,000) — each with a size guide
+  transcribed from the client's Monton reference sheets.
+- Merch purchasing on `/shop`: each product card opens a detail
+  modal (desktop) / bottom sheet (mobile) with size/gender pickers, Add
+  to Cart and Buy Now. A cart (multi-item, quantities) checks out with
+  a required email + name, paid via the existing payment gateway.
+  Orders are logged to a new `shop-orders` Google Sheet tab and
+  confirmed by email, regardless of whether they came from `/shop` or
+  the registration upsell below. Gated behind a new
+  `MERCH_UPSELL_ENABLED` env var — off by default, so the catalogue can
+  ship without purchasing being live.
+- `/shop?email=...` pre-fills the cart's checkout email, for linking
+  already-registered riders straight to an unlocked checkout.
 
 ### Changed
 - `/routes/170` and `/routes/70` reorder their operational-flow and

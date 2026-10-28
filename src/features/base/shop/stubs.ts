@@ -22,6 +22,7 @@ const BIB_SHORTS_SIZE_GUIDE: SizeGuide = {
 const MENS_JERSEY_SIZE_GUIDE: SizeGuide = {
   id: "guide-mens-jersey",
   label: "Jersey — Men's",
+  group: "jersey",
   note: "Monton YS8206M · cm, garment measurements",
   columns: ["Flat half-chest width", "Front zipper length", "Back length"],
   rows: [
@@ -37,6 +38,7 @@ const MENS_JERSEY_SIZE_GUIDE: SizeGuide = {
 const WOMENS_JERSEY_SIZE_GUIDE: SizeGuide = {
   id: "guide-womens-jersey",
   label: "Jersey — Women's",
+  group: "jersey",
   note: "Monton YS8206W · cm, garment measurements",
   columns: ["Flat half-chest width", "Front zipper length", "Back length"],
   rows: [

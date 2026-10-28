@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { ProductGrid } from "../../shop/components/product-grid";
+import { ShopCartProvider } from "../../shop/components/shop-cart-provider";
 import { ShopService } from "../../shop/server/service";
 
 export async function ShopHighlight() {
@@ -31,7 +32,9 @@ export async function ShopHighlight() {
           </Link>
         </div>
 
-        <ProductGrid products={featured} />
+        <ShopCartProvider>
+          <ProductGrid products={featured} />
+        </ShopCartProvider>
       </div>
     </div>
   );

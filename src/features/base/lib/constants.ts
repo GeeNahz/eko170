@@ -27,3 +27,9 @@ export const EMAIL_REPLY_TO = process.env.EMAIL_REPLY_TO;
 // lib/server/registration.ts) and handed to Client Components as a
 // prop; deliberately not NEXT_PUBLIC_-prefixed.
 export const REGISTRATION_STATE = process.env.REGISTRATION_STATE;
+
+// Gates both merch-purchasing entry points (the registration upsell
+// and /shop's Add to Cart / Buy Now / checkout) independently of the
+// catalogue itself, which always stays browsable. Lets items 1-5 ship
+// without purchasing being live yet.
+export const MERCH_UPSELL_ENABLED = process.env.MERCH_UPSELL_ENABLED === "true";

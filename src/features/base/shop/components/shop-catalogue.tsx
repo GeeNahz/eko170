@@ -2,7 +2,13 @@ import { Reveal } from "@/components/motion/reveal";
 import type { ShopProduct } from "../types";
 import { ProductGrid } from "./product-grid";
 
-export function ShopCatalogue({ products }: { products: ShopProduct[] }) {
+export function ShopCatalogue({
+  products,
+  interactive,
+}: {
+  products: ShopProduct[];
+  interactive: boolean;
+}) {
   return (
     <div className="overflow-hidden bg-white px-5 pt-10 pb-11 sm:mx-4 sm:mt-4 sm:rounded-[22px] sm:px-10 sm:py-24">
       <div className="mx-auto w-full max-w-[1280px]">
@@ -15,7 +21,7 @@ export function ShopCatalogue({ products }: { products: ShopProduct[] }) {
         >
           Shop the Kit
         </Reveal>
-        <ProductGrid products={products} showSizeGuides />
+        <ProductGrid products={products} interactive={interactive} />
       </div>
     </div>
   );

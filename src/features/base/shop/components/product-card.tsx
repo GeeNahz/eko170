@@ -1,13 +1,12 @@
 import Image from "next/image";
 import type { ShopProduct } from "../types";
-import { SizeGuideTable } from "./size-guide-table";
 
 export function ProductCard({
   product,
-  showSizeGuides = false,
+  onViewDetails,
 }: {
   product: ShopProduct;
-  showSizeGuides?: boolean;
+  onViewDetails?: () => void;
 }) {
   return (
     <div className="overflow-hidden rounded-2xl border border-brand-cream-border bg-white">
@@ -42,17 +41,14 @@ export function ProductCard({
           </div>
         )}
 
-        {showSizeGuides && (
-          <details className="mt-5 border-t border-brand-cream-border pt-4">
-            <summary className="cursor-pointer font-sans text-sm font-semibold text-brand-green">
-              View size guide
-            </summary>
-            <div className="mt-4 flex flex-col gap-6">
-              {product.sizeGuides.map((guide) => (
-                <SizeGuideTable key={guide.id} guide={guide} />
-              ))}
-            </div>
-          </details>
+        {onViewDetails && (
+          <button
+            type="button"
+            onClick={onViewDetails}
+            className="mt-5 w-full border-t border-brand-cream-border pt-4 text-left font-sans text-sm font-semibold text-brand-green"
+          >
+            View Details
+          </button>
         )}
       </div>
     </div>
