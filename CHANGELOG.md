@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - A "Shop" navbar link.
+- A new `/shop` page and a "Shop" section on Home (right below
+  Courses) previewing EKO170 merchandise — placeholder products for
+  now (`features/base/shop/stubs.ts`), ready to swap in the client's
+  real catalogue, images, and pricing.
 
 ### Changed
 - `/routes/170` and `/routes/70` reorder their operational-flow and
