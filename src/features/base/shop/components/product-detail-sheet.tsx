@@ -45,6 +45,14 @@ function groupGuides(guides: SizeGuide[]) {
   }));
 }
 
+// "Jersey — Men's" -> "Men's" — only meaningful for a grouped guide
+// (one of several alternatives); an ungrouped guide has nothing to
+// disambiguate, so there's no variant.
+function variantLabel(guide: SizeGuide, groupSize: number): string | undefined {
+  if (groupSize <= 1) return undefined;
+  return guide.label.split("—")[1]?.trim() ?? guide.label;
+}
+
 function DetailBody({
   product,
   onAddToCart,
@@ -84,6 +92,8 @@ function DetailBody({
     return guideGroups.map((g) => ({
       guideId: activeGuide[g.key].id,
       guideLabel: activeGuide[g.key].label,
+      column: g.label,
+      variant: variantLabel(activeGuide[g.key], g.options.length),
       size: size[g.key],
     }));
   }
@@ -137,7 +147,7 @@ function DetailBody({
               <div className="mb-2 flex flex-wrap gap-2">
                 {group.options.map((option) => {
                   const optionLabel =
-                    option.label.split("—")[1]?.trim() ?? option.label;
+                    variantLabel(option, group.options.length) ?? option.label;
                   const active = activeGuide[group.key].id === option.id;
                   return (
                     <button

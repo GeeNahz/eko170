@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- `shop-orders` Sheet rows no longer pack a product's size selections
+  into one `itemsJson` blob column — each selection (e.g. "Jersey",
+  "Socks", "Bib Shorts — Men & Women") now gets its own column, with
+  a grouped pick's variant included in the value (e.g. "L (Men's)")
+  since the column name alone doesn't say which alternative was
+  chosen. A cart with multiple items now writes one row per item
+  (sharing the same `refCode`) instead of one row per order, since a
+  single flat row can't hold a variable number of items without
+  either a blob or an unbounded set of item1_X/item2_X columns.
+
 ### Added
 - A "Shop" navbar link.
 - A new `/shop` page and a "Shop" section on Home (right below

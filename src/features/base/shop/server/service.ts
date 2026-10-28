@@ -139,20 +139,46 @@ export const ShopService = {
   // for standalone purchases, and by RegisterService when a
   // registration included merch, so every order (whichever channel it
   // came from) lands in the same `shop-orders` tab.
+  //
+  // One Sheet row per cart item, not one JSON-packed row per order —
+  // a cart is variable-length and each item carries a different set
+  // of size selections, so a single flat row can't hold it all
+  // without either a blob column or a combinatorial explosion of
+  // item1_X/item2_X columns. A row per item keeps every selection in
+  // its own named column (e.g. "Jersey", "Socks") and stays readable
+  // regardless of cart size; all of an order's rows share `refCode`
+  // so they can still be grouped/filtered together in the Sheet.
+  // Written sequentially (not Promise.all) since the Apps Script side
+  // has no locking around concurrent appendRow calls.
   async recordShopOrder(data: VerifiedShopOrder): Promise<void> {
+    for (const item of data.cart) {
+      // Include the variant (e.g. "Men's"/"Women's") in the cell
+      // value, not just the size — a grouped pick's column name alone
+      // (e.g. "Jersey") doesn't say which alternative was chosen, and
+      // that distinction matters for fulfillment.
+      const selectionColumns = Object.fromEntries(
+        item.selections.map((s) => [
+          s.column,
+          s.variant ? `${s.size} (${s.variant})` : s.size,
+        ]),
+      );
+      await postToSheet("shop-orders", {
+        refCode: data.refCode,
+        email: data.email,
+        name: data.name,
+        source: data.source,
+        product: item.name,
+        quantity: String(item.quantity),
+        itemAmount: String(item.priceValue * item.quantity),
+        ...selectionColumns,
+        orderAmount: String(data.amount),
+        currency: data.currency,
+        gateway: data.gateway,
+        gatewayRef: data.gatewayRef,
+      });
+    }
+
     const items = data.cart.map(describeCartItem).join("; ");
-    await postToSheet("shop-orders", {
-      email: data.email,
-      name: data.name,
-      refCode: data.refCode,
-      items,
-      itemsJson: JSON.stringify(data.cart),
-      amountPaid: String(data.amount),
-      currency: data.currency,
-      gateway: data.gateway,
-      gatewayRef: data.gatewayRef,
-      source: data.source,
-    });
     await sendShopOrderConfirmationEmail({
       to: data.email,
       name: data.name,

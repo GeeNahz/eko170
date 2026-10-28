@@ -29,10 +29,20 @@ export type ShopProduct = {
 };
 
 // One picked guide + size for a cart line item — e.g. { guideId:
-// "guide-mens-jersey", guideLabel: "Jersey — Men's", size: "M" }.
+// "guide-mens-jersey", guideLabel: "Jersey — Men's", column: "Jersey",
+// variant: "Men's", size: "M" }. `column` is the group-level name
+// (e.g. "Jersey" covers both the Men's and Women's guides) — used as
+// the Sheets column header so a grouped pick lands in one consistent
+// column regardless of which alternative was chosen. `variant` is
+// only set for grouped picks (undefined when there's no alternative
+// to disambiguate, e.g. gloves/socks) — without it, the Sheet would
+// only show a jersey size with no way to tell Men's from Women's,
+// which matters for fulfillment.
 export type CartItemSelection = {
   guideId: string;
   guideLabel: string;
+  column: string;
+  variant?: string;
   size: string;
 };
 
