@@ -57,6 +57,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Home's "Full Race Details" links, the footer's "The Race"/"Route"/
   "Rider Information" links, and every other link that pointed at the
   retired `/routes` overview page now go to `/routes/170`.
+- Updated the Rider Bundle product photo
+  (`public/images/shop/rider bundle.jpeg`).
 
 ### Removed
 - The `/routes` overview page is deleted — its hero, course overview,
