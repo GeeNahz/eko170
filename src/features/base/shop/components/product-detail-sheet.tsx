@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
+import { useMediaQuery } from "@/hooks/use-media-query";
 import {
   Dialog,
   DialogContent,
@@ -202,36 +203,42 @@ export function ProductDetailSheet({
   onAddToCart: (item: CartItem) => void;
   onBuyNow: (item: CartItem) => void;
 }) {
+  // Both Dialog and Sheet portal their content to document.body, so a
+  // CSS-only hidden/sm:hidden wrapper doesn't actually hide whichever
+  // one isn't meant to show — they'd both render. Mount exactly one,
+  // picked from the real viewport width (matches Tailwind's sm:
+  // breakpoint, 640px).
+  const isDesktop = useMediaQuery("(min-width: 640px)");
+
   if (!product) return null;
 
+  if (isDesktop) {
+    return (
+      <Dialog open={open} onOpenChange={onOpenChange}>
+        <DialogContent className="max-h-[85vh] w-full max-w-lg overflow-y-auto sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="font-heading text-xl font-extrabold text-brand-teal uppercase">
+              {product.name}
+            </DialogTitle>
+          </DialogHeader>
+          <DetailBody product={product} onAddToCart={onAddToCart} onBuyNow={onBuyNow} />
+        </DialogContent>
+      </Dialog>
+    );
+  }
+
   return (
-    <>
-      <div className="hidden sm:block">
-        <Dialog open={open} onOpenChange={onOpenChange}>
-          <DialogContent className="max-h-[85vh] w-full max-w-lg overflow-y-auto sm:max-w-lg">
-            <DialogHeader>
-              <DialogTitle className="font-heading text-xl font-extrabold text-brand-teal uppercase">
-                {product.name}
-              </DialogTitle>
-            </DialogHeader>
-            <DetailBody product={product} onAddToCart={onAddToCart} onBuyNow={onBuyNow} />
-          </DialogContent>
-        </Dialog>
-      </div>
-      <div className="sm:hidden">
-        <Sheet open={open} onOpenChange={onOpenChange}>
-          <SheetContent side="bottom" className="max-h-[88vh] overflow-y-auto rounded-t-2xl">
-            <SheetHeader>
-              <SheetTitle className="font-heading text-xl font-extrabold text-brand-teal uppercase">
-                {product.name}
-              </SheetTitle>
-            </SheetHeader>
-            <div className="px-4 pb-4">
-              <DetailBody product={product} onAddToCart={onAddToCart} onBuyNow={onBuyNow} />
-            </div>
-          </SheetContent>
-        </Sheet>
-      </div>
-    </>
+    <Sheet open={open} onOpenChange={onOpenChange}>
+      <SheetContent side="bottom" className="max-h-[88vh] overflow-y-auto rounded-t-2xl">
+        <SheetHeader>
+          <SheetTitle className="font-heading text-xl font-extrabold text-brand-teal uppercase">
+            {product.name}
+          </SheetTitle>
+        </SheetHeader>
+        <div className="px-4 pb-4">
+          <DetailBody product={product} onAddToCart={onAddToCart} onBuyNow={onBuyNow} />
+        </div>
+      </SheetContent>
+    </Sheet>
   );
 }

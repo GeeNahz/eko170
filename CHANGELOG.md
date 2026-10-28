@@ -34,6 +34,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Registration Fee / Merch / Total once something's added. The order
   lands in the same `shop-orders` tab as a standalone purchase would.
 
+### Fixed
+- A product's "View Details" opened both the desktop modal and the
+  mobile bottom sheet at once (both were portaled to `document.body`,
+  so CSS alone couldn't hide one) — now exactly one mounts, picked
+  from the actual viewport width.
+
 ### Changed
 - `/routes/170` and `/routes/70` reorder their operational-flow and
   elevation-profile images above the Interactive Map (previously
