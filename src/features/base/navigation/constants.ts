@@ -7,7 +7,7 @@ export const PRIMARY_NAV: NavLink[] = [
   {
     id: "nav-routes",
     label: "Routes",
-    href: "/routes",
+    // No href — this item is a dropdown trigger only, not a link.
     children: [
       // Labels read off each route's own navLabel so this can't drift
       // out of sync again (previously a hardcoded "EKO 70" string).
@@ -21,11 +21,11 @@ export const PRIMARY_NAV: NavLink[] = [
         label: ROUTE_70_DETAIL.navLabel,
         href: "/routes/70",
       },
-      { id: "nav-routes-map", label: "Interactive Map", href: "/routes#map" },
     ],
   },
   { id: "nav-results", label: "Results", href: "/results" },
   { id: "nav-gallery", label: "Gallery", href: "/gallery" },
+  { id: "nav-shop", label: "Shop", href: "/shop" },
   {
     id: "nav-partners",
     label: "Sponsors & Partners",
@@ -34,7 +34,12 @@ export const PRIMARY_NAV: NavLink[] = [
   },
   { id: "nav-discover", label: "Discover", href: "/discover", hidden: true },
   { id: "nav-community", label: "Community", href: "/community" },
-  { id: "nav-volunteer", label: "Volunteer", href: "/volunteer" },
+  {
+    id: "nav-volunteer",
+    label: "Volunteer",
+    href: "/volunteer",
+    hidden: true,
+  },
   {
     id: "nav-partner-apply",
     label: "Become a Partner",
@@ -48,12 +53,12 @@ export const FOOTER_NAV: FooterLinkGroup[] = [
     title: "The Event",
     links: [
       { id: "footer-event-home", label: "Home", href: "/" },
-      { id: "footer-event-race", label: "The Race", href: "/routes" },
-      { id: "footer-event-route", label: "Route", href: "/routes" },
+      { id: "footer-event-race", label: "The Race", href: "/routes/170" },
+      { id: "footer-event-route", label: "Route", href: "/routes/170" },
       {
         id: "footer-event-riders",
         label: "Rider Information",
-        href: "/routes",
+        href: "/routes/170",
       },
       { id: "footer-event-spectators", label: "Spectators", href: "/discover" },
     ],

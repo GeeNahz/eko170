@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- A "Shop" navbar link.
+
+### Changed
+- The navbar's "Routes" item is now a dropdown-only trigger (EKO 170 /
+  EKO 94.5) — it no longer links anywhere itself, and its "Interactive
+  Map" entry is dropped along with the page it pointed to.
+- "Volunteer" is hidden from the navbar (kept in `PRIMARY_NAV`, not
+  deleted, matching the existing hidden-link pattern for Discover and
+  Sponsors & Partners).
+- Home's "Full Race Details" links, the footer's "The Race"/"Route"/
+  "Rider Information" links, and every other link that pointed at the
+  retired `/routes` overview page now go to `/routes/170`.
+
+### Removed
+- The `/routes` overview page is deleted — its hero, course overview,
+  category cards, support section, and interactive map were all
+  superseded by each route's own page at `/routes/170` and
+  `/routes/70`.
+
 ## [1.1.0] - 2026-10-24
 
 ### Added

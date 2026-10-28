@@ -17,7 +17,7 @@ export function ChooseDistance() {
               Race Categories
             </div>
             <Link
-              href="/routes"
+              href="/routes/170"
               className="inline-flex items-center gap-2.5 rounded-full border-2 border-brand-green px-5 py-2.5 font-sans text-sm font-semibold text-brand-green sm:hidden"
             >
               Full Race Details
@@ -28,7 +28,7 @@ export function ChooseDistance() {
             Courses
           </h2>
           <Link
-            href="/routes"
+            href="/routes/170"
             className="hidden items-center gap-2.5 rounded-full border-2 border-brand-green px-6 py-4 font-sans text-sm font-semibold text-brand-green sm:inline-flex"
           >
             Full Race Details
