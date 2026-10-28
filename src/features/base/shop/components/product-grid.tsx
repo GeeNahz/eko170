@@ -12,10 +12,15 @@ export function ProductGrid({
   products,
   interactive = false,
   hasEmailAccess = false,
+  compact = false,
 }: {
   products: ShopProduct[];
   interactive?: boolean;
   hasEmailAccess?: boolean;
+  // Forces a fixed 3-column grid (never collapses to 1 column, never
+  // grows past 3 either) with smaller cards — used on /shop's own
+  // catalogue. Home's highlight section keeps the roomier default.
+  compact?: boolean;
 }) {
   // Always called (rules of hooks) — callers that pass
   // interactive=false must still wrap this component in a
@@ -43,11 +48,16 @@ export function ProductGrid({
 
   return (
     <>
-      <RevealGroup className="grid grid-cols-1 gap-5 sm:grid-cols-3">
+      <RevealGroup
+        className={
+          compact ? "grid grid-cols-3 gap-2.5" : "grid grid-cols-1 gap-5 sm:grid-cols-3"
+        }
+      >
         {products.map((product) => (
           <RevealItem key={product.id}>
             <ProductCard
               product={product}
+              compact={compact}
               onViewDetails={
                 interactive
                   ? () => {

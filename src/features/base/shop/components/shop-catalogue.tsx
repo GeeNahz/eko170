@@ -21,7 +21,7 @@ export function ShopCatalogue({
         >
           Shop the Kit
         </Reveal>
-        <ProductGrid products={products} interactive hasEmailAccess={hasEmailAccess} />
+        <ProductGrid products={products} interactive hasEmailAccess={hasEmailAccess} compact />
       </div>
     </div>
   );

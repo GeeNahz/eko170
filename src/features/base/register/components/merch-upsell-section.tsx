@@ -37,11 +37,12 @@ export function MerchUpsellSection({
           Enter your email above first to add merch to your order.
         </p>
       )}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+      <div className="grid grid-cols-3 gap-2.5">
         {products.map((product) => (
           <ProductCard
             key={product.id}
             product={product}
+            compact
             onViewDetails={() => {
               setSelected(product);
               setOpen(true);

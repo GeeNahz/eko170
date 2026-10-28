@@ -27,19 +27,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   email, regardless of whether they came from `/shop` or the
   registration upsell below.
 - An optional "Add Merch to Your Order?" section on `/register`
-  (behind `MERCH_UPSELL_ENABLED`), placed after the medical waiver:
-  preview cards for the 3 kits open the same size-picker sheet as
-  `/shop`, with a single "Add to Order" button (no separate Buy Now —
-  there's no standalone checkout here, everything pays together when
-  the form submits) that only activates once the rider has entered
-  their email in the form above. Whatever's picked is folded into one
-  combined charge with the distance fee. The order lands in the same
-  `shop-orders` tab as a standalone purchase would, using that same
-  email plus the rider's name.
+  (behind `MERCH_UPSELL_ENABLED`), placed after the medical waiver: a
+  compact, always-3-across preview grid (small image + name + price,
+  no collapsing to one column as more products are added later)
+  opens the same size-picker sheet as `/shop`, with a single "Add to
+  Order" button (no separate Buy Now — there's no standalone checkout
+  here, everything pays together when the form submits) that only
+  activates once the rider has entered their email in the form above.
+  Whatever's picked is folded into one combined charge with the
+  distance fee. The order lands in the same `shop-orders` tab as a
+  standalone purchase would, using that same email plus the rider's
+  name.
 - The fee summary box now always shows a "Total" once a distance is
   picked (on top of "Registration Fee"), so riders see exactly what
   they're about to pay even before adding merch; a "Merch" row joins
   it once something's added.
+- `/shop`'s own catalogue grid gets the same always-3-across compact
+  treatment as `/register`'s preview grid, so it no longer collapses
+  to a single column on narrow screens; `ProductCard` gained a
+  `compact` variant (small thumbnail + name + price, no description)
+  shared by both.
 
 ### Fixed
 - A product's "View Details" opened both the desktop modal and the
