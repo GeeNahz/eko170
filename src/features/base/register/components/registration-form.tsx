@@ -1,7 +1,11 @@
 "use client";
 
 import { startTransition, useActionState, useEffect, useState } from "react";
-import { useForm, type FieldError, type UseFormRegister } from "react-hook-form";
+import {
+  useForm,
+  type FieldError,
+  type UseFormRegister,
+} from "react-hook-form";
 import { toast } from "sonner";
 import { ArrowRight, Check } from "lucide-react";
 import Link from "next/link";
@@ -38,7 +42,9 @@ function FieldLabel({ children }: { children: string }) {
 
 function FieldError({ error }: { error?: FieldError }) {
   if (!error) return null;
-  return <span className="font-sans text-xs text-red-600">{error.message}</span>;
+  return (
+    <span className="font-sans text-xs text-red-600">{error.message}</span>
+  );
 }
 
 function TextField({
@@ -164,7 +170,7 @@ export function RegistrationForm({
   }, [state]);
 
   return (
-    <div className="mx-auto w-full max-w-[920px] px-0 pb-24 sm:px-10">
+    <div className="mx-auto w-full max-w-230 px-0 pb-24 sm:px-10">
       <form
         onSubmit={handleSubmit((values) =>
           startTransition(() =>
@@ -216,7 +222,10 @@ export function RegistrationForm({
               label={FIELD_LABELS.email}
               placeholder="you@email.com"
               required
-              pattern={{ value: EMAIL_PATTERN, message: "Enter a valid email address" }}
+              pattern={{
+                value: EMAIL_PATTERN,
+                message: "Enter a valid email address",
+              }}
               register={register}
               error={errors.email}
             />
@@ -356,7 +365,7 @@ export function RegistrationForm({
         </div>
 
         <div className="flex flex-col items-center gap-3.5 pt-2">
-          <div className="flex w-full max-w-[420px] flex-col gap-2 rounded-[14px] border border-brand-cream-border bg-brand-cream px-5 py-4">
+          <div className="flex w-full max-w-105 flex-col gap-2 rounded-[14px] border border-brand-cream-border bg-brand-cream px-5 py-4">
             <div className="flex items-center justify-between">
               <span className="font-mono text-[11px] tracking-wide text-gray-500 uppercase">
                 Registration Fee
@@ -393,20 +402,23 @@ export function RegistrationForm({
             )}
           </div>
           {earlyBirdActive && (
-            <p className="max-w-[420px] text-center font-sans text-xs font-semibold text-brand-green">
+            <p className="max-w-105 text-center font-sans text-xs font-semibold text-brand-green">
               Early-bird price — ends{" "}
               {/* `endsAt` is the cutoff moment (midnight starting the
                   next day), so the last eligible day is one day
                   earlier — show that, not the cutoff itself. */}
-              {new Date(new Date(earlyBird.endsAt).getTime() - 86400000).toLocaleDateString(
-                "en-NG",
-                { day: "numeric", month: "long", year: "numeric" },
-              )}
+              {new Date(
+                new Date(earlyBird.endsAt).getTime() - 86400000,
+              ).toLocaleDateString("en-NG", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })}
             </p>
           )}
-          <p className="max-w-[420px] text-center font-sans text-xs text-gray-400">
-            You&apos;ll be taken to a secure checkout to pay this amount —
-            your registration is only confirmed once payment goes through.
+          <p className="max-w-105 text-center font-sans text-xs text-gray-400">
+            You&apos;ll be taken to a secure checkout to pay this amount — your
+            registration is only confirmed once payment goes through.
           </p>
 
           {waiverAgreed ? (
@@ -453,7 +465,7 @@ export function RegistrationForm({
             onAgree={() => setWaiverAgreed(true)}
           />
 
-          <div className="flex w-full max-w-[420px] items-center gap-3">
+          <div className="flex w-full max-w-105 items-center gap-3">
             <span className="h-px flex-1 bg-brand-cream-border" />
             <span className="font-mono text-[10px] tracking-[2px] text-gray-400 uppercase">
               Not Riding?
@@ -462,14 +474,14 @@ export function RegistrationForm({
           </div>
           <Link
             href="/volunteer"
-            className="flex h-14 w-full max-w-[420px] items-center justify-between rounded-full border-[1.5px] border-brand-green px-5.5 font-sans text-base font-bold text-brand-green"
+            className="flex h-14 w-full max-w-105 items-center justify-between rounded-full border-[1.5px] border-brand-green px-5.5 font-sans text-base font-bold text-brand-green"
           >
             Volunteer Instead
             <ArrowRight className="size-4" />
           </Link>
           <Link
             href="/partners/apply"
-            className="flex h-14 w-full max-w-[420px] items-center justify-between rounded-full border-[1.5px] border-brand-teal px-5.5 font-sans text-base font-bold text-brand-teal"
+            className="flex h-14 w-full max-w-105 items-center justify-between rounded-full border-[1.5px] border-brand-teal px-5.5 font-sans text-base font-bold text-brand-teal"
           >
             Become a Partner
             <ArrowRight className="size-4" />

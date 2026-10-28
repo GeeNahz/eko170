@@ -19,10 +19,15 @@ export function ProductCard({
       <button
         type="button"
         onClick={onViewDetails}
-        className="flex flex-col overflow-hidden rounded-xl border border-brand-cream-border bg-white text-left"
+        className="w-full flex flex-col overflow-hidden rounded-xl border border-brand-cream-border bg-white text-left"
       >
         <div className="relative aspect-square w-full overflow-hidden bg-white">
-          <Image src={product.image} alt={product.name} fill className="object-cover" />
+          <Image
+            src={product.image}
+            alt={product.name}
+            fill
+            className="object-cover"
+          />
         </div>
         <div className="flex flex-col gap-0.5 p-2">
           <div className="line-clamp-2 font-sans text-[11px] leading-tight font-semibold text-brand-teal">

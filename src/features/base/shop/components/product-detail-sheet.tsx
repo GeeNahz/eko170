@@ -16,7 +16,12 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import type { CartItem, CartItemSelection, ShopProduct, SizeGuide } from "../types";
+import type {
+  CartItem,
+  CartItemSelection,
+  ShopProduct,
+  SizeGuide,
+} from "../types";
 
 // Guides sharing a `group` are alternatives (pick one) — e.g. the two
 // jersey guides. Guides with no group are each their own required
@@ -32,7 +37,10 @@ function groupGuides(guides: SizeGuide[]) {
   return Array.from(groups.entries()).map(([key, options]) => ({
     key,
     // "Jersey — Men's" -> "Men's" as the toggle label when grouped
-    label: options.length > 1 ? options[0].label.split("—")[0].trim() : options[0].label,
+    label:
+      options.length > 1
+        ? options[0].label.split("—")[0].trim()
+        : options[0].label,
     options,
   }));
 }
@@ -64,7 +72,9 @@ function DetailBody({
   const [size, setSize] = useState<Record<string, string>>({});
 
   useEffect(() => {
-    setActiveGuide(Object.fromEntries(guideGroups.map((g) => [g.key, g.options[0]])));
+    setActiveGuide(
+      Object.fromEntries(guideGroups.map((g) => [g.key, g.options[0]])),
+    );
     setSize({});
   }, [guideGroups]);
 
@@ -91,7 +101,12 @@ function DetailBody({
   return (
     <div className="flex flex-col gap-5">
       <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-white">
-        <Image src={product.image} alt={product.name} fill className="object-cover" />
+        <Image
+          src={product.image}
+          alt={product.name}
+          fill
+          className="object-cover"
+        />
       </div>
 
       {product.description && (
@@ -121,14 +136,18 @@ function DetailBody({
             {group.options.length > 1 && (
               <div className="mb-2 flex flex-wrap gap-2">
                 {group.options.map((option) => {
-                  const optionLabel = option.label.split("—")[1]?.trim() ?? option.label;
+                  const optionLabel =
+                    option.label.split("—")[1]?.trim() ?? option.label;
                   const active = activeGuide[group.key].id === option.id;
                   return (
                     <button
                       key={option.id}
                       type="button"
                       onClick={() => {
-                        setActiveGuide((prev) => ({ ...prev, [group.key]: option }));
+                        setActiveGuide((prev) => ({
+                          ...prev,
+                          [group.key]: option,
+                        }));
                         setSize((prev) => ({ ...prev, [group.key]: "" }));
                       }}
                       className={cn(
@@ -203,7 +222,9 @@ function DetailBody({
         )}
       </div>
       {!hasEmailAccess ? (
-        <p className="-mt-3 font-sans text-xs text-gray-400">{noEmailAccessMessage}</p>
+        <p className="-mt-3 font-sans text-xs text-gray-400">
+          {noEmailAccessMessage}
+        </p>
       ) : (
         !allSelected && (
           <p className="-mt-3 font-sans text-xs text-gray-400">
@@ -215,7 +236,20 @@ function DetailBody({
   );
 }
 
-export function ProductDetailSheet({
+type TProps = {
+  product: ShopProduct | null;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  onAddToCart: (item: CartItem) => void;
+  onBuyNow?: (item: CartItem) => void;
+  hasEmailAccess?: boolean;
+  noEmailAccessMessage?: string;
+  singleAction?: boolean;
+  singleActionLabel?: string;
+};
+
+// exported
+function ProductDetailSheet({
   product,
   open,
   onOpenChange,
@@ -235,17 +269,7 @@ export function ProductDetailSheet({
   // them into one.
   singleAction = false,
   singleActionLabel = "Add to Order",
-}: {
-  product: ShopProduct | null;
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  onAddToCart: (item: CartItem) => void;
-  onBuyNow?: (item: CartItem) => void;
-  hasEmailAccess?: boolean;
-  noEmailAccessMessage?: string;
-  singleAction?: boolean;
-  singleActionLabel?: string;
-}) {
+}: TProps) {
   // Both Dialog and Sheet portal their content to document.body, so a
   // CSS-only hidden/sm:hidden wrapper doesn't actually hide whichever
   // one isn't meant to show — they'd both render. Mount exactly one,
@@ -264,7 +288,15 @@ export function ProductDetailSheet({
               {product.name}
             </DialogTitle>
           </DialogHeader>
-          <DetailBody product={product} onAddToCart={onAddToCart} onBuyNow={onBuyNow} hasEmailAccess={hasEmailAccess} noEmailAccessMessage={noEmailAccessMessage} singleAction={singleAction} singleActionLabel={singleActionLabel} />
+          <DetailBody
+            product={product}
+            onAddToCart={onAddToCart}
+            onBuyNow={onBuyNow}
+            hasEmailAccess={hasEmailAccess}
+            noEmailAccessMessage={noEmailAccessMessage}
+            singleAction={singleAction}
+            singleActionLabel={singleActionLabel}
+          />
         </DialogContent>
       </Dialog>
     );
@@ -272,16 +304,29 @@ export function ProductDetailSheet({
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="bottom" className="max-h-[88vh] overflow-y-auto rounded-t-2xl">
+      <SheetContent
+        side="bottom"
+        className="max-h-[88vh] overflow-y-auto rounded-t-2xl"
+      >
         <SheetHeader>
           <SheetTitle className="font-heading text-xl font-extrabold text-brand-teal uppercase">
             {product.name}
           </SheetTitle>
         </SheetHeader>
         <div className="px-4 pb-4">
-          <DetailBody product={product} onAddToCart={onAddToCart} onBuyNow={onBuyNow} hasEmailAccess={hasEmailAccess} noEmailAccessMessage={noEmailAccessMessage} singleAction={singleAction} singleActionLabel={singleActionLabel} />
+          <DetailBody
+            product={product}
+            onAddToCart={onAddToCart}
+            onBuyNow={onBuyNow}
+            hasEmailAccess={hasEmailAccess}
+            noEmailAccessMessage={noEmailAccessMessage}
+            singleAction={singleAction}
+            singleActionLabel={singleActionLabel}
+          />
         </div>
       </SheetContent>
     </Sheet>
   );
 }
+
+export { ProductDetailSheet };

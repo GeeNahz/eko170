@@ -6,19 +6,21 @@ import { ProductCard } from "../../shop/components/product-card";
 import { ProductDetailSheet } from "../../shop/components/product-detail-sheet";
 import type { CartItem, ShopProduct } from "../../shop/types";
 
-export function MerchUpsellSection({
-  products,
-  cart,
-  onAddToCart,
-  onRemoveFromCart,
-  hasEmailAccess,
-}: {
+type Props = {
   products: ShopProduct[];
   cart: CartItem[];
   onAddToCart: (item: CartItem) => void;
   onRemoveFromCart: (index: number) => void;
   hasEmailAccess: boolean;
-}) {
+};
+
+function MerchUpsellSection({
+  products,
+  cart,
+  onAddToCart,
+  onRemoveFromCart,
+  hasEmailAccess,
+}: Props) {
   const [selected, setSelected] = useState<ShopProduct | null>(null);
   const [open, setOpen] = useState(false);
 
@@ -63,7 +65,9 @@ export function MerchUpsellSection({
                   {item.name}
                 </div>
                 <div className="font-sans text-xs text-gray-500">
-                  {item.selections.map((s) => `${s.guideLabel}: ${s.size}`).join(", ")}
+                  {item.selections
+                    .map((s) => `${s.guideLabel}: ${s.size}`)
+                    .join(", ")}
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -97,3 +101,5 @@ export function MerchUpsellSection({
     </div>
   );
 }
+
+export { MerchUpsellSection };

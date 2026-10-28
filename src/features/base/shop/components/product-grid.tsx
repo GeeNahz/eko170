@@ -7,6 +7,7 @@ import type { CartItem, ShopProduct } from "../types";
 import { ProductCard } from "./product-card";
 import { ProductDetailSheet } from "./product-detail-sheet";
 import { useShopCart } from "./shop-cart-provider";
+import { cn } from "@/lib/utils";
 
 export function ProductGrid({
   products,
@@ -49,9 +50,10 @@ export function ProductGrid({
   return (
     <>
       <RevealGroup
-        className={
-          compact ? "grid grid-cols-3 gap-2.5" : "grid grid-cols-1 gap-5 sm:grid-cols-3"
-        }
+        className={cn(
+          // compact ? "grid grid-cols-3 gap-2.5" : "grid grid-cols-1 gap-5 sm:grid-cols-3",
+          "grid grid-cols-3 gap-2.5",
+        )}
       >
         {products.map((product) => (
           <RevealItem key={product.id}>
