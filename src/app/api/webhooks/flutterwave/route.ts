@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { RegisterService } from "@/features/base/register/server/service";
+import { isShopOrderReference, ShopService } from "@/features/base/shop/server/service";
 import { FLUTTERWAVE_SECRET_HASH, PAYMENT_GATEWAY } from "@/features/base/lib/constants";
 
 // Flutterwave's recommended source of truth: this is the only path that
@@ -28,20 +29,37 @@ export async function POST(request: Request) {
 
   try {
     // Never trust the webhook payload's own amount/status — re-verify
-    // server-to-server via RegisterService, same as the verify page does.
-    const verified = await RegisterService.verifyRegistrationPayment(
-      String(body.data.id),
-    );
-    if (verified) {
-      await RegisterService.recordPaidRegistration(verified);
+    // server-to-server, same as the verify pages do. Shop-only orders
+    // carry a distinct tx_ref prefix (see ShopService) so they can be
+    // dispatched to ShopService instead of RegisterService — a
+    // registration that included merch stays on the RegisterService
+    // path, which records the shop order itself (see
+    // RegisterService.recordPaidRegistration).
+    const isShopOrder = isShopOrderReference(String(body.data.tx_ref ?? ""));
+    if (isShopOrder) {
+      const verified = await ShopService.verifyShopPurchase(String(body.data.id));
+      if (verified) {
+        await ShopService.recordShopOrder(verified);
+      } else {
+        console.error(
+          `[webhooks/flutterwave] shop order verification rejected for transaction ${body.data.id} — no order recorded`,
+        );
+      }
     } else {
-      // Flutterwave reported success but our own re-verification
-      // rejected it (status/currency/amount/reference mismatch) — this
-      // means no Sheet row and no confirmation email went out for this
-      // payment, so it needs a human to look at it.
-      console.error(
-        `[webhooks/flutterwave] verification rejected for transaction ${body.data.id} — no registration recorded`,
+      const verified = await RegisterService.verifyRegistrationPayment(
+        String(body.data.id),
       );
+      if (verified) {
+        await RegisterService.recordPaidRegistration(verified);
+      } else {
+        // Flutterwave reported success but our own re-verification
+        // rejected it (status/currency/amount/reference mismatch) — this
+        // means no Sheet row and no confirmation email went out for this
+        // payment, so it needs a human to look at it.
+        console.error(
+          `[webhooks/flutterwave] verification rejected for transaction ${body.data.id} — no registration recorded`,
+        );
+      }
     }
   } catch (error) {
     console.error("[webhooks/flutterwave] processing failed", error);

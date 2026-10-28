@@ -75,7 +75,7 @@ export function SiteFooter() {
                   {group.links.filter((link) => !link.hidden).map((link) => (
                     <Link
                       key={link.id}
-                      href={link.href}
+                      href={link.href ?? "#"}
                       className="font-sans text-base text-gray-400 transition-colors hover:text-white"
                     >
                       {link.label}

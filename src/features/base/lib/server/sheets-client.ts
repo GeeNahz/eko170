@@ -5,7 +5,8 @@ export type SheetFormType =
   | "registrations"
   | "partners"
   | "volunteers"
-  | "route-votes";
+  | "route-votes"
+  | "shop-orders";
 
 // Posts one row to the given tab of the shared Google Sheet via the Apps
 // Script Web App (see scripts/google-apps-script.gs). Never throws — a

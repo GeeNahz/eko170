@@ -18,7 +18,7 @@
 
 // Must match the SheetFormType union in
 // src/features/base/lib/server/sheets-client.ts.
-var ALLOWED_SHEET_NAMES = ["registrations", "partners", "volunteers", "route-votes"];
+var ALLOWED_SHEET_NAMES = ["registrations", "partners", "volunteers", "route-votes", "shop-orders"];
 
 function doPost(e) {
   var payload = JSON.parse(e.postData.contents);

@@ -31,7 +31,7 @@ export function FeatureRoute() {
             </div>
           </div>
           <Link
-            href="/routes"
+            href="/routes/170"
             className="inline-flex items-center gap-2.5 rounded-full border-2 border-brand-green px-6 py-4 font-sans text-sm font-semibold text-brand-green"
           >
             View the Route

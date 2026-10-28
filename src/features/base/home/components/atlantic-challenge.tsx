@@ -45,7 +45,7 @@ export function AtlanticChallenge() {
           </div>
           <div className="flex flex-wrap gap-4">
             <Link
-              href="/routes"
+              href="/routes/170"
               className="inline-flex items-center gap-2.5 rounded-full bg-brand-green px-6 py-4 font-sans text-sm font-semibold text-white"
             >
               Full Route Details

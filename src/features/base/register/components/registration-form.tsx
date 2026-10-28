@@ -1,7 +1,11 @@
 "use client";
 
 import { startTransition, useActionState, useEffect, useState } from "react";
-import { useForm, type FieldError, type UseFormRegister } from "react-hook-form";
+import {
+  useForm,
+  type FieldError,
+  type UseFormRegister,
+} from "react-hook-form";
 import { toast } from "sonner";
 import { ArrowRight, Check } from "lucide-react";
 import Link from "next/link";
@@ -9,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { EarlyBirdBanner } from "../../components/early-bird-banner";
+import type { CartItem, ShopProduct } from "../../shop/types";
 import {
   DISTANCE_OPTIONS,
   DISTANCE_PRICES,
@@ -22,6 +27,7 @@ import {
 import { registerAction } from "../server/actions";
 import type { RegistrationFormValues } from "../types";
 import { MedicalWaiverDialog } from "./medical-waiver-dialog";
+import { MerchUpsellSection } from "./merch-upsell-section";
 
 const inputClassName =
   "h-auto rounded-[10px] border-brand-cream-border px-4 py-3.5 font-sans text-[15px] text-brand-teal focus-visible:border-brand-green focus-visible:ring-brand-green/12";
@@ -36,7 +42,9 @@ function FieldLabel({ children }: { children: string }) {
 
 function FieldError({ error }: { error?: FieldError }) {
   if (!error) return null;
-  return <span className="font-sans text-xs text-red-600">{error.message}</span>;
+  return (
+    <span className="font-sans text-xs text-red-600">{error.message}</span>
+  );
 }
 
 function TextField({
@@ -117,7 +125,13 @@ function SelectField({
   );
 }
 
-export function RegistrationForm() {
+export function RegistrationForm({
+  merchUpsellEnabled = false,
+  merchProducts = [],
+}: {
+  merchUpsellEnabled?: boolean;
+  merchProducts?: ShopProduct[];
+}) {
   const [state, formAction, isPending] = useActionState(registerAction, null);
   const {
     register,
@@ -133,8 +147,21 @@ export function RegistrationForm() {
   const earlyBird = DISTANCE_PRICES[selectedDistance]?.earlyBird;
   const earlyBirdActive = earlyBird && new Date() < new Date(earlyBird.endsAt);
 
+  // The merch upsell's Add to Cart / Buy Now only activate once the
+  // rider has entered their email in the form above — same posture as
+  // /shop's ?email= gate, just sourced from this form's own field
+  // instead of a query param.
+  const hasEmailAccess = Boolean(watch("email")?.trim());
+
   const [waiverOpen, setWaiverOpen] = useState(false);
   const [waiverAgreed, setWaiverAgreed] = useState(false);
+
+  const [merchCart, setMerchCart] = useState<CartItem[]>([]);
+  const merchTotal = merchCart.reduce(
+    (sum, item) => sum + item.priceValue * item.quantity,
+    0,
+  );
+  const grandTotal = (fee ?? 0) + merchTotal;
 
   useEffect(() => {
     if (state?.status === "error" && state.message) {
@@ -143,13 +170,16 @@ export function RegistrationForm() {
   }, [state]);
 
   return (
-    <div className="mx-auto w-full max-w-[920px] px-0 pb-24 sm:px-10">
+    <div className="mx-auto w-full max-w-230 px-0 pb-24 sm:px-10">
       <form
         onSubmit={handleSubmit((values) =>
           startTransition(() =>
             formAction({
-              ...values,
-              medicalWaiverAgreed: waiverAgreed ? "true" : "false",
+              values: {
+                ...values,
+                medicalWaiverAgreed: waiverAgreed ? "true" : "false",
+              },
+              merchCart,
             }),
           ),
         )}
@@ -192,7 +222,10 @@ export function RegistrationForm() {
               label={FIELD_LABELS.email}
               placeholder="you@email.com"
               required
-              pattern={{ value: EMAIL_PATTERN, message: "Enter a valid email address" }}
+              pattern={{
+                value: EMAIL_PATTERN,
+                message: "Enter a valid email address",
+              }}
               register={register}
               error={errors.email}
             />
@@ -332,29 +365,60 @@ export function RegistrationForm() {
         </div>
 
         <div className="flex flex-col items-center gap-3.5 pt-2">
-          <div className="flex w-full max-w-[420px] items-center justify-between rounded-[14px] border border-brand-cream-border bg-brand-cream px-5 py-4">
-            <span className="font-mono text-[11px] tracking-wide text-gray-500 uppercase">
-              Registration Fee
-            </span>
-            <span className="font-sans text-lg font-bold text-brand-teal">
-              {fee ? `₦${fee.toLocaleString("en-NG")}` : "Choose a distance"}
-            </span>
+          <div className="flex w-full max-w-105 flex-col gap-2 rounded-[14px] border border-brand-cream-border bg-brand-cream px-5 py-4">
+            <div className="flex items-center justify-between">
+              <span className="font-mono text-[11px] tracking-wide text-gray-500 uppercase">
+                Registration Fee
+              </span>
+              <span className="font-sans text-base font-bold text-brand-teal">
+                {fee ? `₦${fee.toLocaleString("en-NG")}` : "Choose a distance"}
+              </span>
+            </div>
+            {merchTotal > 0 && (
+              <div className="flex items-center justify-between border-t border-brand-cream-border pt-2">
+                <span className="font-mono text-[11px] tracking-wide text-gray-500 uppercase">
+                  Merch
+                </span>
+                <span className="font-sans text-base font-bold text-brand-teal">
+                  ₦{merchTotal.toLocaleString("en-NG")}
+                </span>
+              </div>
+            )}
+            {/* Shown once a distance is picked — not just once merch
+                is added — so riders always see the exact amount
+                they're about to pay, even when it's just the
+                registration fee. The "Choose a distance" placeholder
+                above already covers the no-fee case, so this row
+                doesn't repeat it. */}
+            {Boolean(fee) && (
+              <div className="flex items-center justify-between border-t border-brand-cream-border pt-2">
+                <span className="font-mono text-[11px] tracking-wide text-gray-500 uppercase">
+                  Total
+                </span>
+                <span className="font-sans text-lg font-bold text-brand-teal">
+                  ₦{grandTotal.toLocaleString("en-NG")}
+                </span>
+              </div>
+            )}
           </div>
           {earlyBirdActive && (
-            <p className="max-w-[420px] text-center font-sans text-xs font-semibold text-brand-green">
+            <p className="max-w-105 text-center font-sans text-xs font-semibold text-brand-green">
               Early-bird price — ends{" "}
               {/* `endsAt` is the cutoff moment (midnight starting the
                   next day), so the last eligible day is one day
                   earlier — show that, not the cutoff itself. */}
-              {new Date(new Date(earlyBird.endsAt).getTime() - 86400000).toLocaleDateString(
-                "en-NG",
-                { day: "numeric", month: "long", year: "numeric" },
-              )}
+              {new Date(
+                new Date(earlyBird.endsAt).getTime() - 86400000,
+              ).toLocaleDateString("en-NG", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              })}
             </p>
           )}
-          <p className="max-w-[420px] text-center font-sans text-xs text-gray-400">
-            You&apos;ll be taken to a secure checkout to pay this amount —
-            your registration is only confirmed once payment goes through.
+          <p className="max-w-105 text-center font-sans text-xs text-gray-400">
+            You&apos;ll be taken to a secure checkout to pay this amount — your
+            registration is only confirmed once payment goes through.
           </p>
 
           {waiverAgreed ? (
@@ -372,6 +436,20 @@ export function RegistrationForm() {
             </button>
           )}
 
+          {merchUpsellEnabled && (
+            <div className="w-full">
+              <MerchUpsellSection
+                products={merchProducts}
+                cart={merchCart}
+                onAddToCart={(item) => setMerchCart((prev) => [...prev, item])}
+                onRemoveFromCart={(index) =>
+                  setMerchCart((prev) => prev.filter((_, i) => i !== index))
+                }
+                hasEmailAccess={hasEmailAccess}
+              />
+            </div>
+          )}
+
           <Button
             type="submit"
             disabled={isPending || !waiverAgreed}
@@ -387,7 +465,7 @@ export function RegistrationForm() {
             onAgree={() => setWaiverAgreed(true)}
           />
 
-          <div className="flex w-full max-w-[420px] items-center gap-3">
+          <div className="flex w-full max-w-105 items-center gap-3">
             <span className="h-px flex-1 bg-brand-cream-border" />
             <span className="font-mono text-[10px] tracking-[2px] text-gray-400 uppercase">
               Not Riding?
@@ -396,14 +474,14 @@ export function RegistrationForm() {
           </div>
           <Link
             href="/volunteer"
-            className="flex h-14 w-full max-w-[420px] items-center justify-between rounded-full border-[1.5px] border-brand-green px-5.5 font-sans text-base font-bold text-brand-green"
+            className="flex h-14 w-full max-w-105 items-center justify-between rounded-full border-[1.5px] border-brand-green px-5.5 font-sans text-base font-bold text-brand-green"
           >
             Volunteer Instead
             <ArrowRight className="size-4" />
           </Link>
           <Link
             href="/partners/apply"
-            className="flex h-14 w-full max-w-[420px] items-center justify-between rounded-full border-[1.5px] border-brand-teal px-5.5 font-sans text-base font-bold text-brand-teal"
+            className="flex h-14 w-full max-w-105 items-center justify-between rounded-full border-[1.5px] border-brand-teal px-5.5 font-sans text-base font-bold text-brand-teal"
           >
             Become a Partner
             <ArrowRight className="size-4" />

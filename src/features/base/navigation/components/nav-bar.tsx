@@ -12,7 +12,8 @@ import { PRIMARY_NAV } from "../constants";
 import { useHideOnScroll } from "../hooks/use-hide-on-scroll";
 import { MobileNav } from "./mobile-nav";
 
-function isActive(pathname: string, href: string) {
+function isActive(pathname: string, href?: string) {
+  if (!href) return false;
   if (href === "/") return pathname === "/";
   const base = href.split("#")[0];
   return pathname === base || pathname.startsWith(`${base}/`);
@@ -78,28 +79,33 @@ export function NavBar({ registration }: { registration: RegistrationConfig }) {
                   </div>
                 );
               }
+              const triggerClassName = cn(
+                "inline-flex items-center gap-1 rounded-full px-2.5 py-2 font-sans text-[13px] font-medium whitespace-nowrap transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-green/10 hover:text-brand-green",
+                active ? "bg-brand-green/10 text-brand-green" : "text-gray-700",
+              );
               return (
                 <div key={link.id} className="group relative flex items-center">
-                  <Link
-                    href={link.href}
-                    className={cn(
-                      "inline-flex items-center gap-1 rounded-full px-2.5 py-2 font-sans text-[13px] font-medium whitespace-nowrap transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand-green/10 hover:text-brand-green",
-                      active
-                        ? "bg-brand-green/10 text-brand-green"
-                        : "text-gray-700",
-                    )}
-                  >
-                    {link.label}
-                    {link.children && (
-                      <ChevronDown className="size-3.5 opacity-55 transition-transform group-hover:rotate-180" />
-                    )}
-                  </Link>
+                  {link.href ? (
+                    <Link href={link.href} className={triggerClassName}>
+                      {link.label}
+                      {link.children && (
+                        <ChevronDown className="size-3.5 opacity-55 transition-transform group-hover:rotate-180" />
+                      )}
+                    </Link>
+                  ) : (
+                    <button type="button" className={triggerClassName}>
+                      {link.label}
+                      {link.children && (
+                        <ChevronDown className="size-3.5 opacity-55 transition-transform group-hover:rotate-180" />
+                      )}
+                    </button>
+                  )}
                   {link.children && (
                     <div className="invisible absolute top-full left-1/2 z-40 mt-3.5 min-w-52 -translate-x-1/2 translate-y-2 rounded-2xl border border-black/5 bg-white/95 p-2.5 opacity-0 shadow-[0_20px_50px_rgba(16,24,40,0.16)] backdrop-blur-lg transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
                       {link.children.map((child) => (
                         <Link
                           key={child.id}
-                          href={child.href}
+                          href={child.href ?? "#"}
                           className="block rounded-lg px-3.5 py-2 font-sans text-sm font-medium text-gray-700 transition-colors hover:bg-brand-green/10 hover:text-brand-green"
                         >
                           {child.label}

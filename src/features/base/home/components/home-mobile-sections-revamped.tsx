@@ -6,6 +6,7 @@ import { Figures } from "./figures";
 import { HeroMobile } from "./hero-mobile";
 import { MomentsInMotionMobile } from "./moments-in-motion-mobile";
 import { Newsletter } from "./newsletter";
+import { ShopHighlight } from "./shop-highlight";
 import { SponsorsMarquee } from "./sponsors-marquee";
 import { TrainingCalendar } from "./training-calendar";
 // RouteVoteSection (route-vote/components/route-vote-section) is no longer
@@ -28,6 +29,7 @@ export function HomeMobileSectionsRevamped() {
           route-vote/announcement block is needed again. */}
       {/* <RouteVoteSection registration={REGISTRATION} /> */}
       <ChooseDistance />
+      <ShopHighlight />
       <TrainingCalendar />
       <EventCardSection registration={REGISTRATION} />
       <AboutEko />

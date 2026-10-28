@@ -1,3 +1,5 @@
+import type { CartItem } from "../shop/types";
+
 export type RegistrationFormValues = {
   firstName: string;
   lastName: string;
@@ -55,4 +57,10 @@ export type VerifiedRegistration = {
   name: string;
   email: string;
   fields: RegistrationFormValues;
+  // Present only when the rider added merch via the upsell — the
+  // merch-only slice of `amount` and what they picked. Logged to the
+  // same shop-orders Sheet as standalone /shop purchases (see
+  // RegisterService.recordPaidRegistration).
+  merchCart?: CartItem[];
+  merchTotal?: number;
 };

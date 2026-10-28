@@ -7,6 +7,102 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Both transactional emails (registration confirmation, shop order
+  confirmation) now show the actual EKO170 logo in the header instead
+  of the "EKO170" text wordmark.
+- `shop-orders` Sheet rows no longer pack a product's size selections
+  into one `itemsJson` blob column — each selection (e.g. "Jersey",
+  "Socks", "Bib Shorts — Men & Women") now gets its own column, with
+  a grouped pick's variant included in the value (e.g. "L (Men's)")
+  since the column name alone doesn't say which alternative was
+  chosen. A cart with multiple items now writes one row per item
+  (sharing the same `refCode`) instead of one row per order, since a
+  single flat row can't hold a variable number of items without
+  either a blob or an unbounded set of item1_X/item2_X columns.
+
+### Added
+- A "Shop" navbar link.
+- A new `/shop` page and a "Shop" section on Home (right below
+  Courses) listing the client's three real merch items — Flux Block
+  Bib Shorts (₦117,000), the Rider Bundle (jersey, gloves, and socks,
+  ₦118,000), and the Complete Kit (everything in the Rider Bundle plus
+  the bib shorts, ₦230,000, saving ₦5,000) — each with a size guide
+  transcribed from the client's Monton reference sheets.
+- Merch purchasing on `/shop`: the catalogue is always browsable, and
+  each product card opens a detail modal (desktop) / bottom sheet
+  (mobile) with size/gender pickers. Add to Cart, Buy Now, and the
+  cart's Pay button are all disabled unless the page was opened with
+  `?email=...` in the URL — not by typing an email into a field — so
+  purchasing only works for a rider who followed their personal
+  EKO170 link. A cart (multi-item, quantities) checks out with that
+  email plus a name, paid via the existing payment gateway. Orders
+  are logged to a new `shop-orders` Google Sheet tab and confirmed by
+  email, regardless of whether they came from `/shop` or the
+  registration upsell below.
+- An optional "Add Merch to Your Order?" section on `/register`
+  (behind `MERCH_UPSELL_ENABLED`), placed after the medical waiver: a
+  compact, always-3-across preview grid (small image + name + price,
+  no collapsing to one column as more products are added later)
+  opens the same size-picker sheet as `/shop`, with a single "Add to
+  Order" button (no separate Buy Now — there's no standalone checkout
+  here, everything pays together when the form submits) that only
+  activates once the rider has entered their email in the form above.
+  Whatever's picked is folded into one combined charge with the
+  distance fee. The order lands in the same `shop-orders` tab as a
+  standalone purchase would, using that same email plus the rider's
+  name.
+- The fee summary box now always shows a "Total" once a distance is
+  picked (on top of "Registration Fee"), so riders see exactly what
+  they're about to pay even before adding merch; a "Merch" row joins
+  it once something's added.
+- `/shop`'s own catalogue grid gets the same always-3-across compact
+  treatment as `/register`'s preview grid, so it no longer collapses
+  to a single column on narrow screens; `ProductCard` gained a
+  `compact` variant (small thumbnail + name + price, no description)
+  shared by both.
+
+### Fixed
+- A product's "View Details" opened both the desktop modal and the
+  mobile bottom sheet at once (both were portaled to `document.body`,
+  so CSS alone couldn't hide one) — now exactly one mounts, picked
+  from the actual viewport width.
+- `/shop`'s catalogue and Add to Cart / Buy Now / checkout were
+  incorrectly gated behind `MERCH_UPSELL_ENABLED` — that flag now
+  only controls the `/register` upsell section. `/shop` is always
+  browsable; purchasing there is gated solely by `?email=...`.
+- `/shop`'s Buy Now only added the item to the cart, identically to
+  Add to Cart, without actually taking the rider anywhere — now it
+  also opens the cart so they can add their name and pay right away;
+  Add to Cart still just increments quietly so browsing isn't
+  interrupted.
+
+### Changed
+- `/routes/170` and `/routes/70` reorder their operational-flow and
+  elevation-profile images above the Interactive Map (previously
+  below); the hero, sub-nav, entries, description, start, and finish
+  sections are removed from these pages for now (kept commented, not
+  deleted, in case they're needed again).
+- Their Download GPX button is now filled (brand-green background,
+  white text) instead of outlined, for more visual weight.
+- The navbar's "Routes" item is now a dropdown-only trigger (EKO 170 /
+  EKO 94.5) — it no longer links anywhere itself, and its "Interactive
+  Map" entry is dropped along with the page it pointed to.
+- "Volunteer" is hidden from the navbar (kept in `PRIMARY_NAV`, not
+  deleted, matching the existing hidden-link pattern for Discover and
+  Sponsors & Partners).
+- Home's "Full Race Details" links, the footer's "The Race"/"Route"/
+  "Rider Information" links, and every other link that pointed at the
+  retired `/routes` overview page now go to `/routes/170`.
+- Updated the Rider Bundle product photo
+  (`public/images/shop/rider bundle.jpeg`).
+
+### Removed
+- The `/routes` overview page is deleted — its hero, course overview,
+  category cards, support section, and interactive map were all
+  superseded by each route's own page at `/routes/170` and
+  `/routes/70`.
+
 ## [1.1.0] - 2026-10-24
 
 ### Added

@@ -27,7 +27,7 @@ export function RegistrationSuccess({ data }: { data: RegistrationSuccessData })
           Back to Home
         </Link>
         <Link
-          href="/routes"
+          href="/routes/170"
           className="inline-flex items-center gap-2.5 rounded-full border-2 border-brand-green px-6.5 py-3 font-sans text-sm font-semibold text-brand-green"
         >
           View the Route

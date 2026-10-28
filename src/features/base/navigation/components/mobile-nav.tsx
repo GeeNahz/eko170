@@ -65,7 +65,7 @@ export function MobileNav({
                           nativeButton={false}
                           render={
                             <Link
-                              href={child.href}
+                              href={child.href ?? "#"}
                               className="block rounded-lg py-2 font-sans text-sm text-gray-300"
                             />
                           }
@@ -83,7 +83,7 @@ export function MobileNav({
                 nativeButton={false}
                 render={
                   <Link
-                    href={link.href}
+                    href={link.href ?? "#"}
                     className="block border-b border-white/10 py-4 font-heading text-lg font-bold tracking-wide text-white uppercase"
                   />
                 }

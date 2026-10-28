@@ -33,7 +33,7 @@ function buildHtml(data: RegistrationConfirmationEmail) {
           <table role="presentation" width="100%" style="max-width:480px;background:#ffffff;border-radius:16px;overflow:hidden;">
             <tr>
               <td style="background:#0f3a44;padding:24px 32px;">
-                <span style="color:#ffffff;font-size:20px;font-weight:800;letter-spacing:0.5px;">EKO<span style="color:#16a34a;">170</span></span>
+                <img src="https://www.eko170.com/_next/image?url=%2Feko170-logo.jpg&w=48&q=75" alt="EKO170" width="40" height="40" style="display:block;border-radius:999px;" />
               </td>
             </tr>
             <tr>
@@ -168,6 +168,135 @@ export async function sendRegistrationConfirmationEmail(
     }
   } catch (error) {
     console.error("[email-client] confirmation email errored", {
+      to: data.to,
+      refCode: data.refCode,
+      error,
+    });
+  }
+}
+
+export type ShopOrderConfirmationEmail = {
+  to: string;
+  name: string;
+  refCode: string;
+  items: string; // human-readable summary, e.g. from describeCartItem
+  amount: number;
+};
+
+function formatNaira(amount: number) {
+  return `₦${amount.toLocaleString("en-NG")}`;
+}
+
+function buildShopOrderHtml(data: ShopOrderConfirmationEmail) {
+  return `<!doctype html>
+<html>
+  <body style="margin:0;padding:0;background:#f1f5f2;font-family:Arial,Helvetica,sans-serif;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f1f5f2;padding:32px 0;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="100%" style="max-width:480px;background:#ffffff;border-radius:16px;overflow:hidden;">
+            <tr>
+              <td style="background:#0f3a44;padding:24px 32px;">
+                <img src="https://www.eko170.com/_next/image?url=%2Feko170-logo.jpg&w=48&q=75" alt="EKO170" width="40" height="40" style="display:block;border-radius:999px;" />
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:32px;">
+                <p style="margin:0 0 16px;color:#444;font-size:15px;line-height:1.6;">Dear ${data.name},</p>
+                <p style="margin:0 0 16px;color:#0f3a44;font-size:16px;font-weight:700;line-height:1.6;">
+                  Your EKO170 merchandise order is confirmed.
+                </p>
+                <table role="presentation" width="100%" style="margin:0 0 20px;border:1px solid #e5e7eb;border-radius:12px;">
+                  <tr>
+                    <td style="padding:12px 16px;color:#888;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;">Order reference</td>
+                    <td style="padding:12px 16px;color:#0f3a44;font-size:14px;font-weight:700;text-align:right;">${data.refCode}</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:12px 16px;color:#888;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;border-top:1px solid #e5e7eb;">Items</td>
+                    <td style="padding:12px 16px;color:#0f3a44;font-size:14px;font-weight:700;text-align:right;border-top:1px solid #e5e7eb;">${data.items}</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:12px 16px;color:#888;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;border-top:1px solid #e5e7eb;">Amount paid</td>
+                    <td style="padding:12px 16px;color:#0f3a44;font-size:14px;font-weight:700;text-align:right;border-top:1px solid #e5e7eb;">${formatNaira(data.amount)}</td>
+                  </tr>
+                </table>
+                <p style="margin:0 0 24px;color:#444;font-size:15px;line-height:1.6;">
+                  We'll be in touch with delivery/collection details closer to race day. Please retain this email
+                  and your order reference.
+                </p>
+                <p style="margin:0 0 24px;color:#444;font-size:15px;line-height:1.6;">
+                  Warm regards,<br />
+                  <strong>The EKO170 Organising Team</strong><br />
+                  <a href="https://www.eko170.com" style="color:#16a34a;">www.eko170.com</a>
+                </p>
+                <p style="margin:0;color:#999;font-size:12px;line-height:1.6;">
+                  This is a transactional email confirming your EKO170 merchandise order — you're receiving it
+                  because you just placed one.
+                </p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`;
+}
+
+function buildShopOrderText(data: ShopOrderConfirmationEmail) {
+  return [
+    `Dear ${data.name},`,
+    "",
+    "Your EKO170 merchandise order is confirmed.",
+    "",
+    `Order reference: ${data.refCode}`,
+    `Items: ${data.items}`,
+    `Amount paid: ${formatNaira(data.amount)}`,
+    "",
+    "We'll be in touch with delivery/collection details closer to race day. Please retain this email and your order reference.",
+    "",
+    "Warm regards,",
+    "The EKO170 Organising Team",
+    "www.eko170.com",
+    "",
+    "This is a transactional email confirming your EKO170 merchandise order — you're receiving it because you just placed one.",
+  ].join("\n");
+}
+
+// Same never-throws posture as sendRegistrationConfirmationEmail.
+export async function sendShopOrderConfirmationEmail(
+  data: ShopOrderConfirmationEmail,
+): Promise<void> {
+  const apiKey = RESEND_API_KEY;
+  const from = EMAIL_FROM;
+  const replyTo = EMAIL_REPLY_TO;
+  if (!apiKey || !from || !replyTo) {
+    console.error(
+      "[email-client] RESEND_API_KEY/EMAIL_FROM/EMAIL_REPLY_TO not set — skipped shop order email",
+      { to: data.to, refCode: data.refCode },
+    );
+    return;
+  }
+
+  try {
+    const resend = new Resend(apiKey);
+    const { error } = await resend.emails.send({
+      from,
+      to: data.to,
+      replyTo,
+      subject: "Your EKO170 merchandise order is confirmed",
+      html: buildShopOrderHtml(data),
+      text: buildShopOrderText(data),
+    });
+    if (error) {
+      console.error("[email-client] shop order email failed", {
+        to: data.to,
+        refCode: data.refCode,
+        error,
+      });
+    }
+  } catch (error) {
+    console.error("[email-client] shop order email errored", {
       to: data.to,
       refCode: data.refCode,
       error,
