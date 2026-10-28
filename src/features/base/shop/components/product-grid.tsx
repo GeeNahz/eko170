@@ -33,6 +33,12 @@ export function ProductGrid({
   function handleBuyNow(item: CartItem) {
     cart.addItem(item);
     setOpen(false);
+    // Buy Now means "I want to pay for this now" — open the cart so
+    // the rider can add their name and proceed to payment straight
+    // away, rather than leaving them wondering whether anything
+    // happened (Add to Cart, by contrast, just increments quietly so
+    // browsing isn't interrupted).
+    cart.openCart();
   }
 
   return (

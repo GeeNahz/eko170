@@ -88,9 +88,10 @@ export function MerchUpsellSection({
         open={open}
         onOpenChange={setOpen}
         onAddToCart={handleAdd}
-        onBuyNow={handleAdd}
         hasEmailAccess={hasEmailAccess}
         noEmailAccessMessage="Enter your email above to add merch to your order."
+        singleAction
+        singleActionLabel="Add to Order"
       />
     </div>
   );

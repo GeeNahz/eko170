@@ -43,12 +43,16 @@ function DetailBody({
   onBuyNow,
   hasEmailAccess,
   noEmailAccessMessage,
+  singleAction,
+  singleActionLabel,
 }: {
   product: ShopProduct;
   onAddToCart: (item: CartItem) => void;
-  onBuyNow: (item: CartItem) => void;
+  onBuyNow?: (item: CartItem) => void;
   hasEmailAccess: boolean;
   noEmailAccessMessage: string;
+  singleAction: boolean;
+  singleActionLabel: string;
 }) {
   const guideGroups = useMemo(() => groupGuides(product.sizeGuides), [product]);
 
@@ -168,22 +172,35 @@ function DetailBody({
       </div>
 
       <div className="flex flex-col gap-2.5 border-t border-brand-cream-border pt-4 sm:flex-row">
-        <button
-          type="button"
-          disabled={!allSelected || !hasEmailAccess}
-          onClick={() => onAddToCart(buildItem())}
-          className="inline-flex flex-1 items-center justify-center gap-2.5 rounded-full border-2 border-brand-green px-6 py-3.5 font-sans text-sm font-semibold text-brand-green disabled:cursor-not-allowed disabled:opacity-40"
-        >
-          Add to Cart
-        </button>
-        <button
-          type="button"
-          disabled={!allSelected || !hasEmailAccess}
-          onClick={() => onBuyNow(buildItem())}
-          className="inline-flex flex-1 items-center justify-center gap-2.5 rounded-full bg-brand-green px-6 py-3.5 font-sans text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-40"
-        >
-          Buy Now
-        </button>
+        {singleAction ? (
+          <button
+            type="button"
+            disabled={!allSelected || !hasEmailAccess}
+            onClick={() => onAddToCart(buildItem())}
+            className="inline-flex flex-1 items-center justify-center gap-2.5 rounded-full bg-brand-green px-6 py-3.5 font-sans text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-40"
+          >
+            {singleActionLabel}
+          </button>
+        ) : (
+          <>
+            <button
+              type="button"
+              disabled={!allSelected || !hasEmailAccess}
+              onClick={() => onAddToCart(buildItem())}
+              className="inline-flex flex-1 items-center justify-center gap-2.5 rounded-full border-2 border-brand-green px-6 py-3.5 font-sans text-sm font-semibold text-brand-green disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              Add to Cart
+            </button>
+            <button
+              type="button"
+              disabled={!allSelected || !hasEmailAccess}
+              onClick={() => onBuyNow?.(buildItem())}
+              className="inline-flex flex-1 items-center justify-center gap-2.5 rounded-full bg-brand-green px-6 py-3.5 font-sans text-sm font-semibold text-white disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              Buy Now
+            </button>
+          </>
+        )}
       </div>
       {!hasEmailAccess ? (
         <p className="-mt-3 font-sans text-xs text-gray-400">{noEmailAccessMessage}</p>
@@ -211,14 +228,23 @@ export function ProductDetailSheet({
   // email field.
   hasEmailAccess = true,
   noEmailAccessMessage = "Purchasing is only available via your personal EKO170 link.",
+  // /shop has a real cart, so Add to Cart vs Buy Now is a meaningful
+  // choice there. The registration upsell has no separate checkout
+  // step — everything pays together when the form submits — so both
+  // buttons would do the exact same thing; singleAction collapses
+  // them into one.
+  singleAction = false,
+  singleActionLabel = "Add to Order",
 }: {
   product: ShopProduct | null;
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onAddToCart: (item: CartItem) => void;
-  onBuyNow: (item: CartItem) => void;
+  onBuyNow?: (item: CartItem) => void;
   hasEmailAccess?: boolean;
   noEmailAccessMessage?: string;
+  singleAction?: boolean;
+  singleActionLabel?: string;
 }) {
   // Both Dialog and Sheet portal their content to document.body, so a
   // CSS-only hidden/sm:hidden wrapper doesn't actually hide whichever
@@ -238,7 +264,7 @@ export function ProductDetailSheet({
               {product.name}
             </DialogTitle>
           </DialogHeader>
-          <DetailBody product={product} onAddToCart={onAddToCart} onBuyNow={onBuyNow} hasEmailAccess={hasEmailAccess} noEmailAccessMessage={noEmailAccessMessage} />
+          <DetailBody product={product} onAddToCart={onAddToCart} onBuyNow={onBuyNow} hasEmailAccess={hasEmailAccess} noEmailAccessMessage={noEmailAccessMessage} singleAction={singleAction} singleActionLabel={singleActionLabel} />
         </DialogContent>
       </Dialog>
     );
@@ -253,7 +279,7 @@ export function ProductDetailSheet({
           </SheetTitle>
         </SheetHeader>
         <div className="px-4 pb-4">
-          <DetailBody product={product} onAddToCart={onAddToCart} onBuyNow={onBuyNow} hasEmailAccess={hasEmailAccess} noEmailAccessMessage={noEmailAccessMessage} />
+          <DetailBody product={product} onAddToCart={onAddToCart} onBuyNow={onBuyNow} hasEmailAccess={hasEmailAccess} noEmailAccessMessage={noEmailAccessMessage} singleAction={singleAction} singleActionLabel={singleActionLabel} />
         </div>
       </SheetContent>
     </Sheet>

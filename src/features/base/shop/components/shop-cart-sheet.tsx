@@ -30,8 +30,7 @@ export function ShopCartSheet({
   prefilledEmail?: string;
   hasEmailAccess: boolean;
 }) {
-  const { items, removeItem, updateQuantity, total } = useShopCart();
-  const [open, setOpen] = useState(false);
+  const { items, removeItem, updateQuantity, total, isOpen, setOpen } = useShopCart();
   const [email, setEmail] = useState(prefilledEmail ?? "");
   const [name, setName] = useState("");
   const [state, formAction, isPending] = useActionState(shopCheckoutAction, null);
@@ -53,7 +52,7 @@ export function ShopCartSheet({
   }
 
   return (
-    <Sheet open={open} onOpenChange={setOpen}>
+    <Sheet open={isOpen} onOpenChange={setOpen}>
       <SheetTrigger
         render={
           <button

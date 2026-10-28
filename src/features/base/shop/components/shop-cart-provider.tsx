@@ -20,12 +20,19 @@ type ShopCartContextValue = {
   updateQuantity: (index: number, quantity: number) => void;
   clear: () => void;
   total: number;
+  // The cart sheet's open state lives here, not inside ShopCartSheet
+  // itself, so other components (e.g. a product's "Buy Now") can open
+  // it — see ProductGrid's handleBuyNow.
+  isOpen: boolean;
+  setOpen: (open: boolean) => void;
+  openCart: () => void;
 };
 
 const ShopCartContext = createContext<ShopCartContextValue | null>(null);
 
 export function ShopCartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
+  const [isOpen, setOpen] = useState(false);
 
   const value = useMemo<ShopCartContextValue>(() => {
     function addItem(item: CartItem) {
@@ -61,8 +68,18 @@ export function ShopCartProvider({ children }: { children: React.ReactNode }) {
       0,
     );
 
-    return { items, addItem, removeItem, updateQuantity, clear, total };
-  }, [items]);
+    return {
+      items,
+      addItem,
+      removeItem,
+      updateQuantity,
+      clear,
+      total,
+      isOpen,
+      setOpen,
+      openCart: () => setOpen(true),
+    };
+  }, [items, isOpen]);
 
   return (
     <ShopCartContext.Provider value={value}>{children}</ShopCartContext.Provider>

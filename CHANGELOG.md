@@ -29,11 +29,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - An optional "Add Merch to Your Order?" section on `/register`
   (behind `MERCH_UPSELL_ENABLED`), placed after the medical waiver:
   preview cards for the 3 kits open the same size-picker sheet as
-  `/shop`, whose Add to Cart / Buy Now only activate once the rider
-  has entered their email in the form above. Whatever's picked is
-  folded into one combined charge with the distance fee. The order
-  lands in the same `shop-orders` tab as a standalone purchase would,
-  using that same email plus the rider's name.
+  `/shop`, with a single "Add to Order" button (no separate Buy Now —
+  there's no standalone checkout here, everything pays together when
+  the form submits) that only activates once the rider has entered
+  their email in the form above. Whatever's picked is folded into one
+  combined charge with the distance fee. The order lands in the same
+  `shop-orders` tab as a standalone purchase would, using that same
+  email plus the rider's name.
 - The fee summary box now always shows a "Total" once a distance is
   picked (on top of "Registration Fee"), so riders see exactly what
   they're about to pay even before adding merch; a "Merch" row joins
@@ -48,6 +50,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   incorrectly gated behind `MERCH_UPSELL_ENABLED` — that flag now
   only controls the `/register` upsell section. `/shop` is always
   browsable; purchasing there is gated solely by `?email=...`.
+- `/shop`'s Buy Now only added the item to the cart, identically to
+  Add to Cart, without actually taking the rider anywhere — now it
+  also opens the cart so they can add their name and pay right away;
+  Add to Cart still just increments quietly so browsing isn't
+  interrupted.
 
 ### Changed
 - `/routes/170` and `/routes/70` reorder their operational-flow and
