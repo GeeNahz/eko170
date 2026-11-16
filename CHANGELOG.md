@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Every page now says "Victoria Island" instead of "Eko Atlantic
+  City"/"Eko Atlantic" when stating the race's venue — hero copy,
+  footer, route stats/start-wave text, route maps' start labels, the
+  registration/confirmation-email venue line, `/routes/170` and
+  `/routes/70` metadata, and the root layout's metadata. Per the
+  client's review, the specific venue isn't confirmed yet; historical
+  references unrelated to this race's own venue (e.g. the "Eko
+  Atlantic Night Crit" seeding event) are left unchanged.
+- Support-station count corrected from "10+" to "5" on the routes page
+  and Home's stat row, matching the client's approved operational plan.
+- Volunteer page now asks for 100 volunteers (was "500+") and the hero
+  copy now mentions role-specific training, a route familiarisation
+  session and an assigned duty date per volunteer, per the client's
+  review.
+
 ## [1.2.0] - 2026-10-29
 
 ### Changed

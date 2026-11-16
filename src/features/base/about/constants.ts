@@ -4,7 +4,7 @@ export const ABOUT_HERO_STATS: AboutHeroStat[] = [
   { id: "hero-stat-full", value: "170KM", label: "The Gran Fondo" },
   { id: "hero-stat-half", value: "94.5KM", label: "The Medio Fondo" },
   { id: "hero-stat-closed", value: "100%", label: "Closed Roads" },
-  { id: "hero-stat-date", value: "10 · 01 · 27", label: "Race Day · Eko Atlantic" },
+  { id: "hero-stat-date", value: "10 · 01 · 27", label: "Race Day · Victoria Island" },
 ];
 
 export const FOUR_CS: FourC[] = [

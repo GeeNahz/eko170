@@ -13,7 +13,7 @@ export function RouteStart({ data }: { data: RouteDetailData }) {
         <Reveal className="relative hidden aspect-[4/3] overflow-hidden rounded-2xl lg:block">
           <Image
             src={data.startImage}
-            alt="Start line at Eko Atlantic"
+            alt="Start line at Victoria Island"
             fill
             className="object-cover"
           />

@@ -50,13 +50,13 @@ export function RouteDetailMap({ data }: { data: RouteDetailData }) {
             <RouteMapEmbed
               path={data.path}
               height="100%"
-              startLabel="Eko Atlantic City"
+              startLabel="Victoria Island"
               finishLabel="Epe"
             />
           </div>
           <div className="flex flex-wrap items-center justify-between gap-4 border-t border-brand-cream-border bg-brand-cream px-6 py-4">
             <span className="font-mono text-xs tracking-wide text-gray-500 uppercase">
-              Start / Finish · Eko Atlantic City, Lagos
+              Start / Finish · Victoria Island, Lagos
             </span>
             <a
               href="https://www.openstreetmap.org/?mlat=6.4166&mlon=3.4155#map=14/6.4166/3.4155"

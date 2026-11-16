@@ -30,7 +30,7 @@ export const EVENT_CARDS: EventCard[] = [
 export const DISTANCE_STATS: RouteStat[] = [
   { id: "dist-full", label: "Gran Fondo Distance", value: "170KM" },
   { id: "dist-half", label: "Medio Fondo Distance", value: "94.5KM" },
-  { id: "dist-location", label: "Race Location", value: "Eko Atlantic City" },
+  { id: "dist-location", label: "Race Location", value: "Victoria Island" },
   { id: "dist-date", label: "Race Date", value: "10 January 2027" },
 ];
 
@@ -100,7 +100,7 @@ export const SEEDING_EVENTS: SeedingEvent[] = [
 export const FIGURES: FigureStat[] = [
   { id: "fig-distance", value: "170KM", label: "Gran Fondo Distance" },
   { id: "fig-participants", value: "250+", label: "Expected Participants" },
-  { id: "fig-stations", value: "10+", label: "Support Stations" },
+  { id: "fig-stations", value: "5", label: "Support Stations" },
   { id: "fig-categories", value: "4", label: "Race Categories" },
   { id: "fig-hours", value: "7+", label: "Hours of Racing" },
   { id: "fig-city", value: "1", label: "Incredible City" },
@@ -117,7 +117,7 @@ export const ABOUT_FEATURE_CARDS: FeatureCard[] = [
     id: "about-distance",
     title: "170 Kilometres",
     description:
-      "A full 170km route through the heart of Lagos — from Eko Atlantic City all the way to Epe.",
+      "A full 170km route through the heart of Lagos — from Victoria Island all the way to Epe.",
   },
   {
     id: "about-community",

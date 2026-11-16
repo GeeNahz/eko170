@@ -43,7 +43,7 @@ function buildHtml(data: RegistrationConfirmationEmail) {
                   Your registration for EKO170 2027 is confirmed. Welcome to the ride!
                 </p>
                 <p style="margin:0 0 20px;color:#444;font-size:15px;line-height:1.6;font-style:italic;">
-                  We look forward to welcoming you to Eko Atlantic, Lagos, on Sunday, 10 January 2027.
+                  We look forward to welcoming you to Victoria Island, Lagos, on Sunday, 10 January 2027.
                 </p>
                 <p style="margin:0 0 10px;color:#0f3a44;font-size:15px;font-weight:700;">Your entry details</p>
                 <table role="presentation" width="100%" style="margin:0 0 20px;border:1px solid #e5e7eb;border-radius:12px;">
@@ -101,7 +101,7 @@ function buildText(data: RegistrationConfirmationEmail) {
     "",
     "Your registration for EKO170 2027 is confirmed. Welcome to the ride!",
     "",
-    "We look forward to welcoming you to Eko Atlantic, Lagos, on Sunday, 10 January 2027.",
+    "We look forward to welcoming you to Victoria Island, Lagos, on Sunday, 10 January 2027.",
     "",
     "Your entry details",
     `- Registration reference: ${data.refCode}`,
