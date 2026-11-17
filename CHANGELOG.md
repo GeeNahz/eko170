@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Early-bird registration price (₦25,000) now runs through 20 November
+  2026 instead of 15 November 2026; the standard ₦35,000 price takes
+  over from 21 November.
+
 ### Added
 - Merch stock counters on `/shop` and the registration upsell: each
   size button in a product's detail view shows how many units are
