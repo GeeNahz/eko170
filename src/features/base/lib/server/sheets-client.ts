@@ -8,6 +8,11 @@ export type SheetFormType =
   | "route-votes"
   | "shop-orders";
 
+// Tabs the app can read back via GET, in addition to the ones above —
+// "shop-inventory" is never posted to (it's filled in by hand), only
+// read, so it isn't part of SheetFormType.
+export type ReadableSheetName = SheetFormType | "shop-inventory";
+
 // Posts one row to the given tab of the shared Google Sheet via the Apps
 // Script Web App (see scripts/google-apps-script.gs). Never throws — a
 // missing/unreachable webhook must not break the form's own success flow,
@@ -42,5 +47,32 @@ export async function postToSheet(
     }
   } catch (error) {
     console.error(`[sheets-client] ${formType} submission errored`, { fields, error });
+  }
+}
+
+// Reads a tab back as an array of header-keyed rows, via the Apps
+// Script's doGet. Never throws — an unreachable webhook or a tab that
+// doesn't exist yet must not break the page that's just trying to
+// show stock info; callers treat an empty array as "nothing to show"
+// rather than an error.
+export async function getSheetRows(
+  sheetName: ReadableSheetName,
+): Promise<Record<string, string | number>[]> {
+  if (!WEBHOOK_URL) return [];
+
+  try {
+    const url = `${WEBHOOK_URL}?sheet=${encodeURIComponent(sheetName)}`;
+    const response = await fetch(url, { next: { revalidate: 30 } });
+    if (!response.ok) {
+      console.error(
+        `[sheets-client] ${sheetName} read failed: ${response.status} ${response.statusText}`,
+      );
+      return [];
+    }
+    const data = await response.json();
+    return Array.isArray(data.rows) ? data.rows : [];
+  } catch (error) {
+    console.error(`[sheets-client] ${sheetName} read errored`, { error });
+    return [];
   }
 }

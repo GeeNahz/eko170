@@ -27,7 +27,7 @@ export function RegisterHero() {
           delay={0.15}
           className="mt-4 font-sans text-sm text-white/72 sm:hidden"
         >
-          Sunday, 10 January 2027 · Eko Atlantic City, Lagos · Road · 170KM /
+          Sunday, 10 January 2027 · Victoria Island, Lagos · Road · 170KM /
           94.5KM.
         </Reveal>
       </div>

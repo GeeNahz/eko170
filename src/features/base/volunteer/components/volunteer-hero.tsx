@@ -31,8 +31,10 @@ export function VolunteerHero() {
             delay={0.15}
             className="mt-4 font-sans text-sm text-white/82 sm:text-base"
           >
-            500+ volunteers marshal corners, run feed zones and hang
-            medals. Kit, meals and a front-row seat to race day included.
+            100 volunteers marshal corners, run feed zones and hang
+            medals. Every role includes training, a route familiarisation
+            session and an assigned duty date — plus kit, meals and a
+            front-row seat to race day.
           </Reveal>
         </div>
       </div>

@@ -7,6 +7,45 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Early-bird registration price (₦25,000) now runs through 20 November
+  2026 instead of 15 November 2026; the standard ₦35,000 price takes
+  over from 21 November.
+
+### Added
+- Merch stock counters on `/shop` and the registration upsell: each
+  size button in a product's detail view shows how many units are
+  left, or "Sold out" (disabled) once a size reaches zero. The
+  Complete Kit and Rider Bundle show a separate count for each of
+  their component items (jersey by gender, gloves, socks, bib
+  shorts) rather than one number for the whole bundle, since those
+  components share physical stock with the standalone products.
+  Stock totals live in a new, hand-maintained `shop-inventory` Google
+  Sheet tab (`guideId`/`size`/`total` columns); remaining units are
+  computed by subtracting what's already been sold, counted from the
+  existing `shop-orders` rows — no auto-decrementing write, so there's
+  no new concurrency risk. Leaving an item/size out of that tab simply
+  shows no counter for it; leaving the whole tab out disables the
+  feature entirely (today's behaviour, unchanged). Requires
+  redeploying `scripts/google-apps-script.gs`'s new read endpoint
+  before stock data can show up live.
+
+### Changed
+- Every page now says "Victoria Island" instead of "Eko Atlantic
+  City"/"Eko Atlantic" when stating the race's venue — hero copy,
+  footer, route stats/start-wave text, route maps' start labels, the
+  registration/confirmation-email venue line, `/routes/170` and
+  `/routes/70` metadata, and the root layout's metadata. Per the
+  client's review, the specific venue isn't confirmed yet; historical
+  references unrelated to this race's own venue (e.g. the "Eko
+  Atlantic Night Crit" seeding event) are left unchanged.
+- Support-station count corrected from "10+" to "5" on the routes page
+  and Home's stat row, matching the client's approved operational plan.
+- Volunteer page now asks for 100 volunteers (was "500+") and the hero
+  copy now mentions role-specific training, a route familiarisation
+  session and an assigned duty date per volunteer, per the client's
+  review.
+
 ## [1.2.0] - 2026-10-29
 
 ### Changed

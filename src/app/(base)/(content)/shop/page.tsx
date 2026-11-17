@@ -17,6 +17,7 @@ export default async function ShopPage({
   searchParams: Promise<{ email?: string }>;
 }) {
   const products = await ShopService.getProducts();
+  const stock = await ShopService.getStock();
   const { email } = await searchParams;
   // Purchasing (Add to Cart / Buy Now / Pay) is gated purely on
   // whether this page load carries ?email=... — the client sends
@@ -27,7 +28,11 @@ export default async function ShopPage({
   return (
     <ShopCartProvider>
       <ShopHero />
-      <ShopCatalogue products={products} hasEmailAccess={hasEmailAccess} />
+      <ShopCatalogue
+        products={products}
+        hasEmailAccess={hasEmailAccess}
+        stock={stock}
+      />
       <ShopCartSheet prefilledEmail={email} hasEmailAccess={hasEmailAccess} />
     </ShopCartProvider>
   );

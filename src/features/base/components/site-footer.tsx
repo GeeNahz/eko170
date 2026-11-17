@@ -46,7 +46,7 @@ export function SiteFooter() {
             </div>
             <p className="mb-6 max-w-sm font-sans text-base leading-relaxed text-gray-400">
               Experience the Movement. Made in Lagos. 170km of iconic closed
-              roads from Eko Atlantic City to Epe and back.
+              roads through Victoria Island to Epe and back.
             </p>
             <div className="flex gap-3">
               {event?.socials.map((social) => {

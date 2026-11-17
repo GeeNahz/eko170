@@ -53,7 +53,7 @@ export function HeroMobile({ registration }: { registration: RegistrationConfig 
       <div className="relative z-10 flex flex-col px-6">
         <div className="pt-8">
           <p className="mb-4 font-mono text-xs tracking-[3px] text-brand-yellow uppercase">
-            {event?.dateLabel ?? "Eko Atlantic City · Lagos · 10 January 2027"}
+            {event?.dateLabel ?? "Victoria Island · Lagos · 10 January 2027"}
           </p>
           <div className="mb-6 flex flex-wrap items-center gap-4">
             <p className="font-heading m-0 text-[64px] leading-[0.85] font-black text-white italic">
@@ -67,8 +67,7 @@ export function HeroMobile({ registration }: { registration: RegistrationConfig 
           </div>
           <p className="mb-8 font-sans text-base leading-relaxed text-white/72">
             Experience the Movement. Made in Lagos. 170 kilometres of closed
-            roads from Eko Atlantic City through Victoria Island, Lekki, and
-            all the way to Epe.
+            roads through Victoria Island, Lekki, and all the way to Epe.
           </p>
           <div className="mb-6 flex flex-col gap-3">
             <Link

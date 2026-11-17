@@ -17,9 +17,9 @@ export function FeatureRoute() {
             of Raw Lagos
           </h2>
           <p className="mb-8 max-w-[480px] font-sans text-base leading-relaxed text-white/72 sm:text-gray-500">
-            No cars. No okadas. No chaos. From Eko Atlantic City through
-            Victoria Island, across the Lekki-Ikoyi Bridge, along the
-            Lekki-Epe Expressway, and into Epe — 170 kilometres of Lagos&apos;s
+            No cars. No okadas. No chaos. From Victoria Island, across the
+            Lekki-Ikoyi Bridge, along the Lekki-Epe Expressway, and into
+            Epe — 170 kilometres of Lagos&apos;s
             most iconic roads, completely closed for riders.
           </p>
           <div className="mb-8 flex items-center gap-4 lg:hidden">

@@ -12,6 +12,7 @@ type Props = {
   onAddToCart: (item: CartItem) => void;
   onRemoveFromCart: (index: number) => void;
   hasEmailAccess: boolean;
+  stock?: Record<string, number> | null;
 };
 
 function MerchUpsellSection({
@@ -20,6 +21,7 @@ function MerchUpsellSection({
   onAddToCart,
   onRemoveFromCart,
   hasEmailAccess,
+  stock,
 }: Props) {
   const [selected, setSelected] = useState<ShopProduct | null>(null);
   const [open, setOpen] = useState(false);
@@ -97,6 +99,7 @@ function MerchUpsellSection({
         noEmailAccessMessage="Enter your email above to add merch to your order."
         singleAction
         singleActionLabel="Add to Order"
+        stock={stock}
       />
     </div>
   );

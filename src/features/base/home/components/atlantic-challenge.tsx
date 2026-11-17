@@ -25,9 +25,9 @@ export function AtlanticChallenge() {
             170KM on Closed Roads
           </div>
           <p className="mb-8 font-sans text-base leading-relaxed text-gray-500">
-            Roads completely closed to traffic. Starting and finishing at Eko
-            Atlantic City, the 170KM Gran Fondo takes you through Victoria
-            Island, Ahmadu Bello Way, over the Lekki–Ikoyi Bridge, along the
+            Roads completely closed to traffic. Starting and finishing in
+            Victoria Island, the 170KM Gran Fondo takes you through
+            Ahmadu Bello Way, over the Lekki–Ikoyi Bridge, along the
             Lekki–Epe Expressway, through the Dangote Refinery corridor, and
             into the open countryside of Epe.
           </p>
@@ -66,7 +66,7 @@ export function AtlanticChallenge() {
             <RouteMapEmbed
               path={ROUTE_170_PATH}
               height={300}
-              startLabel="Eko Atlantic City"
+              startLabel="Victoria Island"
               finishLabel="Epe"
             />
           </div>

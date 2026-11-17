@@ -23,7 +23,7 @@ export function RouteEntries({ data }: { data: RouteDetailData }) {
             </div>
             <div className="font-sans text-[15px] text-white/85">
               <span className="font-semibold text-brand-yellow">Location:</span>{" "}
-              Eko Atlantic City, Lagos
+              Victoria Island, Lagos
             </div>
             <div className="font-sans text-[15px] text-white/85">
               <span className="font-semibold text-brand-yellow">Race Type:</span> Road

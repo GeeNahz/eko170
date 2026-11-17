@@ -14,11 +14,25 @@
  * (sheet) the row is appended to; a tab is created automatically, with a
  * header row taken from the keys of the first submission of that type, the
  * first time that formType is seen.
+ *
+ * GET ?sheet=<name> reads a tab back as JSON rows (used for the merch
+ * stock counter) — <name> must also be in ALLOWED_SHEET_NAMES below.
+ * "shop-inventory" is not written by the site at all: create that tab
+ * by hand and fill it in with the units available per item/size. Its
+ * columns are:
+ *   guideId | size | total
+ * `guideId` must be exactly one of (case-sensitive):
+ *   guide-mens-jersey, guide-womens-jersey, guide-gloves, guide-socks,
+ *   guide-bib-shorts
+ * `size` matches one of that item's size-chart rows (e.g. "M", "L").
+ * `total` is the number of units available for that item+size. Leave
+ * an item/size out entirely to show no stock counter for it; leave
+ * the whole tab out to disable the stock counter everywhere.
  */
 
 // Must match the SheetFormType union in
 // src/features/base/lib/server/sheets-client.ts.
-var ALLOWED_SHEET_NAMES = ["registrations", "partners", "volunteers", "route-votes", "shop-orders"];
+var ALLOWED_SHEET_NAMES = ["registrations", "partners", "volunteers", "route-votes", "shop-orders", "shop-inventory"];
 
 function doPost(e) {
   var payload = JSON.parse(e.postData.contents);
@@ -70,5 +84,43 @@ function doPost(e) {
 
   return ContentService.createTextOutput(
     JSON.stringify({ ok: true }),
+  ).setMimeType(ContentService.MimeType.JSON);
+}
+
+function doGet(e) {
+  var sheetName = e.parameter.sheet;
+
+  if (ALLOWED_SHEET_NAMES.indexOf(sheetName) === -1) {
+    return ContentService.createTextOutput(
+      JSON.stringify({ ok: false, error: "Unknown sheet: " + sheetName }),
+    ).setMimeType(ContentService.MimeType.JSON);
+  }
+
+  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = spreadsheet.getSheetByName(sheetName);
+  if (!sheet) {
+    return ContentService.createTextOutput(
+      JSON.stringify({ ok: true, rows: [] }),
+    ).setMimeType(ContentService.MimeType.JSON);
+  }
+
+  var values = sheet.getDataRange().getValues();
+  if (values.length < 2) {
+    return ContentService.createTextOutput(
+      JSON.stringify({ ok: true, rows: [] }),
+    ).setMimeType(ContentService.MimeType.JSON);
+  }
+
+  var headers = values[0];
+  var rows = values.slice(1).map(function (row) {
+    var obj = {};
+    headers.forEach(function (header, i) {
+      obj[header] = row[i];
+    });
+    return obj;
+  });
+
+  return ContentService.createTextOutput(
+    JSON.stringify({ ok: true, rows: rows }),
   ).setMimeType(ContentService.MimeType.JSON);
 }
