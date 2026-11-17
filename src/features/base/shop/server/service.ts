@@ -1,10 +1,15 @@
 import "server-only";
-import { postToSheet } from "../../lib/server/sheets-client";
+import { getSheetRows, postToSheet } from "../../lib/server/sheets-client";
 import { getActiveGateway } from "../../lib/server/payment";
 import { sendShopOrderConfirmationEmail } from "../../lib/server/email-client";
 import { SITE_URL } from "../../lib/constants";
+import { buildGuideStockMeta, stockKey } from "../lib/size-guides";
 import { STUB_PRODUCTS } from "../stubs";
 import type { CartItem, ShopProduct } from "../types";
+
+// Matches a Sheet cell written as "SIZE" or "SIZE (Variant)" — see
+// CartItemSelection's column-value formatting in recordShopOrder.
+const SELECTION_VALUE_PATTERN = /^(.*?)(?: \((.+)\))?$/;
 
 function siteUrl() {
   if (!SITE_URL) throw new Error("SITE_URL is not set");
@@ -52,6 +57,53 @@ export const ShopService = {
   // don't need to change.
   async getProducts(): Promise<ShopProduct[]> {
     return STUB_PRODUCTS;
+  },
+
+  // Remaining units per item+size, keyed by stockKey(column, variant,
+  // size) — null means the "shop-inventory" tab isn't configured yet,
+  // so callers should render with no stock UI at all. The tab is
+  // filled in by hand (see scripts/google-apps-script.gs's header
+  // comment); "sold" is counted straight from the existing
+  // shop-orders rows rather than decremented on write, since the Apps
+  // Script has no locking to safely do that concurrently.
+  async getStock(): Promise<Record<string, number> | null> {
+    const inventoryRows = await getSheetRows("shop-inventory");
+    if (inventoryRows.length === 0) return null;
+
+    const guideMeta = buildGuideStockMeta(STUB_PRODUCTS);
+
+    const totals = new Map<string, number>();
+    for (const row of inventoryRows) {
+      const meta = guideMeta.get(String(row.guideId));
+      if (!meta) continue; // unknown guideId (likely a typo) — skip it
+      totals.set(
+        stockKey(meta.column, meta.variant, String(row.size)),
+        Number(row.total) || 0,
+      );
+    }
+
+    const knownColumns = new Set(
+      Array.from(guideMeta.values(), (meta) => meta.column),
+    );
+    const orderRows = await getSheetRows("shop-orders");
+    const sold = new Map<string, number>();
+    for (const row of orderRows) {
+      const quantity = Number(row.quantity) || 1;
+      for (const column of knownColumns) {
+        const raw = row[column];
+        if (!raw) continue;
+        const match = SELECTION_VALUE_PATTERN.exec(String(raw));
+        if (!match) continue;
+        const key = stockKey(column, match[2], match[1]);
+        sold.set(key, (sold.get(key) ?? 0) + quantity);
+      }
+    }
+
+    const remaining: Record<string, number> = {};
+    for (const [key, total] of totals) {
+      remaining[key] = Math.max(0, total - (sold.get(key) ?? 0));
+    }
+    return remaining;
   },
 
   // Standalone /shop checkout — mirrors

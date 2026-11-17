@@ -16,42 +16,8 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import type {
-  CartItem,
-  CartItemSelection,
-  ShopProduct,
-  SizeGuide,
-} from "../types";
-
-// Guides sharing a `group` are alternatives (pick one) — e.g. the two
-// jersey guides. Guides with no group are each their own required
-// picker. This groups a product's sizeGuides into one entry per pick.
-function groupGuides(guides: SizeGuide[]) {
-  const groups = new Map<string, SizeGuide[]>();
-  for (const guide of guides) {
-    const key = guide.group ?? guide.id;
-    const existing = groups.get(key) ?? [];
-    existing.push(guide);
-    groups.set(key, existing);
-  }
-  return Array.from(groups.entries()).map(([key, options]) => ({
-    key,
-    // "Jersey — Men's" -> "Men's" as the toggle label when grouped
-    label:
-      options.length > 1
-        ? options[0].label.split("—")[0].trim()
-        : options[0].label,
-    options,
-  }));
-}
-
-// "Jersey — Men's" -> "Men's" — only meaningful for a grouped guide
-// (one of several alternatives); an ungrouped guide has nothing to
-// disambiguate, so there's no variant.
-function variantLabel(guide: SizeGuide, groupSize: number): string | undefined {
-  if (groupSize <= 1) return undefined;
-  return guide.label.split("—")[1]?.trim() ?? guide.label;
-}
+import type { CartItem, CartItemSelection, ShopProduct, SizeGuide } from "../types";
+import { groupGuides, stockKey, variantLabel } from "../lib/size-guides";
 
 function DetailBody({
   product,
@@ -61,6 +27,7 @@ function DetailBody({
   noEmailAccessMessage,
   singleAction,
   singleActionLabel,
+  stock,
 }: {
   product: ShopProduct;
   onAddToCart: (item: CartItem) => void;
@@ -69,6 +36,7 @@ function DetailBody({
   noEmailAccessMessage: string;
   singleAction: boolean;
   singleActionLabel: string;
+  stock?: Record<string, number> | null;
 }) {
   const guideGroups = useMemo(() => groupGuides(product.sizeGuides), [product]);
 
@@ -177,21 +145,38 @@ function DetailBody({
             <div className="flex flex-wrap gap-2">
               {activeGuide[group.key].rows.map((row) => {
                 const active = size[group.key] === row.size;
+                const variant = variantLabel(
+                  activeGuide[group.key],
+                  group.options.length,
+                );
+                const remaining = stock?.[
+                  stockKey(group.label, variant, row.size)
+                ];
+                const soldOut = remaining !== undefined && remaining <= 0;
                 return (
                   <button
                     key={row.size}
                     type="button"
+                    disabled={soldOut}
                     onClick={() =>
+                      !soldOut &&
                       setSize((prev) => ({ ...prev, [group.key]: row.size }))
                     }
                     className={cn(
-                      "min-w-10 rounded-lg border-2 px-3 py-1.5 font-sans text-xs font-semibold",
-                      active
-                        ? "border-brand-green bg-brand-green text-white"
-                        : "border-brand-cream-border text-gray-600",
+                      "flex min-w-10 flex-col items-center rounded-lg border-2 px-3 py-1.5 font-sans text-xs font-semibold",
+                      soldOut
+                        ? "cursor-not-allowed border-brand-cream-border text-gray-300"
+                        : active
+                          ? "border-brand-green bg-brand-green text-white"
+                          : "border-brand-cream-border text-gray-600",
                     )}
                   >
                     {row.size}
+                    {remaining !== undefined && (
+                      <span className="font-sans text-[9px] font-normal normal-case opacity-80">
+                        {soldOut ? "Sold out" : `${remaining} left`}
+                      </span>
+                    )}
                   </button>
                 );
               })}
@@ -256,6 +241,10 @@ type TProps = {
   noEmailAccessMessage?: string;
   singleAction?: boolean;
   singleActionLabel?: string;
+  // Remaining units keyed by stockKey(column, variant, size) — null/
+  // undefined (the "shop-inventory" Sheet tab isn't configured) means
+  // no stock UI renders at all, same as before this feature existed.
+  stock?: Record<string, number> | null;
 };
 
 // exported
@@ -279,6 +268,7 @@ function ProductDetailSheet({
   // them into one.
   singleAction = false,
   singleActionLabel = "Add to Order",
+  stock,
 }: TProps) {
   // Both Dialog and Sheet portal their content to document.body, so a
   // CSS-only hidden/sm:hidden wrapper doesn't actually hide whichever
@@ -306,6 +296,7 @@ function ProductDetailSheet({
             noEmailAccessMessage={noEmailAccessMessage}
             singleAction={singleAction}
             singleActionLabel={singleActionLabel}
+            stock={stock}
           />
         </DialogContent>
       </Dialog>
@@ -332,6 +323,7 @@ function ProductDetailSheet({
             noEmailAccessMessage={noEmailAccessMessage}
             singleAction={singleAction}
             singleActionLabel={singleActionLabel}
+            stock={stock}
           />
         </div>
       </SheetContent>

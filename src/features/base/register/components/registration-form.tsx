@@ -128,9 +128,11 @@ function SelectField({
 export function RegistrationForm({
   merchUpsellEnabled = false,
   merchProducts = [],
+  merchStock = null,
 }: {
   merchUpsellEnabled?: boolean;
   merchProducts?: ShopProduct[];
+  merchStock?: Record<string, number> | null;
 }) {
   const [state, formAction, isPending] = useActionState(registerAction, null);
   const {
@@ -446,6 +448,7 @@ export function RegistrationForm({
                   setMerchCart((prev) => prev.filter((_, i) => i !== index))
                 }
                 hasEmailAccess={hasEmailAccess}
+                stock={merchStock}
               />
             </div>
           )}

@@ -14,6 +14,7 @@ export function ProductGrid({
   interactive = false,
   hasEmailAccess = false,
   compact = false,
+  stock,
 }: {
   products: ShopProduct[];
   interactive?: boolean;
@@ -22,6 +23,7 @@ export function ProductGrid({
   // grows past 3 either) with smaller cards — used on /shop's own
   // catalogue. Home's highlight section keeps the roomier default.
   compact?: boolean;
+  stock?: Record<string, number> | null;
 }) {
   // Always called (rules of hooks) — callers that pass
   // interactive=false must still wrap this component in a
@@ -80,6 +82,7 @@ export function ProductGrid({
           onAddToCart={handleAddToCart}
           onBuyNow={handleBuyNow}
           hasEmailAccess={hasEmailAccess}
+          stock={stock}
         />
       )}
     </>

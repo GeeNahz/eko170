@@ -7,9 +7,11 @@ import { ProductGrid } from "./product-grid";
 export function ShopCatalogue({
   products,
   hasEmailAccess,
+  stock,
 }: {
   products: ShopProduct[];
   hasEmailAccess: boolean;
+  stock?: Record<string, number> | null;
 }) {
   return (
     <div className="overflow-hidden bg-white px-5 pt-10 pb-11 sm:mx-4 sm:mt-4 sm:rounded-[22px] sm:px-10 sm:py-24">
@@ -28,6 +30,7 @@ export function ShopCatalogue({
           interactive
           hasEmailAccess={hasEmailAccess}
           compact
+          stock={stock}
         />
       </div>
     </div>

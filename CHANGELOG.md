@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Merch stock counters on `/shop` and the registration upsell: each
+  size button in a product's detail view shows how many units are
+  left, or "Sold out" (disabled) once a size reaches zero. The
+  Complete Kit and Rider Bundle show a separate count for each of
+  their component items (jersey by gender, gloves, socks, bib
+  shorts) rather than one number for the whole bundle, since those
+  components share physical stock with the standalone products.
+  Stock totals live in a new, hand-maintained `shop-inventory` Google
+  Sheet tab (`guideId`/`size`/`total` columns); remaining units are
+  computed by subtracting what's already been sold, counted from the
+  existing `shop-orders` rows — no auto-decrementing write, so there's
+  no new concurrency risk. Leaving an item/size out of that tab simply
+  shows no counter for it; leaving the whole tab out disables the
+  feature entirely (today's behaviour, unchanged). Requires
+  redeploying `scripts/google-apps-script.gs`'s new read endpoint
+  before stock data can show up live.
+
 ### Changed
 - Every page now says "Victoria Island" instead of "Eko Atlantic
   City"/"Eko Atlantic" when stating the race's venue — hero copy,
