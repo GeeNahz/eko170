@@ -59,20 +59,30 @@ export function MobileNav({
                   </AccordionTrigger>
                   <AccordionContent>
                     <div className="flex flex-col gap-1 border-l border-white/15 pl-4">
-                      {link.children.map((child) => (
-                        <SheetClose
-                          key={child.id}
-                          nativeButton={false}
-                          render={
-                            <Link
-                              href={child.href ?? "#"}
-                              className="block rounded-lg py-2 font-sans text-sm text-gray-300"
-                            />
-                          }
-                        >
-                          {child.label}
-                        </SheetClose>
-                      ))}
+                      {link.children.map((child) =>
+                        child.disabled ? (
+                          <span
+                            key={child.id}
+                            aria-disabled="true"
+                            className="block cursor-not-allowed py-2 font-sans text-sm text-gray-500"
+                          >
+                            {child.label}
+                          </span>
+                        ) : (
+                          <SheetClose
+                            key={child.id}
+                            nativeButton={false}
+                            render={
+                              <Link
+                                href={child.href ?? "#"}
+                                className="block rounded-lg py-2 font-sans text-sm text-gray-300"
+                              />
+                            }
+                          >
+                            {child.label}
+                          </SheetClose>
+                        ),
+                      )}
                     </div>
                   </AccordionContent>
                 </AccordionItem>
