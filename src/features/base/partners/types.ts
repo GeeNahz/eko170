@@ -4,14 +4,6 @@ export type PartnerStat = {
   label: string;
 };
 
-export type HeadlinePartner = {
-  id: string;
-  tierLabel: string;
-  logoSrc: string;
-  logoAlt: string;
-  description: string;
-};
-
 export type WhyPartnerCard = {
   id: string;
   title: string;
