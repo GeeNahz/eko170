@@ -77,9 +77,9 @@ export const SEEDING_EVENTS: SeedingEvent[] = [
   },
   {
     id: "seed-vi-70",
-    distanceKm: 70,
+    distanceKm: 94.5,
     location: "Victoria Island",
-    title: "Victoria Island 70",
+    title: "Victoria Island 94.5",
     dateLabel: "19 December 2026",
     terrainLabel: "Road",
     distanceLabel: "70km",

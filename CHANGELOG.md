@@ -46,6 +46,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   session and an assigned duty date per volunteer, per the client's
   review.
 
+### Fixed
+- The 94.5km Medio Fondo route is no longer referred to as "70" in
+  user-facing copy: a Community page fundraising card and a Home
+  seeding-event entry both still referenced the old distance.
+- The interactive route map no longer hardcodes "Epe" as the far-end
+  marker label for both routes — the Medio Fondo's GPX track doesn't
+  actually reach Epe, so `/routes/70`'s map now shows a generic
+  "Turnaround Point" there instead; `/routes/170` keeps "Epe", its
+  confirmed real GPX turnaround.
+
 ## [1.2.0] - 2026-10-29
 
 ### Changed
