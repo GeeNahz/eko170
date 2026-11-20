@@ -51,7 +51,7 @@ export function RouteDetailMap({ data }: { data: RouteDetailData }) {
               path={data.path}
               height="100%"
               startLabel="Victoria Island"
-              finishLabel="Epe"
+              finishLabel={data.mapTurnaroundLabel}
             />
           </div>
           <div className="flex flex-wrap items-center justify-between gap-4 border-t border-brand-cream-border bg-brand-cream px-6 py-4">

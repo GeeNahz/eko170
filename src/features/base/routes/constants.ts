@@ -332,6 +332,7 @@ export const ROUTE_170_DETAIL: RouteDetailData = {
   routeDescription:
     "Conquer the ultimate endurance test on this scenic 170km route, where you'll battle the rolling hills of Epe before facing a grueling 47km return leg along the Coastal Road, testing your grit against relentless headwinds that feel like a continuous hill climb all the way to the finish.",
   path: ROUTE_170_PATH,
+  mapTurnaroundLabel: "Epe",
   startWaveBody:
     "The Victoria Island Start Precinct welcomes riders for the 170 kilometres — waves roll out from 06:00, at first light.",
   operationalFlowImage: {
@@ -367,6 +368,7 @@ export const ROUTE_70_DETAIL: RouteDetailData = {
   routeDescription:
     "Experience the thrilling energy of mass participation on this fast-paced half-distance ride, perfectly tailored for fitness riders who want to bypass the punishing Epe hills but are still ready to test their grit against the brutal coastal headwinds on the return leg.",
   path: ROUTE_70_PATH,
+  mapTurnaroundLabel: "Turnaround Point",
   startWaveBody:
     "The Victoria Island Start Precinct welcomes riders for the 94.5 kilometres — waves roll out from 06:45, shortly after the 170km riders.",
   operationalFlowImage: {

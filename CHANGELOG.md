@@ -46,6 +46,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   session and an assigned duty date per volunteer, per the client's
   review.
 
+### Fixed
+- The 94.5km Medio Fondo route is no longer referred to as "70" in
+  user-facing copy: a Community page fundraising card and a Home
+  seeding-event entry both still referenced the old distance.
+- The interactive route map no longer hardcodes "Epe" as the far-end
+  marker label for both routes — the Medio Fondo's GPX track doesn't
+  actually reach Epe, so `/routes/70`'s map now shows a generic
+  "Turnaround Point" there instead; `/routes/170` keeps "Epe", its
+  confirmed real GPX turnaround.
+
+### Changed
+- Registration form fields regrouped from five sections into three:
+  Personal Information (now also holds Distance and the ID fields,
+  with a short note explaining why an ID is requested), Emergency
+  Contact, and an optional Cycling Details section (speed, cycling
+  license/club, insurance). The registration fee is now shown up
+  front, before a distance is even selected, since pricing is flat
+  across both distances.
+
+### Fixed
+- "Expected Average Speed" is no longer a required field on
+  registration — it's moved into the new optional Cycling Details
+  section.
+
 ## [1.2.0] - 2026-10-29
 
 ### Changed
