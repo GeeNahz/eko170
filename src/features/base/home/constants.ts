@@ -165,3 +165,15 @@ export const GALLERY_PREVIEW: GalleryPhoto[] = [
 ];
 
 export const GALLERY_TOTAL_PHOTOS = 44;
+
+// Drawn from already-confirmed race-day details (SUPPORT_FEATURES,
+// ROUTE_START_CHECKLIST and route-finish.tsx's medal mention in
+// routes/constants.ts / route-finish.tsx) rather than new claims —
+// shown on Home's Fees & What's Included section.
+export const WHATS_INCLUDED: string[] = [
+  "Timing chip, number board and official race kit",
+  "5 support stations with hydration, nutrition and mechanical support",
+  "On-course medical coverage and ambulance support",
+  "Chip-timed, ranked results — published live and archived",
+  "A finisher medal and festival-style finish at Victoria Island",
+];
