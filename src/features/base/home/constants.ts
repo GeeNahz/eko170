@@ -127,12 +127,14 @@ export const ABOUT_FEATURE_CARDS: FeatureCard[] = [
   },
 ];
 
-// Lagos State Government is the sole sponsor shown on Home per client
-// request — the rest of the former lineup (Quest Oil, Avis, Elektron,
-// Watch Galleries) is dropped from this section.
+// Confirmed sponsors shown on Home. The former lineup (Quest Oil,
+// Avis, Elektron, Watch Galleries) is dropped from this section per
+// client request.
 export const SPONSOR_LOGOS: SponsorLogo[] = [
   { id: "sponsor-lsg", name: "Lagos State Government", src: "/sponsors/logo-lsg-sm.jpg", href: "#" },
   { id: "sponsor-cetpower", name: "CETPower", src: "/sponsors/cetpower.png", href: "https://cetpower.com/" },
+  { id: "sponsor-nordic-hotels", name: "Nordic Hotels", src: "/sponsors/logo-NordicHotels.svg", href: "https://nordichotelsnigeria.com/nordic-hotel-lagos/" },
+  { id: "sponsor-nnpc", name: "NNPC", src: "/sponsors/logo-nnpc.jpg", href: "#" },
 ];
 
 // No longer rendered on Home (sponsors-marquee.tsx dropped its

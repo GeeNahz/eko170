@@ -79,6 +79,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   moved to after the new flow rather than removed. Travel &
   Accommodation is a placeholder linking to `/discover` until the
   organiser's homepage-specific copy is ready.
+- Nordic Hotels and NNPC added to Home's Sponsors section, alongside
+  Lagos State Government and CETPower.
 
 ## [1.2.0] - 2026-10-29
 
