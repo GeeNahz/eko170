@@ -56,6 +56,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   "Turnaround Point" there instead; `/routes/170` keeps "Epe", its
   confirmed real GPX turnaround.
 
+### Changed
+- Registration form fields regrouped from five sections into three:
+  Personal Information (now also holds Distance and the ID fields,
+  with a short note explaining why an ID is requested), Emergency
+  Contact, and an optional Cycling Details section (speed, cycling
+  license/club, insurance). The registration fee is now shown up
+  front, before a distance is even selected, since pricing is flat
+  across both distances.
+
+### Fixed
+- "Expected Average Speed" is no longer a required field on
+  registration — it's moved into the new optional Cycling Details
+  section.
+
 ## [1.2.0] - 2026-10-29
 
 ### Changed
