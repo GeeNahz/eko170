@@ -70,6 +70,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   registration — it's moved into the new optional Cycling Details
   section.
 
+### Changed
+- Home page sections reordered per the client's review: hero →
+  distance cards → new Fees & What's Included → training calendar →
+  shop preview → new Travel & Accommodation → sponsors → gallery →
+  new Get in Touch, with the sections not covered by that sequence
+  (race-day countdown, About the Ride, figures, community) kept and
+  moved to after the new flow rather than removed. Travel &
+  Accommodation is a placeholder linking to `/discover` until the
+  organiser's homepage-specific copy is ready.
+- Nordic Hotels and NNPC added to Home's Sponsors section, alongside
+  Lagos State Government and CETPower.
+
 ## [1.2.0] - 2026-10-29
 
 ### Changed

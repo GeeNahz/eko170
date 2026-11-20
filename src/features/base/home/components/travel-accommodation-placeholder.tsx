@@ -1,0 +1,31 @@
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { Reveal } from "@/components/motion/reveal";
+
+// Placeholder until the organiser's homepage-specific travel/
+// accommodation content (and the Accommodation tab) are ready — links
+// through to /discover, which already has real hotel/transport content,
+// rather than duplicating copy here that may not match the final version.
+export function TravelAccommodationPlaceholder() {
+  return (
+    <div className="mx-3 mt-4 overflow-hidden rounded-[22px] bg-linear-120 from-brand-teal via-brand-green to-brand-yellow px-5 pt-11 pb-12 text-center sm:mx-4 sm:px-10 sm:py-24">
+      <Reveal className="font-heading mb-6 text-4xl leading-[0.95] font-black text-white uppercase italic sm:text-5xl">
+        Travel &amp; Accommodation
+      </Reveal>
+      <Reveal
+        delay={0.1}
+        className="mx-auto mb-7 max-w-130 font-sans text-base text-white/85"
+      >
+        Hotel picks, airport transfers and race-week logistics for riders
+        coming into Lagos.
+      </Reveal>
+      <Link
+        href="/discover"
+        className="inline-flex items-center gap-2.5 rounded-full bg-white px-9 py-4 font-sans text-base font-semibold text-brand-teal"
+      >
+        Plan Your Trip
+        <ArrowRight className="size-4" />
+      </Link>
+    </div>
+  );
+}
