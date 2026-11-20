@@ -82,6 +82,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Nordic Hotels and NNPC added to Home's Sponsors section, alongside
   Lagos State Government and CETPower.
 
+### Changed
+- Top navigation simplified to the client's five-tab structure: Home,
+  Event, Accommodation, Shop, Partners. "Event" is a new dropdown
+  (same mechanism the old "Routes" dropdown used) linking to Overview,
+  both route pages, Results, Gallery and Volunteer — none of those
+  pages moved, so no URLs changed and no redirects were needed.
+  "Accommodation" shows as a grayed-out, non-clickable tab (no content
+  yet). "Partners" is now visible and relabeled from "Sponsors &
+  Partners". "Community" moves out of the top nav to the footer only.
+  The route-availability gating that used to disable the whole
+  "Routes" link pre-registration now applies to the two route links
+  individually inside the Event dropdown.
+- Footer gains a third "Legal" link group (Contact, Privacy, Terms)
+  and adds Volunteer/Community to "The Event" group; "Contact" opens a
+  `mailto:` link using the event's own contact email rather than a
+  page.
+
+### Added
+- New `/privacy` and `/terms` pages with real, platform-specific
+  content (registration/ID handling, payment via Flutterwave/
+  Paystack, the existing medical waiver, FinishTime results, kit and
+  volunteer terms) — a reasonable general policy pending the
+  organiser's own legal-reviewed version, so the new footer links
+  don't 404.
+
 ## [1.2.0] - 2026-10-29
 
 ### Changed
