@@ -29,7 +29,6 @@ export const REQUIRED_FIELDS: (keyof RegistrationFormValues)[] = [
   "gender",
   "dob",
   "distance",
-  "speed",
   "country",
   "idType",
   "idNumber",

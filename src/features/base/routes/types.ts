@@ -30,6 +30,10 @@ export type RouteDetailData = {
   routeDescHeading: string;
   routeDescription: string;
   path: [number, number][];
+  // Label for the far-end marker on the interactive map — the real GPX
+  // turnaround point, not necessarily "Epe" (only the Gran Fondo's GPX
+  // track actually reaches Epe; the Medio Fondo turns back sooner).
+  mapTurnaroundLabel: string;
   startWaveBody: string;
   operationalFlowImage: RouteCourseImage;
   elevationProfileImage: RouteCourseImage;

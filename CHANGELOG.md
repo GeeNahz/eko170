@@ -8,6 +8,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+- `/partners` page refreshed to match the confirmed sponsor list:
+  replaced the old "Headline Partners" and "Commercial"/"Government"
+  sponsor-tier sections (Quest Oil, Elektron, Avis, Watch Galleries,
+  and others never confirmed by the client) with a single confirmed-
+  partners grid reusing Home's sponsor data (Lagos State Government,
+  CETPower, Nordic Hotels, NNPC). The stats strip's unverified "120+
+  Riders Reached"/"12 Commercial Partners"/"8 Government Bodies"
+  figures are replaced with only verifiable counts. Fixed a leftover
+  "Eko Atlantic City" venue reference in the page's "Why Partner"
+  copy to "Victoria Island", and added a photo strip reusing Home's
+  confirmed race photography.
+- Shop hero copy no longer says "Purchasing opens soon" — the shop
+  has been live and taking real orders for a while; now reads
+  "Available to order now".
+- Home's Hero copy (desktop and mobile) now mentions both distances
+  and that one entry covers either, per the client's suggested
+  opening copy — previously only described the 170km route. The
+  footer's similar summary line was also updated to mention both
+  distances.
+
+### Added
+- A "Mock-up" badge on shop product images (catalogue cards, the
+  register upsell cards, and the product detail sheet) — these three
+  images are AI-generated renders, not production photography, per
+  the client's request to label illustrations as such until real
+  samples exist.
+
 - Early-bird registration price (₦25,000) now runs through 20 November
   2026 instead of 15 November 2026; the standard ₦35,000 price takes
   over from 21 November.
@@ -45,6 +72,67 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   copy now mentions role-specific training, a route familiarisation
   session and an assigned duty date per volunteer, per the client's
   review.
+
+### Fixed
+- The 94.5km Medio Fondo route is no longer referred to as "70" in
+  user-facing copy: a Community page fundraising card and a Home
+  seeding-event entry both still referenced the old distance.
+- The interactive route map no longer hardcodes "Epe" as the far-end
+  marker label for both routes — the Medio Fondo's GPX track doesn't
+  actually reach Epe, so `/routes/70`'s map now shows a generic
+  "Turnaround Point" there instead; `/routes/170` keeps "Epe", its
+  confirmed real GPX turnaround.
+
+### Changed
+- Registration form fields regrouped from five sections into three:
+  Personal Information (now also holds Distance and the ID fields,
+  with a short note explaining why an ID is requested), Emergency
+  Contact, and an optional Cycling Details section (speed, cycling
+  license/club, insurance). The registration fee is now shown up
+  front, before a distance is even selected, since pricing is flat
+  across both distances.
+
+### Fixed
+- "Expected Average Speed" is no longer a required field on
+  registration — it's moved into the new optional Cycling Details
+  section.
+
+### Changed
+- Home page sections reordered per the client's review: hero →
+  distance cards → new Fees & What's Included → training calendar →
+  shop preview → new Travel & Accommodation → sponsors → gallery →
+  new Get in Touch, with the sections not covered by that sequence
+  (race-day countdown, About the Ride, figures, community) kept and
+  moved to after the new flow rather than removed. Travel &
+  Accommodation is a placeholder linking to `/discover` until the
+  organiser's homepage-specific copy is ready.
+- Nordic Hotels and NNPC added to Home's Sponsors section, alongside
+  Lagos State Government and CETPower.
+
+### Changed
+- Top navigation simplified to the client's five-tab structure: Home,
+  Event, Accommodation, Shop, Partners. "Event" is a new dropdown
+  (same mechanism the old "Routes" dropdown used) linking to Overview,
+  both route pages, Results, Gallery and Volunteer — none of those
+  pages moved, so no URLs changed and no redirects were needed.
+  "Accommodation" shows as a grayed-out, non-clickable tab (no content
+  yet). "Partners" is now visible and relabeled from "Sponsors &
+  Partners". "Community" moves out of the top nav to the footer only.
+  The route-availability gating that used to disable the whole
+  "Routes" link pre-registration now applies to the two route links
+  individually inside the Event dropdown.
+- Footer gains a third "Legal" link group (Contact, Privacy, Terms)
+  and adds Volunteer/Community to "The Event" group; "Contact" opens a
+  `mailto:` link using the event's own contact email rather than a
+  page.
+
+### Added
+- New `/privacy` and `/terms` pages with real, platform-specific
+  content (registration/ID handling, payment via Flutterwave/
+  Paystack, the existing medical waiver, FinishTime results, kit and
+  volunteer terms) — a reasonable general policy pending the
+  organiser's own legal-reviewed version, so the new footer links
+  don't 404.
 
 ## [1.2.0] - 2026-10-29
 

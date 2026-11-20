@@ -23,7 +23,7 @@ export function SiteFooter() {
   return (
     <footer className="overflow-hidden bg-[#0b1f25] px-5 pt-10 pb-8.5 sm:mx-4 sm:mb-4 sm:rounded-[22px] sm:bg-brand-teal sm:px-10 sm:pt-16 sm:pb-10">
       <div className="mx-auto max-w-7xl">
-        <div className="flex flex-col gap-12 sm:grid sm:grid-cols-[2fr_1fr_1fr]">
+        <div className="flex flex-col gap-12 sm:grid sm:grid-cols-[2fr_1fr_1fr_1fr]">
           <div>
             <div className="mb-5 flex items-center gap-3.5">
               <span className="flex h-11 w-13 items-center justify-center overflow-hidden rounded-xl bg-white">
@@ -45,8 +45,8 @@ export function SiteFooter() {
               </div>
             </div>
             <p className="mb-6 max-w-sm font-sans text-base leading-relaxed text-gray-400">
-              Experience the Movement. Made in Lagos. 170km of iconic closed
-              roads through Victoria Island to Epe and back.
+              Experience the Movement. Made in Lagos. 170km and 94.5km of
+              iconic closed roads through Victoria Island to Epe and back.
             </p>
             <div className="flex gap-3">
               {event?.socials.map((social) => {
@@ -72,15 +72,34 @@ export function SiteFooter() {
                   {group.title}
                 </div>
                 <div className="flex flex-col gap-3.5">
-                  {group.links.filter((link) => !link.hidden).map((link) => (
-                    <Link
-                      key={link.id}
-                      href={link.href ?? "#"}
-                      className="font-sans text-base text-gray-400 transition-colors hover:text-white"
-                    >
-                      {link.label}
-                    </Link>
-                  ))}
+                  {group.links
+                    .filter((link) => !link.hidden)
+                    .map((link) => {
+                      // "Contact" has no static href in the data — it's
+                      // a mailto: to the event's own contact email, so
+                      // it's skipped entirely until that data loads.
+                      if (link.id === "footer-legal-contact") {
+                        if (!event?.contactEmail) return null;
+                        return (
+                          <a
+                            key={link.id}
+                            href={`mailto:${event.contactEmail}`}
+                            className="font-sans text-base text-gray-400 transition-colors hover:text-white"
+                          >
+                            {link.label}
+                          </a>
+                        );
+                      }
+                      return (
+                        <Link
+                          key={link.id}
+                          href={link.href ?? "#"}
+                          className="font-sans text-base text-gray-400 transition-colors hover:text-white"
+                        >
+                          {link.label}
+                        </Link>
+                      );
+                    })}
                 </div>
               </div>
             ))}

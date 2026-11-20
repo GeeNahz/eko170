@@ -85,6 +85,9 @@ function DetailBody({
           fill
           className="object-cover"
         />
+        <span className="absolute top-3 left-3 rounded-full bg-black/60 px-2.5 py-1 font-mono text-[10px] font-semibold tracking-wide text-white uppercase">
+          Mock-up
+        </span>
       </div>
 
       {product.description && (

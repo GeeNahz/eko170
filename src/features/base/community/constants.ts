@@ -37,7 +37,7 @@ export const CHARITY_CARDS: CommunityCard[] = [
     id: "charity-fundraise",
     title: "Fundraise Your Ride",
     description:
-      "Set up a fundraising page and dedicate your 170 or 70 to a cause you care about.",
+      "Set up a fundraising page and dedicate your 170 or 94.5 to a cause you care about.",
   },
   {
     id: "charity-donations",
