@@ -8,6 +8,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+- `/partners` page refreshed to match the confirmed sponsor list:
+  replaced the old "Headline Partners" and "Commercial"/"Government"
+  sponsor-tier sections (Quest Oil, Elektron, Avis, Watch Galleries,
+  and others never confirmed by the client) with a single confirmed-
+  partners grid reusing Home's sponsor data (Lagos State Government,
+  CETPower, Nordic Hotels, NNPC). The stats strip's unverified "120+
+  Riders Reached"/"12 Commercial Partners"/"8 Government Bodies"
+  figures are replaced with only verifiable counts. Fixed a leftover
+  "Eko Atlantic City" venue reference in the page's "Why Partner"
+  copy to "Victoria Island", and added a photo strip reusing Home's
+  confirmed race photography.
+- Shop hero copy no longer says "Purchasing opens soon" — the shop
+  has been live and taking real orders for a while; now reads
+  "Available to order now".
+- Home's Hero copy (desktop and mobile) now mentions both distances
+  and that one entry covers either, per the client's suggested
+  opening copy — previously only described the 170km route. The
+  footer's similar summary line was also updated to mention both
+  distances.
+
+### Added
+- A "Mock-up" badge on shop product images (catalogue cards, the
+  register upsell cards, and the product detail sheet) — these three
+  images are AI-generated renders, not production photography, per
+  the client's request to label illustrations as such until real
+  samples exist.
+
 - Early-bird registration price (₦25,000) now runs through 20 November
   2026 instead of 15 November 2026; the standard ₦35,000 price takes
   over from 21 November.

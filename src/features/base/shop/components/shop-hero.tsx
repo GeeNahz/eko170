@@ -18,7 +18,7 @@ export function ShopHero() {
           className="max-w-[640px] font-sans text-base leading-relaxed text-white/82"
         >
           Bib shorts, rider bundles, and the complete kit — browse the
-          lineup and check your size below. Purchasing opens soon.
+          lineup and check your size below. Available to order now.
         </Reveal>
       </div>
     </div>

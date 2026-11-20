@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
-import { COMMERCIAL_PARTNER_LOGOS } from "../constants";
+import { SPONSOR_LOGOS } from "../../home/constants";
 
 export function PartnersSponsors() {
   return (
@@ -10,7 +10,7 @@ export function PartnersSponsors() {
     >
       <div className="mx-auto w-full max-w-[1280px]">
         <Reveal className="mb-4 border-l-4 border-brand-green pl-3 font-mono text-xs tracking-wide text-brand-green uppercase">
-          Commercial Partners
+          Confirmed Partners
         </Reveal>
         <Reveal
           delay={0.1}
@@ -22,22 +22,27 @@ export function PartnersSponsors() {
           delay={0.15}
           className="font-heading -mt-2 mb-9 text-xl font-semibold tracking-wide text-gray-500 uppercase"
         >
-          Powering the Peloton
+          Backing EKO170
         </Reveal>
 
-        <RevealGroup className="grid grid-cols-2 gap-5 sm:grid-cols-5">
-          {COMMERCIAL_PARTNER_LOGOS.map((logo) => (
-            <RevealItem
-              key={logo.id}
-              className="group flex aspect-video items-center justify-center rounded-2xl border border-brand-cream-border bg-white p-5"
-            >
-              <Image
-                src={logo.src}
-                alt={logo.name}
-                width={160}
-                height={90}
-                className="max-h-[74%] max-w-[80%] object-contain transition-transform duration-300 ease-out group-hover:scale-[1.06]"
-              />
+        <RevealGroup className="grid grid-cols-2 gap-5 sm:grid-cols-4">
+          {SPONSOR_LOGOS.map((logo) => (
+            <RevealItem key={logo.id}>
+              <a
+                href={logo.href ?? "#"}
+                {...(logo.href && logo.href !== "#"
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
+                className="group flex aspect-video items-center justify-center rounded-2xl border border-brand-cream-border bg-white p-5"
+              >
+                <Image
+                  src={logo.src}
+                  alt={logo.name}
+                  width={160}
+                  height={90}
+                  className="max-h-[74%] max-w-[80%] object-contain transition-transform duration-300 ease-out group-hover:scale-[1.06]"
+                />
+              </a>
             </RevealItem>
           ))}
         </RevealGroup>

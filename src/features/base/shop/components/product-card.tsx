@@ -28,6 +28,9 @@ export function ProductCard({
             fill
             className="object-cover"
           />
+          <span className="absolute top-1.5 left-1.5 rounded-full bg-black/60 px-1.5 py-0.5 font-mono text-[8px] font-semibold tracking-wide text-white uppercase">
+            Mock-up
+          </span>
         </div>
         <div className="flex flex-col gap-0.5 p-2">
           <div className="line-clamp-2 font-sans text-[11px] leading-tight font-semibold text-brand-teal">
@@ -55,6 +58,9 @@ export function ProductCard({
           fill
           className="object-cover"
         />
+        <span className="absolute top-3 left-3 rounded-full bg-black/60 px-2.5 py-1 font-mono text-[10px] font-semibold tracking-wide text-white uppercase">
+          Mock-up
+        </span>
       </div>
       <div className="p-6">
         <div className="mb-1 font-mono text-[11px] tracking-wide text-gray-400 uppercase">
