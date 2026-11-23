@@ -3,6 +3,7 @@ import type {
   PartnerLogo,
   PartnerStat,
   RaceDaySupportPartner,
+  RaceDayWidePartner,
   WhyPartnerCard,
 } from "./types";
 
@@ -37,9 +38,10 @@ export const RACE_DAY_SUPPORT_PARTNERS: RaceDaySupportPartner[] = [
   {
     id: "raceday-medbury",
     name: "Medbury",
-    src: "/sponsors/logo-medbury.jpg",
+    src: "/sponsors/logo-medbury.png",
     billing: "Medical Partner",
     description: "Supporting medical coverage and rider care for EKO170 2027.",
+    large: true,
   },
   {
     id: "raceday-avis",
@@ -50,14 +52,23 @@ export const RACE_DAY_SUPPORT_PARTNERS: RaceDaySupportPartner[] = [
   },
 ];
 
-// Its own wide row (same treatment as INSTITUTIONAL_PARTNER), per the
-// updated mockup — not a third tile in the grid above.
-export const POCARI_SWEAT_PARTNER: PartnerLogo & { description: string } = {
-  id: "raceday-pocari",
-  name: "Pocari Sweat",
-  src: "/sponsors/logo-pocari-sweat.png",
-  description: "Pocari Sweat plans to distribute its products at one aid station and at the Event Village.",
-};
+// Their own wide rows (same treatment as INSTITUTIONAL_PARTNER), per
+// the updated mockup — not tiles in the grid above. Forvis Mazars has
+// no confirmed description yet (copy to follow) — logo-only for now,
+// same posture as Pocari Sweat before its copy was confirmed.
+export const RACE_DAY_WIDE_PARTNERS: RaceDayWidePartner[] = [
+  {
+    id: "raceday-pocari",
+    name: "Pocari Sweat",
+    src: "/sponsors/logo-pocari-sweat.png",
+    description: "Pocari Sweat plans to distribute its products at one aid station and at the Event Village.",
+  },
+  {
+    id: "raceday-forvis-mazars",
+    name: "Forvis Mazars",
+    src: "/sponsors/logo-forvis-mazar.png",
+  },
+];
 
 export const HOST_CYCLING_CLUBS: PartnerLogo[] = [
   { id: "club-cycology", name: "Cycology Lagos", src: "/sponsors/logo-cycology.png" },
@@ -82,7 +93,7 @@ export const PARTNER_STATS: PartnerStat[] = [
       FEATURED_PARTNERS.length +
         1 +
         RACE_DAY_SUPPORT_PARTNERS.length +
-        1 +
+        RACE_DAY_WIDE_PARTNERS.length +
         HOST_CYCLING_CLUBS.length +
         1,
     ),

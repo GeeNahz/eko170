@@ -15,7 +15,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   sponsor grid. Adds Lagos State Sports Commission, Medbury, AVIS,
   Pocari Sweat, Cycology Lagos and Cyclotron to the confirmed list;
   the "Book reservations" link now routes to the new `/accommodation`
-  page instead of an external URL.
+  page instead of an external URL. Adds Forvis Mazars to Race-day
+  Support (logo only, pending confirmed billing/copy). Medbury's logo
+  renders larger than AVIS/Pocari Sweat's per the organiser's request,
+  and all card and logo-tile padding was tightened across the page so
+  logos render clearly instead of looking tiny inside oversized boxes.
 - `/shop` no longer gates "Add to Cart" / "Buy Now" / "Pay" behind a
   `?email=` link — anyone can start a purchase now; email is still
   required and validated at checkout, unchanged.

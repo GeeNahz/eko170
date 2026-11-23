@@ -23,7 +23,7 @@ export function PartnersHostClubs() {
           {HOST_CYCLING_CLUBS.map((club, index) => (
             <div key={club.id} className="flex items-center gap-10 sm:gap-10">
               <div className="flex items-center gap-3">
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-brand-cream-border bg-white p-2">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-brand-cream-border bg-white p-0">
                   <Image
                     src={club.src}
                     alt={club.name}

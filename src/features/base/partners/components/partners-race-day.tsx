@@ -1,6 +1,7 @@
 import Image from "next/image";
+import { cn } from "@/lib/utils";
 import { Reveal, RevealGroup, RevealItem } from "@/components/motion/reveal";
-import { POCARI_SWEAT_PARTNER, RACE_DAY_SUPPORT_PARTNERS } from "../constants";
+import { RACE_DAY_SUPPORT_PARTNERS, RACE_DAY_WIDE_PARTNERS } from "../constants";
 
 export function PartnersRaceDay() {
   return (
@@ -14,15 +15,27 @@ export function PartnersRaceDay() {
           {RACE_DAY_SUPPORT_PARTNERS.map((partner) => (
             <RevealItem
               key={partner.id}
-              className="flex flex-col items-center rounded-2xl border border-brand-cream-border bg-white p-5 text-center sm:items-start sm:p-6 sm:text-left"
+              className="flex flex-col items-center rounded-2xl border border-brand-cream-border bg-white p-4 text-center sm:items-start sm:p-5 sm:text-left"
             >
-              <div className="mb-3 flex aspect-video w-full items-center justify-center">
+              <div
+                className={cn(
+                  "mb-3 flex w-full items-center justify-center",
+                  partner.large ? "h-22" : "h-18",
+                )}
+              >
                 <Image
                   src={partner.src}
                   alt={partner.name}
-                  width={160}
-                  height={90}
-                  className="max-h-full max-w-[70%] object-contain sm:max-w-[65%]"
+                  width={partner.large ? 170 : 150}
+                  height={partner.large ? 88 : 72}
+                  className={cn(
+                    "max-h-full object-contain",
+                    // logo-medbury.jpg is a small, padded 150x150
+                    // source — the taller box plus a looser width cap
+                    // is what makes it read as bigger than AVIS's
+                    // tightly-cropped file, not the percentage alone.
+                    partner.large ? "max-w-[95%]" : "max-w-[88%]",
+                  )}
                 />
               </div>
               {partner.billing && (
@@ -39,23 +52,34 @@ export function PartnersRaceDay() {
           ))}
         </RevealGroup>
 
-        <Reveal className="rounded-2xl border border-brand-cream-border bg-white p-6 sm:p-8">
-          <div className="flex flex-wrap items-center gap-5">
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-brand-cream-border bg-white p-2.5">
-              <Image
-                src={POCARI_SWEAT_PARTNER.src}
-                alt={POCARI_SWEAT_PARTNER.name}
-                width={56}
-                height={56}
-                className="max-h-full max-w-full object-contain"
-              />
-            </div>
-            <div className="hidden h-10 w-px bg-brand-cream-border sm:block" />
-            <p className="font-sans text-sm leading-relaxed text-gray-600">
-              {POCARI_SWEAT_PARTNER.description}
-            </p>
-          </div>
-        </Reveal>
+        <div className="flex flex-col gap-4">
+          {RACE_DAY_WIDE_PARTNERS.map((partner) => (
+            <Reveal
+              key={partner.id}
+              className="rounded-2xl border border-brand-cream-border bg-white p-6 sm:p-8"
+            >
+              <div className="flex flex-wrap items-center gap-5">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-brand-cream-border bg-white p-0">
+                  <Image
+                    src={partner.src}
+                    alt={partner.name}
+                    width={56}
+                    height={56}
+                    className="max-h-full max-w-full object-contain"
+                  />
+                </div>
+                {partner.description && (
+                  <>
+                    <div className="hidden h-10 w-px bg-brand-cream-border sm:block" />
+                    <p className="font-sans text-sm leading-relaxed text-gray-600">
+                      {partner.description}
+                    </p>
+                  </>
+                )}
+              </div>
+            </Reveal>
+          ))}
+        </div>
       </div>
     </div>
   );

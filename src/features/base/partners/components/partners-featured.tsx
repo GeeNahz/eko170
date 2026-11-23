@@ -14,15 +14,15 @@ export function PartnersFeatured() {
           {FEATURED_PARTNERS.map((partner) => (
             <RevealItem
               key={partner.id}
-              className="rounded-2xl border border-brand-cream-border bg-white p-6 sm:p-7"
+              className="rounded-2xl border border-brand-cream-border bg-white p-4 sm:p-5"
             >
-              <div className="mb-4 flex aspect-video items-center justify-center">
+              <div className="mb-3 flex h-20 items-center justify-center">
                 <Image
                   src={partner.src}
                   alt={partner.name}
-                  width={200}
-                  height={112}
-                  className="max-h-full max-w-[72%] object-contain"
+                  width={180}
+                  height={80}
+                  className="max-h-full max-w-[88%] object-contain"
                 />
               </div>
               {partner.billing && (
