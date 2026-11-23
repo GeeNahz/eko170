@@ -25,10 +25,8 @@ function formatNaira(amount: number) {
 
 export function ShopCartSheet({
   prefilledEmail,
-  hasEmailAccess,
 }: {
   prefilledEmail?: string;
-  hasEmailAccess: boolean;
 }) {
   const { items, removeItem, updateQuantity, total, isOpen, setOpen } = useShopCart();
   const [email, setEmail] = useState(prefilledEmail ?? "");
@@ -42,10 +40,9 @@ export function ShopCartSheet({
   }, [state]);
 
   const itemCount = items.reduce((n, item) => n + item.quantity, 0);
-  // Gated on ?email= having been present on page load, not on the
-  // live field value — typing an email in without that link does not
-  // unlock checkout. See the /shop page for where this is computed.
-  const canCheckout = items.length > 0 && hasEmailAccess && name.trim().length > 0;
+  // Email format is validated server-side in shopCheckoutAction, which
+  // surfaces its own error via the toast above — no client-side gate.
+  const canCheckout = items.length > 0 && name.trim().length > 0;
 
   function submitCheckout() {
     startTransition(() => formAction({ cart: items, email, name }));
@@ -150,7 +147,6 @@ export function ShopCartSheet({
                 placeholder="you@email.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                disabled={!hasEmailAccess}
                 className={inputClassName}
               />
             </div>
@@ -163,7 +159,6 @@ export function ShopCartSheet({
                 placeholder="Your name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                disabled={!hasEmailAccess}
                 className={inputClassName}
               />
             </div>
@@ -179,9 +174,7 @@ export function ShopCartSheet({
           </button>
           {!canCheckout && items.length > 0 && (
             <p className="mt-2 font-sans text-xs text-gray-400">
-              {hasEmailAccess
-                ? "Enter your name to pay."
-                : "Purchasing is only available via your personal EKO170 link."}
+              Enter your name to pay.
             </p>
           )}
         </SheetFooter>

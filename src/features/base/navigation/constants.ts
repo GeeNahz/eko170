@@ -37,10 +37,7 @@ export const PRIMARY_NAV: NavLink[] = [
   {
     id: "nav-accommodation",
     label: "Accommodation",
-    // Grayed out per the doc ("Grayed out for now") — no content yet,
-    // hardcoded disabled rather than tied to any state, since it's a
-    // content-readiness gate, not a registration-state one.
-    disabled: true,
+    href: "/accommodation",
   },
   { id: "nav-shop", label: "Shop", href: "/shop" },
   { id: "nav-partners", label: "Partners", href: "/partners" },

@@ -1,12 +1,102 @@
-import { SPONSOR_LOGOS } from "../home/constants";
-import type { PartnerStat, WhyPartnerCard } from "./types";
+import type {
+  FeaturedPartner,
+  PartnerLogo,
+  PartnerStat,
+  RaceDaySupportPartner,
+  RaceDayWidePartner,
+  WhyPartnerCard,
+} from "./types";
 
-// Derived from the real confirmed list rather than hardcoded, so this
-// can't drift out of sync when a sponsor is added or removed.
+export const FEATURED_PARTNERS: FeaturedPartner[] = [
+  {
+    id: "featured-cetpower",
+    name: "CETPower",
+    src: "/sponsors/cetpower.png",
+    billing: "Major Partner",
+    description: "Powering the Event Village and supporting an on-course aid station.",
+  },
+  {
+    id: "featured-nnpc",
+    name: "NNPC Foundation",
+    src: "/sponsors/logo-nnpc.png",
+    description:
+      "Supporting women's participation in cycling and recognising competitive achievement through the EKO170 women's race prizes.",
+  },
+];
+
+// A single dedicated row, not an array — the doc gives the Sports
+// Commission its own section, distinct from the grid tiers above/below.
+export const INSTITUTIONAL_PARTNER: PartnerLogo & { description: string } = {
+  id: "institutional-lssc",
+  name: "Lagos State Sports Commission",
+  src: "/sponsors/logo-lssc-sm.jpg",
+  description:
+    "Working with the organisers on route planning and coordination with Lagos State agencies.",
+};
+
+export const RACE_DAY_SUPPORT_PARTNERS: RaceDaySupportPartner[] = [
+  {
+    id: "raceday-medbury",
+    name: "Medbury",
+    src: "/sponsors/logo-medbury.png",
+    billing: "Medical Partner",
+    description: "Supporting medical coverage and rider care for EKO170 2027.",
+    large: true,
+  },
+  {
+    id: "raceday-avis",
+    name: "AVIS",
+    src: "/sponsors/logo-Avis.png",
+    billing: "Transport Support",
+    description: "Supporting route reconnaissance and event transport logistics.",
+  },
+];
+
+// Their own wide rows (same treatment as INSTITUTIONAL_PARTNER), per
+// the updated mockup — not tiles in the grid above. Forvis Mazars has
+// no confirmed description yet (copy to follow) — logo-only for now,
+// same posture as Pocari Sweat before its copy was confirmed.
+export const RACE_DAY_WIDE_PARTNERS: RaceDayWidePartner[] = [
+  {
+    id: "raceday-pocari",
+    name: "Pocari Sweat",
+    src: "/sponsors/logo-pocari-sweat.png",
+    description: "Pocari Sweat plans to distribute its products at one aid station and at the Event Village.",
+  },
+  {
+    id: "raceday-forvis-mazars",
+    name: "Forvis Mazars",
+    src: "/sponsors/logo-forvis-mazar.png",
+  },
+];
+
+export const HOST_CYCLING_CLUBS: PartnerLogo[] = [
+  { id: "club-cycology", name: "Cycology Lagos", src: "/sponsors/logo-cycology.png" },
+  { id: "club-cyclotron", name: "Cyclotron", src: "/sponsors/logo-cyclotron.png" },
+];
+
+// Single entry, same reasoning as INSTITUTIONAL_PARTNER — its own
+// dedicated accommodation strip, not a grid tile.
+export const ACCOMMODATION_PARTNER: PartnerLogo & { description: string } = {
+  id: "accommodation-nordic",
+  name: "Nordic Hotel Lagos",
+  src: "/sponsors/logo-NordicHotels.svg",
+  description: "Nordic Hotel Lagos offers discounted room rates for EKO170 riders.",
+};
+
+// Derived from the categorized lists above rather than hardcoded, so
+// this can't drift out of sync when a partner is added or removed.
 export const PARTNER_STATS: PartnerStat[] = [
   {
     id: "stat-confirmed",
-    value: String(SPONSOR_LOGOS.length),
+    value: String(
+      FEATURED_PARTNERS.length +
+        1 +
+        RACE_DAY_SUPPORT_PARTNERS.length +
+        RACE_DAY_WIDE_PARTNERS.length +
+        HOST_CYCLING_CLUBS.length +
+        1,
+    ),
     label: "Confirmed Partners",
   },
   { id: "stat-distances", value: "2", label: "Race Distances" },

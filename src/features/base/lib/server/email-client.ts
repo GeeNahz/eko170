@@ -65,8 +65,7 @@ function buildHtml(data: RegistrationConfirmationEmail) {
                 <p style="margin:0 0 10px;color:#0f3a44;font-size:15px;font-weight:700;">Before race day</p>
                 <p style="margin:0 0 16px;color:#444;font-size:15px;line-height:1.6;">
                   We&rsquo;ll send your rider guide with reporting times, route details, safety requirements and cut-offs.
-                  Race-pack collection is planned for <strong>8 and 9 January</strong>; the venue and collection hours will be announced.
-                  <strong>Race packs will not be available for collection on race day</strong>.
+                  We&rsquo;ll share race-pack collection location and times closer to race day.
                 </p>
                 <p style="margin:0 0 16px;color:#444;font-size:15px;line-height:1.6;">
                   For now, keep training and ensure your bicycle is ready for the challenge. If your entry details need
@@ -113,8 +112,7 @@ function buildText(data: RegistrationConfirmationEmail) {
     "",
     "Before race day",
     "We'll send your rider guide with reporting times, route details, safety requirements and cut-offs. " +
-      "Race-pack collection is planned for 8 and 9 January; the venue and collection hours will be announced. " +
-      "Race packs will not be available for collection on race day.",
+      "We'll share race-pack collection location and times closer to race day.",
     "",
     "For now, keep training and ensure your bicycle is ready for the challenge. If your entry details need " +
       "correcting, please reply to this email with your registration reference.",
@@ -299,6 +297,222 @@ export async function sendShopOrderConfirmationEmail(
     console.error("[email-client] shop order email errored", {
       to: data.to,
       refCode: data.refCode,
+      error,
+    });
+  }
+}
+
+export type AccommodationBookingNotification = {
+  guestName: string;
+  address: string;
+  email: string;
+  phone: string;
+};
+
+const NORDIC_HOTEL_BOOKING_TO = "mcb@nordichotellagos.com";
+const NORDIC_HOTEL_BOOKING_CC = ["sabathaj@dynastar.com"];
+
+function buildAccommodationNotificationHtml(data: AccommodationBookingNotification) {
+  return `<!doctype html>
+<html>
+  <body style="margin:0;padding:0;background:#f1f5f2;font-family:Arial,Helvetica,sans-serif;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f1f5f2;padding:32px 0;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="100%" style="max-width:480px;background:#ffffff;border-radius:16px;overflow:hidden;">
+            <tr>
+              <td style="background:#0f3a44;padding:24px 32px;">
+                <img src="https://www.eko170.com/_next/image?url=%2Feko170-logo.jpg&w=48&q=75" alt="EKO170" width="40" height="40" style="display:block;border-radius:999px;" />
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:32px;">
+                <p style="margin:0 0 16px;color:#0f3a44;font-size:16px;font-weight:700;line-height:1.6;">
+                  New EKO170 rider accommodation request
+                </p>
+                <table role="presentation" width="100%" style="margin:0 0 20px;border:1px solid #e5e7eb;border-radius:12px;">
+                  <tr>
+                    <td style="padding:12px 16px;color:#888;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;">Name</td>
+                    <td style="padding:12px 16px;color:#0f3a44;font-size:14px;font-weight:700;text-align:right;">${data.guestName}</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:12px 16px;color:#888;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;border-top:1px solid #e5e7eb;">Address</td>
+                    <td style="padding:12px 16px;color:#0f3a44;font-size:14px;font-weight:700;text-align:right;border-top:1px solid #e5e7eb;">${data.address}</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:12px 16px;color:#888;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;border-top:1px solid #e5e7eb;">Email</td>
+                    <td style="padding:12px 16px;color:#0f3a44;font-size:14px;font-weight:700;text-align:right;border-top:1px solid #e5e7eb;">${data.email}</td>
+                  </tr>
+                  <tr>
+                    <td style="padding:12px 16px;color:#888;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;border-top:1px solid #e5e7eb;">Phone</td>
+                    <td style="padding:12px 16px;color:#0f3a44;font-size:14px;font-weight:700;text-align:right;border-top:1px solid #e5e7eb;">${data.phone}</td>
+                  </tr>
+                </table>
+                <p style="margin:0;color:#444;font-size:14px;line-height:1.6;">
+                  This guest requested a discounted EKO170 rider rate via www.eko170.com/accommodation.
+                </p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`;
+}
+
+function buildAccommodationNotificationText(data: AccommodationBookingNotification) {
+  return [
+    "New EKO170 rider accommodation request",
+    "",
+    `Name: ${data.guestName}`,
+    `Address: ${data.address}`,
+    `Email: ${data.email}`,
+    `Phone: ${data.phone}`,
+    "",
+    "This guest requested a discounted EKO170 rider rate via www.eko170.com/accommodation.",
+  ].join("\n");
+}
+
+// Never throws — same posture as the confirmation emails above. An
+// internal notification failing to send must not block the guest's
+// own booking confirmation or undo the already-recorded Sheet row.
+export async function sendAccommodationBookingNotification(
+  data: AccommodationBookingNotification,
+): Promise<void> {
+  const apiKey = RESEND_API_KEY;
+  const from = EMAIL_FROM;
+  const replyTo = EMAIL_REPLY_TO;
+  if (!apiKey || !from || !replyTo) {
+    console.error(
+      "[email-client] RESEND_API_KEY/EMAIL_FROM/EMAIL_REPLY_TO not set — skipped accommodation booking notification",
+      { guestEmail: data.email },
+    );
+    return;
+  }
+
+  try {
+    const resend = new Resend(apiKey);
+    const { error } = await resend.emails.send({
+      from,
+      to: NORDIC_HOTEL_BOOKING_TO,
+      cc: NORDIC_HOTEL_BOOKING_CC,
+      replyTo,
+      subject: "New EKO170 rider accommodation request",
+      html: buildAccommodationNotificationHtml(data),
+      text: buildAccommodationNotificationText(data),
+    });
+    if (error) {
+      console.error("[email-client] accommodation booking notification failed", {
+        guestEmail: data.email,
+        error,
+      });
+    }
+  } catch (error) {
+    console.error("[email-client] accommodation booking notification errored", {
+      guestEmail: data.email,
+      error,
+    });
+  }
+}
+
+export type AccommodationBookingConfirmation = {
+  to: string;
+  name: string;
+};
+
+function buildAccommodationConfirmationHtml(data: AccommodationBookingConfirmation) {
+  return `<!doctype html>
+<html>
+  <body style="margin:0;padding:0;background:#f1f5f2;font-family:Arial,Helvetica,sans-serif;">
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f1f5f2;padding:32px 0;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="100%" style="max-width:480px;background:#ffffff;border-radius:16px;overflow:hidden;">
+            <tr>
+              <td style="background:#0f3a44;padding:24px 32px;">
+                <img src="https://www.eko170.com/_next/image?url=%2Feko170-logo.jpg&w=48&q=75" alt="EKO170" width="40" height="40" style="display:block;border-radius:999px;" />
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:32px;">
+                <p style="margin:0 0 16px;color:#444;font-size:15px;line-height:1.6;">Dear ${data.name},</p>
+                <p style="margin:0 0 16px;color:#0f3a44;font-size:16px;font-weight:700;line-height:1.6;">
+                  Your EKO170 accommodation request has been received.
+                </p>
+                <p style="margin:0 0 24px;color:#444;font-size:15px;line-height:1.6;">
+                  Nordic Hotel Lagos will reach out to you directly to confirm your booking and discounted
+                  EKO170 rider rate.
+                </p>
+                <p style="margin:0 0 24px;color:#444;font-size:15px;line-height:1.6;">
+                  Warm regards,<br />
+                  <strong>The EKO170 Organising Team</strong><br />
+                  <a href="https://www.eko170.com" style="color:#16a34a;">www.eko170.com</a>
+                </p>
+                <p style="margin:0;color:#999;font-size:12px;line-height:1.6;">
+                  This is a transactional email confirming your EKO170 accommodation request — you're
+                  receiving it because you just submitted one.
+                </p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>`;
+}
+
+function buildAccommodationConfirmationText(data: AccommodationBookingConfirmation) {
+  return [
+    `Dear ${data.name},`,
+    "",
+    "Your EKO170 accommodation request has been received.",
+    "",
+    "Nordic Hotel Lagos will reach out to you directly to confirm your booking and discounted EKO170 rider rate.",
+    "",
+    "Warm regards,",
+    "The EKO170 Organising Team",
+    "www.eko170.com",
+    "",
+    "This is a transactional email confirming your EKO170 accommodation request — you're receiving it because you just submitted one.",
+  ].join("\n");
+}
+
+// Same never-throws posture as sendRegistrationConfirmationEmail.
+export async function sendAccommodationBookingConfirmation(
+  data: AccommodationBookingConfirmation,
+): Promise<void> {
+  const apiKey = RESEND_API_KEY;
+  const from = EMAIL_FROM;
+  const replyTo = EMAIL_REPLY_TO;
+  if (!apiKey || !from || !replyTo) {
+    console.error(
+      "[email-client] RESEND_API_KEY/EMAIL_FROM/EMAIL_REPLY_TO not set — skipped accommodation confirmation email",
+      { to: data.to },
+    );
+    return;
+  }
+
+  try {
+    const resend = new Resend(apiKey);
+    const { error } = await resend.emails.send({
+      from,
+      to: data.to,
+      replyTo,
+      subject: "Your EKO170 accommodation request has been received",
+      html: buildAccommodationConfirmationHtml(data),
+      text: buildAccommodationConfirmationText(data),
+    });
+    if (error) {
+      console.error("[email-client] accommodation confirmation email failed", {
+        to: data.to,
+        error,
+      });
+    }
+  } catch (error) {
+    console.error("[email-client] accommodation confirmation email errored", {
+      to: data.to,
       error,
     });
   }

@@ -6,11 +6,9 @@ import { ProductGrid } from "./product-grid";
 
 export function ShopCatalogue({
   products,
-  hasEmailAccess,
   stock,
 }: {
   products: ShopProduct[];
-  hasEmailAccess: boolean;
   stock?: Record<string, number> | null;
 }) {
   return (
@@ -25,13 +23,7 @@ export function ShopCatalogue({
         >
           Shop the Kit
         </Reveal>
-        <ProductGrid
-          products={products}
-          interactive
-          hasEmailAccess={hasEmailAccess}
-          compact
-          stock={stock}
-        />
+        <ProductGrid products={products} interactive compact stock={stock} />
       </div>
     </div>
   );
