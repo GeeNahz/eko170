@@ -10,14 +10,14 @@ export function PartnersInstitutional() {
           Institutional Partnership
         </Reveal>
 
-        <Reveal className="rounded-2xl border border-brand-cream-border bg-white p-4 sm:p-5">
+        <Reveal className="rounded-2xl border border-brand-cream-border bg-white p-3 sm:p-4">
           <div className="flex flex-wrap items-center gap-5">
-            <div className="flex h-18 w-18 shrink-0 items-center justify-center rounded-xl border border-brand-cream-border bg-white p-0">
+            <div className="flex h-22 w-22 shrink-0 items-center justify-center rounded-xl border border-brand-cream-border bg-white p-0">
               <Image
                 src={INSTITUTIONAL_PARTNER.src}
                 alt={INSTITUTIONAL_PARTNER.name}
-                width={72}
-                height={72}
+                width={88}
+                height={88}
                 className="max-h-full max-w-full object-contain"
               />
             </div>

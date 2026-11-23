@@ -56,15 +56,15 @@ export function PartnersRaceDay() {
           {RACE_DAY_WIDE_PARTNERS.map((partner) => (
             <Reveal
               key={partner.id}
-              className="rounded-2xl border border-brand-cream-border bg-white p-4 sm:p-5"
+              className="rounded-2xl border border-brand-cream-border bg-white p-3 sm:p-4"
             >
               <div className="flex flex-wrap items-center gap-5">
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-brand-cream-border bg-white p-0">
+                <div className="flex h-18 w-18 shrink-0 items-center justify-center rounded-xl border border-brand-cream-border bg-white p-0">
                   <Image
                     src={partner.src}
                     alt={partner.name}
-                    width={56}
-                    height={56}
+                    width={72}
+                    height={72}
                     className="max-h-full max-w-full object-contain"
                   />
                 </div>
