@@ -56,7 +56,7 @@ export function PartnersRaceDay() {
           {RACE_DAY_WIDE_PARTNERS.map((partner) => (
             <Reveal
               key={partner.id}
-              className="rounded-2xl border border-brand-cream-border bg-white p-6 sm:p-8"
+              className="rounded-2xl border border-brand-cream-border bg-white p-4 sm:p-5"
             >
               <div className="flex flex-wrap items-center gap-5">
                 <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-brand-cream-border bg-white p-0">
