@@ -27,6 +27,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   no longer states specific collection dates or a "not available for
   collection on race day" claim, since logistics aren't confirmed yet
   — now says collection details will be communicated before race day.
+  `/shop` now shows the same note under "Shop the Kit", so it's visible
+  before checkout rather than only in Terms and the confirmation email.
 - `/partners` page refreshed to match the confirmed sponsor list:
   replaced the old "Headline Partners" and "Commercial"/"Government"
   sponsor-tier sections (Quest Oil, Elektron, Avis, Watch Galleries,
