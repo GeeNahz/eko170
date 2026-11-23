@@ -7,9 +7,9 @@ import { ACCOMMODATION_PARTNER } from "../constants";
 export function PartnersAccommodationStrip() {
   return (
     <div className="mx-3 mt-10 overflow-hidden rounded-[22px] bg-brand-cream px-5 py-9 sm:mx-4 sm:mt-14 sm:px-10 sm:py-12">
-      <Reveal className="mx-auto flex w-full max-w-[1280px] flex-col items-center gap-6 text-center sm:flex-row sm:items-center sm:justify-between sm:text-left">
-        <div className="flex flex-col items-center gap-5 sm:flex-row">
-          <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-xl border border-brand-cream-border bg-white p-0">
+      <Reveal className="mx-auto flex w-full max-w-[1280px] flex-col items-start gap-6 text-left sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-center">
+          <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-brand-cream-border bg-white p-1">
             <Image
               src={ACCOMMODATION_PARTNER.src}
               alt={ACCOMMODATION_PARTNER.name}

@@ -15,7 +15,7 @@ export function PartnersRaceDay() {
           {RACE_DAY_SUPPORT_PARTNERS.map((partner) => (
             <RevealItem
               key={partner.id}
-              className="flex flex-col items-center rounded-2xl border border-brand-cream-border bg-white p-4 text-center sm:items-start sm:p-5 sm:text-left"
+              className="flex flex-col items-start rounded-2xl border border-brand-cream-border bg-white p-4 text-left sm:p-5"
             >
               <div
                 className={cn(
@@ -59,7 +59,7 @@ export function PartnersRaceDay() {
               className="rounded-2xl border border-brand-cream-border bg-white p-3 sm:p-4"
             >
               <div className="flex flex-wrap items-center gap-5">
-                <div className="flex h-18 w-18 shrink-0 items-center justify-center rounded-xl border border-brand-cream-border bg-white p-0">
+                <div className="flex h-18 w-18 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-brand-cream-border bg-white p-1">
                   <Image
                     src={partner.src}
                     alt={partner.name}

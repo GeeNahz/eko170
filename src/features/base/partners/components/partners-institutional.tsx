@@ -12,7 +12,7 @@ export function PartnersInstitutional() {
 
         <Reveal className="rounded-2xl border border-brand-cream-border bg-white p-3 sm:p-4">
           <div className="flex flex-wrap items-center gap-5">
-            <div className="flex h-22 w-22 shrink-0 items-center justify-center rounded-xl border border-brand-cream-border bg-white p-0">
+            <div className="flex h-22 w-22 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-brand-cream-border bg-white p-1">
               <Image
                 src={INSTITUTIONAL_PARTNER.src}
                 alt={INSTITUTIONAL_PARTNER.name}
