@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-11-23
+
 ### Changed
 - `/partners` rebuilt again to match the organiser's approved mockup
   and content doc — now grouped into Featured Partners, Institutional
