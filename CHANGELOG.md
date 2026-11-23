@@ -8,6 +8,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Changed
+- `/partners` rebuilt again to match the organiser's approved mockup
+  and content doc — now grouped into Featured Partners, Institutional
+  Partnership, Race-day Support, Lagos Host Cycling Clubs and a Rider
+  Accommodation Offer strip, replacing the previous single flat
+  sponsor grid. Adds Lagos State Sports Commission, Medbury, AVIS,
+  Pocari Sweat, Cycology Lagos and Cyclotron to the confirmed list;
+  the "Book reservations" link now routes to the new `/accommodation`
+  page instead of an external URL.
+- `/shop` no longer gates "Add to Cart" / "Buy Now" / "Pay" behind a
+  `?email=` link — anyone can start a purchase now; email is still
+  required and validated at checkout, unchanged.
+- Kit-collection copy (registration confirmation email, Terms page)
+  no longer states specific collection dates or a "not available for
+  collection on race day" claim, since logistics aren't confirmed yet
+  — now says collection details will be communicated before race day.
 - `/partners` page refreshed to match the confirmed sponsor list:
   replaced the old "Headline Partners" and "Commercial"/"Government"
   sponsor-tier sections (Quest Oil, Elektron, Avis, Watch Galleries,
@@ -29,6 +44,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   distances.
 
 ### Added
+- New `/accommodation` page with a Nordic Hotel Lagos booking-request
+  form (name, address, email, phone). Submissions log to a new
+  `accommodation-bookings` Sheet tab, notify Nordic Hotel Lagos (cc
+  Dynastar Sports & Education Foundation) by email, and send the
+  guest a confirmation email. The Accommodation nav tab is no longer
+  greyed out.
 - A "Mock-up" badge on shop product images (catalogue cards, the
   register upsell cards, and the product detail sheet) — these three
   images are AI-generated renders, not production photography, per

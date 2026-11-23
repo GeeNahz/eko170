@@ -51,7 +51,7 @@ export default function TermsPage() {
         {
           heading: "Kit & Shop Orders",
           body: [
-            "Jersey, bib shorts, and kit bundle orders are confirmed at checkout and collected alongside race packs ahead of race day — exact collection details are published closer to the event.",
+            "Jersey, bib shorts, and kit bundle order collection details will be communicated to participants before race day.",
             "Because kit is sized and ordered per rider, we're unable to accept returns on worn items; please check the published size charts carefully before ordering.",
           ],
         },

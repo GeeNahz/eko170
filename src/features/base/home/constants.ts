@@ -134,7 +134,7 @@ export const SPONSOR_LOGOS: SponsorLogo[] = [
   { id: "sponsor-lsg", name: "Lagos State Government", src: "/sponsors/logo-lsg-sm.jpg", href: "#" },
   { id: "sponsor-cetpower", name: "CETPower", src: "/sponsors/cetpower.png", href: "https://cetpower.com/" },
   { id: "sponsor-nordic-hotels", name: "Nordic Hotels", src: "/sponsors/logo-NordicHotels.svg", href: "https://nordichotelsnigeria.com/nordic-hotel-lagos/" },
-  { id: "sponsor-nnpc", name: "NNPC", src: "/sponsors/logo-nnpc.jpg", href: "#" },
+  { id: "sponsor-nnpc", name: "NNPC", src: "/sponsors/logo-nnpc.png", href: "#" },
 ];
 
 // No longer rendered on Home (sponsors-marquee.tsx dropped its
