@@ -175,6 +175,11 @@ function DetailBody({
                     )}
                   >
                     {row.size}
+                    {activeGuide[group.key].id === "guide-socks" && (
+                      <span className="font-sans text-[9px] font-normal normal-case opacity-70">
+                        {row.values[0]}
+                      </span>
+                    )}
                     {remaining !== undefined && (
                       <span className="font-sans text-[9px] font-normal normal-case opacity-80">
                         {soldOut ? "Sold out" : `${remaining} left`}
