@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-11-24
+
+### Changed
+- `/shop`'s socks size picker now shows the EU shoe-size range under
+  each letter size (S 36–39, M 39–42, L 42–45), so buyers can size by
+  measurement instead of guessing from the letter alone.
+
 ## [1.3.0] - 2026-11-23
 
 ### Changed
