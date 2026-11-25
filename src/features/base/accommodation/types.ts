@@ -10,3 +10,9 @@ export type AccommodationFieldErrors = Partial<Record<keyof AccommodationFormVal
 export type AccommodationSuccess = {
   name: string;
 };
+
+export type HotelPhoto = {
+  id: string;
+  src: string;
+  alt: string;
+};

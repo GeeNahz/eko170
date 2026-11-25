@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { AccommodationForm } from "@/features/base/accommodation/components/accommodation-form";
+import { AccommodationGallery } from "@/features/base/accommodation/components/accommodation-gallery";
 import { AccommodationHero } from "@/features/base/accommodation/components/accommodation-hero";
 import { AccommodationNordicOffer } from "@/features/base/accommodation/components/accommodation-nordic-offer";
 
@@ -14,6 +15,7 @@ export default function AccommodationPage() {
     <>
       <AccommodationHero />
       <AccommodationNordicOffer />
+      <AccommodationGallery />
       <AccommodationForm />
     </>
   );
