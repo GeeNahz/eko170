@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- `/accommodation` now shows a photo gallery of Nordic Hotel Lagos
+  (pool, a guest room, the entrance, the gym, and the lobby) between
+  the offer card and the booking form.
+
 ## [1.4.0] - 2026-11-24
 
 ### Changed
