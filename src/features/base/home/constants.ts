@@ -77,9 +77,9 @@ export const SEEDING_EVENTS: SeedingEvent[] = [
   },
   {
     id: "seed-vi-70",
-    distanceKm: 70,
+    distanceKm: 94.5,
     location: "Victoria Island",
-    title: "Victoria Island 70",
+    title: "Victoria Island 94.5",
     dateLabel: "19 December 2026",
     terrainLabel: "Road",
     distanceLabel: "70km",
@@ -127,12 +127,14 @@ export const ABOUT_FEATURE_CARDS: FeatureCard[] = [
   },
 ];
 
-// Lagos State Government is the sole sponsor shown on Home per client
-// request — the rest of the former lineup (Quest Oil, Avis, Elektron,
-// Watch Galleries) is dropped from this section.
+// Confirmed sponsors shown on Home. The former lineup (Quest Oil,
+// Avis, Elektron, Watch Galleries) is dropped from this section per
+// client request.
 export const SPONSOR_LOGOS: SponsorLogo[] = [
   { id: "sponsor-lsg", name: "Lagos State Government", src: "/sponsors/logo-lsg-sm.jpg", href: "#" },
   { id: "sponsor-cetpower", name: "CETPower", src: "/sponsors/cetpower.png", href: "https://cetpower.com/" },
+  { id: "sponsor-nordic-hotels", name: "Nordic Hotels", src: "/sponsors/logo-NordicHotels.svg", href: "https://nordichotelsnigeria.com/nordic-hotel-lagos/" },
+  { id: "sponsor-nnpc", name: "NNPC", src: "/sponsors/logo-nnpc.png", href: "#" },
 ];
 
 // No longer rendered on Home (sponsors-marquee.tsx dropped its
@@ -165,3 +167,15 @@ export const GALLERY_PREVIEW: GalleryPhoto[] = [
 ];
 
 export const GALLERY_TOTAL_PHOTOS = 44;
+
+// Drawn from already-confirmed race-day details (SUPPORT_FEATURES,
+// ROUTE_START_CHECKLIST and route-finish.tsx's medal mention in
+// routes/constants.ts / route-finish.tsx) rather than new claims —
+// shown on Home's Fees & What's Included section.
+export const WHATS_INCLUDED: string[] = [
+  "Timing chip, number board and official race kit",
+  "5 support stations with hydration, nutrition and mechanical support",
+  "On-course medical coverage and ambulance support",
+  "Chip-timed, ranked results — published live and archived",
+  "A finisher medal and festival-style finish at Victoria Island",
+];

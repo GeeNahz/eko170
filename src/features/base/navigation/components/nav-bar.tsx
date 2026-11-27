@@ -24,13 +24,23 @@ export function NavBar({ registration }: { registration: RegistrationConfig }) {
   const { hidden, scrolled } = useHideOnScroll();
   const magnetic = useMagneticHover(0.3);
 
-  // Routes only has a confirmed course to show once registration is
-  // open — tied to REGISTRATION_STATE via `registration.isOpen` rather
-  // than a standalone flag, so flipping that one env var enables this
-  // too.
+  // The two route links (now flat children inside the "Event"
+  // dropdown) only have a confirmed course to show once registration
+  // is open — tied to REGISTRATION_STATE via `registration.isOpen`
+  // rather than a standalone flag, so flipping that one env var
+  // enables this too. Event's other children (Overview/Results/
+  // Gallery/Volunteer) are never gated by this.
   const navLinks = PRIMARY_NAV.map((link) =>
-    link.id === "nav-routes"
-      ? { ...link, disabled: !registration.isOpen }
+    link.id === "nav-event" && link.children
+      ? {
+          ...link,
+          children: link.children.map((child) =>
+            child.id === "nav-event-routes-170" ||
+            child.id === "nav-event-routes-70"
+              ? { ...child, disabled: !registration.isOpen }
+              : child,
+          ),
+        }
       : link,
   );
 
@@ -102,15 +112,25 @@ export function NavBar({ registration }: { registration: RegistrationConfig }) {
                   )}
                   {link.children && (
                     <div className="invisible absolute top-full left-1/2 z-40 mt-3.5 min-w-52 -translate-x-1/2 translate-y-2 rounded-2xl border border-black/5 bg-white/95 p-2.5 opacity-0 shadow-[0_20px_50px_rgba(16,24,40,0.16)] backdrop-blur-lg transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
-                      {link.children.map((child) => (
-                        <Link
-                          key={child.id}
-                          href={child.href ?? "#"}
-                          className="block rounded-lg px-3.5 py-2 font-sans text-sm font-medium text-gray-700 transition-colors hover:bg-brand-green/10 hover:text-brand-green"
-                        >
-                          {child.label}
-                        </Link>
-                      ))}
+                      {link.children.map((child) =>
+                        child.disabled ? (
+                          <span
+                            key={child.id}
+                            aria-disabled="true"
+                            className="block cursor-not-allowed rounded-lg px-3.5 py-2 font-sans text-sm font-medium text-gray-400 opacity-60"
+                          >
+                            {child.label}
+                          </span>
+                        ) : (
+                          <Link
+                            key={child.id}
+                            href={child.href ?? "#"}
+                            className="block rounded-lg px-3.5 py-2 font-sans text-sm font-medium text-gray-700 transition-colors hover:bg-brand-green/10 hover:text-brand-green"
+                          >
+                            {child.label}
+                          </Link>
+                        ),
+                      )}
                     </div>
                   )}
                 </div>

@@ -6,7 +6,8 @@ export type SheetFormType =
   | "partners"
   | "volunteers"
   | "route-votes"
-  | "shop-orders";
+  | "shop-orders"
+  | "accommodation-bookings";
 
 // Tabs the app can read back via GET, in addition to the ones above —
 // "shop-inventory" is never posted to (it's filled in by hand), only

@@ -12,13 +12,11 @@ import { cn } from "@/lib/utils";
 export function ProductGrid({
   products,
   interactive = false,
-  hasEmailAccess = false,
   compact = false,
   stock,
 }: {
   products: ShopProduct[];
   interactive?: boolean;
-  hasEmailAccess?: boolean;
   // Forces a fixed 3-column grid (never collapses to 1 column, never
   // grows past 3 either) with smaller cards — used on /shop's own
   // catalogue. Home's highlight section keeps the roomier default.
@@ -81,7 +79,6 @@ export function ProductGrid({
           onOpenChange={setOpen}
           onAddToCart={handleAddToCart}
           onBuyNow={handleBuyNow}
-          hasEmailAccess={hasEmailAccess}
           stock={stock}
         />
       )}

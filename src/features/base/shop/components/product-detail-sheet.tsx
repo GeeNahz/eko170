@@ -85,6 +85,9 @@ function DetailBody({
           fill
           className="object-cover"
         />
+        <span className="absolute top-3 left-3 rounded-full bg-black/60 px-2.5 py-1 font-mono text-[10px] font-semibold tracking-wide text-white uppercase">
+          Mock-up
+        </span>
       </div>
 
       {product.description && (
@@ -172,6 +175,11 @@ function DetailBody({
                     )}
                   >
                     {row.size}
+                    {activeGuide[group.key].id === "guide-socks" && (
+                      <span className="font-sans text-[9px] font-normal normal-case opacity-70">
+                        {row.values[0]}
+                      </span>
+                    )}
                     {remaining !== undefined && (
                       <span className="font-sans text-[9px] font-normal normal-case opacity-80">
                         {soldOut ? "Sold out" : `${remaining} left`}

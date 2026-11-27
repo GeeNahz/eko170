@@ -69,9 +69,10 @@ export function Hero({ registration }: { registration: RegistrationConfig }) {
               </p>
             </div>
             <p className="mb-10 max-w-[620px] font-sans text-base leading-relaxed text-white/72">
-              Experience the Movement. Made in Lagos. 170 kilometres of
-              closed roads through Victoria Island, Lekki, and all the way
-              to Epe.
+              EKO170 returns to Lagos on Sunday, 10 January 2027. Take on
+              the 170km Gran Fondo or the 94.5km Medio Fondo — both
+              starting and finishing in Victoria Island. Register now and
+              choose your distance on race day.
             </p>
             <div className="mb-6 flex flex-wrap items-center gap-4">
               <motion.div

@@ -19,21 +19,12 @@ export default async function ShopPage({
   const products = await ShopService.getProducts();
   const stock = await ShopService.getStock();
   const { email } = await searchParams;
-  // Purchasing (Add to Cart / Buy Now / Pay) is gated purely on
-  // whether this page load carries ?email=... — the client sends
-  // this link to riders who are registering now or already
-  // registered. Browsing the catalogue itself is always open.
-  const hasEmailAccess = Boolean(email && email.trim());
 
   return (
     <ShopCartProvider>
       <ShopHero />
-      <ShopCatalogue
-        products={products}
-        hasEmailAccess={hasEmailAccess}
-        stock={stock}
-      />
-      <ShopCartSheet prefilledEmail={email} hasEmailAccess={hasEmailAccess} />
+      <ShopCatalogue products={products} stock={stock} />
+      <ShopCartSheet prefilledEmail={email} />
     </ShopCartProvider>
   );
 }
